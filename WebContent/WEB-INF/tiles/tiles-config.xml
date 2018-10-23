@@ -10,5 +10,28 @@
 
 </definition>
 
+<definition name="job.select" template="/WEB-INF/tiles/user-template.jsp">
+	<put-attribute name="nav" value="/WEB-INF/views/default/nav.jsp"/>
+	<put-attribute name="side" value="/WEB-INF/views/default/side.jsp"/>
+	<put-attribute name="center" value="/WEB-INF/views/recruit/select.jsp"/>
+</definition>
+
+<definition name="job.selectdetail" template="/WEB-INF/tiles/user-template.jsp">
+	<put-attribute name="nav" value="/WEB-INF/views/default/nav.jsp"/>
+	<put-attribute name="side" value="/WEB-INF/views/default/side.jsp"/>
+	<put-attribute name="center" value="/WEB-INF/views/recruit/selectdetail.jsp"/>
+</definition>
+
+<definition name="job.jobpost" template="/WEB-INF/tiles/user-template.jsp">
+	<put-attribute name="nav" value="/WEB-INF/views/default/nav.jsp"/>
+	<put-attribute name="side" value="/WEB-INF/views/default/side.jsp"/>
+	<put-attribute name="center" value="/WEB-INF/views/recruit/jobpost.jsp"/>
+</definition>
+
+<definition name="job.comdetail" template="/WEB-INF/tiles/user-template.jsp">
+	<put-attribute name="nav" value="/WEB-INF/views/default/nav.jsp"/>
+	<put-attribute name="side" value="/WEB-INF/views/default/side.jsp"/>
+	<put-attribute name="center" value="/WEB-INF/views/recruit/comdetail.jsp"/>
+</definition>
 
 </tiles-definitions>
