@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+<definition name="admin.employee.add" template="/WEB-INF/tiles/admin-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/admin/side.jsp"/>
+<put-attribute name="center" value="/WEB-INF/views/admin/addEmployee.jsp"/>
+
+</definition>
+
+<definition name="admin.employee.register" template="/WEB-INF/tiles/admin-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/admin/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/admin/side.jsp"/>
+<put-attribute name="center" value="/WEB-INF/views/admin/register.jsp"/>
+
+</definition>
+
+<definition name="user.auth" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/home.jsp"/>
+
+</definition>
+
+<definition name="user.password" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/password.jsp"/>
+
+</definition>
+
+<definition name="user.note" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/noteSend.jsp"/>
+</definition>
+
+<definition name="user.noteList" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/noteList.jsp"/>
+</definition>
+
+<definition name="user.noteDetail" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/noteDetail.jsp"/>
+</definition>
+
+<definition name="user.chat" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/chatroom.jsp"/>
+</definition>
+
+<definition name="user.departchat" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/departchat.jsp"/>
+</definition>
+
+<definition name="user.board" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/board.jsp"/>
+</definition>
+
+<definition name="user.boardwrite" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/boardWrite.jsp"/>
+</definition>
+
+
+<definition name="user.boarddetail" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/user/nav.jsp"/>
+<put-attribute name="left" value="/WEB-INF/views/user/side.jsp"/>
+<put-attribute name="home" value="/WEB-INF/views/user/boardDetail.jsp"/>
+</definition>
+</tiles-definitions>
