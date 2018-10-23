@@ -25,6 +25,7 @@
     </plugins>
   </build>
   
+    
   <dependencies>
 
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -133,4 +134,5 @@
 
 
 	</dependencies>
+
 </project>
