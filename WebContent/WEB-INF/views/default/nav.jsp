@@ -13,7 +13,7 @@
             <a class="blog-header-logo text-dark" href="#" id="logo"><b>JOB'A</b></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            
+             <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign in</a> 
             <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign up</a>
           </div>
         </div>
