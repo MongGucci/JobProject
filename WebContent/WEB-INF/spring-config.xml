@@ -40,9 +40,9 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@gucci.mockingu.com:1521:xe" />
-		<property name="username" value="yyj" />
-		<property name="password" value="07280605" />
+			value="jdbc:oracle:thin:@13.209.72.217:1521:xe" />
+		<property name="username" value="project" />
+		<property name="password" value="oracle" />
 	</bean>
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">

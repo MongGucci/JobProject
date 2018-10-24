@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,27 +8,47 @@
 <title>회원가입</title>
 </head>
 <body style="text-align: center;">
-<form class="form-signin" action="#" method="post">
-아이디 <br> <input style="width: 175px; height: 25px;" type="text" onchange = "ids(this)" placeholder="아이디(4~19 영어,숫자 포함)" required/><br>
-<span></span><br>
+	<form class="form-signin" action="${pageContext.servletContext.contextPath }/join.do" method="post">
+		아이디 <br> <input style="width: 175px; height: 25px;" type="text"
+			onchange="ids(this)" placeholder="아이디(4~19 영어,숫자 포함)" name="id"required /><br>
+		<span></span><br> 
+		비밀번호 <br> <input
+			style="width: 175px; height: 25px;" type="password"
+			onchange="ipw(this)" placeholder="비밀번호(4~19 영어,숫자 포함)" name="pass" required /><br>
+		<span></span><br> 
+		이름 <br> <input
+			style="width: 175px; height: 25px;" type="text" name="name" /><br>
+		나이<br/> <input
+			style="width: 175px; height: 25px;" type="text" name="age" /><br>
+			
+			 성별 <br>
+		<select style="width: 170px; height: 25px;" name="gender">
+			<option  >성별</option>
+			<option value="M">남자</option>
+			<option  value="F">여자</option>
+		</select><br> 직업선택<br />
+		<br/>
+		
+		<c:forEach var="i" items="${map }">  
+			<input type="checkbox" value="${i.CATENAME }" onchange="gc(this)" name="job" />${i.CATENAME }
+		<c:if test="${(i.NO)%4==3 }"><br/></c:if>
+		</c:forEach>
+		
+		
+		<br/>
 
-비밀번호 <br> <input style="width: 175px; height: 25px;" type="password" onchange = "ipw(this)" placeholder="비밀번호(4~19 영어,숫자 포함)" required/><br>
-<span></span><br>
-
-이름 <br> <input style="width: 175px; height: 25px;" type="text"/><br>
-성별 <br> 
-   <select style="width: 170px; height: 25px;">
-      <option>성별</option>
-      <option>남자</option>
-      <option>여자</option>
-   </select><br>
-닉네임 <br><input style="width: 175px; height: 25px;" type="text" onchange = nkn(this) placeholder="닉네임(4~10 영어,숫자 포함)"/><br>
-<span></span><br>
-이메일<br><input style="width: 175px; height: 25px;" type="email" onchange = em(this) placeholder="○○○@○○○○○.○○○"/><br>
-<span></span><br>
-휴대전화 <br> <input style="width: 175px; height: 25px;" type="text" onchange="phn(this)" placeholder="XXX-XXXX-XXXX"/><br>
-<span></span><br>
-<button type="button">회원 가입</button>
+		<br /> 닉네임 <br>
+		<input style="width: 175px; height: 25px;" type="text"
+			onchange=nkn(this) name="nick" placeholder="닉네임(4~10 영어,한글 포함)" /><br> <span></span><br>
+		이메일<br>
+		<input style="width: 175px; height: 25px;" type="email"
+			onchange=em(this) name="mail" placeholder="○○○@○○○○○.○○○" /><br> <span></span><br>
+		휴대전화 <br> <input style="width: 175px; height: 25px;" type="text"
+			onchange="phn(this)" name="phone" placeholder="XXX-XXXX-XXXX" /><br> <span></span><br>
+		
+		<button type="submit">회원 가입</button>
+		
+	</form>
 </body>
 <script>
    var ids = function(a) {
@@ -61,6 +82,7 @@
 
          }
    };
+   
    
 	   var nkn = function(n) {
 		      var n1 = new RegExp("^[가-힣a-zA-Z]{3,10}$");
@@ -109,6 +131,19 @@
 
 		         }
 		   };
-	   
+		   
+	 var ct = new Array();
+	 var gc = function(target) {
+		if(target.checked){
+			if(ct.length < 3){
+				ct.push(target.value);
+			}else{
+				window.alert("최대 3개 까지 선택 가능 합니다.");
+				target.checked = false;
+			}
+		}
+	}
+		 
+	  
 </script>
 </html>
