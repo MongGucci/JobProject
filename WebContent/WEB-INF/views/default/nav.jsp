@@ -15,6 +15,8 @@
           <div class="col-4 d-flex justify-content-end align-items-center">
              <a class="btn btn-sm btn-outline-secondary" href="${pageContext.servletContext.contextPath }/login.do" id="signin">Sign in</a> 
             <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign up</a>
+            <br>
+           <a class="nav-link" href="${pageContext.servletContext.contextPath }/pwchange.do">변경</a></li>
           </div>
         </div>
 

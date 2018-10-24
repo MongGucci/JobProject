@@ -18,4 +18,12 @@
 
 </definition>
 
+<definition name="job.login.index" template="/WEB-INF/tiles/user-template.jsp">
+
+<put-attribute name="nav" value="/WEB-INF/views/default/nav.jsp"/>
+<put-attribute name="side" value="/WEB-INF/views/default/side.jsp"/>
+<put-attribute name="center" value="/WEB-INF/views/default/home.jsp"/>
+
+</definition>
+
 </tiles-definitions>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +21,17 @@
 <body class="text-center">
 <form class="form-signin" action="${pageContext.servletContext.contextPath }/login.do" method="post">	
 	<h1 class="h3 mb-3 font-weight-normal">로그인</h1>
-	 <input type="id" id="inputid" class="form-control"placeholder="아이디" required autofocus name="id"><br>
+	<p>
+	 <input type="id" id="inputid" class="form-control"placeholder="아이디" required autofocus name="id">
+	</p> 
 	 <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required name="pass">
-	 <br>
+	
+	 <c:if test="${!empty err }">
+			<div class="alert alert-danger" role="alert">
+				정보를 잘못 입력하셨습니다.
+			</div>
+	</c:if>
+	
 	<button class="btn btn-lg btn-warning btn-block" type="submit">로그인</button>
 	<p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>
 </form>	
