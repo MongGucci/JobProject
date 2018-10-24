@@ -14,7 +14,7 @@
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
              <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign in</a> 
-            <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign up</a>
+            <a class="btn btn-sm btn-outline-secondary" href="${pageContext.servletContext.contextPath}/join.do" id="Sign up">Sign up</a>
           </div>
         </div>
 
