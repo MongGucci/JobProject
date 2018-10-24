@@ -17,7 +17,7 @@
     <select class="form-control" name="job">
       <option>직군</option>
       <c:forEach var="e" items="${list}">
-       <option value="${e.CATEGORY}">${e.CATEGORY}</option>
+       <option value="${e.CATENAME}">${e.CATENAME}</option>
       </c:forEach>
       
     </select></div>
