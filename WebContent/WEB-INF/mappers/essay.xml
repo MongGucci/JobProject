@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="essay">
+
+<select id="getJobCate" resultType="java.util.HashMap">
+select category from cate
+</select>
+<insert id="setMyEssay" parameterType="java.util.HashMap">
+insert into essay values(essay_seq.nextval,#{id}, #{title}, #{job}, sysdate,#{Q1}, #{A1},#{Q2}, #{A2},#{Q3}, #{A3},#{Q4}, #{A4})
+</insert>
+<select id="getMyEssay" parameterType="java.lang.String" resultType="java.util.HashMap">
+select no,id,title,leftdate from essay where id=#{id}
+</select>
+
+<select id="getDetailEssay" parameterType="java.lang.String" resultType="java.util.HashMap">
+select * from essay where no=#{no}
+</select>
+<update id="updateEssay" parameterType="java.util.HashMap">
+update essay set title=#{title},leftdate=sysdate,que1=#{Q1},ans1=#{A1},que2=#{Q2},ans2=#{A2},que3=#{Q3},ans3=#{A3},que4=#{Q4},ans4=#{A4} where no=#{no}
+</update>
+</mapper>

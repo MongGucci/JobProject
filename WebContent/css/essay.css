@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Song+Myung&subset=korean');
+
+#question{
+	font-weight:bolder;
+	color:#3A26D0;
+	font-size:20px; 
+}
+div.card{
+	width: 225px;
+	margin:20px;
+	
+}
+a.card-link{
+	font-size: 13px;
+}
+h1{
+	font-family: 'Song Myung', serif;
+}
+
+

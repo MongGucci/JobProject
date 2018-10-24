@@ -16,8 +16,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	
-    
+<link href="${path}/css/index.css" rel="stylesheet">
+
 <title>JOB'A JOB</title>
 </head>
 <body>
@@ -26,11 +26,15 @@
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-				<tiles:insertAttribute name="side" />
-			</nav>
-			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-			<tiles:insertAttribute name="center" /> </main>
+			<div id="leftdiv" class="col-2">
+				<tiles:insertAttribute name="left" />
+			</div>
+			<div id="centerdiv"  class="col-8">
+				<tiles:insertAttribute name="center" />
+			</div>
+			<div id="rightdiv" class="col-2">
+				<tiles:insertAttribute name="right" />
+			</div>
 		</div>
 	</div>
 
