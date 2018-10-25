@@ -30,7 +30,7 @@ public class PwchangeController {
 	public String pwchangePostHandle(WebRequest wr, ModelMap map) {
 		
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);		// 로그인한 아이디
-		String cpass = (String)wr.getAttribute("password", wr.SCOPE_SESSION);		// 로그인한 비밀번호
+		String cpass = (String)wr.getAttribute("password", wr.SCOPE_SESSION);	// 로그인한 비밀번호
 		String opass = (String)wr.getParameter("pass");							// 기존 비밀번호
 		String newpass = (String)wr.getParameter("newpass");					// 새로운 비밀번호
 		
