@@ -150,5 +150,19 @@
 			value="/WEB-INF/views/default/side.jsp" />
 
 	</definition>
+	
+	<definition name="job.join"
+		template="/WEB-INF/tiles/user-template.jsp">
+
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/side.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/join/join.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/side.jsp" />
+
+	</definition>
 
 </tiles-definitions>

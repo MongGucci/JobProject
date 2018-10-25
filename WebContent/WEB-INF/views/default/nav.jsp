@@ -13,10 +13,15 @@
             <a class="blog-header-logo text-dark" href="#" id="logo"><b>JOB'A</b></a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
+<<<<<<< HEAD
              <a class="btn btn-sm btn-outline-secondary" href="${pageContext.servletContext.contextPath }/login.do" id="signin">Sign in</a> 
             <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign up</a>
             <br>
            <a class="nav-link" href="${pageContext.servletContext.contextPath }/pwchange.do">변경</a></li>
+=======
+             <a class="btn btn-sm btn-outline-secondary" href="#" id="signup">Sign in</a> 
+            <a class="btn btn-sm btn-outline-secondary" href="${pageContext.servletContext.contextPath}/join.do" id="Sign up">Sign up</a>
+>>>>>>> refs/remotes/origin/join
           </div>
         </div>
 
