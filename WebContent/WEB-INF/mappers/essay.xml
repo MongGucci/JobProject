@@ -2,19 +2,19 @@
 <mapper namespace="essay">
 
 <select id="getJobCate" resultType="java.util.HashMap">
-select category from cate
+select catename from jobcate
 </select>
 <insert id="setMyEssay" parameterType="java.util.HashMap">
-insert into essay values(essay_seq.nextval,#{id}, #{title}, #{job}, sysdate,#{Q1}, #{A1},#{Q2}, #{A2},#{Q3}, #{A3},#{Q4}, #{A4})
+insert into jaso values(#{jasono}, #{title},#{id}, #{job},#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4},sysdate)
 </insert>
 <select id="getMyEssay" parameterType="java.lang.String" resultType="java.util.HashMap">
-select no,id,title,leftdate from essay where id=#{id}
+select jasono,writer,title,lastdate from jaso where writer=#{id}
 </select>
 
 <select id="getDetailEssay" parameterType="java.lang.String" resultType="java.util.HashMap">
-select * from essay where no=#{no}
+select * from jaso where jasono=#{jasono}
 </select>
 <update id="updateEssay" parameterType="java.util.HashMap">
-update essay set title=#{title},leftdate=sysdate,que1=#{Q1},ans1=#{A1},que2=#{Q2},ans2=#{A2},que3=#{Q3},ans3=#{A3},que4=#{Q4},ans4=#{A4} where no=#{no}
+update essay set title=#{title},lastdate=sysdate,q1=#{Q1},a1=#{A1},q2=#{Q2},a2=#{A2},q3=#{Q3},a3=#{A3},q4=#{Q4},a4=#{A4} where jasono=#{jasono}
 </update>
 </mapper>

@@ -25,7 +25,7 @@
         <nav class="nav d-flex justify-content-between">
           <a class="p-2 text-muted" id="list" href="#">기업정보</a>
           <a class="p-2 text-muted" id="list" href="#">채용공고</a>
-          <a class="p-2 text-muted" id="list" href="#">자기소개서 공유 게시판</a>
+          <a class="p-2 text-muted" id="list" href="${path}/essayBoard/shareEssay.do">자기소개서 공유 게시판</a>
           <a class="p-2 text-muted" id="list" href="${path}/essay/essayWrite.do">자기소개서</a>
           
         </nav>

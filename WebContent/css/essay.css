@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css?family=Song+Myung&subset=korean');
+@import url('https://fonts.googleapis.com/css?family=Jua');
 
 #question{
 	font-weight:bolder;
@@ -14,8 +14,8 @@ div.card{
 a.card-link{
 	font-size: 13px;
 }
-h1{
-	font-family: 'Song Myung', serif;
+div{
+	font-family: 'Jua', sans-serif;
 }
 
 

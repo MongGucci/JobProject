@@ -10,8 +10,8 @@
   <div class="card-body">
     <h5 class="card-title">${e.ID}</h5>
     <p class="card-text">${e.TITLE}</p>
-      <h6 class="card-subtitle mb-2 text-muted">${e.LEFTDATE}</h6>
-    <a href="${path}/essay/essayChange.do?no=${e.NO}" class="card-link">수정하기</a>
+      <h6 class="card-subtitle mb-2 text-muted">${e.LASTDATE}</h6>
+    <a href="${path}/essay/essayChange.do?no=${e.JASONO}" class="card-link">수정하기</a>
     <a href="#" class="card-link">게시판에 올리기</a>
   </div>
 </div>

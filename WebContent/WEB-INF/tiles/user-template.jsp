@@ -3,6 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link href="${path}/css/index.css" rel="stylesheet">
+
 
 <title>JOB'A JOB</title>
 </head>

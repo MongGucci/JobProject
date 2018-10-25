@@ -1,9 +1,8 @@
 package job.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,40 +32,50 @@ public class EssayController {
 	
 	@PostMapping("/essayWrite.do")
 	public String writePostHandle(@RequestParam Map map) {
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy.MM.dd.HH:mm");
-		Date date = new Date(System.currentTimeMillis());
 		
-		map.put("id", "yyj");
-		map.put("leftdate", fmt.format(date));
+		
+		String jasono = UUID.randomUUID().toString().split("-")[0];
+		map.put("jasono", jasono);
+		map.put("id", "yyj"); //나중 되면 session에 저장된 아이디로 바뀜
+		
 		System.out.println(map);
 		int r = essay.setMyEssay(map);
-		System.out.println(r);
+		
 		return "essay.essayWrite";
 	}
+	//====================================================================
+	//내 자소서 리스트 가져오기
 	
 	@GetMapping("/myEssay.do")
 	public String myEssayGetHandle(WebRequest web) {
-		List<Map> myEssay = essay.getMyEssay("yyj");
+		//String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
+		List<Map> myEssay = essay.getMyEssay("yyj");//session userId
 		System.out.println(myEssay);
 		web.setAttribute("myEssay", myEssay, web.SCOPE_REQUEST);
 		return "essay.myEssay";
 	}
 	
+	
+	//==================================================================
+	//내 자소서 수정
+	
 	@GetMapping("/essayChange.do")
 	public String essayChangeGetHandle(WebRequest web) {
 		String no = web.getParameter("no");
 		Map myEssay = essay.getDetailEssay(no);
+		List<Map>list= essay.getJobCate();
+		
+		web.setAttribute("list", list, web.SCOPE_REQUEST);
 		web.setAttribute("no", no, web.SCOPE_SESSION);
 		web.setAttribute("myEssay", myEssay, web.SCOPE_REQUEST);
 		return "essay.essayChange";
 	}
 	@PostMapping("/essayChange.do")
 	public String essayChangePostHandle(@RequestParam Map map,WebRequest web) {
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy.MM.dd.HH:mm");
-		Date date = new Date(System.currentTimeMillis());
 		
 		
-		map.put("leftdate", fmt.format(date));
+		
+		
 		System.out.println(map);
 		String no = (String)web.getAttribute("no", web.SCOPE_SESSION);
 		map.put("no", no);
