@@ -40,10 +40,10 @@
 				style="margin-right: 20px;">외부에서 파일 불러오기</button>
 				</div>
 			<select
-					class="form-control" name="job" required="required" style="width:300px;border-color: black; color: black;">
+					class="form-control"  name="myessay" required="required" style="width:100%;border-color: black; color: black;">
 					<option> 내 자소서 가져오기</option>
 					<c:forEach var="e" items="${essaylist}">
-						<option value="${e.TITLE}">${e.TITLE} - ${e.LASTDATE}</option>
+						<option value="${e.JASONO}">${e.TITLE} - ${e.LASTDATE}</option>
 					</c:forEach>
 
 				</select>
