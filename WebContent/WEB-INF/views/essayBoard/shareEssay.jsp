@@ -18,9 +18,8 @@
 		<div class="row">
 			<div class="col-9">
 				<label for="exampleFormControlInput1">TITLE</label> <input
-				
 					type="text" name="title" placeholder="제목"
-					style="background: transparent; width: 100%; font-size: 15pt; border: none; outline: none; border-bottom: 2px solid rgba(0, 0, 0, 5); ">
+					style="background: transparent; width: 100%; font-size: 15pt; border: none; outline: none; border-bottom: 2px solid rgba(0, 0, 0, 5);">
 			</div>
 
 			<div class="col-3" align="right">
@@ -35,15 +34,22 @@
 			</div>
 		</div>
 
+<div class="form-check form-check-inline">
 		<div style="margin-top: 20px; margin-bottom: 20px;">
-			<button type="button" id="outside" class="btn btn-outline-dark" style="margin-right: 20px;">외부에서
-				파일 불러오기</button>
-			<button type="button" id="inside" class="btn btn-outline-dark">내 자소서 가져오기</button>
+			<button type="button" id="outside" class="btn btn-outline-dark"
+				style="margin-right: 20px;">외부에서 파일 불러오기</button>
+				</div>
+			<select
+					class="form-control" name="job" required="required" style="width:300px;border-color: black; color: black;">
+					<option> 내 자소서 가져오기</option>
+					<c:forEach var="e" items="${essaylist}">
+						<option value="${e.TITLE}">${e.TITLE} - ${e.LASTDATE}</option>
+					</c:forEach>
+
+				</select>
 		</div>
-		
-		<div class="form-group" id="file">
-			
-		</div>
+
+		<div class="form-group" id="file"></div>
 		<div class="form-group">
 			<label for="exampleFormControlTextarea1">CONTENT</label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
@@ -117,26 +123,50 @@
 <script>
 	$("#A1").keyup(function() {
 		$("#countA1").html($("#A1").val().length);
-		if($("#A1").val().length>1000){
-			
+		if ($("#A1").val().length > 1000) {
+
+			$("#A1").val(($("#A1").val().substr(0, 1000)));
 		}
 	});
 
 	$("#A2").keyup(function() {
 		$("#countA2").html($("#A2").val().length);
+		if ($("#A2").val().length > 1000) {
+
+			$("#A2").val(($("#A2").val().substr(0, 1000)));
+		}
 	});
 
 	$("#A3").keyup(function() {
 		$("#countA3").html($("#A3").val().length);
+		if ($("#A3").val().length > 1000) {
+
+			$("#A3").val(($("#A3").val().substr(0, 1000)));
+		}
 	});
 
 	$("#A4").keyup(function() {
 		$("#countA4").html($("#A4").val().length);
+		if ($("#A4").val().length > 1000) {
+
+			$("#A4").val(($("#A4").val().substr(0, 1000)));
+		}
+	});
+
+	$("#outside")
+			.click(
+					function() {
+						$("#file")
+								.html(
+										"<label for=\"exampleFormControlInput1\">FILE</label>"
+												+ "<input type=\"file\"+name=\"attach\" placeholder=\"첨부파일\">");
+					});
+
+	$("#a1").click(function() {
+		console.log($("#a1").val())
+
 	});
 	
-	$("#outside").click(function() {
-		$("#file").html("<label for=\"exampleFormControlInput1\">FILE</label>"
-				+"<input type=\"file\"+name=\"attach\" placeholder=\"첨부파일\">"	
-		);
-	});
+	
+	
 </script>
