@@ -5,49 +5,78 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<%-- <link rel="stylesheet"
+	href="${pageContext.servletContext.contextPath }/css/signin.css"> --%>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <title>회원가입</title>
 </head>
-<body style="text-align: center;">
-	<form class="form-signin" action="${pageContext.servletContext.contextPath }/join.do" method="post">
-		아이디 <br> <input style="width: 175px; height: 25px;" type="text"
-			onchange="ids(this)" placeholder="아이디(4~19 영어,숫자 포함)" name="id"required /><br>
-		<span></span><br> 
-		비밀번호 <br> <input
-			style="width: 175px; height: 25px;" type="password"
-			onchange="ipw(this)" placeholder="비밀번호(4~19 영어,숫자 포함)" name="pass" required /><br>
-		<span></span><br> 
-		이름 <br> <input
-			style="width: 175px; height: 25px;" type="text" name="name" /><br>
-		나이<br/> <input
-			style="width: 175px; height: 25px;" type="text" name="age" /><br>
-			
-			 성별 <br>
-		<select style="width: 170px; height: 25px;" name="gender">
+
+
+<body body class="text-center">
+    <form class="form-signin">
+      <h1 class="h3 mb-3 font-weight-normal" >회원가입</h1>
+      <br>
+      
+      <div class="form-label-group">
+        <label for="inputEmail"style="width: 230px; height: 50px;"  class="alert alert-primary">아이디</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" name="id"  onchange="ids(this)" placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span> 
+      </div><br>
+
+      <div class="form-label-group">
+        <label for="inputPassword" style="width: 230px; height: 50px;"  class="alert alert-primary">비밀번호</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="password" onchange="ipw(this)" name="pass"  placeholder="비밀번호(4~19 영어,숫자 포함)" required/><br><span></span>
+      </div><br>
+      
+       <div class="form-label-group">
+        <label for="inputName" style="width: 230px; height: 50px;"  class="alert alert-primary">이름</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" name="name"/><br>
+      </div>
+      <br>
+       <div class="form-label-group">
+        <label for="inputAge" style="width: 230px; height: 50px;"  class="alert alert-primary">나이</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" name="age"/><br>
+      </div>
+			<br>
+			<label for="inputAge" style="width: 230px; height: 50px;"  class="alert alert-primary">성별</label><br>
+		<select style="width: 230px; height: 25px;" class="border border-warning" name="gender">
 			<option  >성별</option>
 			<option value="M">남자</option>
 			<option  value="F">여자</option>
-		</select><br> 직업선택<br />
-		<br/>
+		</select><br>
+		<br> <label for="inputAge" style="width: 230px; height: 50px;"  class="alert alert-primary">직업선택</label><br>
 		
 		<c:forEach var="i" items="${map }">  
 			<input type="checkbox" value="${i.CATENAME }" onchange="gc(this)" name="job" />${i.CATENAME }
 		<c:if test="${(i.NO)%4==3 }"><br/></c:if>
 		</c:forEach>
-		
-		
 		<br/>
+		<br>
+		 <div class="form-label-group">
+        <label for="inputNickName"style="width: 230px; height: 50px;"  class="alert alert-primary">닉네임</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onchange=nkn(this) name="nick" placeholder="닉네임(4~10 영어,한글 포함)" /><br><span></span>
+      </div><br>
 
-		<br /> 닉네임 <br>
-		<input style="width: 175px; height: 25px;" type="text"
-			onchange=nkn(this) name="nick" placeholder="닉네임(4~10 영어,한글 포함)" /><br> <span></span><br>
-		이메일<br>
-		<input style="width: 175px; height: 25px;" type="email"
-			onchange=em(this) name="mail" placeholder="○○○@○○○○○.○○○" /><br> <span></span><br>
-		휴대전화 <br> <input style="width: 175px; height: 25px;" type="text"
-			onchange="phn(this)" name="phone" placeholder="XXX-XXXX-XXXX" /><br> <span></span><br>
-		
-		<button type="submit">회원 가입</button>
-		
+		<div class="form-label-group">
+        <label for="inputEmail"style="width: 230px; height: 50px;"  class="alert alert-primary">Email address</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="email" onchange=em(this) name="mail" placeholder="name@example.com"/><br> <span></span>
+      </div>
+		<br>
+	 <div class="form-label-group">
+        <label for="inputPhoneNumber" style="width: 230px; height: 50px;"  class="alert alert-primary">휴대전화</label><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onchange="phn(this)" name="phone" placeholder="XXX-XXXX-XXXX" /><br> <span></span><br>
+      </div>
+		<br>
+	
+      <button type="submit" class="btn btn-success">회원 가입</button>
+       <p class="mt-5 mb-3 text-muted text-center">JOB'A ㏇</p>
 	</form>
 </body>
 <script>
