@@ -29,7 +29,7 @@ public class JoinController {
 		List<Map> cate = jcr.getAll();
 		map.put("map", cate);
 		System.out.println(cate);
-		return "join";
+		return "job.join";
 	}
 	
 	@PostMapping("/join.do")
