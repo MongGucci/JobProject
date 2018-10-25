@@ -65,20 +65,19 @@ public class RecruitController {
 	
 	@PostMapping("/select.do")
 	public String selectPostHandle(@RequestParam Map param, Map map) {
-		String big = (String)param.get("big");
+	
+		
 		List<Map> results = hrepo.getSearchResults(param);
 		map.put("lists",results);
-		
 		map.put("condition",param);
 		return "job.selectdetail";
 	}
 	
 	@GetMapping("/buttonselect.do")
 	public String selectButtonGetHandle(@RequestParam Map param, Map map) {
-		System.out.println("param : "+param);
 		List<Map> results = hrepo.getSearchResults(param);
 		map.put("lists",results);
-		System.out.println("버튼눌러나오는값 :"+results);
+		//System.out.println("버튼눌러나오는값 :"+results);
 		map.put("condition",param);
 		return "job.selectdetail";
 	}
