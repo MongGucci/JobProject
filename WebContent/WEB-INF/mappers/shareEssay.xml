@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shareJaso">
+<mapper namespace="shareEssay">
 
-<insert id="setShareJaso" parameterType="java.util.HashMap">
-insert into sharejaso values(sharejaso_seq.nextval, #{title},#{content},#{path},#{id}, #{job},0,sysdate,#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4})
+<insert id="setShareEssay" parameterType="java.util.HashMap">
+insert into sharejaso values(sharejaso_seq.nextval, #{title},#{content},#{path},#{id}, #{job},0,sysdate,#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4},0)
 </insert>
+
+<select id="getShareEssay" resultType="java.util.HashMap">
+select no,title,cate,writedate,hits from sharejaso order by writedate desc
+</select>
+
+<select id="getShareDetail" resultType="java.util.HashMap" parameterType="java.lang.String"> 
+select * from sharejaso where no=#{no}
+</select>
 </mapper>
