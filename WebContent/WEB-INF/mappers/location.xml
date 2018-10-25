@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="location">
+
+	<select id="getBig" resultType="java.util.HashMap">
+	select * from locationbig
+	</select>
+	
+	<!-- 조인해서 big선택한거 받아서 small 받아오는 sql문 만들어야함 -->
+	<select id="getSmall" resultType="java.util.HashMap">
+		select small from(locationbig join location on locationbig.big=location.big) where locationbig.big=#{big}
+	</select>
+	
+</mapper>
