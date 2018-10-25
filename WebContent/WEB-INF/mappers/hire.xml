@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hire">
+
+	<select id="getAllHires" resultType="java.util.HashMap">
+	select * from hire
+	</select>
+	
+	<select id="getSearchResults" resultType="java.util.HashMap">
+	select * from(company join hire on company.coname=hire.name) where jobcate=#{cate}  and big=#{big} and small=#{small} and cotype=#{cotype} and hireshape=#{hireshape};
+	</select>
+		
+</mapper>
