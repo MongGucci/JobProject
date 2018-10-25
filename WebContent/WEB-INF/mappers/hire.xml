@@ -2,11 +2,57 @@
 <mapper namespace="hire">
 
 	<select id="getAllHires" resultType="java.util.HashMap">
-	select * from hire
+		select * from hire
+	</select>
+
+	<select id="getAllHiresByStartdate"
+		resultType="java.util.HashMap">
+		select * from(company join hire on
+		company.coname=hire.name) order by startdate desc
 	</select>
 	
-	<select id="getSearchResults" resultType="java.util.HashMap">
-	select * from(company join hire on company.coname=hire.name) where jobcate=#{cate}  and big=#{big} and small=#{small} and cotype=#{cotype} and hireshape=#{hireshape};
+	<select id="getAllHiresByEnddate"
+		resultType="java.util.HashMap">
+		select * from(company join hire on
+		company.coname=hire.name) order by enddate asc
 	</select>
-		
+	
+	
+	<select id="getAllHiresByHits"
+		resultType="java.util.HashMap">
+		select * from (company join hire on
+		company.coname=hire.name) order by hits
+		desc
+	</select>
+
+
+	<select id="getSearchResults" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select * from(company join hire on company.coname=hire.name) where
+		search='true'
+		<if test="cate!='all'">
+			and jobcate = #{cate}
+		</if>
+		<if test="big!='all'">
+			and big = #{big}
+		</if>
+		<if test="small!='all'">
+			and small = #{small}
+		</if>
+		<if test="cotype!='all'">
+			and cotype = #{cotype}
+		</if>
+		<if test="hireshape!='all'">
+			and hireshape = #{hireshape}
+		</if>
+		order by enddate asc
+	</select>
+
+	<select id="getHireByHino" parameterType="java.lang.Integer"
+		resultType="java.util.HashMap">
+		select * from(company join hire on
+		company.coname=hire.name) where hino=#{hino}
+	</select>
+
+
 </mapper>
