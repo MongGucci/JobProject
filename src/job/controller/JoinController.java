@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.request.WebRequest;
 
 import job.models.JobcateRepository;
 import job.models.JoinRepository;
 
 @Controller
+@RequestMapping("/join")
 public class JoinController {
 	
 	
@@ -29,7 +32,7 @@ public class JoinController {
 		List<Map> cate = jcr.getAll();
 		map.put("map", cate);
 		System.out.println(cate);
-		return "join";
+		return "job.join";
 	}
 	
 	@PostMapping("/join.do")
@@ -62,7 +65,7 @@ public class JoinController {
 				
 
 				
-		return "index";
+		return "job.index";
 	}
 	
 }
