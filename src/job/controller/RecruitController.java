@@ -14,6 +14,8 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
+import job.models.HireRepository;
+import job.models.PickedhireRepository;
 import job.models.RecruitRepository;
 
 @Controller
@@ -29,12 +31,13 @@ public class RecruitController {
 	
 	@Autowired
 	RecruitRepository rrepo;
+	@Autowired
+	HireRepository hrepo;
+	@Autowired
+	PickedhireRepository phrepo;
 	
 	@GetMapping("/select.do")
 	public String selectGetHandle(WebRequest req) {
-		/*List<Map> all = crepo.getAll();
-		System.out.println("recruitController의 all : "+all);
-		req.setAttribute("all", all, req.SCOPE_REQUEST);*/
 		
 		List<Map> cate= rrepo.getAllCate();
 		List<Map> big = rrepo.getAllBigLocation();
@@ -45,37 +48,54 @@ public class RecruitController {
 		req.setAttribute("cotype",cotype, req.SCOPE_REQUEST);
 		req.setAttribute("hireshape",hireshape, req.SCOPE_REQUEST);
 		
-		System.out.println("cate :" +cate);
-		System.out.println("big :" +big);
-		System.out.println("cotype :" +cotype);
-		System.out.println("hireshape :" +hireshape);
-		
+		List<Map> start = hrepo.getAllHiresByStartdate();
+		List<Map> end = hrepo.getAllHiresByEnddate();
+		List<Map> hits = hrepo.getAllHiresByHits();
+		req.setAttribute("start",start, req.SCOPE_REQUEST);
+		req.setAttribute("end",end, req.SCOPE_REQUEST);
+		req.setAttribute("hits",hits, req.SCOPE_REQUEST);
 		return "job.select";
 	}
 	
 	@PostMapping(path="/selectajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String selectAjaxHandle(@RequestParam String big) {
-		System.out.println("big: "+big);
 		List<Map> small = rrepo.getAllSmallLocation(big);
-		System.out.println("samll = " + small);
+	
 		
 		return gson.toJson(small);
 	}
 	
 	@PostMapping("/select.do")
-	public String selectPostHandle(@RequestParam Map map, WebRequest web) {
+	public String selectPostHandle(@RequestParam Map param, Map map) {
+	
 		
-		
-		return "job.selectdetail";//경로정확히확인하기
+		List<Map> results = hrepo.getSearchResults(param);
+		map.put("lists",results);
+		map.put("condition",param);
+		return "job.selectdetail";
+	}
+	
+	@GetMapping("/buttonselect.do")
+	public String selectButtonGetHandle(@RequestParam Map param, Map map) {
+		List<Map> results = hrepo.getSearchResults(param);
+		map.put("lists",results);
+		//System.out.println("버튼눌러나오는값 :"+results);
+		map.put("condition",param);
+		return "job.selectdetail";
 	}
 	
 	
 	
 	@GetMapping("/jobpost.do")
-	public String jobpostGetHandle() {
-		
-		
+	public String jobpostGetHandle(@RequestParam Map param, Map post) {
+		System.out.println("param : "+param);
+		int hino = Integer.parseInt((String)param.get("hino"));
+		System.out.println("hino: "+hino);
+		Map company= hrepo.getHirebyHino(hino);
+		System.out.println("companybyHino: " +company);
+		post.put("list", company);
+		System.out.println("list.CONAME/"+company.get("CONAME"));
 		return "job.jobpost";
 	}
 	
@@ -85,4 +105,16 @@ public class RecruitController {
 		return "job.comdetail";
 	}
 	
+	@PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String pickhireAjaxHandle(@RequestParam Map map) {
+		int r = phrepo.pickHire(map);
+		if(r==1) {
+			return gson.toJson(true);
+		}else {
+			return gson.toJson(false);
+		}
+		
+		
+	}
 }
