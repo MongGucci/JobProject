@@ -48,7 +48,7 @@
 		order by enddate asc
 	</select>
 
-	<select id="getHireByHino" parameterType="java.lang.Integer"
+	<select id="getHireByHino" parameterType="java.lang.Number"
 		resultType="java.util.HashMap">
 		select * from(company join hire on
 		company.coname=hire.name) where hino=#{hino}

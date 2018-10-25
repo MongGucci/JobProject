@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.gson.Gson;
 
 import job.models.HireRepository;
+import job.models.PickedhireRepository;
 import job.models.RecruitRepository;
 
 @Controller
@@ -32,6 +33,8 @@ public class RecruitController {
 	RecruitRepository rrepo;
 	@Autowired
 	HireRepository hrepo;
+	@Autowired
+	PickedhireRepository phrepo;
 	
 	@GetMapping("/select.do")
 	public String selectGetHandle(WebRequest req) {
@@ -86,7 +89,8 @@ public class RecruitController {
 	
 	@GetMapping("/jobpost.do")
 	public String jobpostGetHandle(@RequestParam Map param, Map post) {
-		int hino = (Integer)param.get("hino");
+		System.out.println("param : "+param);
+		int hino = Integer.parseInt((String)param.get("hino"));
 		System.out.println("hino: "+hino);
 		Map company= hrepo.getHirebyHino(hino);
 		System.out.println("companybyHino: " +company);
@@ -101,4 +105,16 @@ public class RecruitController {
 		return "job.comdetail";
 	}
 	
+	@PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String pickhireAjaxHandle(@RequestParam Map map) {
+		int r = phrepo.pickHire(map);
+		if(r==1) {
+			return gson.toJson(true);
+		}else {
+			return gson.toJson(false);
+		}
+		
+		
+	}
 }
