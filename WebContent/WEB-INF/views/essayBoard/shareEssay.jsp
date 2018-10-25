@@ -15,13 +15,13 @@
 
 
 		<div class="row">
-			<div class="col-10">
+			<div class="col-9">
 				<label for="exampleFormControlInput1">TITLE</label> <input
-					type="text" class="form-control" id="exampleFormControlInput1"
-					name="title" placeholder="제목">
+					type="text" name="title" placeholder="제목"
+					style="background: transparent; width: 100%; font-size: 15pt; border: none; outline: none; border-bottom: 2px solid rgba(0, 0, 0, 5);">
 			</div>
 
-			<div class="col-2">
+			<div class="col-3" align="right">
 				<label for="exampleFormControlInput1">직군</label> <select
 					class="form-control" name="job" required="required">
 					<option>직군</option>
@@ -32,16 +32,30 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="exampleFormControlInput1">FILE</label> <input type="file"
-				name="attach" placeholder="첨부파일">
+
+		<div class="form-check form-check-inline">
+			<div style="margin-top: 20px; margin-bottom: 20px;">
+				<button type="button" id="outside" class="btn btn-outline-dark"
+					style="margin-right: 20px;">외부에서 파일 불러오기</button>
+			</div>
+			<select class="form-control" name="myessay" required="required"
+				style="width: 100%; border-color: black; color: black;">
+				<option>내 자소서 가져오기</option>
+				<c:forEach var="e" items="${essaylist}">
+					<option value="${e.JASONO}">${e.TITLE}- ${e.LASTDATE}</option>
+				</c:forEach>
+
+			</select>
 		</div>
+
+		<div class="form-group" id="file"></div>
 		<div class="form-group">
 			<label for="exampleFormControlTextarea1">CONTENT</label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
 				name="content" rows="3" placeholder="보내는 내용"></textarea>
 		</div>
 
+		<!-- 질문1번째 -->
 		<div class="form-group">
 			<label><span id="question">Q1.</span></label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
@@ -49,9 +63,13 @@
 		</div>
 		<div class="form-group">
 
-			<textarea class="form-control" id="exampleFormControlTextarea1"
-				rows="5" name="A1"></textarea>
+			<textarea class="form-control" id="A1" rows="5" name="A1"></textarea>
 		</div>
+		<div align="right">
+			<span id="countA1"></span>/1000
+		</div>
+
+		<!-- 질문2번째 -->
 		<div class="form-group">
 			<label><span id="question">Q2.</span></label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
@@ -59,9 +77,13 @@
 		</div>
 		<div class="form-group">
 
-			<textarea class="form-control" id="exampleFormControlTextarea1"
-				rows="5" name="A2"></textarea>
+			<textarea class="form-control" id="A2" rows="5" name="A2"></textarea>
 		</div>
+		<div align="right">
+			<span id="countA2"></span>/1000
+		</div>
+
+		<!-- 질문3번째 -->
 		<div class="form-group">
 			<label><span id="question">Q3.</span></label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
@@ -69,9 +91,13 @@
 		</div>
 		<div class="form-group">
 
-			<textarea class="form-control" id="exampleFormControlTextarea1"
-				rows="5" name="A3"></textarea>
+			<textarea class="form-control" id="A3" rows="5" name="A3"></textarea>
 		</div>
+		<div align="right">
+			<span id="countA3"></span>/1000
+		</div>
+
+		<!-- 질문4번째 -->
 		<div class="form-group">
 			<label><span id="question">Q4.</span></label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
@@ -79,8 +105,10 @@
 		</div>
 		<div class="form-group">
 
-			<textarea class="form-control" id="exampleFormControlTextarea1"
-				rows="5" name="A4"></textarea>
+			<textarea class="form-control" id="A4" rows="5" name="A4"></textarea>
+		</div>
+		<div align="right">
+			<span id="countA4"></span>/1000
 		</div>
 
 
@@ -90,3 +118,51 @@
 		</div>
 	</form>
 </div>
+
+<script>
+	$("#A1").keyup(function() {
+		$("#countA1").html($("#A1").val().length);
+		if ($("#A1").val().length > 1000) {
+
+			$("#A1").val(($("#A1").val().substr(0, 1000)));
+		}
+	});
+
+	$("#A2").keyup(function() {
+		$("#countA2").html($("#A2").val().length);
+		if ($("#A2").val().length > 1000) {
+
+			$("#A2").val(($("#A2").val().substr(0, 1000)));
+		}
+	});
+
+	$("#A3").keyup(function() {
+		$("#countA3").html($("#A3").val().length);
+		if ($("#A3").val().length > 1000) {
+
+			$("#A3").val(($("#A3").val().substr(0, 1000)));
+		}
+	});
+
+	$("#A4").keyup(function() {
+		$("#countA4").html($("#A4").val().length);
+		if ($("#A4").val().length > 1000) {
+
+			$("#A4").val(($("#A4").val().substr(0, 1000)));
+		}
+	});
+
+	$("#outside")
+			.click(
+					function() {
+						$("#file")
+								.html(
+										"<label for=\"exampleFormControlInput1\">FILE</label>"
+												+ "<input type=\"file\"+name=\"attach\" placeholder=\"첨부파일\">");
+					});
+
+	$("#a1").click(function() {
+		console.log($("#a1").val())
+
+	});
+</script>

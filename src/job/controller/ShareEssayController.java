@@ -2,6 +2,9 @@ package job.controller;
 
 import java.io.File;
 import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,10 +35,21 @@ public class ShareEssayController {
 
 	@GetMapping("/shareEssay.do")
 	public String shareEssayGetHandle(WebRequest web) {
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd.HH:mm");
 		
 		List<Map>list= essay.getJobCate();
 		System.out.println(list);
 		web.setAttribute("list", list, web.SCOPE_REQUEST);
+		List<Map> essaylist  = essay.getMyEssay("yyj");
+		for(int i=0;i<essaylist.size();i++) {
+			Map map = essaylist.get(i);
+			Date date =  (Date)map.get("LASTDATE");
+			map.put("LASTDATE", fmt.format(date));
+			
+		}
+		
+		web.setAttribute("essaylist", essaylist, web.SCOPE_REQUEST);
+
 		
 		return "essayBoard.shareEssay";
 	}
