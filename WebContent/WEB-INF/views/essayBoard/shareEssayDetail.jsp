@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
 <div class="container" style="margin-top: 20px;">
@@ -95,7 +96,83 @@
 		</div>
 	</div>
 
-	<div style="margin-top: 15px;" align="right">
-		<button type="button" class="btn btn-outline-warning">LIKE</button>
+	<c:choose>
+		<c:when test="${empty like}">
+			<div style="margin-top: 15px;" align="right">
+				<button type="button" class="btn btn-warning" data-toggle="modal"
+					id="likebtn" data-target="#exampleModal">LIKE</button>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div style="margin-top: 15px;" align="right">
+				<button type="button" class="btn btn-warning" data-toggle="modal"
+					id="likebtn" data-target="#exampleModal" disabled="disabled">DONE</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+
+<c:if test="${empty userId}">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		
 	</div>
+	</c:if>
+
+
+	<c:choose>
+		<c:when test="${!empty userId}">
+
+			<script>
+			
+				
+				
+				$("#likebtn")
+						.on(
+								"click",
+								function() {
+									var id = "${userId}";
+									console.log(id);
+
+									var no = "${essay.NO}";
+
+									var param = {
+										"no" : no
+									};
+
+									$
+											.post(
+													"${path}/essayBoard/essayLikeAjax.do",
+													param).done(
+													function(rst) {
+														console.log(rst);
+														if (rst.like) {
+															$("#likebtn").attr(
+																	"disabled",
+																	true);
+															$("#likebtn").html(
+																	"DONE");
+														}
+
+													});
+
+								});
+			</script>
+		</c:when>
+		<c:otherwise>
+		<script>
+		
+		var html = "";
+		html = "<div class=\"modal-dialog\" role=\"document\">"+
+		"<div class=\"modal-content\"><div class=\"modal-header\">"+
+			"<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"+
+			"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"+
+				"<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"+
+		"<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"+
+			"<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
+			
+			$("#exampleModal").html(html);
+		</script>
+
+		</c:otherwise>
+	</c:choose>
 </div>

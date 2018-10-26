@@ -25,5 +25,16 @@ public class ShareEssayRepository {
 		return template.selectOne("shareEssay.getShareDetail",no);
 	}
 
+	public Integer setLike(Map map) {
+		return template.insert("shareEssay.setLike", map);
+	}
+	
+	public Integer addLike(Integer no) {
+		return template.insert("shareEssay.addLike", no);
+	}
+	
+	public Map myLike(Map map){
+		return template.selectOne("shareEssay.myLike",map);
+	}
 
 }

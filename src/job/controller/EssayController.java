@@ -64,6 +64,7 @@ public class EssayController {
 		String no = web.getParameter("no");
 		Map myEssay = essay.getDetailEssay(no);
 		List<Map>list= essay.getJobCate();
+		System.out.println(myEssay);
 		
 		web.setAttribute("list", list, web.SCOPE_REQUEST);
 		web.setAttribute("no", no, web.SCOPE_SESSION);
@@ -76,9 +77,7 @@ public class EssayController {
 		
 		
 		
-		System.out.println(map);
-		String no = (String)web.getAttribute("no", web.SCOPE_SESSION);
-		map.put("no", no);
+		
 		int r = essay.updateEssay(map);
 		System.out.println(r);
 		if(r != -1) {

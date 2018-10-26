@@ -37,8 +37,8 @@
 			<a class="p-2 text-muted" id="list" href="${path}/search.do">기업정보</a>
 			<a class="p-2 text-muted" id="list" href="${path}/recruit/select.do">채용공고</a>
 			<a class="p-2 text-muted" id="list"
-				href="${path}/essayBoard/shareEssay.do">자기소개서 공유 게시판</a> <a
-				class="p-2 text-muted" id="list" href="${path}/essay/essayWrite.do">자기소개서</a>
+				href="${path}/essayBoard/shareEssayList.do">자기소개서 공유 게시판</a> <a
+				class="p-2 text-muted" id="list" href="${path}/essay/myEssay.do">자기소개서</a>
 
 		</nav>
 	</div>

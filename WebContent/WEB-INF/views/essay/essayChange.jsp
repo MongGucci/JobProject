@@ -7,6 +7,7 @@
 <link href="${path}/css/essay.css" rel="stylesheet">
 <h1>자기소개서 수정</h1>
 <form action="${path}/essay/essayChange.do" method="post">
+<input type="hidden" name="no" value="${myEssay.JASONO}">
 	<div class="row">
 		<div class="col-10">
 			<textarea class="form-control" rows="1" name="title"

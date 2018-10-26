@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,28 +66,28 @@ public class ShareEssayController {
 		System.out.println("공유 게시판");
 		// String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
 		map.put("id", "yyj");
-		
-			if (!attach.isEmpty()) {
-				String real = sc.getRealPath("/");
-				String filename = attach.getOriginalFilename();
-				long now = System.currentTimeMillis();
-				String nowfolder = String.valueOf(now);
 
-				String path = real + "storage/share/" + nowfolder; // 저장 경로
-				String clientpath = "/storage/share/" + nowfolder + "/" + filename; // dao에 저장
+		if (!attach.isEmpty()) {
+			String real = sc.getRealPath("/");
+			String filename = attach.getOriginalFilename();
+			long now = System.currentTimeMillis();
+			String nowfolder = String.valueOf(now);
 
-				File dest = new File(path);
-				if (!dest.exists()) {
-					dest.mkdirs();
-				}
-				File dst = new File(dest, filename);
+			String path = real + "storage/share/" + nowfolder; // 저장 경로
+			String clientpath = "/storage/share/" + nowfolder + "/" + filename; // dao에 저장
 
-				attach.transferTo(dst);
-				map.put("path", clientpath);
-			} else {
-				map.put("path", "");
+			File dest = new File(path);
+			if (!dest.exists()) {
+				dest.mkdirs();
 			}
-		
+			File dst = new File(dest, filename);
+
+			attach.transferTo(dst);
+			map.put("path", clientpath);
+		} else {
+			map.put("path", "");
+		}
+
 		System.out.println(map);
 		shareEssay.setShareEssay(map);
 
@@ -103,31 +104,40 @@ public class ShareEssayController {
 		return gson.toJson(myEssay);
 
 	}
-	
-	//========================================================================================================
-	
-	
+
+	// ========================================================================================================
+
 	@GetMapping("/shareEssayList.do")
 	public String shareEssayListGetHandle(WebRequest web) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd.HH:mm");
 		List<Map> essays = shareEssay.getShareEssay();
-		
-		
+
 		for (int i = 0; i < essays.size(); i++) {
 			Map map = essays.get(i);
 			Date date = (Date) map.get("WRITEDATE");
 			map.put("WRITEDATE", fmt.format(date));
 
 		}
-		
+
 		web.setAttribute("essays", essays, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayList";
 	}
-	
+
 	@GetMapping("/essayBoardDetail.do")
 	public String essayBoardDetailGetHandle(WebRequest web) {
 		String no = web.getParameter("no");
 		Map map = shareEssay.getShareDetail(no);
+		if(web.getAttribute("userId", web.SCOPE_SESSION) != null) {
+		
+		
+		
+		Map likeMap = new HashMap<>();
+		likeMap.put("jasono", no);
+		likeMap.put("id", web.getAttribute("userId", web.SCOPE_SESSION));
+		Map like = shareEssay.myLike(likeMap);
+		web.setAttribute("like", like, web.SCOPE_REQUEST);
+		}
+		
 		for (int i = 1; i < 5; i++) {
 			if (map.get("A" + i) != null) {
 				String a = (String) map.get("A" + i);
@@ -140,9 +150,40 @@ public class ShareEssayController {
 				map.put("Q" + i, q);
 			}
 		}
-		String FILE = ((String)map.get("PATH")).substring(((String)map.get("PATH")).lastIndexOf("/")+1);
-		map.put("FILE", FILE);
+		if (map.get("PATH") != null) {
+			String FILE = ((String) map.get("PATH")).substring(((String) map.get("PATH")).lastIndexOf("/") + 1);
+			map.put("FILE", FILE);
+		}
+		
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayDetail";
+	}
+
+	@PostMapping(path = "/essayLikeAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String essayLikeAjaxHandle(@RequestParam Integer no, WebRequest web) {
+
+		Map like = new HashMap<>();
+
+		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
+		Map map = new HashMap<>();
+		map.put("id", id);
+		map.put("no", no);
+		System.out.println(map);
+
+		try {
+			int r = shareEssay.setLike(map);
+			if (r != -1) {
+				int a = shareEssay.addLike(no);
+				like.put("like", true);
+
+			}
+
+		} catch (Exception e) {
+			like.put("like", false);
+		}
+
+		return gson.toJson(like);
+
 	}
 }
