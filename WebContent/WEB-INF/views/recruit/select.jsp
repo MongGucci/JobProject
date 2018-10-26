@@ -95,7 +95,7 @@
 				var param = {
 						"big":big
 				};
-				$.post("${path}/recruit/selectajax.do",param).done(function(rst){
+				$.post("${path}/recruit/selectajax.do",param).done(function(){
 					var html="";
 					for(var i=0;i<rst.length;i++){
 						html+=

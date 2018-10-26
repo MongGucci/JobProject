@@ -21,13 +21,15 @@
 
 
 <body body class="text-center">
-    <form class="form-signin">
+<form class="form-signin" action="${pageContext.servletContext.contextPath }/join/join.do" method="post">
+    
       <h1 class="h3 mb-3 font-weight-normal" >회원가입</h1>
       <br>
       
       <div class="form-label-group">
         <label for="inputEmail"style="width: 230px; height: 50px;"  class="alert alert-primary">아이디</label><br>
-        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" name="id"  onchange="ids(this)" placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span> 
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onkeyup="id" name="id" id="id"   placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span><br>
+       <!--  <input style="width: 230px; height: 25px;" class="border border-warning" type="text"  name="id"  id="id"  placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span> -->
       </div><br>
 
       <div class="form-label-group">
@@ -37,7 +39,7 @@
       
        <div class="form-label-group">
         <label for="inputName" style="width: 230px; height: 50px;"  class="alert alert-primary">이름</label><br>
-        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" name="name"/><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onkeyup="name" name="name"/><br>
       </div>
       <br>
        <div class="form-label-group">
@@ -47,9 +49,9 @@
 			<br>
 			<label for="inputAge" style="width: 230px; height: 50px;"  class="alert alert-primary">성별</label><br>
 		<select style="width: 230px; height: 25px;" class="border border-warning" name="gender">
-			<option  >성별</option>
+			<option>성별</option>
 			<option value="M">남자</option>
-			<option  value="F">여자</option>
+			<option value="F">여자</option>
 		</select><br>
 		<br> <label for="inputAge" style="width: 230px; height: 50px;"  class="alert alert-primary">직업선택</label><br>
 		
@@ -66,36 +68,79 @@
 
 		<div class="form-label-group">
         <label for="inputEmail"style="width: 230px; height: 50px;"  class="alert alert-primary">Email address</label><br>
-        <input style="width: 230px; height: 25px;" class="border border-warning" type="email" onchange=em(this) name="mail" placeholder="name@example.com"/><br> <span></span>
+       <input style="width: 230px; height: 25px;" class="border border-warning" type="email" onchange=em(this) name="mail" id="email" aria-descrivedby="emailHelp"  placeholder="name@example.com"/><br> <span></span>
+      	<br><input type="button" value="인증" class="btn btn-primary btn-sm" onclick="checkMail()">
       </div>
+      <br>
+	  인증 번호 <br><input type="text" name="inputCode" class="from-control" placeholder="인증키를 입력하세요"/><br>
+	  <input type="button" value="확인" class="btn btn-primary btn-sm" onclick="checkJoinCode()">
 		<br>
 	 <div class="form-label-group">
         <label for="inputPhoneNumber" style="width: 230px; height: 50px;"  class="alert alert-primary">휴대전화</label><br>
         <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onchange="phn(this)" name="phone" placeholder="XXX-XXXX-XXXX" /><br> <span></span><br>
       </div>
 		<br>
-	
       <button type="submit" class="btn btn-success">회원 가입</button>
-       <p class="mt-5 mb-3 text-muted text-center">JOB'A ㏇</p>
+       <p class="mt-5 mb-3 text-muted text-center">JOB'go ㏇</p>
 	</form>
 </body>
 <script>
-   var ids = function(a) {
-      var i1 = new RegExp("^[a-z0-9][a-z0-9_\-]{4,19}$"); 
-      var input = a.value;
-
-      
-      console.log(input);
-      if(input.match(i1) != null) {
-         document.getElementsByTagName("span")[0].innerHTML = "<small>사용 가능한 아이디입니다.</small>";
-         document.getElementsByTagName("span")[0].style.color ="blue";
-         
-      }else {
-         document.getElementsByTagName("span")[0].innerHTML = "<small>사용 불가능한 아이디입니다.</small>";
-         document.getElementsByTagName("span")[0].style.color ="red";
-      }
-   };
-   
+  document.getElementById("id").onchange = function() {
+		var id = this.value;
+		console.log("val :" + id);
+			var req = new XMLHttpRequest();
+		if(/^[a-zA-z]\w{3,11}$/.test(id)){
+			
+			req.open("get", "joinajax.do?id="+id, true);
+			req.onreadystatechange = function() {
+				if(this.readyState==4) {
+					var id = this.responseText.trim();
+					if(id.check == true){
+						console.log("1");
+						document.getElementsByTagName("span")[0].innerHTML = "이미 사용중인 아이디입니다.";
+						document.getElementsByTagName("span")[0].style.color ="red";
+					}else {
+						console.log("2");
+						document.getElementsByTagName("span")[0].innerHTML = "아주 멋진 아이디에요.";
+						document.getElementsByTagName("span")[0].style.color ="green";
+					}
+				}
+			}
+			req.send();
+		} else {
+			document.getElementsByTagName("span")[0].innerHTML = "아이디는 영문숫자혼용 4~12자로 설정바랍니다.";
+			document.getElementsByTagName("span")[0].style.color ="red";
+		}
+	};
+    
+		/* 
+		document.getElementById("id").onchange = function() {
+			var val = this.value;
+			if(/^[a-zA-z]\w{3,11}$/.test(val)){
+				var req = new XMLHttpRequest();
+				req.open("get", "03ajax.jsp?id="+val, true);
+				req.onreadystatechange = function() {
+					if(this.readyState==4) {
+						var resp = this.responseText.trim();
+						if(resp == "true"){
+							document.getElementsByTagName("span")[0].innerHTML = "이미 사용중인 아이디입니다.";
+							document.getElementsByTagName("span")[0].style.color ="red";
+						}else {
+							document.getElementsByTagName("span")[0].innerHTML = "아주 멋진 아이디에요.";
+							document.getElementsByTagName("span")[0].style.color ="green";
+						}
+					}
+				}
+				req.send();
+			} else {
+				document.getElementsByTagName("span")[0].innerHTML = "아이디는 영문숫자혼용 4~12자로 설정바랍니다.";
+				document.getElementsByTagName("span")[0].style.color ="red";
+			}
+		};
+		 */
+		
+		
+		
    var ipw = function(b) {
       var p1 = new RegExp("^[a-z0-9][a-z0-9_\-]{4,19}$");
       var pw = b.value;
@@ -103,7 +148,6 @@
       if(pw.match(p1) != null) {
          document.getElementsByTagName("span")[1].innerHTML = "<small>유효한 비밀번호입니다.</small>";
          document.getElementsByTagName("span")[1].style.color ="blue";
-            console.log("비밀번호 : " + passInput);
          } else {
             document.getElementsByTagName("span")[1].innerHTML = "<small>유효하지 않은 비밀번호입니다.</small>";
             document.getElementsByTagName("span")[1].style.color ="red";
@@ -120,7 +164,6 @@
 		      if(nk.match(n1) != null) {
 		         document.getElementsByTagName("span")[2].innerHTML = "<small>유효한 닉네임 입니다.</small>";
 		         document.getElementsByTagName("span")[2].style.color ="blue";
-		            console.log("비밀번호 : " + passInput);
 		         } else {
 		            document.getElementsByTagName("span")[2].innerHTML = "<small>유효하지 않은 닉네임 입니다.</small>";
 		            document.getElementsByTagName("span")[2].style.color ="red";
@@ -128,23 +171,48 @@
 
 		         }
 		   };
+	
 		   
-   var em = function(e) {
-	      var e1 = new RegExp("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$");
-	      var em = e.value;
-	      
-	      if(em.match(e1) != null) {
-	         document.getElementsByTagName("span")[3].innerHTML = "<small>유효한 이메일 입니다.</small>";
-	         document.getElementsByTagName("span")[3].style.color ="blue";
-	            console.log("비밀번호 : " + passInput);
-	         } else {
-	            document.getElementsByTagName("span")[3].innerHTML = "<small>유효하지 않은 이메일 입니다.</small>";
-	            document.getElementsByTagName("span")[3].style.color ="red";
-	            
-
-	         }
-	   };
-	   
+		   var em = function(e) {
+			      var e1 = new RegExp("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$");
+			      var em = e.value;
+			      
+			      if(em.match(e1) != null) {
+			         document.getElementsByTagName("span")[3].innerHTML = "<small>유효한 이메일 입니다.</small>";
+			         document.getElementsByTagName("span")[3].style.color ="blue";
+			            console.log("비밀번호 : " + passInput);
+			         } else {
+			            document.getElementsByTagName("span")[3].innerHTML = "<small>유효하지 않은 이메일 입니다.</small>";
+			            document.getElementsByTagName("span")[3].style.color ="red";
+			            
+		 	         }
+			   }
+		    
+		   /* 
+		    document.getElementById("mail").onchange = function() {
+				var val = this.value;
+				if(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(val)){
+					var req = new XMLHttpRequest();
+					req.open("post", "joinajax.do?mail="+val, true);
+					req.onreadystatechange = function() {
+						if(this.readyState==4) {
+							var resp = this.responseText.trim();
+							if(resp == "true"){
+								document.getElementsByTagName("span")[3].innerHTML = "이미 사용중인 이메일 입니다.";
+								document.getElementsByTagName("span")[3].style.color ="red";
+							}else {
+								document.getElementsByTagName("span")[3].innerHTML = "사용 가능한 이메일 입니다.";
+								document.getElementsByTagName("span")[3].style.color ="green";
+							}
+						}
+					}
+					req.send();
+				} else {
+					document.getElementsByTagName("span")[0].innerHTML = "잘못 입력하셨습니다.";
+					document.getElementsByTagName("span")[0].style.color ="red";
+				}
+			};  */
+		   
 	   var phn = function(s) {
 		      var s1 = new RegExp("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$");
 		      var ph = s.value;
@@ -170,6 +238,9 @@
 				window.alert("최대 3개 까지 선택 가능 합니다.");
 				target.checked = false;
 			}
+		}else{
+			var idx = ct.indexOf(target.value);
+			ct.splice(idx,1);
 		}
 	}
 		 

@@ -20,15 +20,15 @@ public class JoinRepository {
 		return template.insert("applicant.add", map);
 	}
 
-	public String getById(Map map) {
-		return template.selectOne("applicant.getById",map);
+	public Map getById(String id) {
+		return template.selectOne("applicant.getById",id);
 	}
 	
 	public int getByIdAndPass(Map data) {
 		return template.selectOne("applicant.getByIdAndPass",data);
 	}
 	
-	public String getByEmail(Map map) {
-		return template.selectOne("applicant.getByEmail",map);
+	public List<Map> getByEmail(String mail) {
+		return template.selectOne("applicant.getByEmail",mail);
 	}
 }
