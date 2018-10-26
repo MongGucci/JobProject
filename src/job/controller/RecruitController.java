@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
@@ -100,7 +99,7 @@ public class RecruitController {
 	@GetMapping("/comdetail.do")
 	public String comdetailGetHandle() {
 
-		return "job.comdetail";
+		return "job.schdetail.index";
 	}
 	
 	@PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
@@ -112,7 +111,11 @@ public class RecruitController {
 		}else {
 			return gson.toJson(false);
 		}
-		
-		
+	}
+	
+	@GetMapping("/review.do")
+	public String writeReviewHandle(@RequestParam Map param) {
+		System.out.println("param :"+param);
+		return "job.schdetail.index";
 	}
 }

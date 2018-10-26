@@ -16,7 +16,7 @@
 <hr />
 <body style="text-align: center;">
 	<img alt="" src="${pageContext.servletContext.contextPath }${dt.LOGO }"
-		style="float: left;">???
+		style="float: left;">???재민아 여기에 뭐쓸라구?
 	<h3>${dt.CONAME }</h3>
 	<small>가족친화</small>
 	<br>
@@ -40,7 +40,7 @@
 				: ${dt.COTYPE }</td>
 		</tr>
 		<tr>
-			<td>매출액 : ${dt.SALES }
+			<td>매출액 : ${dt.SALES }천만원
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사원수 :
 				${dt.WORKERS }명</td>
 		</tr>
@@ -53,6 +53,63 @@
 		</tr>
 	</table>
 	<hr />
+	<div>
+		<h4> 이 기업의 진행중인 채용공고</h4>
+		
+	
+	</div>
+	
+	
+	<hr />
+	<div> 
+		<h4> reviews </h4>
+		이미 이 유저가 리뷰를 남긴적 있으면 리뷰입력란은 안뜨게!
+		로그인 하지 않은 유저에겐 평균 별점만 뜨게!
+		
+	</div>
+	
+	<hr />
+	<div>
+		<h4> 이 기업에 대한 후기를 남겨주세요! </h4>
+		<form action="${path}/recruit/review.do" method="get">
+		  <input type="hidden" name="star" id="star" value="1"/>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">좋은점</label>
+		    <input required name="good" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="이 기업에 대한 긍정적인 의견이 있으신가요?">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">안좋은점</label>
+		    <input required name="bad" type="text" class="form-control" id="exampleInputPassword1" placeholder="이 기업에 대한 부정적인 의견이 있으신가요?">
+		  </div>
+		  <div class="form-check" >
+		    <div  id="starR" class="starRev">
+			  <span class="starR on" id="1">별1</span>
+			  <span class="starR" id="2">별2</span>
+			  <span class="starR" id="3">별3</span>
+			  <span class="starR" id="4">별4</span>
+			  <span class="starR" id="5">별5</span>
+			</div>
+		  </div>
+		  <button type="submit" class="btn btn-primary" style="margin-top: 20px; ">Submit</button>
+		</form>
+	<script>
+	$('.starRev span').click(function(){
+		  $(this).parent().children('span').removeClass('on');
+		  $(this).addClass('on').prevAll('span').addClass('on');
+		  $("#star").val($(this).attr("id"));
+		  return false;
+		});
+	
+	
+	</script>
+	</div>
+	
+	
+	
+	
+	
+	
+	
 	<p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>
 	<c:choose>
 		<c:when test="${userId eq null}">
