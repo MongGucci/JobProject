@@ -10,7 +10,7 @@
 			role="button">게시판 목록</a>
 	</div>
 
-	<form action="${path}/essayBoard/shareEssay.do" method="post"
+	<form action="${path}/essay/essayWrite.do" method="post"
 		enctype="multipart/form-data">
 
 

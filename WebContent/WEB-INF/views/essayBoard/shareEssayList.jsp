@@ -38,6 +38,6 @@
 </table>
 
 <div align="right">
-<button class="btn btn-outline-dark">내꺼 공유하기</button>
+<a href="${path}/essayBoard/shareEssay.do"><button class="btn btn-outline-dark">내꺼 공유하기</button></a>
 </div>
 </div>
