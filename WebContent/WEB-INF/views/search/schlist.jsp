@@ -10,14 +10,14 @@
 <body style="text-align: center;">
 	<c:forEach var="l" items="${sli }">
 		${l.CONAME }  / ${l.COTYPE }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<br> 
-		<a href="${pageContext.servletContext.contextPath }/schdetail.do?cono=${l.CONO }">
-		${l.INDUSTRY }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		위치 :  ${l.BIG }&nbsp;${l.SMALL }<br>
-		<div style="float: right;">
-			<small>대표 : ${l.CEO }</small>
-		</div>
+		<br>
+		<a
+			href="${pageContext.servletContext.contextPath }/search/schdetail.do?cono=${l.CONO }">
+			${l.INDUSTRY }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 위치 : ${l.BIG }&nbsp;${l.SMALL }<br>
+			<div style="float: right;">
+				<small>대표 : ${l.CEO }</small>
+			</div>
 		</a>
-		<hr/>
+		<hr />
 	</c:forEach>
 </body>

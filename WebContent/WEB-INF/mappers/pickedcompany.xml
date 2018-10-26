@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pickedcompany">
+	
+	<insert id="schbtn" parameterType="java.util.HashMap">
+		insert into pickedcompany values(#{id},#{cono})	
+	</insert>	
+	
+	<select id="ckbtn" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from pickedcompany where id = #{id}
+	</select>
+	
+</mapper>

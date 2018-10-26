@@ -5,7 +5,7 @@
 	</select>
 	
 	<select id="schlist" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from company where coname like '%'||#{coname}||'%'
-
+		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%')
 	</select>
+	
 </mapper>

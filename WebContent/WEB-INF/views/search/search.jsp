@@ -31,7 +31,7 @@
 			<div>
 				<p id="#cm" class="hc vc">
 				<form class="form-signin"
-					action="${pageContext.servletContext.contextPath }/search.do"
+					action="${pageContext.servletContext.contextPath }/search/search.do"
 					method="post">
 					<h1>기업 검색</h1>
 					<p style="color: white;">

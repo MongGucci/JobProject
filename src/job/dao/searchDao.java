@@ -22,4 +22,12 @@ public class searchDao {
 	public List<Map> schlist(String coname) {
 		return template.selectList("company.schlist",coname);
 	}
+	// 요게 관심기업 버튼
+	public int schbtn(Map map) {
+		return template.insert("pickedcompany.schbtn",map);
+	}
+	// 요게 관심기업 중복 검사
+	public Map ckbtn(Map map) {
+		return template.selectOne("pickedcompany.ckbtn",map);
+	}
 }

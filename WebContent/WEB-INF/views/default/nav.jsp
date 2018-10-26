@@ -34,7 +34,7 @@
 
 	<div class="nav-scroller py-1 mb-2">
 		<nav class="nav d-flex justify-content-between">
-			<a class="p-2 text-muted" id="list" href="${path}/search.do">기업정보</a>
+			<a class="p-2 text-muted" id="list" href="${path}/search/search.do">기업정보</a>
 			<a class="p-2 text-muted" id="list" href="${path}/recruit/select.do">채용공고</a>
 			<a class="p-2 text-muted" id="list"
 				href="${path}/essayBoard/shareEssay.do">자기소개서 공유 게시판</a> <a
