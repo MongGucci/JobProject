@@ -73,5 +73,12 @@
 		<constructor-arg name="mongoClient" ref="mongoClient" />
 		<constructor-arg name="databaseName" value="dev" />
 	</bean>
+	
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="13.125.229.1"/>
+	<property name="port" value="25"/>
+	<property name="protocol" value="smtp"/>
+	<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
 
 </beans>
