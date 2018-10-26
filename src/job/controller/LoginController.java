@@ -61,8 +61,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/logout.do")
-	public String logoutHandle(@SessionAttribute String id, HttpSession session) {
-		
+	public String logoutHandle(WebRequest wr, HttpSession session) {
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		sessions.remove(id);
 		session.invalidate();
 		System.out.println("로그아웃 완료");

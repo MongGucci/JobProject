@@ -6,7 +6,7 @@
 	</insert>	
 	
 	<select id="ckbtn" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from pickedcompany where id = #{id}
+		select * from pickedcompany where id = #{id} and cono=#{cono}
 	</select>
 	
 </mapper>

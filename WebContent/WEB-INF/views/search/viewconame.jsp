@@ -34,6 +34,11 @@
 	<button class="alert alert-warning" style="height: 50px;" id="bt">+
 		관심 기업등록</button>
 	<hr />
+	<c:if test = "${!empty btn }">
+		<script>
+			alert("이미 등록된 기업입니다.");
+		</script>
+	</c:if>
 	<table style="margin: auto">
 		<tr>
 			<td>대표자 : ${dt.CEO } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기업 형태
