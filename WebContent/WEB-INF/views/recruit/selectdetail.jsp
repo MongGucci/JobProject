@@ -8,6 +8,7 @@
 <div class="container" style="margin-top: 20px;">
 <hr/>
 <p>
+	
 	직군 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=${condition.cate}&big=all&small=all&cotype=all&hireshape=all" role="button">${condition.cate}</a> | 
 	지역 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=all&big=${condition.big}&small=${condition.small}&cotype=all&hireshape=all" role="button"> ${condition.big}-${condition.small}</a> |
 	기업 형태 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=all&big=all&small=all&cotype=${condition.cotype}&hireshape=all" role="button">${condition.cotype}</a> |
