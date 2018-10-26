@@ -37,23 +37,23 @@ public class RecruitController {
 	PickedhireRepository phrepo;
 	
 	@GetMapping("/select.do")
-	public String selectGetHandle(WebRequest req) {
+	public String selectGetHandle(Map map) {
 		
 		List<Map> cate= rrepo.getAllCate();
 		List<Map> big = rrepo.getAllBigLocation();
 		List<Map> cotype= rrepo.getAllCotype();
 		List<Map> hireshape=rrepo.getAllHireshape();
-		req.setAttribute("cate",cate, req.SCOPE_REQUEST);
-		req.setAttribute("big",big, req.SCOPE_REQUEST);
-		req.setAttribute("cotype",cotype, req.SCOPE_REQUEST);
-		req.setAttribute("hireshape",hireshape, req.SCOPE_REQUEST);
+		map.put("cate",cate);
+		map.put("big",big);
+		map.put("cotype",cotype);
+		map.put("hireshape",hireshape);
 		
 		List<Map> start = hrepo.getAllHiresByStartdate();
 		List<Map> end = hrepo.getAllHiresByEnddate();
 		List<Map> hits = hrepo.getAllHiresByHits();
-		req.setAttribute("start",start, req.SCOPE_REQUEST);
-		req.setAttribute("end",end, req.SCOPE_REQUEST);
-		req.setAttribute("hits",hits, req.SCOPE_REQUEST);
+		map.put("start",start);
+		map.put("end",end);
+		map.put("hits",hits);
 		return "job.select";
 	}
 	
@@ -61,8 +61,6 @@ public class RecruitController {
 	@ResponseBody
 	public String selectAjaxHandle(@RequestParam String big) {
 		List<Map> small = rrepo.getAllSmallLocation(big);
-	
-		
 		return gson.toJson(small);
 	}
 	
