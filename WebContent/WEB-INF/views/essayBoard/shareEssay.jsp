@@ -161,7 +161,7 @@
 						$("#file")
 								.html(
 										"<label for=\"exampleFormControlInput1\">FILE</label>"
-												+ "<input type=\"file\"+name=\"attach\" placeholder=\"첨부파일\">");
+												+ "<input type=\"file\"name=\"attach\" placeholder=\"첨부파일\">");
 					});
 
 	

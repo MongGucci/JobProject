@@ -65,7 +65,7 @@ public class ShareEssayController {
 		System.out.println("공유 게시판");
 		// String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
 		map.put("id", "yyj");
-		if (attach != null) {
+		
 			if (!attach.isEmpty()) {
 				String real = sc.getRealPath("/");
 				String filename = attach.getOriginalFilename();
@@ -86,9 +86,7 @@ public class ShareEssayController {
 			} else {
 				map.put("path", "");
 			}
-		}else {
-			map.put("path", "");
-		}
+		
 		System.out.println(map);
 		shareEssay.setShareEssay(map);
 
@@ -130,6 +128,20 @@ public class ShareEssayController {
 	public String essayBoardDetailGetHandle(WebRequest web) {
 		String no = web.getParameter("no");
 		Map map = shareEssay.getShareDetail(no);
+		for (int i = 1; i < 5; i++) {
+			if (map.get("A" + i) != null) {
+				String a = (String) map.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				map.put("A" + i, a);
+			}
+			if (map.get("Q" + i) != null) {
+				String q = (String) map.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				map.put("Q" + i, q);
+			}
+		}
+		String FILE = ((String)map.get("PATH")).substring(((String)map.get("PATH")).lastIndexOf("/")+1);
+		map.put("FILE", FILE);
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayDetail";
 	}
