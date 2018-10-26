@@ -27,7 +27,7 @@ public class searchDao {
 		return template.insert("pickedcompany.schbtn",map);
 	}
 	// 요게 관심기업 중복 검사
-	public Map ckbtn(Map map) {
-		return template.selectOne("pickedcompany.ckbtn",map);
+	public List<Map> ckbtn(Map map) {
+		return template.selectList("pickedcompany.ckbtn",map);
 	}
 }

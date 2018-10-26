@@ -46,7 +46,7 @@ public class SearchController {
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
-		System.out.println("아이디 : " + id + " / " + cono);
+		
 		
 		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
@@ -55,20 +55,27 @@ public class SearchController {
 	// 요게 관심 기업 버튼 클릭
 	@RequestMapping("/schbtn.do")
 	public String schbtn(WebRequest wr, ModelMap map) {
-		wr.getAttribute("cono", wr.SCOPE_SESSION);
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		
+		Map sd = new HashMap<>();
+		sd.put("id", id);
+		sd.put("cono", wr.getAttribute("cono", wr.SCOPE_SESSION));
+		
+		System.out.println("확인 : " + sd);
 		if(id == null) {	
 			return "login";
 		}else {
-			Map sd = new HashMap<>();
-			sd.put("id", id);
-			sd.put("cono", wr.getAttribute("cono", wr.SCOPE_SESSION));
-			
-			int c = searchdao.schbtn(sd);
-			map.put("ok", "on");
-			return "job.schdetail.index";
+			List<Map> jd = searchdao.ckbtn(sd);
+			System.out.println("찍어보자 : " + jd);
+			if(jd.size() == 0) {
+				int c = searchdao.schbtn(sd);
+				map.put("ok", "on");
+				return "job.schdetail.index";
+			}else {
+				map.put("btn", "ya");
+				return "job.schdetail.index";
 		}
+	}
 	}
 }
 
