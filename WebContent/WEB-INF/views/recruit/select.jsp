@@ -100,7 +100,7 @@
 							<th scope="row">#로고</th>
 							<td>${post.CONAME}</td>
 							<td>${post.TITLE}</td>
-							<td>${post.STARTDATE}-${post.ENDDATE}</td>
+							<td>${startdate}-${enddate}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -124,7 +124,7 @@
 							<th scope="row">#로고</th>
 							<td>${post.CONAME}</td>
 							<td>${post.TITLE}</td>
-							<td>${post.STARTDATE}-${post.ENDDATE}</td>
+							<td>${startdate}-${enddate}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -148,7 +148,7 @@
 							<th scope="row">#로고</th>
 							<td>${post.CONAME}</td>
 							<td>${post.TITLE}</td>
-							<td>${post.STARTDATE}- ${post.ENDDATE}</td>
+							<td>${startdate}-${enddate}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

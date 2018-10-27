@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import job.dao.searchDao;
+import job.models.ReviewRepository;
 
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 	@Autowired
 	searchDao searchdao;
+	@Autowired
+	ReviewRepository rvrepo;
 
 	@GetMapping("/search.do")
 	public String searchGetHandle() {
@@ -47,6 +50,16 @@ public class SearchController {
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
 		System.out.println("아이디 : " + id + " / " + cono);
+		if(id!=null) {
+			Map map = new HashMap();
+			map.put("id", id);
+			map.put("cono",cono);
+			Map didI = rvrepo.didIWriteReview(map);
+			System.out.println("썻냐안썻냐"+didI);
+			if(didI!=null) {
+				wr.setAttribute("youwrote", true, wr.SCOPE_SESSION);
+			}
+		}
 		
 		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
