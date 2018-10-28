@@ -8,7 +8,7 @@ select catename from jobcate
 insert into jaso values(#{jasono}, #{title},#{id}, #{job},#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4},sysdate)
 </insert>
 <select id="getMyEssay" parameterType="java.lang.String" resultType="java.util.HashMap">
-select jasono,writer,title,lastdate from jaso where writer=#{id}
+select jasono,writer,title,lastdate from jaso where writer=#{id} order by lastdate desc
 </select>
 
 <select id="getDetailEssay" parameterType="java.lang.String" resultType="java.util.HashMap">

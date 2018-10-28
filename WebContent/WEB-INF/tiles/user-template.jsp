@@ -20,7 +20,7 @@
 <link href="${path}/css/index.css" rel="stylesheet">
 
 
-<title>JOB'A JOB</title>
+<title>JOB GO</title>
 </head>
 <body>
 	<nav>

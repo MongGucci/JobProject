@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import job.models.AlertService;
 import job.models.EssayRepository;
 import job.models.ShareEssayRepository;
 
@@ -39,6 +41,9 @@ public class ShareEssayController {
 
 	@Autowired
 	Gson gson;
+	
+	@Autowired
+	AlertService alert;
 
 	@GetMapping("/shareEssay.do")
 	public String shareEssayGetHandle(WebRequest web) {
@@ -126,11 +131,12 @@ public class ShareEssayController {
 	@GetMapping("/essayBoardDetail.do")
 	public String essayBoardDetailGetHandle(WebRequest web) {
 		String no = web.getParameter("no");
+		
+		Integer jasono = Integer.parseInt(no); 
 		Map map = shareEssay.getShareDetail(no);
+		List<Map> reply = shareEssay.getReply(jasono);
 		if(web.getAttribute("userId", web.SCOPE_SESSION) != null) {
-		
-		
-		
+
 		Map likeMap = new HashMap<>();
 		likeMap.put("jasono", no);
 		likeMap.put("id", web.getAttribute("userId", web.SCOPE_SESSION));
@@ -156,6 +162,7 @@ public class ShareEssayController {
 		}
 		
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
+		web.setAttribute("reply", reply, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayDetail";
 	}
 
@@ -186,4 +193,71 @@ public class ShareEssayController {
 		return gson.toJson(like);
 
 	}
+	
+	
+	//===========================================================================
+	//181028 
+	
+	
+	@PostMapping("/reply.do")
+	public String replyPostHandle(@RequestParam Map map,WebRequest web) {
+		
+		
+		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
+		map.put("writer", id);
+		map.put("parent", "");
+		map.put("flag", "T");
+		map.put("verify", "N");
+		
+		String replyid = (String)map.get("replyid");
+		Map msg = new HashMap<>();
+		msg.put("mode", "reply");
+
+		msg.put("msg", map.get("replyid")+"님이 올린 자소서에 댓글이 올라왔습니다.");
+		msg.put("link", map.get("jasono"));
+		
+		alert.sendOne(msg, replyid);
+		
+		
+		
+		int r = shareEssay.setReply(map);
+		System.out.println(map.get("jasono"));
+		
+		//web.setAttribute("no", map.get("jasono"), web.SCOPE_REQUEST);
+		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
+		
+	}
+	
+	@PostMapping("/replyComment.do")
+	public String replyCommentPostHandle(@RequestParam Map map,WebRequest web) {
+		System.out.println(map);
+		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
+		map.put("writer", id);
+		map.put("flag", "T");
+		map.put("verify", "N");
+		
+		String replyid = (String)map.get("replyid");
+		Map msg = new HashMap<>();
+		msg.put("mode", "reply");
+
+		msg.put("msg", map.get("replyid")+"님의 댓글에 답글이 올라왔습니다.");
+		msg.put("link", map.get("jasono"));
+		alert.sendOne(msg, replyid);
+		
+		
+		int r = shareEssay.setReply(map);
+		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -11,6 +11,7 @@
 
 		<div class="card-body">
 			<h5 class="card-title">${essay.TITLE}</h5>
+			 <h6 class="card-subtitle mb-2 text-muted">작성자 : ${essay.WRITER}</h6>
 			<p class="card-text">${essay.CONTENT}</p>
 
 			<c:if test="${!empty essay.PATH}">
@@ -111,11 +112,9 @@
 		</c:otherwise>
 	</c:choose>
 
-<c:if test="${empty userId}">
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		
-	</div>
+	<c:if test="${empty userId}">
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
 	</c:if>
 
 
@@ -123,9 +122,6 @@
 		<c:when test="${!empty userId}">
 
 			<script>
-			
-				
-				
 				$("#likebtn")
 						.on(
 								"click",
@@ -159,20 +155,125 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-		<script>
-		
-		var html = "";
-		html = "<div class=\"modal-dialog\" role=\"document\">"+
-		"<div class=\"modal-content\"><div class=\"modal-header\">"+
-			"<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"+
-			"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"+
-				"<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"+
-		"<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"+
-			"<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
-			
-			$("#exampleModal").html(html);
-		</script>
+			<script>
+				var html = "";
+				html = "<div class=\"modal-dialog\" role=\"document\">"
+						+ "<div class=\"modal-content\"><div class=\"modal-header\">"
+						+ "<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"
+						+ "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
+						+ "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
+						+ "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
+						+ "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
+
+				$("#exampleModal").html(html);
+			</script>
 
 		</c:otherwise>
 	</c:choose>
+	
+	<%-- ===============================댓글 시작=====================================  --%>
+
+
+	<div style="border: 1px solid gray; margin-top: 20px;">
+
+		<c:forEach var="e" items="${reply}">
+			<c:if test="${empty e.PARENTNO}">
+				<div class="form-group" style="margin: 20px;">
+					<c:choose>
+						<c:when test="${e.FLAG eq 'A'}">
+							<div>
+								<p>관리자에 의해 삭제된 댓글입니다.</p>
+							</div>
+						</c:when>
+						<c:when test="${e.FLAG eq 'W'}">
+							<div>
+								<p>작성자에 의해 삭제된 게시글입니다.</p>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div>
+								<p>${e.WRITER}:${e.REPLY }</p>
+							</div>
+						</c:otherwise>
+
+					</c:choose>
+
+				</div>
+				<c:forEach var="h" items="${reply}">
+					<c:if test="${e.NO eq h.PARENTNO}">
+						<c:choose>
+							<c:when test="${h.FLAG eq 'A'}">
+								<div style="margin: 20px; margin-left: 30px;">
+									<p>┗ ${h.WRITER}  : 관리자에 의해 삭제된 댓글입니다.</p>
+								</div>
+							</c:when>
+							<c:when test="${h.FLAG eq 'W'}">
+								<div style="margin: 20px; margin-left: 30px;">
+									<p>┗ ${h.WRITER} : 작성자에 의해 삭제된 게시글입니다.</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div style="margin: 20px; margin-left: 30px;">
+									<p>┗ ${h.WRITER} : ${h.REPLY }</p>
+								</div>
+							</c:otherwise>
+
+						</c:choose>
+
+					</c:if>
+				</c:forEach>
+<%-- ===============================답글 버튼=====================================  --%>
+
+				<div align="right">
+
+					<button class="comment"
+						style="border: none; background-color: rgba(0, 0, 0, 0);">답글달기</button>
+
+					<a href="${path}/essayBoard/reply.do?handle=delete&no=${e.NO}">
+						<button style="border: none; background-color: rgba(0, 0, 0, 0);">삭제하기</button>
+					</a>
+				</div>
+
+<%-- ===============================답글 보내기=====================================  --%>
+
+				<form action="${path}/essayBoard/replyComment.do" method="post">
+					<input type="hidden" name="parent" value="${e.NO}"> <input
+						type="hidden" name="replyid" value="${e.WRITER}"> <input
+						type="hidden" name="jasono" value="${e.JASONO}">
+					<div id="commentArea" style="margin: 20px;"></div>
+				</form>
+			</c:if>
+
+		</c:forEach>
+		<hr>
+<%-- ===============================댓글 다는곳=====================================  --%>
+		<form action="${path}/essayBoard/reply.do" method="post">
+			<input type="hidden" name="jasono" value="${essay.NO}"> <input
+				type="hidden" name="replyid" value="${essay.WRITER}">
+			<div class="form-group" style="margin: 20px;">
+				<label for="exampleFormControlTextarea1">댓글</label>
+				<textarea class="form-control" id="exampleFormControlTextarea1"
+					name="reply" rows="3"></textarea>
+				<div align="right" style="margin-top: 10px;">
+					<button>댓글달기</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<%-- ===============================댓글 끝=====================================  --%>
 </div>
+<script>
+	$(".comment")
+			.on(
+					"click",
+					function() {
+
+						var html = "";
+						html += "<div class=\"form-group\" style=\"margin: 20px;\">"
+								+ "<label>답글</label><textarea class=\"form-control\" id=\"exampleFormControlTextarea1\"name=\"reply\" rows=\"3\"></textarea>"
+								+ "<div align=\"right\" style=\"margin-top: 10px;\"><button>답글달기</button></div></div>";
+						$("#commentArea").html(html);
+
+					});
+</script>

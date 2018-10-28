@@ -3,6 +3,7 @@ package job.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class LoginController {
 	
 	@Autowired
 	loginDao logindao;
+	
+	@Autowired
+	ServletContext sc;
 	
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
@@ -53,6 +57,13 @@ public class LoginController {
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			
 			System.out.println("유저 정보 : " + user);
+			//filter 먹여놨음
+//			if(sc.getAttribute("target") == null) {
+//				return "redirect:/job/index.do";
+//			}else {
+//				
+//			}
+			
 			return "redirect:/job/index.do";
 		} else {
 			map.put("err", "on");

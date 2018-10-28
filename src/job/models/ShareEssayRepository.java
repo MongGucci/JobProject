@@ -26,15 +26,22 @@ public class ShareEssayRepository {
 	}
 
 	public Integer setLike(Map map) {
-		return template.insert("shareEssay.setLike", map);
+		return template.insert("like.setLike", map);
 	}
 	
 	public Integer addLike(Integer no) {
-		return template.insert("shareEssay.addLike", no);
+		return template.insert("like.addLike", no);
 	}
 	
 	public Map myLike(Map map){
-		return template.selectOne("shareEssay.myLike",map);
+		return template.selectOne("like.myLike",map);
+	}
+	
+	public Integer setReply(Map map) {
+		return template.insert("reply.setReply", map);
+	}
+	public List<Map> getReply(Integer no) {
+		return template.selectList("reply.getReply", no);
 	}
 
 }

@@ -8,11 +8,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/default/home.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -22,11 +22,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essay/essayWrite.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -36,11 +36,25 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essay/myEssay.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
+
+	</definition>
+	
+	<definition name="essay.myEssayDetail"
+		template="/WEB-INF/tiles/user-template.jsp">
+
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/essay/myEssayDetail.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -50,11 +64,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essay/essayChange.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -64,11 +78,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essayBoard/shareEssay.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 	
@@ -78,11 +92,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essayBoard/shareEssayList.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 	
@@ -92,11 +106,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/essayBoard/shareEssayDetail.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -108,11 +122,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/recruit/select.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 	</definition>
 
 	<definition name="job.selectdetail"
@@ -120,11 +134,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/recruit/selectdetail.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 	</definition>
 
 	<definition name="job.jobpost"
@@ -132,11 +146,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/recruit/jobpost.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 	</definition>
 
 
@@ -147,11 +161,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/change/pwchange.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -161,11 +175,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/default/home.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 	
@@ -175,11 +189,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/join/join.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 
@@ -191,11 +205,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/search/viewconame.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 	
@@ -205,11 +219,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/search/schlist.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 </tiles-definitions>

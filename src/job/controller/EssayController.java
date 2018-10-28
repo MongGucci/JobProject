@@ -51,7 +51,9 @@ public class EssayController {
 		//String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
 		List<Map> myEssay = essay.getMyEssay("yyj");//session userId
 		System.out.println(myEssay);
+		
 		web.setAttribute("myEssay", myEssay, web.SCOPE_REQUEST);
+		
 		return "essay.myEssay";
 	}
 	
@@ -84,5 +86,25 @@ public class EssayController {
 			web.removeAttribute("no", web.SCOPE_SESSION);
 		}
 		return "redirect:/essay/myEssay.do";
+	}
+	
+	@GetMapping("/myEssayDetail.do")
+	public String myEssayDetailGetHandle(WebRequest web) {
+		String no = web.getParameter("no");
+		Map myEssay = essay.getDetailEssay(no);
+		for (int i = 1; i < 5; i++) {
+			if (myEssay.get("A" + i) != null) {
+				String a = (String) myEssay.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				myEssay.put("A" + i, a);
+			}
+			if (myEssay.get("Q" + i) != null) {
+				String q = (String) myEssay.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				myEssay.put("Q" + i, q);
+			}
+		}
+		web.setAttribute("essay", myEssay, web.SCOPE_REQUEST);
+		return "essay.myEssayDetail";
 	}
 }
