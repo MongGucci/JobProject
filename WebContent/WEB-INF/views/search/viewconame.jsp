@@ -83,7 +83,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:choose>
-				<c:when test="${empty sessionScope.youwrote}">
+				<c:when test="${empty youwrote}">
 					<h4>이 기업에 대한 후기를 남겨주세요!</h4>
 				<form action="${path}/recruit/review.do" method="post">
 					<input name="cono" value="${dt.CONO }" hidden=""/>
@@ -118,9 +118,20 @@
 					});
 				</script>
 				</c:when>
-				<c:otherwise>
-					이미 이 기업에 대한 후기를 남기셨네요! (그리고 여기에 달린 리뷰들 쫙뿌려주기)
-				</c:otherwise>
+				<c:when test="${!empty youwrote}">
+					
+					이미 이 기업에 대한 후기를 남기셨네요!
+					<hr/>
+					<div>
+					<c:forEach var="r" items="${reviews}">
+						이런점이 좋았어요 : ${r.GOOD} <br/>
+						이런점이 별로였어요 : ${r.BAD }<br/>
+						이 후기 작성자가 남긴 별점 : <span class="starR on" ></span>${r.STAR}
+ 					</c:forEach>
+				
+					</div>
+				
+				</c:when>
 			</c:choose>
 		
 		</c:otherwise>

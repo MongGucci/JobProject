@@ -7,7 +7,7 @@
 		#{bad},#{star},#{cono})
 	</insert>
  
-	<select id="getReviewsByCono"  parameterType="java.lang.Integer">
+	<select id="getReviewsByCono"  parameterType="java.lang.Integer" resultType="java.util.HashMap">
 		select * from review where cono=#{cono}
 	</select>
 	

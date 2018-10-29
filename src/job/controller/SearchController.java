@@ -79,9 +79,13 @@ public class SearchController {
 			Map didI = rvrepo.didIWriteReview(mm);
 			System.out.println("썻냐안썻냐"+didI);
 			if(didI!=null) {
-				wr.setAttribute("youwrote", true, wr.SCOPE_SESSION);
+				map.put("youwrote", true);
 			}
 		}
+      
+      List<Map> reviews = rvrepo.getReviewsByCono(cono);
+      map.put("reviews", reviews);
+      
       return "job.schdetail.index";
    }
 
