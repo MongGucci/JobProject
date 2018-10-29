@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<link href="${path}/css/essay.css" rel="stylesheet">
 <title>회원가입</title>
 </head>
 
@@ -28,7 +30,7 @@
       
       <div class="form-label-group">
         <label for="inputEmail"style="width: 230px; height: 50px;"  class="alert alert-primary">아이디</label><br>
-        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onkeyup="id" name="id" id="id"   placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span><br>
+        <input style="width: 230px; height: 25px;" class="border border-warning" type="text" onkeyup="id" name="id" id="id"   placeholder="아이디(4~19자 영어,숫자 포함)" required/><br><span></span><br>
        <!--  <input style="width: 230px; height: 25px;" class="border border-warning" type="text"  name="id"  id="id"  placeholder="아이디(4~19자 영어,숫자 포함)" required/><span></span> -->
       </div><br>
 
