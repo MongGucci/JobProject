@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="company">
-	<select id="searchcom" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	<select id="searchcom" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
 		select * from company where cono=#{cono}
 	</select>
-	
-	<select id="schlist" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%')
+
+	<select id="schlist" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(coname) like UPPER('%''_'||#{coname}||'%')
 	</select>
 	
+	<select id="cksearch" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%')
+	</select>
+
 </mapper>

@@ -25,6 +25,10 @@
                <a class="btn btn-sm btn-outline-secondary"
                   href="${pageContext.servletContext.contextPath}/join.do"
                   id="Sign up">Sign up</a>
+                  
+               <a class="btn btn-sm btn-outline-secondary"
+                  href="${pageContext.servletContext.contextPath}/logout.do"
+                  id="Sign out">Sign out</a>
             </div>
          </div>
       </div>

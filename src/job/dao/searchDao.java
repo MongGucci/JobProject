@@ -28,6 +28,11 @@ public class searchDao {
 	}
 	// 요게 관심기업 중복 검사
 	public List<Map> ckbtn(Map map) {
+		System.out.println("버튼중복 : "+map);
 		return template.selectList("pickedcompany.ckbtn",map);
+	}
+	// 요게 관심 기업 리스트 촤르륵
+	public List<Map> cksearch(String coname) {
+		return template.selectList("company.cksearch",coname);
 	}
 }
