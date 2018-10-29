@@ -7,7 +7,7 @@
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
 <div class="container" style="margin-top: 20px;">
 
-	<div class="card">
+	<div class="card" style="width:100%;">
 
 		<div class="card-body">
 			<h5 class="card-title">${essay.TITLE}</h5>
