@@ -24,10 +24,10 @@ import job.models.HireRepository;
 public class SearchController {
 	@Autowired
 	searchDao searchdao;
-	
+
 	@Autowired
 	HireRepository hrepo;
-	
+
 	@Autowired
 	Gson gson;
 
@@ -61,9 +61,11 @@ public class SearchController {
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
+		System.out.println("dtdtdtd:" + dt);
+		wr.setAttribute("dt", dt, wr.SCOPE_REQUEST);
+		// wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 
-		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
-		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
+		// wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
 
 		List<Map> hiring = hrepo.getHirebyCono(cono);
 		map.put("hiring", hiring);
@@ -91,28 +93,30 @@ public class SearchController {
 	}
 
 	// 요게 관심 기업 버튼 클릭
-	   @RequestMapping("/schbtn.do")
-	   public String schbtn(WebRequest wr, ModelMap map) {
-	      String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
-	      
-	      Map sd = new HashMap<>();
-	      sd.put("id", id);
-	      sd.put("cono", wr.getAttribute("cono", wr.SCOPE_SESSION));
-	      
-	      System.out.println("확인 : " + sd);
-	      if(id == null) {   
-	         return "/login/login";
-	      }else {
-	         List<Map> jd = searchdao.ckbtn(sd);
-	         System.out.println("찍어보자 : " + jd);
-	         if(jd.size() == 0) {
-	            int c = searchdao.schbtn(sd);
-	            map.put("ok", "on");
-	            return "job.schdetail.index";
-	         }else {
-	            map.put("btn", "ya");
-	            return "job.schdetail.index";
-	      }
-	   }
-	   }
+	@GetMapping("/schbtn.do")
+	public String schbtn(WebRequest wr, ModelMap map) {
+		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+		String no = wr.getParameter("no");
+		System.out.println("no:"+ no);
+		Map sd = new HashMap<>();
+		sd.put("id", id);
+
+		sd.put("cono", no);
+
+		System.out.println("확인 : " + sd);
+		if (id == null) {
+			return "/login/login";
+		} else {
+			List<Map> jd = searchdao.ckbtn(sd);
+			System.out.println("찍어보자 : " + jd);
+			if (jd.size() == 0) {
+				int c = searchdao.schbtn(sd);
+				map.put("ok", "on");
+				return "job.schdetail.index";
+			} else {
+				map.put("btn", "ya");
+				return "job.schdetail.index";
+			}
+		}
+	}
 }
