@@ -120,7 +120,6 @@
 			<button class="btn btn-dark">올리기</button>
 		</div>
 	</form>
-</div>
 
 <script>
 	$("#A1").keyup(function() {
