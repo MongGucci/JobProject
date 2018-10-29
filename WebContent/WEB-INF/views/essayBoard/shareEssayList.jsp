@@ -25,7 +25,7 @@ color: orange;
 <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item"><a class="nav-link active" id="tab"
          data-toggle="tab" href="#home" role="tab" aria-controls="home"
-         aria-selected="true">최근 올라온 순</a></li>
+         aria-selected="true">최근 순</a></li>
       <li class="nav-item"><a class="nav-link" id="tab"
          data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
          aria-selected="false">인기 순</a></li>

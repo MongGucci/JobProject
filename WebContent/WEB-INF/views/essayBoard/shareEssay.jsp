@@ -55,7 +55,7 @@
 		<div class="form-group">
 			<label for="exampleFormControlTextarea1">CONTENT</label>
 			<textarea class="form-control" id="exampleFormControlTextarea1"
-				name="content" rows="3" placeholder="보내는 내용"></textarea>
+				name="content" rows="3" placeholder="보내는 내용" required="required"></textarea>
 		</div>
 
 		<!-- 질문1번째 -->
