@@ -147,7 +147,7 @@ public class RecruitController {
 		}
 	}
 	
-	@GetMapping("/review.do")
+	@PostMapping("/review.do")
 	public String writeReviewHandle(WebRequest session,@RequestParam Map param) {
 		System.out.println("param :"+param);
 		
@@ -156,9 +156,11 @@ public class RecruitController {
 		String bad= (String)param.get("bad");
 		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
 		int star=Integer.parseInt(s);
-		int cono =(int)session.getAttribute("cono",session.SCOPE_SESSION);
+		System.out.println("cono: "+param.get("cono"));
+		String no = (String)param.get("cono");
+		int cono = Integer.parseInt(no);
 		
-		System.out.println(s+"/"+star+"/"+good+"/"+bad+"/"+id+"/"+cono);
+		//System.out.println(s+"/"+star+"/"+good+"/"+bad+"/"+id+"/"+cono);
 		
 		Map map = new HashMap();
 		map.put("id",id);
@@ -170,11 +172,11 @@ public class RecruitController {
 		System.out.println("r/"+r);
 		System.out.println("map : "+map);
 		if(r==1) {
-			map.put("success", true);
-			return "job.schdetail.index";
+			session.setAttribute("sucess", true, session.SCOPE_REQUEST);
+			return "redirect:/search/schdetail.do?no="+cono;
 		}else {
-			map.put("fail", true);
-			return "job.schdetail.index";
+			session.setAttribute("fail", true, session.SCOPE_REQUEST);
+			return "redirect:/search/schdetail.do?no="+cono;
 		}
 	}
 }

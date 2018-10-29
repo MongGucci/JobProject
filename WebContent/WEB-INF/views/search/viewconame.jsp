@@ -85,7 +85,8 @@
 			<c:choose>
 				<c:when test="${empty sessionScope.youwrote}">
 					<h4>이 기업에 대한 후기를 남겨주세요!</h4>
-				<form action="${path}/recruit/review.do" method="get">
+				<form action="${path}/recruit/review.do" method="post">
+					<input name="cono" value="${dt.CONO }" hidden=""/>
 					<input type="hidden" name="star" id="star" value="1" />
 					<div class="form-group">
 						<label for="exampleInputEmail1">좋은점</label> <input required
@@ -119,12 +120,6 @@
 				</c:when>
 				<c:otherwise>
 					이미 이 기업에 대한 후기를 남기셨네요! (그리고 여기에 달린 리뷰들 쫙뿌려주기)
-					<c:forEach var="review" items=${review}>
-						장점 : ${review.GOOD } <br/>
-						단점 : ${review.BAD } <br/>
-						별점 : ${review.STAR} <br/>
-					
-					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		

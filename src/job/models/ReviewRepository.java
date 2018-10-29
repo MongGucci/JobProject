@@ -17,7 +17,10 @@ public class ReviewRepository {
 	SqlSessionTemplate template;
 	
 	public int writeReview(Map map) {
-		return template.insert("review.writeReview",map);
+		int r =template.insert("review.writeReview",map);
+		System.out.println("reviewRepo 터지나요오 : " +r);
+		
+		return r;
 	}
 	
 	public Map didIWriteReview(Map map) {
