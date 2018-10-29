@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="essay">
+<mapper namespace="review">
 
 
 	<insert id="writeReview" parameterType="java.util.HashMap">
-		insert into review values(#{no}, #{id},#{good}, #{bad},#{star},#{cono})
+		insert into review values(review_seq.nextval, #{id},#{good}, 
+		#{bad},#{star},#{cono})
 	</insert>
-
-
+ 
+	<select id="getReviewsByCono"  parameterType="java.lang.Integer">
+		select * from review where cono=#{cono}
+	</select>
+	
+	<select id="didIWriteReview" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from review where id=#{id} and cono=#{cono}
+	</select>
+	
+	
 </mapper>

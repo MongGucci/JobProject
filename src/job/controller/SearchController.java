@@ -17,13 +17,19 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.gson.Gson;
 
 import job.dao.searchDao;
+<<<<<<< HEAD
 import job.models.HireRepository;
+=======
+import job.models.ReviewRepository;
+>>>>>>> refs/heads/nayoon05
 
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 	@Autowired
 	searchDao searchdao;
+	@Autowired
+	ReviewRepository rvrepo;
 
 	@Autowired
 	HireRepository hrepo;
@@ -57,10 +63,15 @@ public class SearchController {
 
 	// 요게 상세보기
 	@RequestMapping("/schdetail.do")
+<<<<<<< HEAD
 	public String detailHandle(WebRequest wr, Map map) {
+=======
+	public String detailHandle(WebRequest wr, Map review) {
+>>>>>>> refs/heads/nayoon05
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
+<<<<<<< HEAD
 		System.out.println("dtdtdtd:" + dt);
 		wr.setAttribute("dt", dt, wr.SCOPE_REQUEST);
 		// wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
@@ -70,6 +81,24 @@ public class SearchController {
 		List<Map> hiring = hrepo.getHirebyCono(cono);
 		map.put("hiring", hiring);
 
+=======
+		System.out.println("아이디 : " + id + " / " + cono);
+		if(id!=null) {
+			Map map = new HashMap();
+			map.put("id", id);
+			map.put("cono",cono);
+			Map didI = rvrepo.didIWriteReview(map);
+			System.out.println("썻냐안썻냐"+didI);
+			if(didI!=null) {
+				wr.setAttribute("youwrote", true, wr.SCOPE_SESSION);
+			}
+		}
+		
+		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
+		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
+		review.put("review", rvrepo.getReviewsByCono(cono));
+		
+>>>>>>> refs/heads/nayoon05
 		return "job.schdetail.index";
 	}
 

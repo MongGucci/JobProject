@@ -80,7 +80,6 @@
          data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
          aria-selected="false">얼마 남지 않은순</a></li>
    </ul>
-
    <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel"
          aria-labelledby="home-tab">
@@ -153,6 +152,7 @@
                </c:forEach>
             </tbody>
          </table>
+
 
       </div>
    </div>
