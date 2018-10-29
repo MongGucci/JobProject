@@ -34,7 +34,7 @@ public class LoginController {
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
 		
-		return "login";
+		return "/login/login";
 	}
 	
 	@PostMapping("/login.do")
@@ -67,7 +67,7 @@ public class LoginController {
 			return "redirect:/job/index.do";
 		} else {
 			map.put("err", "on");
-			return "login";
+			return "/login/login";
 		}
 	}
 	
@@ -77,6 +77,6 @@ public class LoginController {
 		sessions.remove(id);
 		session.invalidate();
 		System.out.println("로그아웃 완료");
-		return "";
+		return "redirect:/job/index.do";
 	}
 }

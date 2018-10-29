@@ -40,7 +40,11 @@
 					</p>
 			</div>
 			<div>
-				<input type="text" placeholder="궁금하신 회사의 이름을 입력해주세요." name="search" />
+				<input type="text" list="some" placeholder="궁금하신 회사의 이름을 입력해주세요."
+					name="search" onkeyup="sch(this)" />
+				<datalist id="some">
+					<option></option>
+				</datalist>
 				<button type="submit" style="height: 40px;">
 					<img class=""
 						src="${pageContext.servletContext.contextPath }/image/dop.PNG"
@@ -58,6 +62,27 @@
 			<p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>
 		</nav>
 	</div>
+	<script>
+		var sch = function(target) {
+			var xhr = new XMLHttpRequest();
+			var param = target.value;
+			console.log("쳐봐 :" + param);
 
+			xhr.open("get", "${path}/search/searchajax.do?coname="+param, true);
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4) {
+					var html = "";
+					var obj = JSON.parse(this.responseText.trim());
+					for (var i = 0; i < obj.length; i++) {
+						html += "<option value =" + obj[i].CONAME + ">"
+								+ obj[i].CONAME + "</option>";
+					}
+					document.getElementById("some").innerHTML =  html;
+				}
+			};
+			xhr.send(param);
+
+		};
+	</script>
 </body>
 </html>
