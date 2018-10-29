@@ -11,7 +11,7 @@
 
 		<div class="card-body">
 			<h5 class="card-title">${essay.TITLE}</h5>
-			 <h6 class="card-subtitle mb-2 text-muted">작성자 : ${essay.WRITER}</h6>
+			<h6 class="card-subtitle mb-2 text-muted">작성자 : ${essay.WRITER}</h6>
 			<p class="card-text">${essay.CONTENT}</p>
 
 			<c:if test="${!empty essay.PATH}">
@@ -170,7 +170,7 @@
 
 		</c:otherwise>
 	</c:choose>
-	
+
 	<%-- ===============================댓글 시작=====================================  --%>
 
 
@@ -204,7 +204,7 @@
 						<c:choose>
 							<c:when test="${h.FLAG eq 'A'}">
 								<div style="margin: 20px; margin-left: 30px;">
-									<p>┗ ${h.WRITER}  : 관리자에 의해 삭제된 댓글입니다.</p>
+									<p>┗ ${h.WRITER} : 관리자에 의해 삭제된 댓글입니다.</p>
 								</div>
 							</c:when>
 							<c:when test="${h.FLAG eq 'W'}">
@@ -222,31 +222,33 @@
 
 					</c:if>
 				</c:forEach>
-<%-- ===============================답글 버튼=====================================  --%>
-
-				<div align="right">
-
+				<%-- ===============================답글 버튼=====================================  --%>
+				<div align="right" style="margin: 20px;">
 					<button class="comment"
 						style="border: none; background-color: rgba(0, 0, 0, 0);">답글달기</button>
-
 					<a href="${path}/essayBoard/reply.do?handle=delete&no=${e.NO}">
 						<button style="border: none; background-color: rgba(0, 0, 0, 0);">삭제하기</button>
 					</a>
+					<form action="${path}/essayBoard/replyComment.do" method="post" style="display: none;">
+						<input type="hidden" name="parent" value="${e.NO}"> <input
+							type="hidden" name="replyid" value="${e.WRITER}"> <input
+							type="hidden" name="jasono" value="${e.JASONO}">
+						<div id="commentArea" style="margin: 20px; "
+							class="form-group">
+							<label>답글</label>
+							<textarea class="form-control" name="reply" rows="3"></textarea>
+							<div align="right" style="margin-top: 10px;">
+								<button>답글달기</button>
+							</div>
+						</div>
+					</form>
 				</div>
-
-<%-- ===============================답글 보내기=====================================  --%>
-
-				<form action="${path}/essayBoard/replyComment.do" method="post">
-					<input type="hidden" name="parent" value="${e.NO}"> <input
-						type="hidden" name="replyid" value="${e.WRITER}"> <input
-						type="hidden" name="jasono" value="${e.JASONO}">
-					<div id="commentArea" style="margin: 20px;"></div>
-				</form>
+				<%-- ===============================답글 보내기=====================================  --%>
 			</c:if>
 
 		</c:forEach>
 		<hr>
-<%-- ===============================댓글 다는곳=====================================  --%>
+		<%-- ===============================댓글 다는곳=====================================  --%>
 		<form action="${path}/essayBoard/reply.do" method="post">
 			<input type="hidden" name="jasono" value="${essay.NO}"> <input
 				type="hidden" name="replyid" value="${essay.WRITER}">
@@ -264,16 +266,7 @@
 	<%-- ===============================댓글 끝=====================================  --%>
 </div>
 <script>
-	$(".comment")
-			.on(
-					"click",
-					function() {
-
-						var html = "";
-						html += "<div class=\"form-group\" style=\"margin: 20px;\">"
-								+ "<label>답글</label><textarea class=\"form-control\" id=\"exampleFormControlTextarea1\"name=\"reply\" rows=\"3\"></textarea>"
-								+ "<div align=\"right\" style=\"margin-top: 10px;\"><button>답글달기</button></div></div>";
-						$("#commentArea").html(html);
-
-					});
+	$(".comment").on("click", function() {
+		$(this).next().next().toggle();
+	});
 </script>
