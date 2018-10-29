@@ -22,7 +22,7 @@
 						href="${pageContext.servletContext.contextPath }/login.do"
 						id="signin">Sign in</a>
 					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath}/join.do"
+						href="${pageContext.servletContext.contextPath}/join/join.do"
 						id="Sign up">Sign up</a>
 				</c:if>
 				<c:if test="${!empty userId}">
