@@ -31,4 +31,14 @@ public class ReviewRepository {
 		return template.selectList("review.getReviewsByCono",cono);
 	}
 	
+	public int getAvgStar(int cono) {
+		try {
+			return template.selectOne("review.getAvgStar",cono);
+		}catch(Exception e) {
+			System.out.println("등록된 평점이없어서 평균이안나옴");
+			return 0;
+		}
+		
+	}
+	
 }

@@ -15,5 +15,7 @@
 		select * from review where id=#{id} and cono=#{cono}
 	</select>
 	
-	
+	<select id="getAvgStar" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+		select round(avg(star)) from review where cono=#{cono}
+	</select>
 </mapper>

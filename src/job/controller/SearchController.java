@@ -86,6 +86,12 @@ public class SearchController {
       List<Map> reviews = rvrepo.getReviewsByCono(cono);
       map.put("reviews", reviews);
       
+      int avg = rvrepo.getAvgStar(cono);
+      if(avg==0) {
+    	  map.put("avg", 0);
+      }else {
+    	  map.put("avg", avg);
+      }
       return "job.schdetail.index";
    }
 
@@ -128,10 +134,10 @@ public class SearchController {
          if (jd.size() == 0) {
             int c = searchdao.schbtn(sd);
             map.put("ok", "on");
-            return "redirect:/search/schdetail.do?no="+no;
+            return "redirect:/search/schdetail.do?cono="+no;
          } else {
             map.put("btn", "ya");
-            return "redirect:/search/schdetail.do?no="+no;
+            return "redirect:/search/schdetail.do?cono="+no;
          }
       }
    }

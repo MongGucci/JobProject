@@ -79,7 +79,7 @@
 		<c:choose>
 		<c:when test="${empty sessionScope.userId}">
 		<h4>reviews</h4>
-		이 기업은 평균 <span class="starR on"></span>3.4점 입니다! 더 많은 정보를 보고싶다면 <a href="${path}/login.do">로그인</a>을 해주세요!
+		이 기업은 평균 <span class="starR on"></span>${avg} 점 입니다! 더 많은 정보를 보고싶다면 <a href="${path}/login.do">로그인</a>을 해주세요!
 		</c:when>
 		<c:otherwise>
 			<c:choose>
