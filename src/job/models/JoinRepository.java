@@ -11,24 +11,24 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JoinRepository {
 
-	@Autowired
-	SqlSessionTemplate template;
-	
-	
-	
-	public int add(Map map){
-		return template.insert("applicant.add", map);
-	}
+   @Autowired
+   SqlSessionTemplate template;
+   
+   
+   
+   public int add(Map map){
+      return template.insert("applicant.add", map);
+   }
 
-	public Map getById(String id) {
-		return template.selectOne("applicant.getById",id);
-	}
-	
-	public int getByIdAndPass(Map data) {
-		return template.selectOne("applicant.getByIdAndPass",data);
-	}
-	
-	public List<Map> getByEmail(String mail) {
-		return template.selectOne("applicant.getByEmail",mail);
-	}
+   public Map getById(String id) {
+      return template.selectOne("applicant.getById",id);
+   }
+   
+   public int getByIdAndPass(Map data) {
+      return template.selectOne("applicant.getByIdAndPass",data);
+   }
+   
+   public Map getByEmail(String mail) {
+      return template.selectOne("applicant.getByEmail",mail);
+   }
 }

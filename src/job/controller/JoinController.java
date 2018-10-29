@@ -158,6 +158,7 @@ public class JoinController extends HttpServlet {
    }
    
    
+   
 
    @RequestMapping("/emailcheck.do")
    @ResponseBody
