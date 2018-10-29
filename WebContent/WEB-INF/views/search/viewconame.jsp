@@ -61,8 +61,9 @@
 	<hr />
 	<div>
 		<h4> 이 기업의 진행중인 채용공고</h4>
-		
-	
+		<c:forEach var="h" items="${hiring}">
+			<br/>${h.CONAME} - ${h.TITLE }  (${h.STARTDATE}-${h.ENDDATE}) <a href="{path}/recruit/jobpost.do?hino=$h.HINO}">보러 가기</a>
+		</c:forEach>	
 	</div>
 	
 	

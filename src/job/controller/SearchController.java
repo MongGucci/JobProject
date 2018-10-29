@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.gson.Gson;
 
 import job.dao.searchDao;
+import job.models.HireRepository;
 
 @Controller
 @RequestMapping("/search")
@@ -24,8 +25,8 @@ public class SearchController {
 	@Autowired
 	searchDao searchdao;
 	
-/*	@Autowired
-	HireRepository hrepo;*/
+	@Autowired
+	HireRepository hrepo;
 	
 	@Autowired
 	Gson gson;
@@ -64,8 +65,8 @@ public class SearchController {
 		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
 
-	/*	List<Map> hiring = hrepo.getHirebyCono(cono);
-		map.put("hiring", hiring);*/
+		List<Map> hiring = hrepo.getHirebyCono(cono);
+		map.put("hiring", hiring);
 
 		return "job.schdetail.index";
 	}
