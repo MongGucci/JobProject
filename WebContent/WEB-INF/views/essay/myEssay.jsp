@@ -11,11 +11,11 @@
 
 	<h1>내가 쓴 자기소개서</h1>
 	
+		<div class="row"> 
 		<c:forEach var="e" items="${myEssay}">
 
 
-
-			<div class="card" style="margin-right: 10px;"
+			<div class="card col-3" style="margin: 0px; padding: 0px; " 
 				onclick="location.href='${path}/essay/myEssayDetail.do?no=${e.JASONO}'">
 				<div class="card-body">
 					<h5 class="card-title">${e.ID}</h5>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</c:forEach>
-
+		</div>
 	
 
 	<div align="right">

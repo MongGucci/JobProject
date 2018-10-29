@@ -9,3 +9,11 @@ button#reply{
 	border: none;
 	background-color: rgba(0, 0, 0, 0);
 }
+
+.nav-link:link { color: orange;}
+li{
+	font-size: : 30pt;
+}
+a.nav-link{
+font-size: 20pt;
+}

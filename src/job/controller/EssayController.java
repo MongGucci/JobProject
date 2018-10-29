@@ -48,8 +48,8 @@ public class EssayController {
 	
 	@GetMapping("/myEssay.do")
 	public String myEssayGetHandle(WebRequest web) {
-		//String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
-		List<Map> myEssay = essay.getMyEssay("yyj");//session userId
+		String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
+		List<Map> myEssay = essay.getMyEssay(userId);//session userId
 		System.out.println(myEssay);
 		
 		web.setAttribute("myEssay", myEssay, web.SCOPE_REQUEST);

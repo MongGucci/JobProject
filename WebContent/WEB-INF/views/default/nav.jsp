@@ -16,18 +16,26 @@
 					id="logo"><b>JOB'A</b></a>
 			</div>
 
+
 			<div class="col-4 d-flex justify-content-end align-items-center">
 
-				<div class="col-4 d-flex justify-content-end align-items-center">
+				<div style="margin-left: 20px;">
 					<a class="btn btn-sm btn-outline-secondary"
 						href="${pageContext.servletContext.contextPath }/login.do"
-						id="signin">Sign in</a> <br> <a class="nav-link"
-						href="${pageContext.servletContext.contextPath }/pwchange.do">변경</a>
-
+						id="signin">Sign in</a>
+				</div>
+				<c:if test="${!empty userId }">
+					<div>
+						<a class="btn btn-sm btn-outline-secondary"
+							href="${pageContext.servletContext.contextPath }/pwchange.do">마이페이지</a>
+					</div>
+				</c:if>
+				<div>
 					<a class="btn btn-sm btn-outline-secondary"
 						href="${pageContext.servletContext.contextPath}/join.do"
 						id="Sign up">Sign up</a>
 				</div>
+
 			</div>
 		</div>
 

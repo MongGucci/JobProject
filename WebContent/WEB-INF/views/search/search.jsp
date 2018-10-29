@@ -28,11 +28,12 @@
 <body style="text-align: center; background-color: orange;">
 	<div class="container" style="margin-top: 20px; float: none;">
 		<nav class="navbar navbar-default" color-on-scroll="200px;">
-			<div>
-				<p id="#cm" class="hc vc">
-				<form class="form-signin"
+		<form class="form-signin"
 					action="${pageContext.servletContext.contextPath }/search/search.do"
 					method="post">
+			<div>
+				<p id="#cm" class="hc vc">
+				
 					<h1>기업 검색</h1>
 					<p style="color: white;">
 						이 기업의 연봉정보,<br> 입사지원서 내기 전에 확인하세요!

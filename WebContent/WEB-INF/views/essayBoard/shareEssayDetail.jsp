@@ -192,7 +192,7 @@
 						</c:when>
 						<c:otherwise>
 							<div>
-								<p>${e.WRITER}:${e.REPLY }</p>
+								<p>${e.WRITER} : ${e.REPLY }</p>
 							</div>
 						</c:otherwise>
 

@@ -5,7 +5,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
-<div class="container" style="margin-top: 20px;">
+<div class="container" style="margin: 20px;">
 
 	<div class="card">
 
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	
-	<div class="accordion" id="accordionExample">
+	<div class="accordion" id="accordionExample" >
 		<!-- 싹긁어와서 바꿔버리기 -->
 
 		<div id="accordion" role="tablist">
