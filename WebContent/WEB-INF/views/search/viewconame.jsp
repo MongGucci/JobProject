@@ -75,7 +75,7 @@
 
 	<hr />
 	<div>
-		${sessionScope.youwrote}
+
 		<c:choose>
 		<c:when test="${empty sessionScope.userId}">
 		<h4>reviews</h4>

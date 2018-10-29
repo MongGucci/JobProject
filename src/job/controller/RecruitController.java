@@ -110,13 +110,11 @@ public class RecruitController {
 	
 	@GetMapping("/jobpost.do")
 	public String jobpostGetHandle(@RequestParam Map param, Map post) {
-		System.out.println("param : "+param);
+		//SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		int hino = Integer.parseInt((String)param.get("hino"));
-		System.out.println("hino: "+hino);
 		Map company= hrepo.getHirebyHino(hino);
-		System.out.println("companybyHino: " +company);
 		post.put("list", company);
-		System.out.println("list.CONAME/"+company.get("CONAME"));
+
 		return "job.jobpost";
 	}
 	
