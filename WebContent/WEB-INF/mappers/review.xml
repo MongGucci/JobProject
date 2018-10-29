@@ -6,12 +6,14 @@
 		insert into review values(review_seq.nextval, #{id},#{good}, 
 		#{bad},#{star},#{cono})
 	</insert>
-<!-- 
-	<select id="reviewByCono"  parameterType="java.lang.Integer>
-	
-	</select> -->
+ 
+	<select id="getReviewsByCono"  parameterType="java.lang.Integer">
+		select * from review where cono=#{cono}
+	</select>
 	
 	<select id="didIWriteReview" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
 		select * from review where id=#{id} and cono=#{cono}
 	</select>
+	
+	
 </mapper>

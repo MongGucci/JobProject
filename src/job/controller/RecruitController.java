@@ -121,7 +121,7 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/comdetail.do")
-	public String comdetailGetHandle(WebRequest session) {
+	public String comdetailGetHandle(WebRequest session, Map review) {
 		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
 		int cono =(int)session.getAttribute("cono",session.SCOPE_SESSION);
 		Map map = new HashMap();
@@ -132,6 +132,7 @@ public class RecruitController {
 		if(didI==null) {
 			session.setAttribute("youwrote", true, session.SCOPE_SESSION);
 		}
+		review.put("review",rvrepo.getReviewsByCono(cono));
 		return "job.schdetail.index";
 	}
 	

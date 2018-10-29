@@ -45,7 +45,7 @@ public class SearchController {
 	}
 	// 요게 상세보기
 	@RequestMapping("/schdetail.do")
-	public String detailHandle(WebRequest wr) {
+	public String detailHandle(WebRequest wr, Map review) {
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
@@ -63,6 +63,8 @@ public class SearchController {
 		
 		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
+		review.put("review", rvrepo.getReviewsByCono(cono));
+		
 		return "job.schdetail.index";
 	}
 	// 요게 관심 기업 버튼 클릭

@@ -21,9 +21,11 @@ public class ReviewRepository {
 	}
 	
 	public Map didIWriteReview(Map map) {
-		Map m = template.selectOne("review.didIWriteReview", map);
-		System.out.println("여긴들어오냐"+m);
-		return m;
+		return template.selectOne("review.didIWriteReview", map);
+	}
+	
+	public List<Map> getReviewsByCono(int cono){
+		return template.selectList("review.getReviewsByCono",cono);
 	}
 	
 }
