@@ -23,7 +23,7 @@
                   href="${pageContext.servletContext.contextPath }/pwchange.do">변경</a>
 
                <a class="btn btn-sm btn-outline-secondary"
-                  href="${pageContext.servletContext.contextPath}/join.do"
+                  href="${pageContext.servletContext.contextPath}/join/join.do"
                   id="Sign up">Sign up</a>
             </div>
          </div>

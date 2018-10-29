@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+/*@Controller
 @RequestMapping("/test")
 public class mail {
 
@@ -36,3 +36,4 @@ public class mail {
 		}
 	}
 }
+*/
