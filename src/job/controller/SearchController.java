@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import job.dao.searchDao;
+import job.models.HireRepository;
 
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 	@Autowired
 	searchDao searchdao;
+	
+	@Autowired
+	HireRepository hrepo;
 
 	@GetMapping("/search.do")
 	public String searchGetHandle() {
@@ -42,7 +46,7 @@ public class SearchController {
 	}
 	// 요게 상세보기
 	@RequestMapping("/schdetail.do")
-	public String detailHandle(WebRequest wr) {
+	public String detailHandle(WebRequest wr, Map map) {
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map dt = searchdao.searchcom(cono);
@@ -50,6 +54,10 @@ public class SearchController {
 		
 		wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
 		wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
+		
+		List<Map> hiring = hrepo.getHirebyCono(cono);
+		map.put("hiring", hiring);
+		
 		return "job.schdetail.index";
 	}
 	// 요게 관심 기업 버튼 클릭

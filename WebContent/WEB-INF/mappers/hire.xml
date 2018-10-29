@@ -53,6 +53,12 @@
 		select * from(company join hire on
 		company.coname=hire.name) where hino=#{hino}
 	</select>
+	
+	<select id="getHireByCono" parameterType="java.lang.Number"
+		resultType="java.util.HashMap">
+		select * from(company join hire on
+		company.coname=hire.name) where cono=#{cono}
+	</select>
 
 
 </mapper>

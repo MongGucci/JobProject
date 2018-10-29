@@ -28,6 +28,11 @@ public class HireRepository {
 		return template.selectOne("hire.getHireByHino",hino);
 	}
 	
+
+	public List<Map> getHirebyCono(int cono){
+		return template.selectList("hire.getHireByCono",cono);
+	}
+	
 	public List<Map> getAllHiresByStartdate() {
 		return template.selectList("hire.getAllHiresByStartdate");
 	}

@@ -116,6 +116,7 @@ public class RecruitController {
 	@GetMapping("/review.do")
 	public String writeReviewHandle(@RequestParam Map param) {
 		System.out.println("param :"+param);
-		return "job.schdetail.index";
+		int cono = 1113;
+		return "redirect:/search/schdetail.do?cono="+cono;
 	}
 }
