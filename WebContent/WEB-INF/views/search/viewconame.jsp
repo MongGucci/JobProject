@@ -7,14 +7,15 @@
 <link href="${path}/css/essay.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/css/tableboder.css">
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
 <style type="text/css">
 .line {
 	border-bottom: 1px solid black;
 }
 </style>
 <hr />
-<body style="text-align: center;">
+<div class="container" style="margin-top: 20px; text-align: center;">
+
 	<img alt="" src="${pageContext.servletContext.contextPath }${dt.LOGO }"
 		style="float: left;">???재민아 여기에 뭐쓸라구?
 	<h3>${dt.CONAME }</h3>
@@ -135,4 +136,5 @@
 			</script>
 		</c:otherwise>
 	</c:choose>
-</body>
+
+</div>
