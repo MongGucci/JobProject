@@ -23,7 +23,7 @@ html, body {
 		<div class="card-header">
 			<h2 align="center">${list.CONAME}</h2>
 			 <div align="right">
-			 	<a class="btn btn-outline-secondary" href="${path}/search//schdetail.do?cono=${list.CONO}" role="button">기업보러가기</a>
+			 	<a class="btn btn-outline-secondary" href="${path}/search/schdetail.do?cono=${list.CONO}" role="button">기업보러가기</a>
 			 </div>
 		</div>
 		<div class="card-body">

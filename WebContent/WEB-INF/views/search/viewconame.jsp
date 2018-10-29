@@ -15,6 +15,7 @@
 </style>
 <hr />
 <div class="container" style="margin-top: 20px; text-align: center;">
+<h1>${dt.CONO}</h1>
 
 	<img alt="" src="${pageContext.servletContext.contextPath }${dt.LOGO }"
 		style="float: left;">???재민아 여기에 뭐쓸라구?
@@ -29,11 +30,14 @@
 			alert("관심 기업으로 등록되었습니다.");
 		</script>
 	</c:if>
-	<form
-		action="${pageContext.servletContext.contextPath }/search/schbtn.do"
-		id="f"></form>
+	
+	<a
+		href="${pageContext.servletContext.contextPath }/search/schbtn.do?no=${dt.CONO}"
+		id="f">
+		
 	<button class="alert alert-warning" style="height: 50px;" id="bt">+
 		관심 기업등록</button>
+		</a>
 	<hr />
 	<c:if test = "${!empty btn }">
 		<script>
