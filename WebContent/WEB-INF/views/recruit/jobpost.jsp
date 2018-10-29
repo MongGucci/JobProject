@@ -16,10 +16,10 @@ html, body {
 }
 </style>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link href="${path}/css/essayBoard.css" rel="stylesheet">
+
 <div class="container" style="margin-top: 20px;">
 
-	<div class="card">
+	<div class="card" style="width:100%;">
 		<div class="card-header">
 			<h2 align="center">${list.CONAME}</h2>
 			 <div align="right">
