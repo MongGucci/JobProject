@@ -27,7 +27,7 @@
 <body style="background-color: rgba(182, 183, 185, 0.25);">
 	<div class="container-fluid" style="margin-top: 20px;">
 		<div
-			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center;">JOB
+			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center;" onclick="javascript:location.href='${path}/job/index.do'">JOB
 			GO</div>
 		<div class="ui page  grid">
 
@@ -99,16 +99,14 @@
 						<label style="font-size: 15pt; color:#4F6994"><i class="star icon" style="font-size: 15pt; color: gray;"></i>관심 분야</label><br>
 							<c:forEach var="i" items="${map}">
 								<div class="ui checkbox"
-									style="width: 300px; color: navy; font-size: 15pt;">
+									style="width: 200px; color: navy; font-size: 15pt;">
 
 									<input type="checkbox" value="${i.CATENAME }"
 										onchange="gc(this)" name="job"> <label
 										style="color: #4F6994">${i.CATENAME }</label>
 
 								</div>
-								<c:if test="${(i.NO)%2==1} ">
-									<br />
-								</c:if>
+								
 							</c:forEach>
 						</div>
 

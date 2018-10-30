@@ -11,7 +11,6 @@
 }
 </style>
 <div class="container" style="margin-top: 20px;">
-
 	<form class="ui fluid form" action="${path}/join/join.do" method="post">
 
 		<div class="inline field">
