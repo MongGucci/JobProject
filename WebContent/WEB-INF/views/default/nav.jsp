@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essay.css" rel="stylesheet">
 
-<div class="container">
+<div class="container" style="margin-top: 30px;">
 	<header class="blog-header py-3">
 		<div
 			class="row flex-nowrap justify-content-between align-items-center">

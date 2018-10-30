@@ -50,7 +50,7 @@ public class JoinController extends HttpServlet {
       List<Map> cate = jcr.getAll();
       map.put("map", cate);
       System.out.println(cate);
-      return "job.join";
+      return "join/signup";
    }
 
    @PostMapping("/join.do")

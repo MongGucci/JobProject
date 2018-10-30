@@ -240,4 +240,6 @@
 			value="/WEB-INF/views/default/side.jsp" />
 
 	</definition>
+	
+	
 </tiles-definitions>

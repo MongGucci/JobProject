@@ -5,7 +5,7 @@
 
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
-ㅊ
+
 	<div align="right">
 		<a class="btn btn-dark" href="${path}/essayBoard/essayBoard.do"
 			role="button">게시판 목록</a>
