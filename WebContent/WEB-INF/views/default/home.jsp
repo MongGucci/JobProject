@@ -8,6 +8,16 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="${path}/semantic/semantic.js"></script>
-<div>
-<i class="question circle outline icon" style="font-size: 30pt; color:gray;"></i>
+<div >
+<i class="question circle outline icon" style="font-size: 30pt; color:gray; "id="ex" ></i>
 </div>
+<script>
+$("#ex").mouseover(function() {
+  $( "#ex" ).css('font-size', '20pt');
+});
+$("#ex").mouseout(function() {
+	  $( "#ex" ).css('font-size', '15pt');
+	});
+
+
+</script>

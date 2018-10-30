@@ -13,7 +13,8 @@ public class IndexController {
 	public String GetHandle(WebRequest wr) {
 		
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
-			return "job.index";
+			//return "job.index";
+			return "default/index";
 		} else {
 			wr.getAttribute("id", wr.SCOPE_SESSION);
 			String Id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
