@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
+import com.mongodb.bulk.WriteRequest.Type;
 
 import job.dao.searchDao;
 import job.models.HireRepository;

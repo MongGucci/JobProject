@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
@@ -11,6 +12,19 @@
 <style type="text/css">
 .line {
 	border-bottom: 1px solid black;
+}
+</style>
+<style>
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+	height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 70%;
+	margin: 0;
+	padding: 0;
 }
 </style>
 <hr />
@@ -60,15 +74,31 @@
 		</tr>
 		<tr>
 			<td>위치 : ${dt.BIG }&nbsp;${dt.SMALL }</td>
+			
 		</tr>
 	</table>
 	<hr />
+	<div id="map" style="height: 150px; witdh:200px;"></div>
+			<script>
+				function initMap() {
+					var loc = {lat: ${dt.LAT}, lng: ${dt.LNG}};
+					var map = new google.maps.Map(document.getElementById('map'), {
+						zoom : 15, center:loc});
+					var marker = new google.maps.Marker({position: loc, map: map});
+				};
+			</script>
+			<script
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD8qI5EvQZevGwG3EIOHuKIPwbi9yS-mc&callback=initMap"></script>
 	<div>
-
+		<hr/>
 		<h4> 이 기업의 진행중인 채용공고</h4>
 		<c:forEach var="h" items="${hiring}">
-			<br/>${h.CONAME} - ${h.TITLE }  (${h.STARTDATE}-${h.ENDDATE}) <a href="{path}/recruit/jobpost.do?hino=$h.HINO}">보러 가기</a>
+			<br/>${h.CONAME} - ${h.TITLE }  (<fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${h.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${h.ENDDATE}" />) <a href="{path}/recruit/jobpost.do?hino=$h.HINO}">보러 가기</a>
 		</c:forEach>	
+
+
 
 	</div>
 
@@ -166,3 +196,26 @@
 	</c:choose>
 
 </div>
+
+<script>
+	$("#pickhire").on(
+			"click",
+			function() {
+				
+				var param = {
+					"big" : big
+				};
+				$.post("${path}/recruit/selectajax.do", param).done(
+						function(rst) {
+							var html = "";
+							for (var i = 0; i < rst.length; i++) {
+								html += "<option value=\""+rst[i].SMALL+"\">"
+										+ rst[i].SMALL + "</option><br/>";
+								//console.log(small[i].SMALL);
+							}
+							$("#smalls").html(html);
+
+						});
+			});
+	
+	</script>

@@ -9,10 +9,10 @@
 <hr/>
 <p>
 	
-	직군 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=${condition.cate}&big=all&small=all&cotype=all&hireshape=all" role="button">${condition.cate}</a> | 
-	지역 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=all&big=${condition.big}&small=${condition.small}&cotype=all&hireshape=all" role="button"> ${condition.big}-${condition.small}</a> |
-	기업 형태 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=all&big=all&small=all&cotype=${condition.cotype}&hireshape=all" role="button">${condition.cotype}</a> |
-	고용 형태 : <a class="btn btn-outline-secondary" href="${path}/recruit/buttonselect.do?cate=all&big=all&small=all&cotype=all&hireshape=${condition.hireshape}" role="button">${condition.hireshape} </a>
+	직군 : ${condition.cate} |
+	지역 : ${condition.big}-${condition.small} |
+	기업 형태 :${condition.cotype} |
+	고용 형태 :${condition.hireshape}
 	에 대한 검색결과입니다. <a role="button" class="btn btn-secondary" href="${path}/recruit/select.do">다시조건검색으로</a>
 </p>	
 <hr/>
@@ -36,14 +36,27 @@
 				</thead>
 				<tbody>
 					<c:forEach var="post" items="${lists}">
-						<tr class="table"
-							onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
-							<th scope="row">#로고</th>
-							<td>${post.CONAME}</td>
-							<td>${post.TITLE}</td>
-							<td>${startdate}-${enddate}</td>
-						</tr>
-					</c:forEach>
+            		
+            		<c:if test="${empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>${post.TITLE}</td>
+	                     <td>${post.STARTDATE}-${post.ENDDATE}</td>
+	                  </tr>
+	                </c:if>
+	            	<c:if test="${!empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>[마감]${post.TITLE}</td>
+	                     <td>마감된 공고입니다.</td>
+	                  </tr>
+	            	</c:if>
+	            
+            		</c:forEach>
 				</tbody>
 			</table>
 		</div>

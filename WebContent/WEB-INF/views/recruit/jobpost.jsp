@@ -27,7 +27,7 @@ html, body {
 			 </div>
 		</div>
 		<div class="card-body">
-			<h5 class="card-title">${list.TITLE}</h5>
+			<h5 class="card-title"><c:if test="${!empty list.MAGAM}">[마감]</c:if>${list.TITLE}</h5>
 			<p class="card-text">${list.CONTENT}</p>
 			<div
 				style="line-height: 100px; text-align: center">
@@ -35,8 +35,9 @@ html, body {
 			</div>
 			<hr/>
 			<div>
-				- 채용 기간 : ${list.STARTDATE } - ${list.ENDDATE}<br /> - 관심 기업으로
-				${list.FAVORITE}명 이상이 찜한 선망받는 기업<br /> - ${list.COTYPE}<br />
+				- 채용 기간 : ${list.START } - ${list.END} <c:if test="${!empty list.MAGAM}">[마감]</c:if><br /> 
+				- 관심 기업으로 ${list.FAVORITE}명 이상이 찜한 선망받는 기업<br /> 
+				- ${list.COTYPE}<br />
 			</div>
 			
 			<div id="map" style="height: 600px"></div>

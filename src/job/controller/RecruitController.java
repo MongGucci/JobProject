@@ -58,15 +58,44 @@ public class RecruitController {
 		for (int i = 0; i < start.size(); i++) {
 			Map m = start.get(i);
 			Date date = (Date) m.get("STARTDATE");
-			map.put("startdate", fmt.format(date));
+			Date dd = (Date)m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd) );
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
+			//System.out.println("마감?"+m.get("MAGAM"));
+			//System.out.println("startdate:"+fmt.format(date) );
 		}
 		
 		for (int i = 0; i < end.size(); i++) {
 			Map m = end.get(i);
-			Date date = (Date) m.get("ENDDATE");
-			map.put("enddate", fmt.format(date));
+			Date date = (Date) m.get("STARTDATE");
+			Date dd = (Date) m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd));
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
 		}
 
+		for (int i = 0; i < hits.size(); i++) {
+			Map m = hits.get(i);
+			Date date = (Date) m.get("STARTDATE");
+			Date dd = (Date) m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd));
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
+		}
+		
 		map.put("start",start);
 		map.put("end",end);
 		map.put("hits",hits);
@@ -82,16 +111,22 @@ public class RecruitController {
 	
 	@PostMapping("/select.do")
 	public String selectPostHandle(@RequestParam Map param, Map map) {
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		List<Map> results = hrepo.getSearchResults(param);
 		map.put("lists",results);
-		
 		for (int i = 0; i < results.size(); i++) {
-			SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-			Date start = (Date)results.get(i).get("STARTDATE");
-			Date end = (Date)results.get(i).get("ENDDATE");
-			map.put("enddate", fmt.format(end));
-			map.put("startdate", fmt.format(start));
+			Map m = results.get(i);
+			Date date = (Date) m.get("STARTDATE");
+			Date dd = (Date) m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd));
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
 		}
+		
 		map.put("condition",param);
 		
 		
@@ -102,7 +137,21 @@ public class RecruitController {
 	public String selectButtonGetHandle(@RequestParam Map param, Map map) {
 		List<Map> results = hrepo.getSearchResults(param);
 		map.put("lists",results);
-		//System.out.println("버튼눌러나오는값 :"+results);
+
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+		for (int i = 0; i < results.size(); i++) {
+			Map m = results.get(i);
+			Date date = (Date) m.get("STARTDATE");
+			Date dd = (Date) m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd));
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
+		}
+		System.out.println(" 이상하네 : "+map);
 		map.put("condition",param);
 		
 		return "job.selectdetail";
@@ -110,9 +159,17 @@ public class RecruitController {
 	
 	@GetMapping("/jobpost.do")
 	public String jobpostGetHandle(@RequestParam Map param, Map post) {
-		//SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		int hino = Integer.parseInt((String)param.get("hino"));
 		Map company= hrepo.getHirebyHino(hino);
+		Date start = (Date) company.get("STARTDATE");
+		Date end = (Date)company.get("ENDDATE");
+		company.put("START", fmt.format(start));
+		company.put("END", fmt.format(end));
+		long gap = end.getTime()-System.currentTimeMillis();
+		if(gap<0) {
+			company.put("MAGAM",true);
+		}
 		post.put("list", company);
 
 		return "job.jobpost";
@@ -171,10 +228,10 @@ public class RecruitController {
 		System.out.println("map : "+map);
 		if(r==1) {
 			session.setAttribute("sucess", true, session.SCOPE_REQUEST);
-			return "redirect:/search/schdetail.do?no="+cono;
+			return "redirect:/search/schdetail.do?cono="+cono;
 		}else {
 			session.setAttribute("fail", true, session.SCOPE_REQUEST);
-			return "redirect:/search/schdetail.do?no="+cono;
+			return "redirect:/search/schdetail.do?cono="+cono;
 		}
 	}
 }
