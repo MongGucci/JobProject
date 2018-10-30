@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import job.dao.loginDao;
+import job.models.AlertService;
 import job.models.HireRepository;
 
 @Controller
@@ -33,6 +34,13 @@ public class LoginController {
 	
 	@Autowired
 	ServletContext sc;
+	@Autowired
+	AlertService alert;
+	
+	
+	
+	
+	
 	
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
@@ -70,7 +78,7 @@ public class LoginController {
 			if(hirealram!=null) {
 				msg.put("msg",hirealram);
 			}
-			
+			alert.sendOne(msg, id);
 			
 			
 			return "redirect:/job/index.do";
