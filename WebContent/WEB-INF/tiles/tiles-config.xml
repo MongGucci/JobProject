@@ -233,11 +233,11 @@
 		<put-attribute name="nav"
 			value="/WEB-INF/views/default/nav.jsp" />
 		<put-attribute name="left"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/search/schnull.jsp" />
 		<put-attribute name="right"
-			value="/WEB-INF/views/default/side.jsp" />
+			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
 </tiles-definitions>

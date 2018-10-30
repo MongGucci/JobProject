@@ -60,19 +60,31 @@ public class SearchController {
 	public String detailHandle(WebRequest wr, Map map) {
 		int cono = Integer.parseInt(wr.getParameter("cono"));
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+		
 		Map dt = searchdao.searchcom(cono);
 		System.out.println("dtdtdtd:" + dt);
 		wr.setAttribute("dt", dt, wr.SCOPE_REQUEST);
-		// wr.setAttribute("dt", dt, wr.SCOPE_SESSION);
-
-		// wr.setAttribute("cono", cono, wr.SCOPE_SESSION);
-
+		
 		List<Map> hiring = hrepo.getHirebyCono(cono);
 		map.put("hiring", hiring);
-
-		return "job.schdetail.index";
+		
+		if(id == null) {
+			return "job.schdetail.index";
+		}
+		
+		Map sd = new HashMap<>();
+		sd.put("id", id);
+		sd.put("cono", cono);
+		
+		List<Map> jd = searchdao.ckbtn(sd);
+		if(jd.size() == 0) {
+			int c = searchdao.schbtn(sd);
+			return "job.schdetail.index";
+		}else {
+			map.put("btn", "ya");	
+			return "job.schdetail.index";
 	}
-
+}
 	// 요게 해당하는 기업이름 촤르륵
 	@GetMapping(path = "/searchajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -98,25 +110,12 @@ public class SearchController {
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		String no = wr.getParameter("no");
 		System.out.println("no:"+ no);
-		Map sd = new HashMap<>();
-		sd.put("id", id);
-
-		sd.put("cono", no);
-
-		System.out.println("확인 : " + sd);
+		
 		if (id == null) {
 			return "/login/login";
 		} else {
-			List<Map> jd = searchdao.ckbtn(sd);
-			System.out.println("찍어보자 : " + jd);
-			if (jd.size() == 0) {
-				int c = searchdao.schbtn(sd);
-				map.put("ok", "on");
-				return "job.schdetail.index";
-			} else {
-				map.put("btn", "ya");
-				return "job.schdetail.index";
-			}
+			return "redirect:/search/schdetail.do?cono="+no;
+			
 		}
 	}
 }
