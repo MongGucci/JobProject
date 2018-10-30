@@ -63,7 +63,7 @@ public class SearchController {
    // 요게 상세보기
    @RequestMapping("/schdetail.do")
    public String detailHandle(WebRequest wr, Map map) {
-	  String no = (String)wr.getParameter("cono");
+     String no = (String)wr.getParameter("cono");
       int cono = Integer.parseInt(no);
       String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
       Map dt = searchdao.searchcom(cono);
@@ -72,28 +72,43 @@ public class SearchController {
    
       List<Map> hiring = hrepo.getHirebyCono(cono);
       map.put("hiring", hiring);
+      if(id == null) {
+          return "job.schdetail.index";
+       }
       
       if(id!=null) {
-			Map mm = new HashMap();
-			mm.put("id", id);
-			mm.put("cono",cono);
-			Map didI = rvrepo.didIWriteReview(mm);
-			System.out.println("썻냐안썻냐"+didI);
-			if(didI!=null) {
-				map.put("youwrote", true);
-			}
-		}
+         Map mm = new HashMap();
+         mm.put("id", id);
+         mm.put("cono",cono);
+         Map didI = rvrepo.didIWriteReview(mm);
+         System.out.println("썻냐안썻냐"+didI);
+         if(didI!=null) {
+            map.put("youwrote", true);
+         }
+      }
       
       List<Map> reviews = rvrepo.getReviewsByCono(cono);
       map.put("reviews", reviews);
       
       int avg = rvrepo.getAvgStar(cono);
       if(avg==0) {
-    	  map.put("avg", 0);
+         map.put("avg", 0);
       }else {
-    	  map.put("avg", avg);
+         map.put("avg", avg);
       }
-      return "job.schdetail.index";
+      
+      Map sd = new HashMap<>();
+      sd.put("id", id);
+      sd.put("cono", cono);
+      
+      List<Map> jd = searchdao.ckbtn(sd);
+      if(jd.size() == 0) {
+         int c = searchdao.schbtn(sd);
+         return "job.schdetail.index";
+      }else {
+         map.put("btn", "ya");   
+         return "job.schdetail.index";
+      }
    }
 
    // 요게 해당하는 기업이름 촤르륵
@@ -102,14 +117,14 @@ public class SearchController {
    public String searchAjaxHandle(WebRequest wr, @RequestParam String coname) {
       /* String coname = (String)wr.getAttribute("coname", wr.SCOPE_SESSION); */
       List<Map> sch = searchdao.schlist(coname);
-      System.out.println("촤르륵 : " + sch);
-      for (int i = 0; i < sch.size(); i++) {
-         Map e = sch.get(i);
-         String e1 = gson.toJson(e);
-         System.out.println(e1);
-         if (i < sch.size() - 1) {
-            String a = ",";
-            System.out.println(",");
+         System.out.println("촤르륵 : " + sch);
+         for (int i = 0; i < sch.size(); i++) {
+            Map e = sch.get(i);
+            String e1 = gson.toJson(e);
+            System.out.println(e1);
+            if (i < sch.size() - 1) {
+               String a = ",";
+               System.out.println(",");
          }
       }
       return gson.toJson(sch);
@@ -121,25 +136,12 @@ public class SearchController {
       String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
       String no = wr.getParameter("no");
       System.out.println("no:"+ no);
-      Map sd = new HashMap<>();
-      sd.put("id", id);
-
-      sd.put("cono", no);
-
-      System.out.println("확인 : " + sd);
+      
       if (id == null) {
          return "/login/login";
       } else {
-         List<Map> jd = searchdao.ckbtn(sd);
-         System.out.println("찍어보자 : " + jd);
-         if (jd.size() == 0) {
-            int c = searchdao.schbtn(sd);
-            map.put("ok", "on");
-            return "redirect:/search/schdetail.do?cono="+no;
-         } else {
-            map.put("btn", "ya");
-            return "redirect:/search/schdetail.do?cono="+no;
-         }
+         return "redirect:/search/schdetail.do?cono="+no;
+         
       }
    }
 }
