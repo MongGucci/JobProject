@@ -68,7 +68,6 @@
 
    <hr />
 
-
    <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item"><a class="nav-link active" id="home-tab"
          data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -93,15 +92,29 @@
                </tr>
             </thead>
             <tbody>
-               <c:forEach var="post" items="${start}">
-                  <tr class="table"
-                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
-                     <th scope="row">#로고</th>
-                     <td>${post.CONAME}</td>
-                     <td>${post.TITLE}</td>
-                     <td>${startdate}-${enddate}</td>
-                  </tr>
-               </c:forEach>
+            		<c:forEach var="post" items="${start}">
+            		
+            		<c:if test="${empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>${post.TITLE}</td>
+	                     <td>${post.STARTDATE}-${post.ENDDATE}</td>
+	                  </tr>
+	                </c:if>
+	            	<c:if test="${!empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>[마감]${post.TITLE}</td>
+	                     <td>마감된 공고입니다.</td>
+	                  </tr>
+	            	</c:if>
+	            
+            		</c:forEach>
+            		
             </tbody>
          </table>
       </div>
@@ -117,15 +130,28 @@
                </tr>
             </thead>
             <tbody>
-               <c:forEach var="post" items="${hits}">
-                  <tr class="table"
-                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
-                     <th scope="row">#로고</th>
-                     <td>${post.CONAME}</td>
-                     <td>${post.TITLE}</td>
-                     <td>${startdate}-${enddate}</td>
-                  </tr>
-               </c:forEach>
+            		<c:forEach var="post" items="${hits}">
+            		
+            		<c:if test="${empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>${post.TITLE}</td>
+	                     <td>${post.STARTDATE}-${post.ENDDATE}</td>
+	                  </tr>
+	                </c:if>
+	            	<c:if test="${!empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>[마감]${post.TITLE}</td>
+	                     <td>마감된 공고입니다.</td>
+	                  </tr>
+	            	</c:if>
+	            	
+            		</c:forEach>
             </tbody>
          </table>
       </div>
@@ -141,15 +167,26 @@
                </tr>
             </thead>
             <tbody>
-               <c:forEach var="post" items="${end}">
-                  <tr class="table"
-                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
-                     <th scope="row">#로고</th>
-                     <td>${post.CONAME}</td>
-                     <td>${post.TITLE}</td>
-                     <td>${startdate}-${enddate}</td>
-                  </tr>
-               </c:forEach>
+            		<c:forEach var="post" items="${end}">
+            		<c:if test="${empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>${post.TITLE}</td>
+	                     <td>${post.STARTDATE}-${post.ENDDATE}</td>
+	                  </tr>
+	                </c:if>
+	            	<c:if test="${!empty post.MAGAM}">
+	                  <tr class="table"
+	                     onclick="location.href='${path}/recruit/jobpost.do?hino=${post.HINO}'">
+	                     <th scope="row">#로고</th>
+	                     <td>${post.CONAME}</td>
+	                     <td>[마감]${post.TITLE}</td>
+	                     <td>마감된 공고입니다.</td>
+	                  </tr>
+	            	</c:if>
+            		</c:forEach>
             </tbody>
          </table>
 

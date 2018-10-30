@@ -45,5 +45,12 @@ public class HireRepository {
 		return template.selectList("hire.getAllHiresByHits");
 	}
 	
+	public List<Map> getDeadline3(String id){
+		try {
+			return  template.selectList("hire.getDeadline3",id);
+		}catch(Exception e){
+			return null;
+		}
+	}
 	
 }
