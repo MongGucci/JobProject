@@ -41,9 +41,9 @@ public class SearchController {
 
    @GetMapping("/search.do")
    public String searchGetHandle(Map map) {
+
      List<Map> company = crepo.getAll();
      map.put("company", company);
-      
       return "/search/search";
    }
 

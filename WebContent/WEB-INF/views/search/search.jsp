@@ -57,7 +57,7 @@
          <div>
             <p>실시간 인기검색어</p>
          </div>
-         
+
 
          <div align="center">
             
@@ -110,5 +110,6 @@
          xhr.send(param);
       };
    </script>
+
 </body>
 </html>

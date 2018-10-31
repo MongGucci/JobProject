@@ -34,13 +34,7 @@ public class LoginController {
 	
 	@Autowired
 	ServletContext sc;
-	@Autowired
-	AlertService alert;
-	
-	
-	
-	
-	
+
 	
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
@@ -69,17 +63,17 @@ public class LoginController {
 			
 			System.out.println("유저 정보 : " + user);
 			
-			//로그인 성공 했을 때, 내가 찜한 기업들 중에 마감기한 3일 남은애 알림
-			Map msg = new HashMap<>();
-			List<Map> hirealram = hrepo.getDeadline3(id);
+			
+			//----3일남은공고, 오늘제출해야하는 공고 띄울 고야 세션에 올리자! ----//
+			
+			List<Map> three = hrepo.getDeadline3(id);
+			System.out.println("3일 : "+three);
+			List<Map> today = hrepo.getToday(id);
+			System.out.println("today: "+today);
 			
 			
-			msg.put("mode","deadline3");
-			if(hirealram!=null) {
-				msg.put("msg",hirealram);
-			}
-			alert.sendOne(msg, id);
-			
+			wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
 			
 			return "redirect:/job/index.do";
 		} else {

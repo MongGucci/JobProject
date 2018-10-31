@@ -234,4 +234,11 @@ public class RecruitController {
 			return "redirect:/search/schdetail.do?cono="+cono;
 		}
 	}
+	
+	@GetMapping("/newpost.do")
+	public void newpostGetHandle(WebRequest wr) {
+		
+		
+		
+	}
 }

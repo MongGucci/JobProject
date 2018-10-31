@@ -4,8 +4,40 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <div>
 	<div id="alert" style="font-size: .75em; width: 100%;"></div>
+	<c:choose>
+		<c:when test="${!empty today or !empty three }">
+			내가 찜한 기업에 대한 정보입니다.
+		</c:when>
+		<c:otherwise>
+			기업을 찜하면 그 기업의 공고 알림을 제공해드려요!<br/>
+			<a href="${path}/search/search.do">원하는 기업을 찜해주세요!</a>
+		</c:otherwise>
+	</c:choose>
+	<c:if test="${!empty today}">
+	<div style="font-size: .75em; width: 100%;" >
+	
+		  <ul class="list-group list-group-flush">
+		  <b style="font-size:11pt;">[오늘 마감하는 채용공고]</b>
+		  	<c:forEach var="h" items="${today}">
+		  		<li class="list-group-item"> <a href="${path}/recruit/jobpost.do?hino=${h.HINO}" > ${h.TITLE} /공고보러가기</a></li>
+		  	</c:forEach>
+		  </ul>
+	</div>
+	</c:if>
+	<c:if test="${!empty three}">
+	<div style="font-size: .75em; width: 100%;" >
+	
+		  <ul class="list-group list-group-flush">
+		  <b style="font-size:11pt;">[3일 남은 채용공고]</b>
+		  	<c:forEach var="h" items="${three}">
+		  		<li class="list-group-item"> <a href="${path}/recruit/jobpost.do?hino=${h.HINO}" > ${h.TITLE} /공고보러가기</a></li>
+		  	</c:forEach>
+		  </ul>
+	</div>
+	</c:if>
 </div>
 <script type="text/javascript">
+	
 	var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
 	console.log("안녕");
 	ws.onmessage = function(evt) { //매개변수설정하면
@@ -17,13 +49,8 @@
 		case "reply":
 			replyAlertHandle(obj);
 			break;
-		case "deadline3":
-			deadline3AlertHandle(obj);
-			break;
-		case "submittoday":
-			submittodayAlertHandle(obj);
+	
 		}
-
 	};
 
 	var replyAlertHandle = function(obj) {
@@ -37,7 +64,10 @@
 		html += "</div>";
 
 		document.getElementById("alert").innerHTML += html;
-	}
+	};
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/MongGucci/JobProject.git
 </script>
