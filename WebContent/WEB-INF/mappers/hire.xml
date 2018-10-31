@@ -67,6 +67,10 @@
 		where pickedcompany.id=#{id} and enddate-sysdate<=3 and enddate-sysdate>=2;
 		]]>
 	</select>
+	
+	<insert id = "addhire" parameterType="java.util.HashMap">
+		insert into hire values(hire_seq.nextval,#{title},#{content},to_date(#{startdate},'YYYY-MM-DD'),to_date(#{enddate},'YYYY-MM-DD')),#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
+	</insert>
 
 
 </mapper>
