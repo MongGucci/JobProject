@@ -59,6 +59,14 @@
 		select * from(company join hire on
 		company.coname=hire.name) where cono=#{cono}
 	</select>
+	
+	<select id="getDeadline3" parameterType="java.lang.String" resultType="java.util.HashMap">
+	  <![CDATA[
+		select * from (select * from hire join company on hire.name = company.coname)t 
+		join PICKEDCOMPANY on t.cono=pickedcompany.cono 
+		where pickedcompany.id=#{id} and enddate-sysdate<=3 and enddate-sysdate>=2;
+		]]>
+	</select>
 
 
 </mapper>

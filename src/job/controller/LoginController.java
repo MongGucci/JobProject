@@ -1,6 +1,7 @@
 package job.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -12,10 +13,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.request.WebRequest;
 
 import job.dao.loginDao;
+import job.models.AlertService;
+import job.models.HireRepository;
 
 @Controller
 public class LoginController {
@@ -27,13 +29,22 @@ public class LoginController {
 	
 	@Autowired
 	loginDao logindao;
+	@Autowired
+	HireRepository hrepo;
 	
 	@Autowired
 	ServletContext sc;
+	@Autowired
+	AlertService alert;
+	
+	
+	
+	
+	
 	
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
-		
+
 		return "/login/login";
 	}
 	
@@ -57,12 +68,18 @@ public class LoginController {
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			
 			System.out.println("유저 정보 : " + user);
-			//filter 먹여놨음
-//			if(sc.getAttribute("target") == null) {
-//				return "redirect:/job/index.do";
-//			}else {
-//				
-//			}
+			
+			//로그인 성공 했을 때, 내가 찜한 기업들 중에 마감기한 3일 남은애 알림
+			Map msg = new HashMap<>();
+			List<Map> hirealram = hrepo.getDeadline3(id);
+			
+			
+			msg.put("mode","deadline3");
+			if(hirealram!=null) {
+				msg.put("msg",hirealram);
+			}
+			alert.sendOne(msg, id);
+			
 			
 			return "redirect:/job/index.do";
 		} else {
