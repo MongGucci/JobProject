@@ -52,5 +52,14 @@ public class HireRepository {
 			return null;
 		}
 	}
-	
+	public List<Map> getToday(String id){
+		try {
+			System.out.println("getToday 성공?");
+			return  template.selectList("hire.getToday",id);
+		}catch(Exception e){
+			System.out.println("getToday 실패?" );
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
