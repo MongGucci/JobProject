@@ -31,4 +31,8 @@ public class JoinRepository {
    public Map getByEmail(String mail) {
       return template.selectOne("applicant.getByEmail",mail);
    }
+   
+   public Map getByNick(String nick) {
+	      return template.selectOne("applicant.getByNick",nick);
+	   }
 }

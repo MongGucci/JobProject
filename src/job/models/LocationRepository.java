@@ -7,21 +7,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-//기업정보알려주는 리포지터리
 @Repository
-public class CompanyRepository {
-
-	
+public class LocationRepository {
 
 	@Autowired
 	SqlSessionTemplate template;
 	
-	public List<Map> getAll() {
-		return template.selectList("company.getAll");
+	public List<Map> getBig(){
+		return template.selectList("location.getBig");
 	}
-	
-	public int addAll() {
-		return template.insert("company.addAll");
+	public List<Map> getSmall(){
+		return template.selectList("location.getSmall");
 	}
 	
 }

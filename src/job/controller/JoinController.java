@@ -105,6 +105,27 @@ public class JoinController extends HttpServlet {
 
    }
 
+   // 닉네임 중복 체크
+   
+   @GetMapping(path = "/nickajax.do", produces = "application/json;charset=UTF-8")
+   @ResponseBody
+   public String nickAjaxHandle(@RequestParam String nick) {
+      System.out.println("nick :" + nick);
+      Map cid = jr.getByNick(nick);
+      System.out.println("cid :" + cid);
+      System.out.println(cid);
+      Map m = new HashMap<>();
+      if (cid != null) {
+         m.put("pass", "on");
+         System.out.println(nick + "사용중인 닉네임");
+      } else {
+         m.put("pass", "off");
+         System.out.println(nick + "사용가능한 닉네임");
+      }
+      return gson.toJson(m);
+
+   }
+   
    // 이메일 인증
    
    @RequestMapping("/mail.do")

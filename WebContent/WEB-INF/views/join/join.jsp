@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
@@ -103,6 +103,7 @@
 		<div class="inline field">
 			<button type="button" class="ui inverted secondary button"
 				id="emailauth" disabled="disabled">인증번호 전송</button>
+				<small id="checked"></small><br>
 		</div>
 
 		<div class="inline field">
@@ -155,7 +156,7 @@
 
 	</form>
 
-	<%-----------------------------------------------------------------------css 변경전 --%>
+	---------------------------------------------------------------------css 변경전
 
 </div>
 <script>
@@ -371,4 +372,4 @@
 										});
 					});
 </script>
-</html>
+</html> --%>

@@ -42,7 +42,7 @@
 								class="user icon" style="font-size: 15pt; color: gray;"></i>아이디</label>
 							<input type="text" name="id" placeholder="아이디(4~19자 영어,숫자 포함)"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
-								onchange="iid(this)" required class="c">
+								onchange="iid(this)" required class="c"><span></span>
 							<div class="ui pointing green basic label" id="idmsg"
 								style="display: none; font-size: 11pt;"></div>
 							<div class="ui pointing red basic label" id="iderror"
@@ -57,7 +57,7 @@
 							<input type="password" onchange="ipw(this)" name="pass"
 								placeholder="비밀번호(4~19 영어,숫자 포함)"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
-								required>
+								required><span></span>
 							<div class="ui pointing green basic label" id="pwmsg"
 								style="display: none; font-size: 11pt;"></div>
 							<div class="ui left pointing red basic label" id="pwerror"
@@ -86,7 +86,8 @@
 						<div class="inline field" style="margin-bottom: 30px;">
 							<label style="font-size: 15pt; color: #465674"><i
 								class="female icon" style="font-size: 15pt; color: gray;"></i><i
-								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> <select
+								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> 
+								<select
 								class="ui dropdown"
 								style="width: 100%; height: 50px; border: 1px solid #174374;">
 								<option value="">성별</option>
@@ -120,7 +121,7 @@
 							<input type="text" name="nick" placeholder="닉네임(4~10 영어,한글 포함)"
 								onchange="nkn(this)"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
-								required>
+								required><span></span>
 							<div class="ui pointing green basic label" id="nickmsg"
 								style="display: none; font-size: 11pt;"></div>
 							<div class="ui pointing red basic label" id="nickerror"
@@ -134,7 +135,7 @@
 								id="email" aria-descrivedby="emailHelp"
 								placeholder="Sample@example.com"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
-								required>
+								required><span></span>
 							<div class="ui pointing green basic label" id="emmsg"
 								style="display: none; font-size: 11pt;"></div>
 							<div class="ui pointing red basic label" id="emerror"
@@ -144,7 +145,11 @@
 
 						<div class="inline field" align="right" style="margin-bottom: 30px;">
 							<button type="button" class="ui inverted secondary button"
+
 								id="emailauth" disabled="disabled" style="font-family: 'Song Myung', serif;">인증번호 전송</button>
+
+							<small id="checked"></small><br>
+
 						</div>
 
 
@@ -152,15 +157,18 @@
 							<input type="text" name="confirm" id="confirm" name="name"
 								placeholder="인증키를 입력하세요." disabled="disabled"
 								style="width: 100%; height: 50px;" required>
-
 						</div>
 
 
 						<div class="inline field" align="right">
 							<button type="button" class="ui inverted secondary button"
+
 								id="confirmok" disabled="disabled" style="font-family: 'Song Myung', serif;">인증하기</button>
 						</div>
+
+
 						<small id="checked1"></small><br>
+						</div>
 
 
 
@@ -234,7 +242,7 @@
 				}
 				req.send();
 			} else {
-				document.getElementsByTagName("span")[0].innerHTML = "아이디는 영문숫자혼용 4~12자로 설정바랍니다.";
+				document.getElementsByTagName("span")[0].innerHTML = "아이디는 영문,숫자 4~12자로 설정바랍니다.";
 				document.getElementsByTagName("span")[0].style.color = "red";
 			}
 		};
@@ -258,7 +266,7 @@
 			}
 		};
 
-		var nkn = function(n) {
+		/* var nkn = function(n) {
 			var n1 = new RegExp("^[가-힣a-zA-Z]{3,10}$");
 			var nk = n.value;
 			console.log("nick : " + nk);
@@ -274,7 +282,47 @@
 				$('#nickmsg').hide();
 
 			}
-		};
+		}; */
+		
+		var nkn = function(n){
+			var nick = n.value;
+			console.log("nick : " + nick);
+			var k = /^[가-힣a-zA-Z]{3,10}$/;
+			if(k.test(nick)){
+				var req = new XMLHttpRequest();
+				req.open("get", "nickajax.do?nick=" + nick, true);
+				req.onreadystatechange = function() {
+					if(this.readyState == 4){
+						var i = JSON.parse(this.responseText);
+						console.log(i);
+						
+						if(i.pass == "on"){
+							console.log("1");
+							$('#nickerror').show();
+							$('#nickerror').html("이미 사용중인 닉네임입니다.");
+							$('#nickmsg').hide();
+							
+							document.getElementById("nickerror").innerHTML = "이미 사용중인 닉네임입니다.";
+						}else{
+							console.log("2");
+							
+							$('#nickmsg').show();
+							$('#nickmsg').html("아주 멋진 닉네임입니다.");
+							$('#nickerror').hide();
+						}
+					}
+				}
+				req.send();
+			}else{
+				document.getElementsByTagName("span")[3].innerHTML = "닉네임은 한글,영어 4~19자로 설정바랍니다.";
+				document.getElementsByTagName("span")[3].style.color = "red";
+			}
+		}
+		
+		
+		
+		
+		
 
 		var em = function(e) {
 			var e1 = new RegExp(
