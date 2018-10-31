@@ -44,7 +44,7 @@ public class SearchController {
 
      List<Map> company = crepo.getAll();
      map.put("company", company);
-      return "/search/search";
+      return "job.search";
    }
 
    // 검색

@@ -27,7 +27,8 @@
 	border-radius: 4px;
 	font-family: 'Patua One', cursive;
 	background-color:#465674;
-	font-size: 15pt;
+	font-size: 13pt;
+	width: 100%;
 	}
 	</style>
 	
@@ -61,7 +62,7 @@
 
 	<!-- Banner -->
 	<section id="banner">
-		<div class="inner">
+		<div class="inner" >
 			<header>
 				<h1 style="font-family: 'Song Myung', serif;">이것이 현실이다.</h1>
 				<p>
@@ -81,16 +82,16 @@
 	</section>
 
 	<!-- Main -->
-	<div id="main">
+	<div id="main" >
 
-		<div class="container-fluid">
+		<div class="container-fluid" style="background-color:#F4F4F4;">
 			<div class="row">
 				<div id="leftdiv" class="col-2">
 					<tiles:insertAttribute name="left" />
 				</div>
 				<div id="centerdiv" class="col-8">
-					<section class="wrapper style1">
-						<div class="inner">
+					
+						
 							<header class="align-center">
 								<h2 style="font-family: 'Patua One', cursive; font-size: 30pt; margin-bottom: 25px;">JOB Go</h2>
 							</header>
@@ -98,35 +99,34 @@
 								<div class="col align-center">
 								<div style="margin: 20px;">
 									
-										<img src="${path}/images/company.png" style="width: 300px;">
+										<img src="${path}/images/company.png" style="width: 100%;">
 									</div>
-									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">관심있는 기업을 검색해보세요.
+									<p style="font-size: 12pt; color: #465674; font-weight:bolder;">관심있는 기업을 검색해보세요.
 									</p>
 									<a href="${path}/search/search.do"><button id="btn">Search Company</button></a>
 								</div>
 								<div class="col align-center">
 									<div style="margin: 20px;">
 									
-										<img  src="${path}/images/human-resources.png" style="width: 300px;">
+										<img  src="${path}/images/human-resources.png" style="width: 100%;">
 									</div>
-									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">기업의 채용공고를 검색해보세요.</p>
+									<p style="font-size: 12pt; color: #465674; font-weight:bolder;">기업의 채용공고를 검색해보세요.</p>
 									<a href="${path}/recruit/select.do"><button id="btn">Employment Information</button></a>
 								</div>
 								<div class="col align-center">
 									
 									
-									<div style="margin: 20px;">
+									<div style="margin: 20px; ">
 									
-										<img  src="${path}/images/hiring.png" style="width: 300px;">
+										<img  src="${path}/images/hiring.png" style="width: 100%;">
 									</div>
 									
-									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">여러분의 자소서를 작성하고 공유해보세요.</p>
+									<p style="font-size: 12pt; color: #465674; font-weight:bolder;">여러분의 자소서를 작성하고 공유해보세요.</p>
 									<a href="${path}/essayBoard/shareEssayList.do" ><button id="btn">A Letter Of Self-Introduction</button></a>
 								</div>
 							</div>
-						</div>
-					</section>
-
+						
+				
 				</div>
 				<div id="rightdiv" class="col-2">
 					<tiles:insertAttribute name="right" />
