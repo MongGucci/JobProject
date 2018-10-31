@@ -65,6 +65,10 @@
 		join PICKEDCOMPANY on t.cono=pickedcompany.cono 
 		where pickedcompany.id=#{id} and enddate-sysdate&lt;=3 and enddate-sysdate&gt;=2
 	</select>
+	
+	<insert id = "addhire" parameterType="java.util.HashMap">
+		insert into hire values(hire_seq.nextval,#{title},#{content},to_date(#{startdate},'YYYY-MM-DD'),to_date(#{enddate},'YYYY-MM-DD')),#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
+	</insert>
 
 	<select id="getToday" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from (select * from hire join company on hire.name = company.coname)t 

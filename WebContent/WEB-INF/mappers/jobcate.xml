@@ -4,4 +4,5 @@
 	<select id="getAll" resultType="java.util.HashMap">
 	select * from jobcate
 	</select>
+	
 </mapper>
