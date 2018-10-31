@@ -13,13 +13,14 @@ public class IndexController {
 	public String GetHandle(WebRequest wr) {
 		
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
-			//return "job.index";
-			return "default/index";
+			System.out.println("안녕");
+			return "job.index";
+			
 		} else {
 			wr.getAttribute("id", wr.SCOPE_SESSION);
 			String Id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 			System.out.println("사용자 ID : " + Id);
-			return "job.login.index";
+			return "job.index";
 		}
 		
 	}

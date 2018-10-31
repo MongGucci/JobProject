@@ -2,19 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="job.index"
-		template="/WEB-INF/tiles/user-template.jsp">
 
-		<put-attribute name="nav"
-			value="/WEB-INF/views/default/nav.jsp" />
-		<put-attribute name="left"
-			value="/WEB-INF/views/default/left.jsp" />
-		<put-attribute name="center"
-			value="/WEB-INF/views/default/home.jsp" />
-		<put-attribute name="right"
-			value="/WEB-INF/views/default/right.jsp" />
-
-	</definition>
 
 	<definition name="essay.essayWrite"
 		template="/WEB-INF/tiles/user-template.jsp">
@@ -238,6 +226,20 @@
 			value="/WEB-INF/views/search/schnull.jsp" />
 		<put-attribute name="right"
 			value="/WEB-INF/views/default/right.jsp" />
+
+
+	</definition>
+	
+	<definition name="job.index"
+		template="/WEB-INF/views/default/index.jsp">
+
+		
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+
 
 	</definition>
 	
