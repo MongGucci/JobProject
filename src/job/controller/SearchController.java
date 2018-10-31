@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
-import com.mongodb.bulk.WriteRequest.Type;
 
 import job.dao.searchDao;
+import job.models.CompanyRepository;
 import job.models.HireRepository;
 import job.models.ReviewRepository;
 
@@ -34,10 +34,16 @@ public class SearchController {
    ReviewRepository rvrepo;
    
    @Autowired
+   CompanyRepository crepo;
+   
+   @Autowired
    Gson gson;
 
    @GetMapping("/search.do")
-   public String searchGetHandle() {
+   public String searchGetHandle(Map map) {
+     List<Map> company = crepo.getAll();
+     map.put("company", company);
+      
       return "/search/search";
    }
 
