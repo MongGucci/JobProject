@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
+import job.models.AlertService;
 import job.models.HireRepository;
 import job.models.PickedhireRepository;
 import job.models.RecruitRepository;
@@ -36,6 +37,8 @@ public class RecruitController {
 	PickedhireRepository phrepo;
 	@Autowired
 	ReviewRepository rvrepo;
+	@Autowired
+	AlertService alert;
 	
 	
 	@GetMapping("/select.do")
@@ -237,8 +240,16 @@ public class RecruitController {
 	
 	@GetMapping("/newpost.do")
 	public void newpostGetHandle(WebRequest wr) {
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		Map msg = new HashMap<>();
 		
 		
+		msg.put("mode", "newpost");
+		msg.put("msg", id+"님이 찜한 기업의 공고가 새로 올라왔습니다.");
+		msg.put("link",1113);
+		//msg.put("link", 보낸값에서 cono뽑기);
+		alert.sendOne(msg, "skdbs0610");
+
 		
 	}
 }

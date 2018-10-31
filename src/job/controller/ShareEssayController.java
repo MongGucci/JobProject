@@ -229,6 +229,7 @@ public class ShareEssayController {
 	}
 	
 	@PostMapping("/replyComment.do")
+	
 	public String replyCommentPostHandle(@RequestParam Map map,WebRequest web) {
 		System.out.println(map);
 		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
