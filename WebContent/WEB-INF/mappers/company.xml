@@ -5,4 +5,9 @@
 	select * from company
 	</select>
 	
-</mapper>
+	<insert id="addAll" parameterType="java.util.HashMap">
+		insert into company values
+		(COMPANY_SEQ.NEXTVAL,#{coname},#{industry},#{sales},#{ceo},#{salary},0,#{workers},#{lat},#{lng},#{first},#{homepage},#{big},#{small},#{logo},#{cotype})
+	</insert>
+	
+</mapper> 
