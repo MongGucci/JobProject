@@ -17,6 +17,7 @@ public class IndexController {
 			return "job.index";
 			
 		} else {
+			
 			wr.getAttribute("id", wr.SCOPE_SESSION);
 			String Id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
 			System.out.println("사용자 ID : " + Id);

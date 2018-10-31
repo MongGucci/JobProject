@@ -5,7 +5,8 @@
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link href="${path}/css/essay.css" rel="stylesheet">
+
+<link href="${path}/css/default.css" rel="stylesheet">
 <link rel="stylesheet"
    href="${pageContext.servletContext.contextPath }/css/tableboder.css">
 

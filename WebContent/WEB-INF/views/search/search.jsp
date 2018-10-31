@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link href="${path}/css/essayBoard.css" rel="stylesheet">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta name="viewport"

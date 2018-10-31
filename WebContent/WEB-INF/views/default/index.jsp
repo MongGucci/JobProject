@@ -10,7 +10,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Urban by TEMPLATED</title>
+<title>JOB Go</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="${path}/assets/css/main.css" />
@@ -18,53 +18,65 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${path}/semantic/semantic.css">
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script src="${path}/semantic/semantic.js"></script>
+	
+	<style type="text/css">
+	
+	#btn{
+	border-radius: 4px;
+	font-family: 'Patua One', cursive;
+	background-color:#465674;
+	font-size: 15pt;
+	}
+	</style>
+	
 
 </head>
 <body>
-<header id="header" class="alt">
-				<div class="logo"><a href="${path}/job/index.do">JOB <span>Go</span></a></div>
-				<div style="margin-right: 20px;">
-				<c:if test="${empty userId}">
-					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath }/login.do"
-						id="signin">Sign in</a>
-					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath}/join/join.do"
-						id="Sign up">Sign up</a>
-				</c:if>
-				<c:if test="${!empty userId}">
-					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath}/pwchange.do"
-						id="Sign out">MyPage</a>
-					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath}/logout.do"
-						id="Sign out">Sign out</a>
-				</c:if>
-				</div>
-			</header>
+	<header id="header" class="alt">
+		<div class="logo" >
+			<a href="${path}/job/index.do" >JOB <span>Go</span></a>
+		</div>
+		<div style="margin-right: 20px;">
+			<c:if test="${empty userId}">
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath }/login.do"
+					id="signin">Sign in</a>
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/join/join.do"
+					id="Sign up">Sign up</a>
+			</c:if>
+			<c:if test="${!empty userId}">
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/pwchange.do"
+					id="Sign out">MyPage</a>
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/logout.do"
+					id="Sign out">Sign out</a>
+			</c:if>
+		</div>
+	</header>
 
 
 	<!-- Banner -->
 	<section id="banner">
 		<div class="inner">
 			<header>
-				<h1>이것이 현실이다.</h1>
+				<h1 style="font-family: 'Song Myung', serif;">이것이 현실이다.</h1>
 				<p>
 					뽑아주세요.<br />취직하고 싶어요.
 				</p>
+				<div class="ui category search">
+					<div class="ui icon input" style="width: 100%;">
+						<input class="prompt" type="text" placeholder="Search" >
+						<i class="search icon"></i>
+					</div>
+					<div class="results"></div>
+				</div>
 			</header>
-			<a href="#main" class="button big scrolly">Learn More</a>
+
+
 		</div>
 	</section>
 
@@ -80,34 +92,36 @@
 					<section class="wrapper style1">
 						<div class="inner">
 							<header class="align-center">
-								<h2>Aliquam ipsum purus dolor</h2>
-								<p>Cras sagittis turpis sit amet est tempus, sit amet
-									consectetur purus tincidunt.</p>
+								<h2 style="font-family: 'Patua One', cursive; font-size: 30pt; margin-bottom: 25px;">JOB Go</h2>
 							</header>
 							<div class="flex flex-3">
 								<div class="col align-center">
-									<div class="image round fit">
-										<img src="images/pic03.jpg" alt="" />
+								<div style="margin: 20px;">
+									
+										<img src="${path}/images/company.png" style="width: 300px;">
 									</div>
-									<p>Sed congue elit malesuada nibh, a varius odio vehicula
-										aliquet. Aliquam consequat, nunc quis sollicitudin aliquet.</p>
-									<a href="${path}/search/search.do" class="button">기업정보</a>
+									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">관심있는 기업을 검색해보세요.
+									</p>
+									<a href="${path}/search/search.do"><button id="btn">Search Company</button></a>
 								</div>
 								<div class="col align-center">
-									<div class="image round fit">
-										<img src="images/pic05.jpg" alt="" />
+									<div style="margin: 20px;">
+									
+										<img  src="${path}/images/human-resources.png" style="width: 300px;">
 									</div>
-									<p>Sed congue elit malesuada nibh, a varius odio vehicula
-										aliquet. Aliquam consequat, nunc quis sollicitudin aliquet.</p>
-									<a href="${path}/recruit/select.do" class="button">채용정보</a>
+									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">기업의 채용공고를 검색해보세요.</p>
+									<a href="${path}/recruit/select.do"><button id="btn">Employment Information</button></a>
 								</div>
 								<div class="col align-center">
-									<div class="image round fit">
-										<i class="address card outline icon" style="font-size: 30pt;"></i>
+									
+									
+									<div style="margin: 20px;">
+									
+										<img  src="${path}/images/hiring.png" style="width: 300px;">
 									</div>
-									<p>Sed congue elit malesuada nibh, a varius odio vehicula
-										aliquet. Aliquam consequat, nunc quis sollicitudin aliquet.</p>
-									<a href="${path}/essayBoard/shareEssayList.do" class="button">자기소개서</a>
+									
+									<p style="font-size: 15pt; color: #465674; font-weight:bolder;">여러분의 자소서를 작성하고 공유해보세요.</p>
+									<a href="${path}/essayBoard/shareEssayList.do" ><button id="btn">A Letter Of Self-Introduction</button></a>
 								</div>
 							</div>
 						</div>
@@ -130,12 +144,18 @@
 
 
 	<!-- Scripts -->
+
 	<script src="${path}/assets/js/jquery.min.js"></script>
 	<script src="${path}/assets/js/jquery.scrolly.min.js"></script>
 	<script src="${path}/assets/js/jquery.scrollex.min.js"></script>
 	<script src="${path}/assets/js/skel.min.js"></script>
 	<script src="${path}/assets/js/util.js"></script>
 	<script src="${path}/assets/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 </body>
 </html>

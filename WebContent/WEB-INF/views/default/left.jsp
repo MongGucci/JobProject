@@ -39,31 +39,5 @@
 		document.getElementById("alert").innerHTML += html;
 	}
 	
-	var deadline3AlertHandle = function(obj) {
-		for(int i=0;i<obj.msg.size();i++){
-			var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
-			html += "<strong>" + obj.msg + "</strong><a href=\"${path}/essayBoard/essayBoardDetail.do?no="+obj.link+">보러가기</a>";
-			
-			html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
-			html += "<span aria-hidden=\"true\">&times;</span>";
-			html += "</button>";
-			html += "</div>";
-
-			document.getElementById("alert").innerHTML += html;
-		})
-		
-	}
 	
-	var submittodayAlertHandle = function(obj) {
-
-		var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
-		html += "<strong>" + obj.msg + "</strong><a href=\"${path}/essayBoard/essayBoardDetail.do?no="+obj.link+">보러가기</a>";
-		
-		html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
-		html += "<span aria-hidden=\"true\">&times;</span>";
-		html += "</button>";
-		html += "</div>";
-
-		document.getElementById("alert").innerHTML += html;
-	}
 </script>

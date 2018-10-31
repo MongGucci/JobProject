@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,7 @@
 
 <script src="${path}/semantic/semantic.js"></script>
 <link href="${path}/css/index.css" rel="stylesheet">
+<link href="${path}/css/default.css" rel="stylesheet">
 
 
 <title>JOB GO</title>

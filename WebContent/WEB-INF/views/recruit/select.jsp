@@ -4,7 +4,8 @@
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link href="${path}/css/essayBoard.css" rel="stylesheet">
+
+<link href="${path}/css/index.css" rel="stylesheet">
 <!-- <link href="${path}/css/essayBoard.css" rel="stylesheet"> -->
 
 <div class="container" style="margin-top: 20px;">

@@ -22,12 +22,13 @@
 
 <script src="${path}/semantic/semantic.js"></script>
 <link href="${path}/css/index.css" rel="stylesheet">
+<link href="${path}/css/default.css" rel="stylesheet">
 <title>JOB GO</title>
 </head>
 <body style="background-color: rgba(182, 183, 185, 0.25);">
 	<div class="container-fluid" style="margin-top: 20px;">
 		<div
-			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center;" onclick="javascript:location.href='${path}/job/index.do'">JOB
+			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center; font-weight:bolder; font-family: 'Patua One', cursive;" onclick="javascript:location.href='${path}/job/index.do'">JOB
 			GO</div>
 		<div class="ui page  grid">
 
@@ -37,7 +38,7 @@
 					<form class="ui fluid form" action="${path}/join/join.do"
 						method="post">
 						<div class="inline field" style="margin-bottom: 30px;">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="user icon" style="font-size: 15pt; color: gray;"></i>아이디</label>
 							<input type="text" name="id" placeholder="아이디(4~19자 영어,숫자 포함)"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
@@ -51,7 +52,7 @@
 
 
 						<div class="inline field" style="margin-bottom: 30px;">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="user icon" style="font-size: 15pt; color: gray;"></i>비밀번호</label>
 							<input type="password" onchange="ipw(this)" name="pass"
 								placeholder="비밀번호(4~19 영어,숫자 포함)"
@@ -65,7 +66,7 @@
 						</div>
 
 						<div class="inline field" style="margin-bottom: 30px;">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="user icon" style="font-size: 15pt; color: gray;"></i>이름</label> <input
 								type="text" name="name" placeholder="이름을 입력해주세요."
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
@@ -74,7 +75,7 @@
 						</div>
 
 						<div class="inline field" style="margin-bottom: 30px;">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="user icon" style="font-size: 15pt; color: gray;"></i>나이</label> <input
 								type="text" name="age" placeholder="나이를 입력해주세요."
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
@@ -83,7 +84,7 @@
 						</div>
 
 						<div class="inline field" style="margin-bottom: 30px;">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="female icon" style="font-size: 15pt; color: gray;"></i><i
 								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> <select
 								class="ui dropdown"
@@ -96,14 +97,14 @@
 
 
 						<div style="margin-bottom: 30px;">
-						<label style="font-size: 15pt; color:#4F6994"><i class="star icon" style="font-size: 15pt; color: gray;"></i>관심 분야</label><br>
+						<label style="font-size: 15pt; color:#465674;  font-weight: bolder;"><i class="star icon" style="font-size: 15pt; color: gray;"></i>관심 분야</label><br>
 							<c:forEach var="i" items="${map}">
 								<div class="ui checkbox"
 									style="width: 200px; color: navy; font-size: 15pt;">
 
 									<input type="checkbox" value="${i.CATENAME }"
 										onchange="gc(this)" name="job"> <label
-										style="color: #4F6994">${i.CATENAME }</label>
+										style="color: #465674;font-weight: bolder;">${i.CATENAME }</label>
 
 								</div>
 								
@@ -114,7 +115,7 @@
 
 
 						<div class="inline field" style="margin-bottom: 30px;">
-						<label style="font-size: 15pt; color: #4F6994"><i
+						<label style="font-size: 15pt; color: #465674"><i
 								class="user icon" style="font-size: 15pt; color: gray;"></i>닉네임</label> 
 							<input type="text" name="nick" placeholder="닉네임(4~10 영어,한글 포함)"
 								onchange="nkn(this)"
@@ -127,7 +128,7 @@
 						</div>
 
 						<div class="inline field" >
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="at icon" style="font-size: 15pt; color: gray;"></i>이메일</label> <input
 								type="text" type="email" onchange="em(this)" name="email"
 								id="email" aria-descrivedby="emailHelp"
@@ -143,7 +144,7 @@
 
 						<div class="inline field" align="right" style="margin-bottom: 30px;">
 							<button type="button" class="ui inverted secondary button"
-								id="emailauth" disabled="disabled">인증번호 전송</button>
+								id="emailauth" disabled="disabled" style="font-family: 'Song Myung', serif;">인증번호 전송</button>
 						</div>
 
 
@@ -157,7 +158,7 @@
 
 						<div class="inline field" align="right">
 							<button type="button" class="ui inverted secondary button"
-								id="confirmok" disabled="disabled">인증하기</button>
+								id="confirmok" disabled="disabled" style="font-family: 'Song Myung', serif;">인증하기</button>
 						</div>
 						<small id="checked1"></small><br>
 
@@ -165,7 +166,7 @@
 
 
 						<div class="inline field">
-							<label style="font-size: 15pt; color: #4F6994"><i
+							<label style="font-size: 15pt; color: #465674"><i
 								class="mobile alternate icon"
 								style="font-size: 15pt; color: gray;"></i>핸드폰 번호</label> <input
 								type="text" onchange="phn(this)" name="phone"
@@ -179,7 +180,7 @@
 						</div>
 						<div align="right">
 
-							<button class="ui grey button" id="btnsubmit" disabled="disabled" style="font-size: 15pt; background-color:#4F6994; ">회원
+							<button class="ui grey button" id="btnsubmit" disabled="disabled" style="font-size: 15pt; background-color:#4F6994; font-family: 'Song Myung', serif;">회원
 								가입</button>
 						</div>
 						<p>JOB GO ㏇</p>

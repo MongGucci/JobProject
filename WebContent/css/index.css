@@ -1,12 +1,9 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css?family=Jua');
+
 b{
 	font-size: 70px;
 }
 #list{
 	font-size: 20px;
-}
-div{
-	font-family: 'Jua', sans-serif;
 }
