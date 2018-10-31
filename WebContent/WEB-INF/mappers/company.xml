@@ -2,7 +2,7 @@
 <mapper namespace="company">
 
 	<select id="getAll" resultType="java.util.HashMap">
-	select * from company
+	select * from company order by coname asc
 	</select>
 	
 </mapper>

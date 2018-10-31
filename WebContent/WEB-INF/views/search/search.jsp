@@ -53,12 +53,39 @@
 			</div>
 			</form>
 
-			<br> <br> <br>
-			<p>실시간 인기검색어</p>
+			<div>
+				<p>실시간 인기검색어</p>
+			</div>
+			
 
-			<br> <br> <br> <br> <br> <br> <br>
-			<br> <br> <br> <br> <br> <br> <br>
-			<br> <br> <br> <br> <br>
+			<div align="center">
+				
+				<table class="table table-hover">
+					<thead>
+		               <tr >
+		                  <th scope="col">#</th>
+		                  <th scope="col">기업</th>
+		                  <th scope="col">기업형태</th>
+		                  <th scope="col">산업군</th>
+		                  <th scope="col">위치</th>
+		               </tr>
+           			</thead>
+           			<tbody>
+           				<c:forEach var="l" items="${company}">
+           				<tr class="table"
+	                     onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">
+	           				 <th scope="row">${l.CONO }</th>
+		                     <td>${l.CONAME }</td>
+		                     <td>${l.COTYPE }</td>
+		                     <td>${l.INDUSTRY}</td>
+		                     <td>${l.BIG }-${l.SMALL }</td>
+		                </tr>
+           				</c:forEach>
+           			</tbody>
+				</table>
+			</div>
+			
+			
 			<p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>
 		</nav>
 	</div>
