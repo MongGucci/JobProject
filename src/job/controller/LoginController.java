@@ -75,7 +75,7 @@ public class LoginController {
 			wr.setAttribute("three", three,  wr.SCOPE_SESSION);
 			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
 			
-			return "redirect:/job/index.do";
+			return "redirect:/index.do";
 		} else {
 			map.put("err", "on");
 			return "/login/login";
@@ -88,6 +88,6 @@ public class LoginController {
 		sessions.remove(id);
 		session.invalidate();
 		System.out.println("로그아웃 완료");
-		return "redirect:/job/index.do";
+		return "redirect:/index.do";
 	}
 }

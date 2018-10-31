@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
-@RequestMapping("/job")
+
 public class IndexController {
 
 	@GetMapping("/index.do")
