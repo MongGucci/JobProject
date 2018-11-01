@@ -82,8 +82,4 @@
 		document.getElementById("alert").innerHTML += html;
 	};
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/MongGucci/JobProject.git
 </script>

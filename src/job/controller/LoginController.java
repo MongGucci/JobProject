@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import job.dao.loginDao;
-import job.models.AlertService;
+import job.models.ChatlogRepository;
 import job.models.HireRepository;
 
 @Controller
@@ -31,6 +31,8 @@ public class LoginController {
 	loginDao logindao;
 	@Autowired
 	HireRepository hrepo;
+	@Autowired
+	ChatlogRepository crepo;
 	
 	@Autowired
 	ServletContext sc;
@@ -74,6 +76,17 @@ public class LoginController {
 			
 			wr.setAttribute("three", three,  wr.SCOPE_SESSION);
 			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
+			
+			//------전체채팅 자동입장-----//
+			
+			
+			List<Map> chathistory = crepo.getChatLog();
+			
+			
+			System.out.println(id);			
+			wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
+			System.out.println("chat history : "+chathistory);
+			
 			
 			return "redirect:/job/index.do";
 		} else {
