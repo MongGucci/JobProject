@@ -38,6 +38,9 @@
 		case "dept":
 			deptHandle(obj);
 			break;
+		
+		}
+		
 	} 
 	
 	var deptHandle = function(obj) {

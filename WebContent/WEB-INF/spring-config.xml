@@ -90,10 +90,9 @@
 	</bean>
 	
 	<websocket:handlers>
-		<websocket:mapping handler="serviceController"
-			path="/conn.do" />
+		<websocket:mapping handler="serviceController" path="/conn.do" />
 		<websocket:mapping handler="chatController" path="/chat.do" />
-		
+		<websocket:mapping handler="deptchatController" path="/deptchat.do" />
 		<websocket:handshake-interceptors>
 			<bean
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>

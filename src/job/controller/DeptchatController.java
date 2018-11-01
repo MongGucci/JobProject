@@ -22,7 +22,7 @@ import job.models.ChatlogRepository;
 
 
 @Controller
-public class ChatController extends TextWebSocketHandler{
+public class DeptchatController extends TextWebSocketHandler{
 	@Autowired
 	Gson gson;
 	
@@ -33,7 +33,7 @@ public class ChatController extends TextWebSocketHandler{
 	
 	List<WebSocketSession> sockets;
 
-	public ChatController() {
+	public DeptchatController() {
 		sockets = new ArrayList<>();
 	}
 	
@@ -53,30 +53,7 @@ public class ChatController extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		//전체채팅 
-		String payload = message.getPayload();
-		System.out.println("payload : "+payload);
-		Map got = gson.fromJson(payload, Map.class);
 		
-		Map user = (Map) session.getAttributes().get("user");
-		got.put("nick", (String)user.get("NICK"));
-		
-		//TextMessage tmt = new TextMessage(gson.toJson(got));
-		
-		alert.sendAll(got);
-		
-		//몽고에 넣기
-		Date senddate = new Date(System.currentTimeMillis());
-		SimpleDateFormat sd = new SimpleDateFormat("YYYY-MM-dd hh:mm");
-		Map mongo = new HashMap();
-		mongo.put("nick",(String)user.get("NICK"));
-		mongo.put("text",(String)got.get("text"));
-		mongo.put("senddate",sd.format(senddate));	
-		Map ret = crepo.insertLine(mongo);
-		if(ret==null) {
-			System.out.println("몽고에넣기실패 흙흙모래모래");
-		}
-	
 	}
 	
 }
