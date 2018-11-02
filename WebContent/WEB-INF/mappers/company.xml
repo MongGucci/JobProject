@@ -16,4 +16,7 @@
 		select * from company where coname =# {coname}
 	</select>
 	
+	<select id = "getconame" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		  select * from company where coname =#{coname}
+	</select>
 </mapper> 

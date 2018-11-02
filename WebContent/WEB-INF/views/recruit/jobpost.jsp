@@ -19,27 +19,30 @@ html, body {
 
 <div class="container" style="margin-top: 20px;">
 
-	<div class="card" style="width:100%;">
+	<div class="card" style="width: 100%;">
 		<div class="card-header">
 			<h2 align="center">${list.CONAME}</h2>
-			 <div align="right">
-			 	<a class="btn btn-outline-secondary" href="${path}/search/schdetail.do?cono=${list.CONO}" role="button">기업보러가기</a>
-			 </div>
+			<div align="right">
+				<a class="btn btn-outline-secondary"
+					href="${path}/search/schdetail.do?cono=${list.CONO}" role="button">기업보러가기</a>
+			</div>
 		</div>
 		<div class="card-body">
-			<h5 class="card-title"><c:if test="${!empty list.MAGAM}">[마감]</c:if>${list.TITLE}</h5>
+			<h5 class="card-title">
+				<c:if test="${!empty list.MAGAM}">[마감]</c:if>${list.TITLE}</h5>
 			<p class="card-text">${list.CONTENT}</p>
-			<div
-				style="line-height: 100px; text-align: center">
-				<img src="/JobProject/${list.PATH}" style="width: 100%; max-width: 760px; vertical-align: middle" />
+			<div style="line-height: 100px; text-align: center">
+				<img src="/JobProject/${list.PATH}"
+					style="width: 100%; max-width: 760px; vertical-align: middle" />
 			</div>
-			<hr/>
+			<hr />
 			<div>
-				- 채용 기간 : ${list.START } - ${list.END} <c:if test="${!empty list.MAGAM}">[마감]</c:if><br /> 
-				- 관심 기업으로 ${list.FAVORITE}명 이상이 찜한 선망받는 기업<br /> 
-				- ${list.COTYPE}<br />
+				- 채용 기간 : ${list.START } - ${list.END}
+				<c:if test="${!empty list.MAGAM}">[마감]</c:if>
+				<br /> - 관심 기업으로 ${list.FAVORITE}명 이상이 찜한 선망받는 기업<br /> -
+				${list.COTYPE}<br />
 			</div>
-			
+
 			<div id="map" style="height: 600px"></div>
 			<script>
 				function initMap() {
@@ -56,38 +59,74 @@ html, body {
 	</div>
 	<hr />
 	<div align="right">
-		<a tabindex="0" class="btn btn-danger" role="button" data-toggle="popover" 
-		data-trigger="focus" title="Dismissible popover" data-content="내가 찜한 공고에 등록되었습니다!" id="pickhire">공고찜하기</a> 
-		<a class="btn btn-outline-secondary" href="${path}/recruit/select.do">다시검색하기</a>
-	</div>
+		<c:choose>
+			<c:when test="${empty jjim }">
+				
+			<div style="margin-top: 15px;" align="right">
+				<button type="button" class="btn btn-danger" data-toggle="modal"
+					id="pickhire" data-target="#focus" onclick="btn">공고찜하기</button>
 	
+			</c:when>
+			<c:otherwise>
+			<div style="margin-top: 15px;" align="right">
+				<button type="button" class="btn btn-warning" data-toggle="modal"
+					id="pickhire" data-target="#focus" disabled="disabled">등록된 공고</button>
+		
+			</c:otherwise>
+		</c:choose>
+		<a class="btn btn-outline-secondary" href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
+	</div>
+
+	<c:if test="${empty userId }">
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="focus" aria-hidden="true"></div>
+	</c:if>
+
+	<c:choose>
+		<c:when test="${!empty userId }">
 	<script>
 	$("#pickhire").on(
 			"click",
 			function() {
+				var id = "${userId}";
+				console.log(id);
 				
+				var hino = "${company.HINO}";
+			
 				var param = {
-					"big" : big
+					"hino" : hino
 				};
-				$.post("${path}/recruit/selectajax.do", param).done(
+				$.post("${path}/recruit/recruitjjimAjax.do", param).done(
 						function(rst) {
-							var html = "";
-							for (var i = 0; i < rst.length; i++) {
-								html += "<option value=\""+rst[i].SMALL+"\">"
-										+ rst[i].SMALL + "</option><br/>";
-								//console.log(small[i].SMALL);
+							if(rst.jjim) {
+							$("#pickhire").attr(
+								"disabled",
+								true);
+							$("#pickhire").html(
+									"등록된 공고");
+								
 							}
-							$("#smalls").html(html);
 
 						});
 			});
 	
 	</script>
+</c:when>
+<c:otherwise>
+	<script>
+				var html = "";
+				html = "<div class=\"modal-dialog\" role=\"document\">"
+						+ "<div class=\"modal-content\"><div class=\"modal-header\">"
+						+ "<h5 class=\"modal-title\" id=\"exampleModal\">JOB GO</h5>"
+						+ "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
+						+ "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
+						+ "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
+						+ "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
 
-
-
-
-
+				$("#focus").html(html);
+			</script>
+</c:otherwise>	
+</c:choose>
 
 
 </div>
