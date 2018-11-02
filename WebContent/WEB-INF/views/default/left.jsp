@@ -90,6 +90,7 @@
 
 		document.getElementById("alert").innerHTML += html;
 	};
+<<<<<<< HEAD
 
 	var newpostHandle = function(obj) {
 		console.log("newpost")
@@ -105,4 +106,7 @@
 
 		document.getElementById("alert").innerHTML += html;
 	};
+=======
+	
+>>>>>>> refs/remotes/origin/jobkoreaTry
 </script>

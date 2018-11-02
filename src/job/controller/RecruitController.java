@@ -249,7 +249,7 @@ public class RecruitController {
 		msg.put("link",1113);
 		//msg.put("link", 보낸값에서 cono뽑기);
 		alert.sendOne(msg, "skdbs0610");
-
-		
 	}
+	
+	
 }

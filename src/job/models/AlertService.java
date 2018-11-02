@@ -23,7 +23,7 @@ public class AlertService extends TextWebSocketHandler{
 	
 	public AlertService() {
 		list = new ArrayList<>();
-		}
+	}
 	
 	public List<WebSocketSession> allList() {
 		return list;
