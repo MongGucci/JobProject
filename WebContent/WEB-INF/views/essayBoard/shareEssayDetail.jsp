@@ -96,6 +96,7 @@
 			</c:if>
 		</div>
 	</div>
+	
 
 	<c:choose>
 		<c:when test="${empty like}">

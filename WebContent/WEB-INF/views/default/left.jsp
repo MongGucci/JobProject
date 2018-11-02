@@ -53,9 +53,15 @@
 	</div>
 </c:if>
 
+
 <div id="alert" style="font-size: .75em; width: 100%;"></div>
 
 <script type="text/javascript">
+
+
+<c:if test="${!empty userId}">
+	
+console.log("연결");
 	var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
 	console.log("안녕");
 	ws.onmessage = function(evt) { //매개변수설정하면
@@ -90,7 +96,7 @@
 
 		document.getElementById("alert").innerHTML += html;
 	};
-<<<<<<< HEAD
+
 
 	var newpostHandle = function(obj) {
 		console.log("newpost")
@@ -106,7 +112,7 @@
 
 		document.getElementById("alert").innerHTML += html;
 	};
-=======
-	
->>>>>>> refs/remotes/origin/jobkoreaTry
+
+	</c:if>
+
 </script>

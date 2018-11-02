@@ -61,20 +61,23 @@ html, body {
 	<div align="right">
 		<c:choose>
 			<c:when test="${empty jjim }">
-				
-			<div style="margin-top: 15px;" align="right">
-				<button type="button" class="btn btn-danger" data-toggle="modal"
-					id="pickhire" data-target="#focus" onclick="btn">공고찜하기</button>
-	
+
+				<div style="margin-top: 15px;" align="right">
+					<button type="button" class="btn btn-danger" data-toggle="modal"
+						id="pickhire" data-target="#focus" onclick="btn">공고찜하기</button>
+				</div>
 			</c:when>
 			<c:otherwise>
-			<div style="margin-top: 15px;" align="right">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-					id="pickhire" data-target="#focus" disabled="disabled">등록된 공고</button>
-		
+				<div style="margin-top: 15px;" align="right">
+					<button type="button" class="btn btn-warning" data-toggle="modal"
+						id="pickhire" data-target="#focus" disabled="disabled">등록된
+						공고</button>
+				</div>
+
 			</c:otherwise>
 		</c:choose>
-		<a class="btn btn-outline-secondary" href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
+		<a class="btn btn-outline-secondary"
+			href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
 	</div>
 
 	<c:if test="${empty userId }">
@@ -84,7 +87,7 @@ html, body {
 
 	<c:choose>
 		<c:when test="${!empty userId }">
-	<script>
+			<script>
 	$("#pickhire").on(
 			"click",
 			function() {
@@ -111,9 +114,9 @@ html, body {
 			});
 	
 	</script>
-</c:when>
-<c:otherwise>
-	<script>
+		</c:when>
+		<c:otherwise>
+			<script>
 				var html = "";
 				html = "<div class=\"modal-dialog\" role=\"document\">"
 						+ "<div class=\"modal-content\"><div class=\"modal-header\">"
@@ -125,8 +128,8 @@ html, body {
 
 				$("#focus").html(html);
 			</script>
-</c:otherwise>	
-</c:choose>
+		</c:otherwise>
+	</c:choose>
 
 
 </div>

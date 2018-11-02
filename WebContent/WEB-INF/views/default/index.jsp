@@ -34,7 +34,7 @@
 	
 
 </head>
-<body>
+
 	<header id="header" class="alt">
 		<div class="logo" >
 			<a href="${path}/job/index.do" >JOB <span>Go</span></a>
@@ -84,12 +84,12 @@
 	<!-- Main -->
 	<div id="main" >
 
-		<div class="container-fluid" style="background-color:#F4F4F4;">
+		<div class="container-fluid" style="background-color:#F4F4F4;" >
 			<div class="row">
 				<div id="leftdiv" class="col-2">
 					<tiles:insertAttribute name="left" />
 				</div>
-				<div id="centerdiv" class="col-8">
+				<div id="centerdiv" class="col-8"style ="margin-bottom: 80px;">
 					
 						
 							<header class="align-center">
@@ -157,5 +157,5 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-</body>
+
 </html>

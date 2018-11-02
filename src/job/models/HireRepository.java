@@ -52,6 +52,12 @@ public class HireRepository {
 			return null;
 		}
 	}
+	
+	public List<Map> getDeadLine6(){
+		
+			return  template.selectList("hire.getDeadLine6");
+		
+	}
 	public List<Map> getToday(String id){
 		try {
 			System.out.println("getToday 성공?");

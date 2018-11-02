@@ -81,18 +81,20 @@
 		<constructor-arg name="mongoClient" ref="mongoClient"/><!-- 이름은 고정임 -->
 		<constructor-arg name="databaseName" value="dev"/>
 	</bean>
-	
+
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	<property name="host" value="13.125.229.1"/>
-	<property name="port" value="25"/>
-	<property name="protocol" value="smtp"/>
-	<property name="defaultEncoding" value="UTF-8"/>
+		<property name="host" value="13.125.229.1" />
+		<property name="port" value="25" />
+		<property name="protocol" value="smtp" />
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
+
 	<websocket:handlers>
+
 		<websocket:mapping handler="serviceController" path="/conn.do" />
 		<websocket:mapping handler="chatController" path="/chat.do" />
 		<websocket:mapping handler="deptchatController" path="/deptchat.do" />
+
 		<websocket:handshake-interceptors>
 			<bean
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
