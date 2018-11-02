@@ -67,7 +67,7 @@
 	</select>
 	
 	<insert id = "addhire" parameterType="java.util.HashMap">
-		insert into hire values(hire_seq.nextval,#{title},#{content},to_date(#{startdate},'YYYY-MM-DD'),to_date(#{enddate},'YYYY-MM-DD')),#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
+		insert into hire values(hire_seq.nextval,#{title},#{content},#{startdate},#{enddate},#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
 	</insert>
 
 	<select id="getToday" parameterType="java.lang.String" resultType="java.util.HashMap">

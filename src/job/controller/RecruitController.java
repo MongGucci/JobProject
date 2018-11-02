@@ -161,7 +161,7 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/jobpost.do")
-	public String jobpostGetHandle(@RequestParam Map param, Map post) {
+	public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		int hino = Integer.parseInt((String)param.get("hino"));
 		Map company= hrepo.getHirebyHino(hino);
@@ -174,8 +174,34 @@ public class RecruitController {
 			company.put("MAGAM",true);
 		}
 		post.put("list", company);
-
+		
+		if(wr.getAttribute("id", wr.SCOPE_SESSION) != null) {
+			
+			Map jjimap = new HashMap<>();
+			jjimap.put("hino", hino);
+			jjimap.put("id", wr.getAttribute("userId", wr.SCOPE_SESSION));
+			
+			Map jjim = phrepo.myjjim(jjimap);
+			wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
+		}
+		
 		return "job.jobpost";
+	}
+	
+	@PostMapping(path = "/recruitjjimAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String recruitjjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
+		Map jjim = new HashMap<>();
+		
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		Map map = new HashMap<>();
+		map.put("id", id);
+		map.put("hino", hino);
+		System.out.println(map);
+		
+		int r = phrepo.pickHire(map);
+		
+		return gson.toJson(jjim);
 	}
 	
 	@GetMapping("/comdetail.do")

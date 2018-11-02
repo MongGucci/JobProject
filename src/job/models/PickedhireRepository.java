@@ -19,6 +19,8 @@ public class PickedhireRepository {
 		return template.insert("pickedhire.pickhire",map);
 	}
 	
-	
+	public Map myjjim(Map map) {
+		return template.selectOne("pickedhire.myjjim",map);
+	}
 	
 }

@@ -12,4 +12,7 @@
 		(COMPANY_SEQ.NEXTVAL,#{coname},#{industry},#{sales},#{ceo},#{salary},0,#{workers},#{lat},#{lng},#{first},#{homepage},#{big},#{small},#{logo},#{cotype})
 	</insert>
 	
+	<select id = "getconame" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		  select * from company where coname =#{coname}
+	</select>
 </mapper> 
