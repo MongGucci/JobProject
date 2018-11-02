@@ -68,18 +68,18 @@
 		id="multipartResolver"></bean>
 
 
-	<!-- <mongo:mongo-client host="54.180.30.243"
-		port="40728"></mongo:mongo-client>
-	<bean id="mongoTemplate"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+	<!-- <mongo:mongo-client host="54.180.30.243" port="40728"></mongo:mongo-client> 
+		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+		<constructor-arg name="mongoClient" ref="mongoClient" /> <constructor-arg 
+		name="databaseName" value="dev" /> </bean> -->
+
+	<mongo:mongo-client host="naagle.mockingu.com"
+		port="10004" />
+	<bean id="mongoTemplate"
 		class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoClient" ref="mongoClient" />
+		<constructor-arg name="mongoClient" ref="mongoClient" /><!-- 
+			이름은 고정임 -->
 		<constructor-arg name="databaseName" value="dev" />
-	</bean> -->
-	
-	<mongo:mongo-client host="naagle.mockingu.com" port="10004"/>
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoClient" ref="mongoClient"/><!-- 이름은 고정임 -->
-		<constructor-arg name="databaseName" value="dev"/>
 	</bean>
 
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -91,9 +91,15 @@
 
 	<websocket:handlers>
 
-		<websocket:mapping handler="serviceController" path="/conn.do" />
-		<websocket:mapping handler="chatController" path="/chat.do" />
-		<websocket:mapping handler="deptchatController" path="/deptchat.do" />
+		<websocket:mapping handler="serviceController"
+			path="/conn.do" />
+		<websocket:mapping handler="chatController"
+			path="/chat.do" />
+		<websocket:mapping handler="deptchatController"
+			path="/deptchat.do" />
+		<websocket:mapping handler="totalController"
+			path="/total.do" />
+
 
 		<websocket:handshake-interceptors>
 			<bean

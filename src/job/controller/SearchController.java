@@ -1,8 +1,12 @@
 package job.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import job.dao.searchDao;
 import job.models.CompanyRepository;
 import job.models.HireRepository;
 import job.models.ReviewRepository;
+import job.models.SoarRepository;
 
 @Controller
 @RequestMapping("/search")
@@ -38,6 +43,12 @@ public class SearchController {
    
    @Autowired
    Gson gson;
+   
+   @Autowired
+   SoarRepository soar;
+   
+  @Autowired
+  HttpSession session;
 
    @GetMapping("/search.do")
    public String searchGetHandle(Map map) {
@@ -71,6 +82,36 @@ public class SearchController {
    public String detailHandle(WebRequest wr, Map map) {
      String no = (String)wr.getParameter("cono");
       int cono = Integer.parseInt(no);
+      System.out.println("어딘???:" + soar.getCompany(cono));
+      Map company = soar.getCompany(cono); 
+      List<Map> before = soar.getAllSoar();
+      System.out.println(before);
+      System.out.println("id:" +session.getId());
+      
+      if(company == null) {
+    	  Map skyrocket = new HashMap<>();
+    	  List<String> inner = new ArrayList<>();
+          skyrocket.put("cono", cono);
+          skyrocket.put("cnt", 1);
+          inner.add(session.getId());
+          skyrocket.put("inner", inner);
+         
+    	  soar.insertCompany(skyrocket);
+      }else {
+    	  List in = (List) company.get("inner");
+    	  if(!in.contains(session.getId())) {
+    		  in.add(session.getId());
+    		  int count = (int) company.get("cnt");
+        	  count += 1;
+        	  soar.updateComapny(cono, count,in);
+    	  }
+    	  
+      }
+      
+      List<Map> after = soar.getAllSoar();
+      System.out.println(after);
+      
+      
       String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
       Map dt = searchdao.searchcom(cono);
       System.out.println("dtdtdtd:" + dt);

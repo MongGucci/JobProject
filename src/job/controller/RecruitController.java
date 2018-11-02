@@ -1,10 +1,14 @@
 package job.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,7 @@ import job.models.HireRepository;
 import job.models.PickedhireRepository;
 import job.models.RecruitRepository;
 import job.models.ReviewRepository;
+import job.models.SoarRepository;
 
 @Controller
 @RequestMapping("/recruit")
@@ -39,6 +44,11 @@ public class RecruitController {
 	ReviewRepository rvrepo;
 	@Autowired
 	AlertService alert;
+	@Autowired
+	SoarRepository soar;
+	
+	 @Autowired
+	  HttpSession session;
 	
 	
 	@GetMapping("/select.do")
@@ -168,6 +178,34 @@ public class RecruitController {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		int hino = Integer.parseInt((String)param.get("hino"));
 		Map company= hrepo.getHirebyHino(hino);
+		System.out.println("company:"  +company);
+		
+		int cono = ((BigDecimal) company.get("CONO")).intValue();
+		Map comp = soar.getCompany(cono); 
+	      System.out.println("id:" +session.getId());
+	      
+	      if(comp == null) {
+	    	  Map skyrocket = new HashMap<>();
+	    	  List<String> inner = new ArrayList<>();
+	          skyrocket.put("cono", cono);
+	          skyrocket.put("cnt", 1);
+	          inner.add(session.getId());
+	          skyrocket.put("inner", inner);
+	         
+	    	  soar.insertCompany(skyrocket);
+	    	  
+	      }else {
+	    	  List in = (List) comp.get("inner");
+	    	  if(!in.contains(session.getId())) {
+	    		  in.add(session.getId());
+	    		  int count = (int) comp.get("cnt");
+	        	  count += 1;
+	        	  soar.updateComapny(cono, count,in);
+	    	  }
+	    	  
+	      }
+		
+		
 		Date start = (Date) company.get("STARTDATE");
 		Date end = (Date)company.get("ENDDATE");
 		company.put("START", fmt.format(start));
@@ -207,21 +245,23 @@ public class RecruitController {
 		return gson.toJson(jjim);
 	}
 	
-	@GetMapping("/comdetail.do")
-	public String comdetailGetHandle(WebRequest session, Map review) {
-		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
-		int cono =(int)session.getAttribute("cono",session.SCOPE_SESSION);
-		Map map = new HashMap();
-		map.put("id", id);
-		map.put("cono",cono);
-		Map didI = rvrepo.didIWriteReview(map);
-		System.out.println("썻냐안썻냐"+didI);
-		if(didI==null) {
-			session.setAttribute("youwrote", true, session.SCOPE_SESSION);
-		}
-		review.put("review",rvrepo.getReviewsByCono(cono));
-		return "job.schdetail.index";
-	}
+//	@GetMapping("/comdetail.do")
+//	public String comdetailGetHandle(WebRequest session, Map review) {
+//		System.out.println("여기는 어디???");
+//		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
+//		int cono =(int)session.getAttribute("cono",session.SCOPE_SESSION);
+//		Map map = new HashMap();
+//		map.put("id", id);
+//		map.put("cono",cono);
+//		System.out.println(soar.getCompany(cono));
+//		Map didI = rvrepo.didIWriteReview(map);
+//		System.out.println("썻냐안썻냐"+didI);
+//		if(didI==null) {
+//			session.setAttribute("youwrote", true, session.SCOPE_SESSION);
+//		}
+//		review.put("review",rvrepo.getReviewsByCono(cono));
+//		return "job.schdetail.index";
+//	}
 	
 	@PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody

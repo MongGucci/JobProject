@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
+<div class="ui list">
+	<div class="item">
+		<i class="users icon"></i>
+		<div class="content">Semantic UI</div>
+	</div>
+</div>
 
 <c:if test="${!empty userId }">
 	<div style="margin-top: 20px;">
@@ -56,63 +62,71 @@
 
 <div id="alert" style="font-size: .75em; width: 100%;"></div>
 
-<script type="text/javascript">
-
 
 <c:if test="${!empty userId}">
-	
-console.log("연결");
-	var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
-	console.log("안녕");
+
+	<script type="text/javascript">
+		console.log("연결");
+		var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
+		console.log("안녕");
+		ws.onmessage = function(evt) { //매개변수설정하면
+			//받은 메세지에 관련된 객체를 넘겨주면서 콜이 일어나고
+			console.log(evt.data);
+			var obj = JSON.parse(evt.data);
+
+			switch (obj.mode) {
+			case "reply":
+				replyAlertHandle(obj);
+				break;
+
+			case "newpost":
+				newpostHandle(obj);
+				break;
+
+			}
+		};
+
+		var replyAlertHandle = function(obj) {
+
+			var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
+			html += "<strong>"
+					+ obj.msg
+					+ "</strong><a href=\"${path}/essayBoard/essayBoardDetail.do?no="
+					+ obj.link + ">보러가기</a>";
+
+			html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+			html += "<span aria-hidden=\"true\">&times;</span>";
+			html += "</button>";
+			html += "</div>";
+
+			document.getElementById("alert").innerHTML += html;
+		};
+
+		var newpostHandle = function(obj) {
+			console.log("newpost")
+			var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
+			html += "<strong>" + obj.msg
+					+ "</strong><a href=\"${path}/recruit/jobpost.do?hino?"
+					+ obj.link + ">보러가기</a>";
+
+			html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+			html += "<span aria-hidden=\"true\">&times;</span>";
+			html += "</button>";
+			html += "</div>";
+
+			document.getElementById("alert").innerHTML += html;
+		};
+	</script>
+
+</c:if>
+
+<script type="text/javascript">
+	var ws = new WebSocket("ws://" + location.host + "${path}/total.do");
+	console.log("전체연결");
 	ws.onmessage = function(evt) { //매개변수설정하면
 		//받은 메세지에 관련된 객체를 넘겨주면서 콜이 일어나고
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 
-		switch (obj.mode) {
-		case "reply":
-			replyAlertHandle(obj);
-			break;
-
-		case "newpost":
-			newpostHandle(obj);
-			break;
-
-		}
 	};
-
-	var replyAlertHandle = function(obj) {
-
-		var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
-		html += "<strong>"
-				+ obj.msg
-				+ "</strong><a href=\"${path}/essayBoard/essayBoardDetail.do?no="
-				+ obj.link + ">보러가기</a>";
-
-		html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
-		html += "<span aria-hidden=\"true\">&times;</span>";
-		html += "</button>";
-		html += "</div>";
-
-		document.getElementById("alert").innerHTML += html;
-	};
-
-
-	var newpostHandle = function(obj) {
-		console.log("newpost")
-		var html = "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
-		html += "<strong>" + obj.msg
-				+ "</strong><a href=\"${path}/recruit/jobpost.do?hino?"
-				+ obj.link + ">보러가기</a>";
-
-		html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
-		html += "<span aria-hidden=\"true\">&times;</span>";
-		html += "</button>";
-		html += "</div>";
-
-		document.getElementById("alert").innerHTML += html;
-	};
-
-	</c:if>
-
 </script>
