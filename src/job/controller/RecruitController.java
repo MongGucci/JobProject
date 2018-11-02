@@ -58,6 +58,9 @@ public class RecruitController {
 		List<Map> end = hrepo.getAllHiresByEnddate();
 		List<Map> hits = hrepo.getAllHiresByHits();
 		
+		List<Map> dead = hrepo.getDeadLine6();
+		System.out.println(dead);
+		
 		for (int i = 0; i < start.size(); i++) {
 			Map m = start.get(i);
 			Date date = (Date) m.get("STARTDATE");
@@ -98,7 +101,7 @@ public class RecruitController {
 				m.put("MAGAM",true);
 			}
 		}
-		
+		map.put("dead",dead);
 		map.put("start",start);
 		map.put("end",end);
 		map.put("hits",hits);

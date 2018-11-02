@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
-<link href="${path}/css/essay.css" rel="stylesheet">
+
 <link href="${path}/css/index.css" rel="stylesheet">
 
 <div class="container" style="margin-top: 30px;">

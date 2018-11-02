@@ -168,11 +168,7 @@
 
 
 						<small id="checked1"></small><br>
-						</div>
-
-
-
-
+						
 						<div class="inline field">
 							<label style="font-size: 15pt; color: #465674"><i
 								class="mobile alternate icon"
@@ -192,10 +188,18 @@
 								가입</button>
 						</div>
 						<p>JOB GO ㏇</p>
+						</form>
+						</div>
 
-					</form>
+
+
+
+						
+
+					
 
 				</div>
+				
 				<div class="three wide column"></div>
 
 

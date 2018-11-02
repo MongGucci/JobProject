@@ -10,17 +10,18 @@
 		select * from(company join hire on
 		company.coname=hire.name) order by startdate desc
 	</select>
-	
-	<select id="getAllHiresByEnddate"
-		resultType="java.util.HashMap">
-		select * from(company join hire on
-		company.coname=hire.name) order by enddate asc
+
+	<select id="getAllHiresByEnddate" resultType="java.util.HashMap">
+		select *
+		from(company join hire on
+		company.coname=hire.name) order by enddate
+		asc
 	</select>
-	
-	
-	<select id="getAllHiresByHits"
-		resultType="java.util.HashMap">
-		select * from (company join hire on
+
+
+	<select id="getAllHiresByHits" resultType="java.util.HashMap">
+		select * from (company
+		join hire on
 		company.coname=hire.name) order by hits
 		desc
 	</select>
@@ -53,26 +54,44 @@
 		select * from(company join hire on
 		company.coname=hire.name) where hino=#{hino}
 	</select>
-	
+
 	<select id="getHireByCono" parameterType="java.lang.Number"
 		resultType="java.util.HashMap">
 		select * from(company join hire on
 		company.coname=hire.name) where cono=#{cono}
 	</select>
-	
-	<select id="getDeadline3" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from (select * from hire join company on hire.name = company.coname)t 
-		join PICKEDCOMPANY on t.cono=pickedcompany.cono 
-		where pickedcompany.id=#{id} and enddate-sysdate&lt;=3 and enddate-sysdate&gt;=2
+
+	<select id="getDeadline3" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select * from (select * from hire join company on hire.name
+		= company.coname)t
+		join PICKEDCOMPANY on t.cono=pickedcompany.cono
+		where pickedcompany.id=#{id} and enddate-sysdate&lt;=3 and
+		enddate-sysdate&gt;=2
 	</select>
-	
-	<insert id = "addhire" parameterType="java.util.HashMap">
-		insert into hire values(hire_seq.nextval,#{title},#{content},to_date(#{startdate},'YYYY-MM-DD'),to_date(#{enddate},'YYYY-MM-DD')),#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
+
+	<insert id="addhire" parameterType="java.util.HashMap">
+		insert into hire
+		values(hire_seq.nextval,#{title},#{content},to_date(#{startdate},'YYYY-MM-DD'),to_date(#{enddate},'YYYY-MM-DD')),#{name},#{jobcate},#{recruitnum},#{email},'0',#{hireshape},#{path},'true')
 	</insert>
 
-	<select id="getToday" parameterType="java.lang.String" resultType="java.util.HashMap">
-		select * from (select * from hire join company on hire.name = company.coname)t 
-		join PICKEDCOMPANY on t.cono=pickedcompany.cono 
-		where pickedcompany.id=#{id} and enddate-sysdate&lt;=1 and enddate-sysdate&gt;=-1
+	<select id="getToday" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select * from (select * from hire join company on hire.name
+		= company.coname)t
+		join PICKEDCOMPANY on t.cono=pickedcompany.cono
+		where pickedcompany.id=#{id} and enddate-sysdate&lt;=1 and
+		enddate-sysdate&gt;=-1
 	</select>
+
+	<select id="getDeadLine6" resultType="java.util.HashMap">
+		select * from (select rownum as r, d.* from(select * from(company join hire
+		on
+		company.coname=hire.name) where enddate &gt; sysdate order by
+		enddate asc) d) where r between 1 and 6
+	</select>
+
+
+
+
 </mapper>
