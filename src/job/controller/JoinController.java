@@ -140,11 +140,12 @@ public class JoinController extends HttpServlet {
       MimeMessage msg = sender.createMimeMessage();
       String txt = "인증키  ☞  ";
       String confirm = UUID.randomUUID().toString().split("-")[0];
+      System.out.println("이메일 인증키 :"+confirm);
       System.out.println(receiver);
       txt += confirm;
 
       wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
-
+      
       try {
     	  msg.setSubject("인증번호");
     	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");

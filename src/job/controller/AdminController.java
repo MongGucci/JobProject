@@ -22,17 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import job.dao.addhireDao;
 import job.models.CompanyRepository;
+import job.models.JobcateRepository;
 import job.models.LocationRepository;
 import job.models.RecruitRepository;
 
 @Controller
 @RequestMapping("/admin")
-public class CompanyController extends HttpServlet{
+public class AdminController extends HttpServlet{
 	@Autowired
 	Gson gson;
-	@Autowired
-	ServletContext sc;
 	
 	@Autowired
 	RecruitRepository rrepo;
@@ -41,7 +41,15 @@ public class CompanyController extends HttpServlet{
 	CompanyRepository cr;
 	
 	@Autowired
+	JobcateRepository jobcate;
+	
+	@Autowired
+	addhireDao addhire;
+	
+	@Autowired
 	ServletContext ctx;
+	
+	
 	
 	@PostMapping(path="/writeajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
@@ -52,17 +60,17 @@ public class CompanyController extends HttpServlet{
 		
 	}
 	
-	@GetMapping("/write.do")
+	@GetMapping("/addcompany.do")
 	public String writeGetHandle(Map map) {
 
 		List<Map> big = rrepo.getAllBigLocation();
 		map.put("big", big);
-		return "/admin/write";
+		return "/admin/addcompany";
 	}
 	
 	
 	
-	@PostMapping("/write.do")
+	@PostMapping("/addcompany.do")
 	public String wirtePostHandle(WebRequest wr, ModelMap map,
 			@RequestParam MultipartFile attach) throws IOException {
 		System.out.println("attach = " + attach +" / " + attach.isEmpty());
@@ -98,7 +106,7 @@ public class CompanyController extends HttpServlet{
 		data.put("coname", coname);
 		data.put("industry", industry);
 		data.put("sales", sales);
-		data.put("ceo", ceo);
+		data.put("ceo", ceo); 
 		data.put("salary", salary);
 		data.put("workers", workers);
 		data.put("lat", lat);
@@ -112,7 +120,55 @@ public class CompanyController extends HttpServlet{
 		
 		int r = cr.addAll(data);
 		
-		return "/admin/write";
+		return "/admin/addcompany";
 	}
 	
+	
+
+	@GetMapping("/addhire.do")
+	public String AddhireGetHandle(ModelMap map) {
+		map.put("alljob", jobcate.getAll());
+		map.put("allshape", addhire.getAll());
+		return "/admin/addhire";
+	}
+	
+	@PostMapping("/addhire.do") 
+	public String AddhirePostHandle(@RequestParam Map param, @RequestParam MultipartFile path) throws IOException {
+		
+		String fileName = path.getOriginalFilename();
+		System.out.println("사진 제목 : " + fileName);
+		String pat = ctx.getRealPath("/storage/hire");
+		File dir = new File(pat);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		File dst = new File(dir,fileName);
+		path.transferTo(dst);
+		
+		String clientpath = "/storage/hire/" + fileName; // dao에 저장
+		System.out.println("사진 경로 : " + clientpath);
+		
+		param.put("path", clientpath);
+		System.out.println("다 나와 : " + param);
+		int a = addhire.addhire(param);
+		
+		return "job.index";
+		
+	}
+	
+	// 요거는 회사가 등록되어있는지 아닌지
+	@GetMapping(path = "/coajax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String conameAjaxHandle(@RequestParam String coname) {
+		Map con = addhire.getconame(coname);
+		System.out.println("나와 : " + con);
+		Map c = new HashMap<>();
+		if(con == null) {
+			c.put("no", "on");
+			System.out.println("등록되지 않은 기업");
+		} else {
+			c.put("no", "off");
+		}
+		return gson.toJson(c);
+	}
 }

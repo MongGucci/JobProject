@@ -44,8 +44,8 @@
       <input type="text" class="form-control" id="first" placeholder="초봉(만원)" name="first">
     </div>
     <div class="form-group col-md-6">
-      <label for="inputEmail4">회사 홈페이지</label><br>
-      <input type="email" class="form-control" id="homepage" name="homepage" placeholder="홈페이지">
+      <label >회사 홈페이지</label><br>
+      <input type="text" class="form-control" id="homepage" name="homepage" placeholder="홈페이지">
     </div>
     <div class="form-group col-md-4">
       <label for="inputState">지역(대)</label><br>
@@ -55,6 +55,7 @@
         	<option value="${b.BIG }">${b.BIG }</option>
         </c:forEach>
       </select>
+    </div>
     </div>
     
     <div class="form-group col-md-6">

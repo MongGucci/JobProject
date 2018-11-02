@@ -5,9 +5,10 @@
   <div class="card">
     <div class="card-header" role="tab" id="headingOne">
       <h5 class="mb-0">
-        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          전체채팅
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" id="enterAllChat" >
+          [전체채팅]<br/>
         </a>
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" id="lastline"></a>
       </h5>
     </div>
 
@@ -31,12 +32,12 @@
       </div>
     </div>
   </div>
-  
+ <!-- ---------------------------------------------------------------------------------- -->
   <div class="card">
     <div class="card-header" role="tab" id="headingOne">
       <h5 class="mb-0">
         <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
-          부서채팅
+          [기업채팅]
         </a>
       </h5>
     </div>
@@ -57,8 +58,8 @@
       </div>
     </div>
   </div>
- 
-</div>    
+ <!-- ---------------------------------------------------------------------------------- -->
+ </div>    
     
 
 
@@ -80,12 +81,15 @@
 	} 
 	
 	var allHandle = function(obj) {
-		var txt = obj.text;
+		var ht = "<a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"false\" aria-controls=\"collapseOne\" id=\"lastline\">";
+		ht += obj.nick+" : "+ obj.text;
+		ht += "</a>";
 		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 		html += obj.nick+" : "+ obj.text;
 		html +="</div>";
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop +=  document.getElementById("chatView").scrollHeight; 
+		document.getElementById("lastline").innerHTML = ht;
 	}
 	
 	
@@ -100,6 +104,22 @@
 	
 	};
 	
+	$("#enterAllChat").on(
+			"click",
+			function() {
+				
+				$.get("${path}/enterchat/allAjax.do").done(
+						function(rst) {
+							var html = "";
+							for (var i = 0; i < rst.length; i++) {
+								html += "<option value=\""+rst[i].SMALL+"\">"
+										+ rst[i].SMALL + "</option><br/>";
+								//console.log(small[i].SMALL);
+							}
+							$("#smalls").html(html);
+
+						});
+			});
 	
 	
 	
