@@ -342,6 +342,7 @@
 				$('#emerror').show();
 				$('#emerror').html("유효하지 않은 이메일 입니다.");
 				$('#emmsg').hide();
+				
 
 			}
 		}

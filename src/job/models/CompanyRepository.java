@@ -20,8 +20,11 @@ public class CompanyRepository {
 		return template.selectList("company.getAll");
 	}
 	
-	public int addAll() {
-		return template.insert("company.addAll");
+	public int addAll(Map map) {
+		return template.insert("company.addAll",map);
 	}
 	
+	public Map getByCo (String co) {
+		return template.selectOne("company.getByCo",co);
+	}
 }

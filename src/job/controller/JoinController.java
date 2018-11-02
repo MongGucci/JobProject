@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.mail.search.RecipientStringTerm;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
@@ -133,19 +137,20 @@ public class JoinController extends HttpServlet {
 
    public String sendMail(@RequestParam Map param, WebRequest wr) {
       String receiver = (String) param.get("email");
-      SimpleMailMessage msg = new SimpleMailMessage();
-      msg.setSubject("인증번호");
-      String txt = "인증키 ☞";
+      MimeMessage msg = sender.createMimeMessage();
+      String txt = "인증키  ☞  ";
       String confirm = UUID.randomUUID().toString().split("-")[0];
       System.out.println(receiver);
       txt += confirm;
 
       wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
-      msg.setText(txt);
-      msg.setTo(receiver);
-      msg.setFrom("Sample@example.com");
 
       try {
+    	  msg.setSubject("인증번호");
+    	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
+    	  msg.setContent(txt, "text/plain;charset=UTF-8");
+    	  msg.setFrom(new InternetAddress("jobgo@mockingu.com"));
+    	  msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
          sender.send(msg);
          System.out.println("성공");
          return "true";

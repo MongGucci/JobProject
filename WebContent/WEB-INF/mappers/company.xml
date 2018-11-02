@@ -9,7 +9,11 @@
 
 	<insert id="addAll" parameterType="java.util.HashMap">
 		insert into company values
-		(COMPANY_SEQ.NEXTVAL,#{coname},#{industry},#{sales},#{ceo},#{salary},0,#{workers},#{lat},#{lng},#{first},#{homepage},#{big},#{small},#{logo},#{cotype})
+		(COMPANY_SEQ.NEXTVAL,#{coname},#{industry},#{sales},#{ceo},#{salary},0,
+		#{workers},#{lat},#{lng},#{first},#{homepage},#{big},#{small},#{logo},#{cotype})
 	</insert>
+	<select id="getByCo" resultType="java.util.HashMap" parameterType="java.lang.String">
+		select * from company where coname =# {coname}
+	</select>
 	
 </mapper> 
