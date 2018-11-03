@@ -82,12 +82,15 @@ public class LoginController {
 			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
 
 			//------전체채팅 자동입장되었고, 채팅로그 가져오시오 ! -----//
-			
+			String nick= logindao.getnick(id);
+			crepo.updateSome(nick); 
 			List<Map> chathistory = crepo.getChatLog();	
+			
 			String st = chathistory.toString();
 			//gson.fromJson(st,List.class);
 			wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
 			System.out.println("chat history : "+chathistory);
+			
 			
 			
 			return "job.index";

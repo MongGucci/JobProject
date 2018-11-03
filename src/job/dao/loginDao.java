@@ -25,4 +25,8 @@ public class loginDao {
 		return template.update("applicant.pwchange",map);
 	}
 	
+	public String getnick(String id) {
+		return template.selectOne("applicant.getnick",id);
+	}
+	
 }

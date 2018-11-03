@@ -13,5 +13,9 @@
 	update applicant set password=#{password} where id=#{id}
 </update>
 
+<select id="getnick" parameterType="java.lang.String" resultType="java.lang.String">
+	select nick from applicant where id=#{id}
+</select>
+
 
 </mapper>

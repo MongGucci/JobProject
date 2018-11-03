@@ -28,11 +28,10 @@ public class ChatlogRepository {
 		
 	}
 	
-	/*public void updateSome(String id) {
+	public void updateSome(String id) {
 		Criteria c = new Criteria().where("readers").ne(id); 
 
 		Update u= new Update().push("readers",id);
 		UpdateResult rst= template.updateMulti(new Query(c),u,"chatlog");
-	}*/
-	//읽은사람 업데이트하는거
+	}
 }
