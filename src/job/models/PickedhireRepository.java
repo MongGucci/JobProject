@@ -10,17 +10,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PickedhireRepository {
 
-	
+   
 
-	@Autowired
-	SqlSessionTemplate template;
-	
-	public int pickHire(Map map) {
-		return template.insert("pickedhire.pickhire",map);
-	}
-	
-	public Map myjjim(Map map) {
-		return template.selectOne("pickedhire.myjjim",map);
-	}
-	
+   @Autowired
+   SqlSessionTemplate template;
+   
+   public int pickHire(Map map) {
+      return template.insert("pickedhire.pickhire",map);
+   }
+   
+   public List<Map> myjjim(Map map) {
+      return template.selectList("pickedhire.myjjim",map);
+   }
+   
 }

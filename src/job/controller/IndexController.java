@@ -14,7 +14,7 @@ public class IndexController {
 		
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION) == null) {
 			System.out.println("안녕");
-			return "jobkorea";
+			return "job.index";
 			
 		} else {
 			

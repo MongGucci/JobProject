@@ -16,6 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
+import job.dao.loginDao;
 import job.models.AlertService;
 import job.models.ChatlogRepository;
 
@@ -25,6 +26,8 @@ import job.models.ChatlogRepository;
 public class ChatController extends TextWebSocketHandler{
 	@Autowired
 	Gson gson;
+	
+
 	
 	@Autowired
 	AlertService alert;
@@ -41,9 +44,7 @@ public class ChatController extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		alert.addSocket(session);
-		
-		
-		
+
 	}
 	
 	@Override
@@ -64,7 +65,8 @@ public class ChatController extends TextWebSocketHandler{
 		//TextMessage tmt = new TextMessage(gson.toJson(got));
 		
 		alert.sendAll(got);
-		
+		String nick= (String)user.get("NICK");
+		crepo.updateSome(nick); 
 		//몽고에 넣기
 		Date senddate = new Date(System.currentTimeMillis());
 		SimpleDateFormat sd = new SimpleDateFormat("YYYY-MM-dd hh:mm");

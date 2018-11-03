@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
@@ -109,13 +110,13 @@
 	<hr />
 
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
-		<li class="nav-item"><a class="nav-link active" id="home-tab"
+		<li class="nav-item"><a class="nav-link active" 
 			data-toggle="tab" href="#home" role="tab" aria-controls="home"
 			aria-selected="true">최근 올라온 순</a></li>
-		<li class="nav-item"><a class="nav-link" id="profile-tab"
+		<li class="nav-item"><a class="nav-link" 
 			data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
 			aria-selected="false">인기 순</a></li>
-		<li class="nav-item"><a class="nav-link" id="contact-tab"
+		<li class="nav-item"><a class="nav-link"
 			data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 			aria-selected="false">얼마 남지 않은순</a></li>
 	</ul>
@@ -140,7 +141,9 @@
 								<th scope="row">#로고</th>
 								<td>${post.CONAME}</td>
 								<td>${post.TITLE}</td>
-								<td>${post.STARTDATE}-${post.ENDDATE}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.ENDDATE}" /></td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty post.MAGAM}">
@@ -157,6 +160,19 @@
 
 				</tbody>
 			</table>
+			<hr/>
+			<div align="center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1">...</a></li>
+							<c:forEach var="e" begin="1" end="${startpage}">
+							<li class="page-item"><a class="page-link" href="${path}/recruit/select.do?mode=start&page=${e}">${e}</a></li>
+							</c:forEach>
+						<li class="page-item"><a class="page-link" href="#">...</a></li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 		<div class="tab-pane fade" id="profile" role="tabpanel"
 			aria-labelledby="profile-tab">
@@ -178,7 +194,9 @@
 								<th scope="row">#로고</th>
 								<td>${post.CONAME}</td>
 								<td>${post.TITLE}</td>
-								<td>${post.STARTDATE}-${post.ENDDATE}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.ENDDATE}" /></td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty post.MAGAM}">
@@ -194,6 +212,19 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<hr/>
+			<div align="center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1">...</a></li>
+							<c:forEach var="e" begin="1" end="${hitspage}">
+							<li class="page-item"><a class="page-link" href="${path}/recruit/select.do?mode=hits&page=${e}">${e}</a></li>
+							</c:forEach>
+						<li class="page-item"><a class="page-link" href="#">...</a></li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 		<div class="tab-pane fade" id="contact" role="tabpanel"
 			aria-labelledby="contact-tab">
@@ -214,7 +245,9 @@
 								<th scope="row">#로고</th>
 								<td>${post.CONAME}</td>
 								<td>${post.TITLE}</td>
-								<td>${post.STARTDATE}-${post.ENDDATE}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
+         value="${post.ENDDATE}" /></td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty post.MAGAM}">
@@ -229,10 +262,23 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
+			<hr/>
+			<div align="center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1">...</a></li>
+							<c:forEach var="e" begin="1" end="${endpage}">
+							<li class="page-item"><a class="page-link" href="${path}/recruit/select.do?mode=end&page=${e}">${e}</a></li>
+							</c:forEach>
+						<li class="page-item"><a class="page-link" href="#">...</a></li>
+					</ul>
+				</nav>
+			</div>
 
 		</div>
 	</div>
+	
 </div>
 
 <script>

@@ -33,10 +33,22 @@ public class HireRepository {
 		return template.selectList("hire.getHireByCono",cono);
 	}
 	
+	public List<Map> getStartByPage(Map p) {
+		//System.out.println("page로 불러온 값start : "+template.selectList("hire.getStartByPage",p));
+		return template.selectList("hire.getStartByPage",p);
+	}
+	public List<Map> getEndByPage(Map p) {
+		//System.out.println("page로 불러온 값end : "+template.selectList("hire.getEndByPage",p));
+		return template.selectList("hire.getEndByPage",p);
+	}
+	public List<Map> getHitsByPage(Map p) {
+		//sSystem.out.println("page로 불러온 값hits : "+template.selectList("hire.getHitsByPage",p));
+		return template.selectList("hire.getHitsByPage",p);
+	}
+	
 	public List<Map> getAllHiresByStartdate() {
 		return template.selectList("hire.getAllHiresByStartdate");
 	}
-	
 	public List<Map> getAllHiresByEnddate() {
 		return template.selectList("hire.getAllHiresByEnddate");
 	}

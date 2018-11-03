@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class RecruitController {
 	
 	
 	@GetMapping("/select.do")
-	public String selectGetHandle(Map map) {
+	public String selectGetHandle(Map map,@RequestParam Map param) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		
 		List<Map> cate= rrepo.getAllCate();
@@ -54,59 +55,107 @@ public class RecruitController {
 		map.put("cotype",cotype);
 		map.put("hireshape",hireshape);
 		
-		List<Map> start = hrepo.getAllHiresByStartdate();
-		List<Map> end = hrepo.getAllHiresByEnddate();
-		List<Map> hits = hrepo.getAllHiresByHits();
+		List<Map> Totalstart = hrepo.getAllHiresByStartdate();
+		List<Map> Totalend = hrepo.getAllHiresByEnddate();
+		List<Map> Totalhits = hrepo.getAllHiresByHits();
+		String pg = (String)param.get("page");
+		String mode = (String)param.get("mode");
+		System.out.println("pg.mode : "+pg+mode);
+		int startpage = (Totalstart.size()%10==0) ? (Totalstart.size()/10):(Totalstart.size()/10)+1;
+		int endpage = (Totalend.size()%10==0) ? (Totalend.size()/10):(Totalend.size()/10)+1;
+		int hitspage= (Totalhits.size()%10==0) ? (Totalhits.size()/10):(Totalhits.size()/10)+1;
+		map.put("startpage",startpage);
+		map.put("endpage",endpage);
+		map.put("hitspage",hitspage);
+		
+		if (pg!=null) {
+			
+			int page = Integer.parseInt(pg);
+			Map m = new HashMap<>();
+			m.put("s", ((page-1)*10)+1);
+			m.put("e", page*10);
+			Map o = new HashMap<>();
+			o.put("s",1);
+			o.put("e", 10);
+			
+			if(mode.equals("start")) {
+				List<Map> start = hrepo.getStartByPage(m);
+				List<Map> hits = hrepo.getHitsByPage(o);
+				List<Map> end = hrepo.getEndByPage(o);
+				System.out.println("페이지눌러들갈때 값 start "+start);
+				System.out.println("페이지눌러들갈때 값 hits "+hits);
+				System.out.println("페이지눌러들갈때 값 end "+end);
+				map.put("start",start);
+				map.put("hits",hits);
+				map.put("end",end);
+			}else if(mode.equals("hits")) {
+				List<Map> start = hrepo.getStartByPage(m);
+				List<Map> hits = hrepo.getHitsByPage(o);
+				List<Map> end = hrepo.getEndByPage(m);
+				map.put("start",start);
+				map.put("hits",hits);
+				map.put("end",end);
+			}else if(mode.equals("end")) {
+				List<Map> start = hrepo.getStartByPage(o);
+				List<Map> hits = hrepo.getHitsByPage(o);
+				List<Map> end = hrepo.getEndByPage(m);
+				map.put("start",start);
+				map.put("hits",hits);
+				map.put("end",end);
+			}else {
+				
+			}
+	
+		}else {
+			Map m = new HashMap<>();
+			m.put("s", 1);
+			m.put("e", 10);
+			
+			
+				List<Map> start = hrepo.getStartByPage(m);
+				map.put("start",start);
+		
+				List<Map> hits = hrepo.getHitsByPage(m);
+				map.put("hits",hits);
+			
+				List<Map> end = hrepo.getEndByPage(m);
+				map.put("end",end);
+	
+		}
+		/*	
+		Map map = new HashMap<>();
+		
+		List<Map> list;
+		if(param != null) {
+			int page = Integer.parseInt(param);
+			System.out.println(page);
+			
+			int start = (10 * (page-1))+1;
+			int end = 10*page;
+			map.put("start", start);
+			map.put("end", end);
+			list = dao.boardList(map);
+			
+		}else {
+			map.put("start", 1);
+			map.put("end", 10);
+			list = dao.boardList(map);
+		}
+		web.setAttribute("list", list, web.SCOPE_REQUEST);
+		web.setAttribute("listcnt", listcnt, web.SCOPE_REQUEST);
+		return "user.board";
+		*/ 
 		
 		List<Map> dead = hrepo.getDeadLine6();
 		System.out.println(dead);
-		
-		for (int i = 0; i < start.size(); i++) {
-			Map m = start.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date)m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd) );
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-			//System.out.println("마감?"+m.get("MAGAM"));
-			//System.out.println("startdate:"+fmt.format(date) );
-		}
-		
-		for (int i = 0; i < end.size(); i++) {
-			Map m = end.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd));
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-		}
-
-		for (int i = 0; i < hits.size(); i++) {
-			Map m = hits.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd));
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-		}
 		map.put("dead",dead);
-		map.put("start",start);
-		map.put("end",end);
-		map.put("hits",hits);
+		
+	
 		return "job.select";
 	}
+	
+
+	
 	
 	@PostMapping(path="/selectajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
@@ -164,48 +213,56 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/jobpost.do")
-	public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr) {
-		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-		int hino = Integer.parseInt((String)param.get("hino"));
-		Map company= hrepo.getHirebyHino(hino);
-		Date start = (Date) company.get("STARTDATE");
-		Date end = (Date)company.get("ENDDATE");
-		company.put("START", fmt.format(start));
-		company.put("END", fmt.format(end));
-		long gap = end.getTime()-System.currentTimeMillis();
-		if(gap<0) {
-			company.put("MAGAM",true);
-		}
-		post.put("list", company);
-		
-		if(wr.getAttribute("id", wr.SCOPE_SESSION) != null) {
-			
-			Map jjimap = new HashMap<>();
-			jjimap.put("hino", hino);
-			jjimap.put("id", wr.getAttribute("userId", wr.SCOPE_SESSION));
-			
-			Map jjim = phrepo.myjjim(jjimap);
-			wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
-		}
-		
-		return "job.jobpost";
-	}
+	   public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr, ModelMap map) {
+	      SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+	      String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	      int hino = Integer.parseInt((String)param.get("hino"));
+	      Map company= hrepo.getHirebyHino(hino);
+	      Date start = (Date) company.get("STARTDATE");
+	      Date end = (Date)company.get("ENDDATE");
+	      company.put("START", fmt.format(start));
+	      company.put("END", fmt.format(end));
+	      long gap = end.getTime()-System.currentTimeMillis();
+	      if(gap<0) {
+	         company.put("MAGAM",true);
+	      }
+	      post.put("list", company);
+	      
+	       if(id == null) {
+	            return "job.jobpost";
+	         }
+	       
+	      
+	      
+	      Map sd = new HashMap<>();
+	       sd.put("id", id);
+	       sd.put("hino", hino);
+	       
+	       List<Map> cd = phrepo.myjjim(sd);
+	       if(cd.size() == 0) {
+	          int c = phrepo.pickHire(sd);
+	          return "job.jobpost";
+	       } else {
+	          map.put("jjim", "on");
+	          return "job.jobpost";
+	       }
+	       
+	   }
+
 	
-	@PostMapping(path = "/recruitjjimAjax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String recruitjjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
-		Map jjim = new HashMap<>();
-		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
-		Map map = new HashMap<>();
-		map.put("id", id);
-		map.put("hino", hino);
-		System.out.println(map);
-		
-		int r = phrepo.pickHire(map);
-		
-		return gson.toJson(jjim);
-	}
+	   @GetMapping("/jjim.do")
+	      public String schbtn(WebRequest wr, ModelMap map) {
+	         String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	         String hino = wr.getParameter("hino");
+	         System.out.println("hino:"+ hino);
+	         
+	         if (id == null) {
+	            return "/login/login";
+	         } else {
+	            return "redirect:/recruit/jobpost.do?hino="+ hino;
+	            
+	         }
+	   }
 	
 	@GetMapping("/comdetail.do")
 	public String comdetailGetHandle(WebRequest session, Map review) {

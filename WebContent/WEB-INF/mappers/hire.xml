@@ -10,6 +10,12 @@
 		select * from(company join hire on
 		company.coname=hire.name) order by startdate desc
 	</select>
+	
+	
+	<select id="getStartByPage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select rownum, s.* from (select * from company join hire on
+		company.coname=hire.name) s order by startdate desc) where rownum between #{s} and #{e}
+	</select>
 
 	<select id="getAllHiresByEnddate" resultType="java.util.HashMap">
 		select *
@@ -17,13 +23,21 @@
 		company.coname=hire.name) order by enddate
 		asc
 	</select>
-
+	
+	<select id="getEndByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from (select rownum, s.* from (select * from company join hire on
+		company.coname=hire.name) s order by enddate asc) where rownum between #{s} and #{e}
+	</select>
 
 	<select id="getAllHiresByHits" resultType="java.util.HashMap">
 		select * from (company
 		join hire on
 		company.coname=hire.name) order by hits
 		desc
+	</select>
+	<select id="getHitsByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from (select rownum, s.* from (select * from company join hire on
+		company.coname=hire.name) s order by hits desc) where rownum between #{s} and #{e}
 	</select>
 
 
@@ -92,7 +106,6 @@
 		enddate
 		asc) d) where r between 1 and 6
 	</select>
-
 
 
 
