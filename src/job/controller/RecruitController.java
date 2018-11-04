@@ -180,30 +180,7 @@ public class RecruitController {
 		Map company= hrepo.getHirebyHino(hino);
 		System.out.println("company:"  +company);
 		
-		int cono = ((BigDecimal) company.get("CONO")).intValue();
-		Map comp = soar.getCompany(cono); 
-	      System.out.println("id:" +session.getId());
-	      
-	      if(comp == null) {
-	    	  Map skyrocket = new HashMap<>();
-	    	  List<String> inner = new ArrayList<>();
-	          skyrocket.put("cono", cono);
-	          skyrocket.put("cnt", 1);
-	          inner.add(session.getId());
-	          skyrocket.put("inner", inner);
-	         
-	    	  soar.insertCompany(skyrocket);
-	    	  
-	      }else {
-	    	  List in = (List) comp.get("inner");
-	    	  if(!in.contains(session.getId())) {
-	    		  in.add(session.getId());
-	    		  int count = (int) comp.get("cnt");
-	        	  count += 1;
-	        	  soar.updateComapny(cono, count,in);
-	    	  }
-	    	  
-	      }
+		
 		
 		
 		Date start = (Date) company.get("STARTDATE");
@@ -225,6 +202,40 @@ public class RecruitController {
 			Map jjim = phrepo.myjjim(jjimap);
 			wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
 		}
+		int cono = ((BigDecimal) company.get("CONO")).intValue();
+		 //==============================
+	      String coname = (String) company.get("CONAME");
+	      System.out.println("어딘???:" + soar.getCompany(coname));
+	      Map comp = soar.getCompany(coname); 
+	      List<Map> before = soar.getAllSoar();
+	      System.out.println(before);
+	      System.out.println("id:" +session.getId());
+	      
+	      if(comp == null) {
+	    	  Map skyrocket = new HashMap<>();
+	    	  List<String> inner = new ArrayList<>();
+	          skyrocket.put("coname", coname);
+	          skyrocket.put("cono", cono);
+	          skyrocket.put("cnt", 1);
+	          inner.add(session.getId());
+	          skyrocket.put("inner", inner);
+	         
+	    	  soar.insertCompany(skyrocket);
+	      }else {
+	    	  List in = (List) comp.get("inner");
+	    	  if(!in.contains(session.getId())) {
+	    		  in.add(session.getId());
+	    		  int count = (int) comp.get("cnt");
+	        	  count += 1;
+	        	  soar.updateComapny(coname, count,in);
+	    	  }
+	    	  
+	      }
+	      
+	      List<Map> after = soar.getAllSoar();
+	      System.out.println(after);
+	      
+	      //==============================
 		
 		return "job.jobpost";
 	}

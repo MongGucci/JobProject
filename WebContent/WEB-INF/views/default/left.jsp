@@ -3,12 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
-<div class="ui list">
-	<div class="item">
-		<i class="users icon"></i>
-		<div class="content">Semantic UI</div>
-	</div>
-</div>
+
 
 <c:if test="${!empty userId }">
 	<div style="margin-top: 20px;">

@@ -32,5 +32,16 @@ public class EssayRepository {
 	public Integer updateEssay(Map map) {
 		return template.update("essay.updateEssay", map);
 	}
+	
+	public List<Map> getHire() {
+		return template.selectList("essay.getHire");
+	}
+	
+	public Map getJasoForm(Integer hino) {
+		return template.selectOne("essay.getJasoForm",hino);
+	}
+	public List<Map> getPassJaso() {
+		return template.selectList("essay.getPassJaso");
+	}
 
 }

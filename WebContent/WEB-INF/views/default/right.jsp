@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="accordion" role="tablist">
   <div class="card">
-    <div class="card-header" role="tab" id="headingOne">
+    <div class="card-header" role="tab" id="headingOne" style="background-color: #434e6e;">
       <h5 class="mb-0">
         <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           전체채팅
@@ -33,7 +33,7 @@
   </div>
   
   <div class="card">
-    <div class="card-header" role="tab" id="headingOne">
+    <div class="card-header" role="tab" id="headingOne" style="background-color: #434e6e;">
       <h5 class="mb-0">
         <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
           부서채팅

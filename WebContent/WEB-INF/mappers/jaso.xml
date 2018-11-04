@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jaso">
+
+	<select id="getCompany" resultType="java.util.HashMap">
+		select cono,coname from
+		company
+	</select>
+	<select id="getHire" resultType="java.util.HashMap">
+		select hino,name from hire
+	</select>
+	<select id="getCate" resultType="java.util.HashMap">
+		select catename from jobcate
+	</select>
+
+	<insert id="addJasoForm" parameterType="java.util.HashMap">
+		insert into jasoform
+		values(companyjaso_seq.nextval,#{cono},#{hino},#{job},#{title},#{Q1},#{Q2},#{Q3},#{Q4})
+	</insert>
+	<insert id="addPassJaso" parameterType="java.util.HashMap">
+		insert into passjaso
+		values(passjaso_seq.nextval,#{cono},#{title},#{job},#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4})
+	</insert>
+</mapper> 

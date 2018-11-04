@@ -21,15 +21,15 @@ public class SoarRepository {
 		return ret;
 	}
 
-	public Map getCompany(Integer cono) {
-		Criteria c = Criteria.where("cono").in(cono);
+	public Map getCompany(String coname) {
+		Criteria c = Criteria.where("coname").in(coname);
 
 		return template.findOne(new Query(c), Map.class, "soar");
 	}
 
-	public void updateComapny(Integer cono, int count, List inner) {
+	public void updateComapny(String coname, int count, List inner) {
 
-		Criteria c = Criteria.where("cono").in(cono);
+		Criteria c = Criteria.where("coname").in(coname);
 		Update cnt = new Update().set("cnt", count);
 		Update in = new Update().set("inner", inner);
 

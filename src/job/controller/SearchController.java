@@ -82,34 +82,7 @@ public class SearchController {
    public String detailHandle(WebRequest wr, Map map) {
      String no = (String)wr.getParameter("cono");
       int cono = Integer.parseInt(no);
-      System.out.println("어딘???:" + soar.getCompany(cono));
-      Map company = soar.getCompany(cono); 
-      List<Map> before = soar.getAllSoar();
-      System.out.println(before);
-      System.out.println("id:" +session.getId());
-      
-      if(company == null) {
-    	  Map skyrocket = new HashMap<>();
-    	  List<String> inner = new ArrayList<>();
-          skyrocket.put("cono", cono);
-          skyrocket.put("cnt", 1);
-          inner.add(session.getId());
-          skyrocket.put("inner", inner);
-         
-    	  soar.insertCompany(skyrocket);
-      }else {
-    	  List in = (List) company.get("inner");
-    	  if(!in.contains(session.getId())) {
-    		  in.add(session.getId());
-    		  int count = (int) company.get("cnt");
-        	  count += 1;
-        	  soar.updateComapny(cono, count,in);
-    	  }
-    	  
-      }
-      
-      List<Map> after = soar.getAllSoar();
-      System.out.println(after);
+     
       
       
       String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
@@ -148,6 +121,40 @@ public class SearchController {
       sd.put("id", id);
       sd.put("cono", cono);
       
+      //==============================
+      String coname = (String) dt.get("CONAME");
+      System.out.println("어딘???:" + soar.getCompany(coname));
+      Map company = soar.getCompany(coname); 
+      List<Map> before = soar.getAllSoar();
+      System.out.println(before);
+      System.out.println("id:" +session.getId());
+      
+      if(company == null) {
+    	  Map skyrocket = new HashMap<>();
+    	  List<String> inner = new ArrayList<>();
+          skyrocket.put("coname", coname);
+          skyrocket.put("cono", cono);
+          skyrocket.put("cnt", 1);
+          inner.add(session.getId());
+          skyrocket.put("inner", inner);
+         
+    	  soar.insertCompany(skyrocket);
+      }else {
+    	  List in = (List) company.get("inner");
+    	  if(!in.contains(session.getId())) {
+    		  in.add(session.getId());
+    		  int count = (int) company.get("cnt");
+        	  count += 1;
+        	  soar.updateComapny(coname, count,in);
+    	  }
+    	  
+      }
+      
+      List<Map> after = soar.getAllSoar();
+      System.out.println(after);
+      
+      //==============================
+
       List<Map> jd = searchdao.ckbtn(sd);
       if(jd.size() == 0) {
          int c = searchdao.schbtn(sd);
@@ -156,6 +163,8 @@ public class SearchController {
          map.put("btn", "ya");   
          return "job.schdetail.index";
       }
+      
+      
    }
 
    // 요게 해당하는 기업이름 촤르륵

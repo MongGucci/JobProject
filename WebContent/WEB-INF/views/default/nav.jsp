@@ -5,7 +5,13 @@
 
 <link href="${path}/css/index.css" rel="stylesheet">
 
-<div class="container" style="margin-top: 30px;">
+<div class="container-fluid" style="margin-top: 30px;">
+<div class="row">
+	<div class="col-2"></div>
+	
+
+	
+	<div class="col-8">
 	<header class="blog-header py-3">
 		<div
 			class="row flex-nowrap justify-content-between align-items-center">
@@ -40,15 +46,16 @@
 
 	</header>
 	<hr>
-
-	<div class="nav-scroller py-1 mb-2">
-		<nav class="nav d-flex justify-content-between">
+	
+	<nav class="nav d-flex justify-content-between">
 			<a class="p-2 text-muted" id="list" href="${path}/search/search.do">기업정보</a>
 			<a class="p-2 text-muted" id="list" href="${path}/recruit/select.do">채용공고</a>
 			<a class="p-2 text-muted" id="list"
 				href="${path}/essayBoard/shareEssayList.do">자기소개서 공유 게시판</a> <a
-				class="p-2 text-muted" id="list" href="${path}/essay/myEssay.do">자기소개서</a>
+				class="p-2 text-muted" id="list" href="${path}/essay/essay.do">자기소개서</a>
 
-		</nav>
+		</nav></div>
+	<div class="col-2"></div>
+		
 	</div>
 </div>
