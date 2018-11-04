@@ -239,10 +239,10 @@ public class RecruitController {
 	       sd.put("hino", hino);
 	       
 	       List<Map> cd = phrepo.myjjim(sd);
-	       if(cd.size() == 0) {
+	       if(cd.size() == 0) { //찜되어있지 않을ㄸㅐ
 	          int c = phrepo.pickHire(sd);
-	          return "job.jobpost";
-	       } else {
+			  return "job.jobpost";
+	       } else { //이미 찜이 되어있을때
 	          map.put("jjim", "on");
 	          return "job.jobpost";
 	       }
@@ -259,6 +259,12 @@ public class RecruitController {
 	         if (id == null) {
 	            return "/login/login";
 	         } else {
+	        	 List<Map> three = hrepo.getDeadline3(id);
+		          List<Map> today = hrepo.getToday(id);
+		          wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+				  wr.setAttribute("today", today,  wr.SCOPE_SESSION);
+				  System.out.println("세션에 올라가는 today ? "+ today);
+				  System.out.println("세션에 올라가는 three ? "+ three);
 	            return "redirect:/recruit/jobpost.do?hino="+ hino;
 	            
 	         }
