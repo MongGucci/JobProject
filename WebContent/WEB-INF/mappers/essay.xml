@@ -26,6 +26,6 @@ select * from hire where sysdate &lt; enddate order by enddate asc
 select * from jasoform where hino = #{hino}
 </select>
 <select id="getPassJaso" resultType="java.util.HashMap">
-select * from passjaso
+select * from (company join passjaso on company.cono = passjaso.comno)
 </select>
 </mapper>
