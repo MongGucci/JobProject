@@ -241,6 +241,12 @@ public class RecruitController {
 	       List<Map> cd = phrepo.myjjim(sd);
 	       if(cd.size() == 0) { //찜되어있지 않을ㄸㅐ
 	          int c = phrepo.pickHire(sd);
+	          List<Map> three = hrepo.getDeadline3(id);
+	          List<Map> today = hrepo.getToday(id);
+	          wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+			  wr.setAttribute("today", today,  wr.SCOPE_SESSION);
+			  System.out.println("세션에 올라가는 today ? "+ today);
+			  System.out.println("세션에 올라가는 three ? "+ three);
 			  return "job.jobpost";
 	       } else { //이미 찜이 되어있을때
 	          map.put("jjim", "on");
@@ -259,12 +265,7 @@ public class RecruitController {
 	         if (id == null) {
 	            return "/login/login";
 	         } else {
-	        	 List<Map> three = hrepo.getDeadline3(id);
-		          List<Map> today = hrepo.getToday(id);
-		          wr.setAttribute("three", three,  wr.SCOPE_SESSION);
-				  wr.setAttribute("today", today,  wr.SCOPE_SESSION);
-				  System.out.println("세션에 올라가는 today ? "+ today);
-				  System.out.println("세션에 올라가는 three ? "+ three);
+	        	
 	            return "redirect:/recruit/jobpost.do?hino="+ hino;
 	            
 	         }
@@ -341,6 +342,14 @@ public class RecruitController {
 		msg.put("link",1113);
 		//msg.put("link", 보낸값에서 cono뽑기);
 		alert.sendOne(msg, "skdbs0610");
+	}
+	
+	@GetMapping("/enterchat.do")
+	public String enterchatHandle(@RequestParam String mode , WebRequest wr) {
+		System.out.println("채팅방 입장./mode : "+mode);
+		//System.out.println("채팅방 wrparam : "+wr.getParameter("mode"));
+		
+		return "job.chat";
 	}
 	
 	

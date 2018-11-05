@@ -309,6 +309,8 @@
 	$('.special.cards .image').dimmer({
 		on : 'hover'
 	});
+	
+	
 	$("#location").on(
 			"change",
 			function() {

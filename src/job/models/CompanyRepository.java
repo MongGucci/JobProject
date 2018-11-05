@@ -27,4 +27,8 @@ public class CompanyRepository {
 	public Map getByCo (String co) {
 		return template.selectOne("company.getByCo",co);
 	}
+	
+	public List<Map> getChatRooms(String id){
+		return template.selectList("pickedcompany.getChatRooms",id);
+	}
 }

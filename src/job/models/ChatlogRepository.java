@@ -33,5 +33,5 @@ public class ChatlogRepository {
 
 		Update u= new Update().push("readers",id);
 		UpdateResult rst= template.updateMulti(new Query(c),u,"chatlog");
-	}
+	} 
 }

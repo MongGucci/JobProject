@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import job.dao.loginDao;
 import job.models.ChatlogRepository;
+import job.models.CompanyRepository;
 import job.models.HireRepository;
 
 @Controller
@@ -35,6 +36,8 @@ public class LoginController {
 	HireRepository hrepo;
 	@Autowired
 	ChatlogRepository crepo;
+	@Autowired
+	CompanyRepository comrepo;
 	
 	@Autowired
 	ServletContext sc;
@@ -88,11 +91,11 @@ public class LoginController {
 			
 			String st = chathistory.toString();
 			//gson.fromJson(st,List.class);
-			wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
+			wr.setAttribute("chathistory", gson.toJson(chathistory), WebRequest.SCOPE_SESSION);
 			System.out.println("chat history : "+chathistory);
 			
-			
-			
+			List<Map> chatrooms = comrepo.getChatRooms(id);
+			wr.setAttribute("chatrooms", chatrooms, WebRequest.SCOPE_SESSION);
 			return "job.index";
 		} else {
 			map.put("err", "on");
