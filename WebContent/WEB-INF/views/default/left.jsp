@@ -56,10 +56,11 @@
 
 <div id="alert" style="font-size: .75em; width: 100%;"></div>
 
+
 <script type="text/javascript">
 
-
 <c:if test="${!empty userId}">
+
 	
 console.log("연결");
 	var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
@@ -113,6 +114,6 @@ console.log("연결");
 		document.getElementById("alert").innerHTML += html;
 	};
 
-	</c:if>
+</c:if>
 
 </script>

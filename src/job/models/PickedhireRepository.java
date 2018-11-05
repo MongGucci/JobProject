@@ -23,4 +23,8 @@ public class PickedhireRepository {
       return template.selectList("pickedhire.myjjim",map);
    }
    
+   public List<String> getIdsbyCono(int cono){
+	   return template.selectList("pickedhire.getIdsbyCono",cono);
+   }
+   
 }

@@ -43,7 +43,7 @@ public class RecruitController {
 	
 	
 	@GetMapping("/select.do")
-	public String selectGetHandle(Map map,@RequestParam Map param) {
+	public String selectGetHandle(Map map,WebRequest wr) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		
 		List<Map> cate= rrepo.getAllCate();
@@ -53,105 +53,84 @@ public class RecruitController {
 		map.put("cate",cate);
 		map.put("big",big);
 		map.put("cotype",cotype);
-		map.put("hireshape",hireshape);
+	 	map.put("hireshape",hireshape);
 		
+		String mode= (String)wr.getParameter("mode");
+		String pg = (String)wr.getParameter("page");
+		System.out.println("mode/pg : "+mode+"/"+pg);
 		List<Map> Totalstart = hrepo.getAllHiresByStartdate();
-		List<Map> Totalend = hrepo.getAllHiresByEnddate();
 		List<Map> Totalhits = hrepo.getAllHiresByHits();
-		String pg = (String)param.get("page");
-		String mode = (String)param.get("mode");
-		System.out.println("pg.mode : "+pg+mode);
+		List<Map> Totalend = hrepo.getAllHiresByEnddate();
+		
 		int startpage = (Totalstart.size()%10==0) ? (Totalstart.size()/10):(Totalstart.size()/10)+1;
+		int hitspage = (Totalhits.size()%10==0) ? (Totalhits.size()/10):(Totalhits.size()/10)+1;
 		int endpage = (Totalend.size()%10==0) ? (Totalend.size()/10):(Totalend.size()/10)+1;
-		int hitspage= (Totalhits.size()%10==0) ? (Totalhits.size()/10):(Totalhits.size()/10)+1;
+		
 		map.put("startpage",startpage);
-		map.put("endpage",endpage);
 		map.put("hitspage",hitspage);
-		
-		if (pg!=null) {
-			
-			int page = Integer.parseInt(pg);
-			Map m = new HashMap<>();
-			m.put("s", ((page-1)*10)+1);
-			m.put("e", page*10);
-			Map o = new HashMap<>();
-			o.put("s",1);
-			o.put("e", 10);
-			
-			if(mode.equals("start")) {
-				List<Map> start = hrepo.getStartByPage(m);
-				List<Map> hits = hrepo.getHitsByPage(o);
-				List<Map> end = hrepo.getEndByPage(o);
-				System.out.println("페이지눌러들갈때 값 start "+start);
-				System.out.println("페이지눌러들갈때 값 hits "+hits);
-				System.out.println("페이지눌러들갈때 값 end "+end);
-				map.put("start",start);
-				map.put("hits",hits);
-				map.put("end",end);
-			}else if(mode.equals("hits")) {
-				List<Map> start = hrepo.getStartByPage(m);
-				List<Map> hits = hrepo.getHitsByPage(o);
-				List<Map> end = hrepo.getEndByPage(m);
-				map.put("start",start);
-				map.put("hits",hits);
-				map.put("end",end);
-			}else if(mode.equals("end")) {
-				List<Map> start = hrepo.getStartByPage(o);
-				List<Map> hits = hrepo.getHitsByPage(o);
-				List<Map> end = hrepo.getEndByPage(m);
-				map.put("start",start);
-				map.put("hits",hits);
-				map.put("end",end);
-			}else {
-				
-			}
+		map.put("endpage",endpage);
 	
-		}else {
-			Map m = new HashMap<>();
-			m.put("s", 1);
-			m.put("e", 10);
-			
-			
-				List<Map> start = hrepo.getStartByPage(m);
-				map.put("start",start);
-		
-				List<Map> hits = hrepo.getHitsByPage(m);
-				map.put("hits",hits);
-			
-				List<Map> end = hrepo.getEndByPage(m);
-				map.put("end",end);
-	
-		}
-		/*	
-		Map map = new HashMap<>();
-		
-		List<Map> list;
-		if(param != null) {
-			int page = Integer.parseInt(param);
-			System.out.println(page);
-			
-			int start = (10 * (page-1))+1;
-			int end = 10*page;
-			map.put("start", start);
-			map.put("end", end);
-			list = dao.boardList(map);
-			
-		}else {
-			map.put("start", 1);
-			map.put("end", 10);
-			list = dao.boardList(map);
-		}
-		web.setAttribute("list", list, web.SCOPE_REQUEST);
-		web.setAttribute("listcnt", listcnt, web.SCOPE_REQUEST);
-		return "user.board";
-		*/ 
-		
 		List<Map> dead = hrepo.getDeadLine6();
 		System.out.println(dead);
 		map.put("dead",dead);
 		
-	
-		return "job.select";
+		Map m = new HashMap<>();
+		if(mode==null) {
+			
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				m.put("s", ((page-1)*10)+1);
+				m.put("e", page*10);
+				
+			}else {
+				
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> start = hrepo.getStartByPage(m);
+			System.out.println("페이지눌러들갈때 값 start "+start);
+			map.put("start", start);
+			return "job.selectstart";
+		
+		}else if(mode.equals("hits")) {
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				m.put("s", ((page-1)*10)+1);
+				m.put("e", page*10);
+				
+			}else {
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> hits = hrepo.getHitsByPage(m);
+			System.out.println("페이지눌러들갈때 값 hits "+hits);
+			map.put("hits", hits);
+			return "job.selecthits";
+		}else if(mode.equals("end")) {
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				m.put("s", ((page-1)*10)+1);
+				m.put("e", page*10);
+				
+			}else {
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> end= hrepo.getEndByPage(m);
+			System.out.println("페이지눌러들갈때 값 end "+end);
+			map.put("end", end);
+			return "job.selectend";
+		}else {
+			System.out.println("mode값이 이상함select.do");
+			return "job.index";
+		}
+		
 	}
 	
 
@@ -345,8 +324,8 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/enterchat.do")
-	public String enterchatHandle(@RequestParam String mode , WebRequest wr) {
-		System.out.println("채팅방 입장./mode : "+mode);
+	public String enterchatHandle( WebRequest wr) {
+		//System.out.println("채팅방 입장./mode : "+mode);
 		//System.out.println("채팅방 wrparam : "+wr.getParameter("mode"));
 		
 		return "job.chat";

@@ -4,14 +4,16 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
 <h4>전체채팅방</h4>
+
 <div style="height: 520px; overflow-y: scroll; " id="chatView">
 	 <c:forEach var="obj" items="${chathistory}">
   
   	<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-  		${obj.id} : ${obj.text}
+  		${obj.nick} : ${obj.text}
   	</div>
   </c:forEach>
 </div>
+
 <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">CHAT</span>
@@ -34,11 +36,12 @@
 	
 	var publicHandle = function(obj) {
 		var txt = obj.text;
+		//<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
 		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 		html += obj.talker+" : "+ obj.text;
 		html +="</div>";
 		document.getElementById("chatView").innerHTML += html;
-		document.getElementById("chatView").scrollTop +=  document.getElementById("chatView").scrollHeight; 
+		document.getElementById("chatView").scrollTop += document.getElementById("chatView").scrollHeight; 
 	}
  	
 	

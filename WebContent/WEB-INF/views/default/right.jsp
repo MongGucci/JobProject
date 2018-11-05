@@ -21,14 +21,14 @@
 	<span style="font-weight: bolder;">전체채팅</span>
 	<hr/>
 	<div class="list-group" style="width:90%;">
-  		 <a href="${path }/recruit/enterchat.do?mode=all" class="list-group-item list-group-item-action">전체채팅</a>
+  		 <a href="${path }/recruit/enterchat.do" class="list-group-item list-group-item-action">전체채팅</a>
 	</div>
 	<hr/>
 	<span style="font-weight: bolder;">내가 찜한 기업채팅</span>
 	<hr/>
 	<div class="list-group" style="width:90%;">
 		<c:forEach var="r" items="${chatrooms}">
-  			 <a href="${path }/recruit/enterchat.do?mode=${r.CONO}" class="list-group-item list-group-item-action">${r.CONAME}</a>
+  			 <a href="${path }/recruit/enterchat.do" class="list-group-item list-group-item-action">${r.CONAME}</a>
   		</c:forEach>
 	</div>
 

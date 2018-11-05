@@ -12,4 +12,8 @@
 	<select id="getChatRooms" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from pickedcompany join company on pickedcompany.cono = company.cono where id=#{id}
 	</select>
+	
+	<select id="getIdsbyCono" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select pickedcompany.id from pickedcompany join applicant on pickedcompany.ID=applicant.ID where cono=#{cono}
+	</select>
 </mapper>

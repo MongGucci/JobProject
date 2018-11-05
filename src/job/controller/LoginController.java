@@ -61,15 +61,16 @@ public class LoginController {
 		data.put("password", pass);
 		
 		Map log = logindao.loginck(data);
-		
+	
 		if(log != null) {
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
 			wr.setAttribute("password", pass, wr.SCOPE_SESSION);
 			
+			
 			Map user = logindao.userck(id);
 			wr.setAttribute("user", user, wr.SCOPE_SESSION);
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
-			
+			wr.setAttribute("nick", (String)user.get("NICK"), wr.SCOPE_SESSION);
 			System.out.println("유저 정보 : " + user);
 			
 			
@@ -88,10 +89,10 @@ public class LoginController {
 			String nick= logindao.getnick(id);
 			crepo.updateSome(nick); 
 			List<Map> chathistory = crepo.getChatLog();	
-			
+			wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
 			String st = chathistory.toString();
 			//gson.fromJson(st,List.class);
-			wr.setAttribute("chathistory", gson.toJson(chathistory), WebRequest.SCOPE_SESSION);
+			//wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
 			System.out.println("chat history : "+chathistory);
 			
 			List<Map> chatrooms = comrepo.getChatRooms(id);
