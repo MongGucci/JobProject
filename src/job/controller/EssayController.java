@@ -18,6 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.google.gson.Gson;
 
 import job.models.EssayRepository;
+import job.models.EssayService;
 
 @Controller
 @RequestMapping("/essay")
@@ -27,6 +28,9 @@ public class EssayController {
 
 	@Autowired
 	Gson gson;
+	
+	@Autowired
+	EssayService essayservice;
 
 	@GetMapping("/essayWrite.do")
 	public String writeGetHandle(WebRequest web) {
@@ -194,7 +198,7 @@ public class EssayController {
 		
 		switch (menu) {
 		case "hire":
-
+				list = essayservice.hireAjax();
 			break;
 		case "pass":
 			list = essay.getPassJaso();
@@ -208,6 +212,32 @@ public class EssayController {
 		
 
 		return gson.toJson(list);
+
+	}
+	
+	@PostMapping(path = "/passJasoAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String passJasoAjaxHandle(@RequestParam String passno) {
+
+		System.out.println("menu: " + passno);
+		int no = Integer.parseInt(passno);
+		Map map = essay.getPassJasoOne(no);
+		
+		for (int i = 1; i < 5; i++) {
+			if (map.get("A" + i) != null) {
+				String a = (String) map.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				map.put("A" + i, a);
+			}
+			if (map.get("Q" + i) != null) {
+				String q = (String) map.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				map.put("Q" + i, q);
+			}
+		}
+		
+
+		return gson.toJson(map);
 
 	}
 }

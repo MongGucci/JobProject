@@ -43,6 +43,9 @@ public class EssayRepository {
 	public List<Map> getPassJaso() {
 		return template.selectList("essay.getPassJaso");
 	}
+	public Map getPassJasoOne(Integer passno) {
+		return template.selectOne("essay.getPassJasoOne",passno);
+	}
 	
 	public Integer totalHire() {
 		return template.selectOne("essay.totalHire");

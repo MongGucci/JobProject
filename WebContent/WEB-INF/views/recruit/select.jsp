@@ -11,7 +11,7 @@
 <div class="container" style="margin-top: 20px;">
 
 	
-
+<%-- 
 		<div class="ui special cards" style="margin: 50px;">
 			<c:forEach var="e" items="${dead}">
 				<div class="card">
@@ -39,7 +39,7 @@
 			</c:forEach>
 		</div>
 
-
+--%>
 		
 
 

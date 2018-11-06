@@ -28,6 +28,9 @@ select * from jasoform where hino = #{hino}
 <select id="getPassJaso" resultType="java.util.HashMap">
 select * from (company join passjaso on company.cono = passjaso.comno)
 </select>
+<select id="getPassJasoOne" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+select * from passjaso where passno = #{passno}
+</select>
 <select id="totalHire" resultType="java.lang.Integer">
 select count(*) as cnt from hire where sysdate &lt; enddate
 </select>

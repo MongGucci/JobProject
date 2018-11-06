@@ -43,5 +43,17 @@ public class ShareEssayRepository {
 	public List<Map> getReply(Integer no) {
 		return template.selectList("reply.getReply", no);
 	}
+	
+	public int updateReply(Integer no) {
+		return template.update("reply.updateReply", no);
+	}
+	
+	public int deleteShareEssay(Integer no) {
+		return template.delete("shareEssay.deleteShareEssay", no);
+	}
+	
+	public int deletePicked(Integer no) {
+		return template.delete("shareEssay.deletePicked", no);
+	}
 
 }

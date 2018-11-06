@@ -7,7 +7,9 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <style>
 
-
+#body{
+color:#434e6e;
+}
 span:hover {
 	color: white;
 }
@@ -31,7 +33,7 @@ text-align: center;
 #hirename{
 font-size: 17pt;
 font-weight: bolder;
-padding-top:40px;
+padding-top:30px;
 }
 #hireinfo{
 
@@ -57,9 +59,14 @@ width: 140px;
 cursor: pointer;
 
 }
+#hirediv:hover{
+background-color: #434e6e;
+color: white;
+
+}
 </style>
 
-<div class="container" style="margin-top: 20px;">
+<div class="container" style="margin-top: 20px;" id="body">
 
 	<form class="form-signin"
 		action="${pageContext.servletContext.contextPath }/search/search.do"

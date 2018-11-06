@@ -160,6 +160,7 @@ public class ShareEssayController {
 			String FILE = ((String) map.get("PATH")).substring(((String) map.get("PATH")).lastIndexOf("/") + 1);
 			map.put("FILE", FILE);
 		}
+		System.out.println( "essay : " + map);
 		
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		web.setAttribute("reply", reply, web.SCOPE_REQUEST);
@@ -197,6 +198,14 @@ public class ShareEssayController {
 	
 	//===========================================================================
 	//181028 
+	@GetMapping("/reply.do")
+	public String replyGetHandle(@RequestParam Map map) {
+		System.out.println(map);
+		int no = Integer.parseInt((String) map.get("no"));
+		int r = shareEssay.updateReply(no);
+		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
+		
+	}
 	
 	
 	@PostMapping("/reply.do")
@@ -251,6 +260,15 @@ public class ShareEssayController {
 		
 		
 		
+	}
+	
+	@GetMapping("/shareEssayDelete.do")
+	public String  shareEssayDeleteHandle(@RequestParam String no) {
+		int jasono = Integer.parseInt(no);
+		int r = shareEssay.deletePicked(jasono);
+		int t = shareEssay.deleteShareEssay(jasono);
+		
+		return "redirect:/essayBoard/shareEssayList.do";
 	}
 	
 	

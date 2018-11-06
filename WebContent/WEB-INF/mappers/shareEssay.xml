@@ -25,4 +25,10 @@
 	<select id="myLike" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from PICKEDJASO where id=#{id} and jasono=#{jasono}
 	</select>
+	<delete id="deleteShareEssay" parameterType="java.lang.Integer">
+	delete from sharejaso where no=#{no}
+	</delete>
+	<delete id="deletePicked" parameterType="java.lang.Integer">
+	delete from pickedjaso where jasono =#{no}
+	</delete>
 </mapper>

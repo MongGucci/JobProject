@@ -24,6 +24,10 @@
 	rel="stylesheet">
 <title>Insert title here</title>
 <style>
+body {
+	color: #434e6e;
+}
+
 span:hover {
 	color: white;
 }
@@ -35,6 +39,17 @@ span:hover {
 	padding: 10px;
 	font-family: 'Nanum Gothic', sans-serif;
 }
+
+#hirediv:hover {
+	background-color: #434e6e;
+	color: white;
+}
+
+#passdiv:hover {
+	background-color: #434e6e;
+	color: white;
+}
+
 #passdiv {
 	border: 1px solid #434e6e;
 	margin: 20px;
@@ -74,6 +89,41 @@ span:hover {
 #jobgo {
 	font-size: 15pt;
 }
+
+#btn {
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	color: #434e6e;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+}
+
+#btn:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+	padding: 15px
+}
+
+#myessay {
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	color: #434e6e;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+}
+
+#myessay:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+}
 </style>
 </head>
 <nav style="margin: 20px;">
@@ -105,28 +155,34 @@ span:hover {
 </nav>
 
 
+<%-- ──────────────────────────── 모달시작  ───────────────────────────────────────────────────--%>
 <c:if test="${empty userId}">
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">JOB GO</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        로그인이 필요한 서비스 입니다.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="${path}/login.do"><button type="button" class="btn btn-primary" >Login</button></a>
-      </div>
-    </div>
-  </div>
-</div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">JOB GO</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">로그인이 필요한 서비스 입니다.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<a href="${path}/login.do"><button type="button"
+							class="btn btn-primary">Login</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
 </c:if>
+<%-- ──────────────────────────── 모달끝  ───────────────────────────────────────────────────--%>
+
+
 
 <body style="background-color: #F4F4F4;">
 
@@ -135,29 +191,25 @@ span:hover {
 		<div class="row" style="height: 950px;">
 
 			<div class="col" style="overflow-y: scroll; height: 100%;">
-				<div style="margin: 20px;">
-					<div class="ui secondary  menu"
-						style="font-size: 15pt; font-weight: bolder; font-family: 'Nanum Gothic', sans-serif;">
-						<a class="item active" onclick="menu(this)" data-value="hire">
-							채용공고 </a> <a class="item" onclick="menu(this)" data-value="pass">
-							합격자소서 </a> <a class="item" id="myessay" data-toggle="modal" data-target="#exampleModal"> 내가 쓴 자소서 </a>
+				<div class="ui grid" style="margin: 20px;">
 
+					<div class="four wide column">
+						<button id="btn" onclick="menu(this)" data-value="hire">
+							채용공고</button>
 					</div>
+					<div class="four wide column">
+						<button id="btn" onclick="menu(this)" data-value="pass">
+							합격자소서</button>
+					</div>
+					<div class="six wide column">
+						<button id="myessay" data-toggle="modal"
+							data-target="#exampleModal">내가 쓴 자소서</button>
+					</div>
+					<div class="two wide column"></div>
+
 				</div>
-				
-				<%--
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				 --%>
-				 
-				 
+
+				<%-- ──────────────────────────── 중앙  ───────────────────────────────────────────────────--%>
 				<div id="left">
 					<c:forEach var="e" items="${list}" varStatus="status">
 						<div id="hirediv">
@@ -183,93 +235,61 @@ span:hover {
 										<div class="four wide column" align="right">
 											<div
 												style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${e.DDAY}</div>
-											<div id="jaso" onclick="hino(this)" data-value="${e.HINO}" data-toggle="modal" data-target="#exampleModal">
+											<div id="jaso" onclick="hino(this)" data-value="${e.HINO}"
+												data-toggle="modal" data-target="#exampleModal">
 												<i class="add icon"></i> 자소서 쓰기
 											</div>
 										</div>
 
 									</div>
-
-
-
-
-
 								</div>
-
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 
-				<div align="center">
+				<%-- ──────────────────────────── 페이징시작  ───────────────────────────────────────────────────--%>
+
+				<div align="center" id="paging">
 					<div aria-label='Pagination Navigation' role='navigation'
 						class='ui pagination pointing secondary menu'>
 						<a aria-current='false' tabindex='0' value='1'
 							aria-label='Previous item' type='prevItem' class='item'
-							style="font-size: 30pt;"> ⟨ </a>
+							style="font-size: 15pt;"> ⟨ </a>
 						<c:forEach var="e" begin="1" end="${listcnt}">
 							<a aria-current='true' tabindex='0' value='${e}' type='pageItem'
 								class='active item' href="${path}/essay/essay.do?page=${e}"
-								style="font-size: 30pt;">${e } </a>
+								style="font-size: 18pt;">${e } </a>
 						</c:forEach>
 
 
 						<a aria-current='false' tabindex='0' value='2'
 							aria-label='Next item' type='nextItem' class='item'
-							style="font-size: 30pt;"> ⟩ </a>
+							style="font-size: 15pt;"> ⟩ </a>
 					</div>
 				</div>
+
+				<%-- ──────────────────────────── 모달끝  ───────────────────────────────────────────────────--%>
 			</div>
-			
-			
-
-
-
-	
-	<c:choose>
-		<c:when test="${!empty userId}">
-
-		
-		</c:when>
-		<c:otherwise>
-			
-
-		</c:otherwise>
-	</c:choose>
-
-
-			<%-- 
-			<div id="hirediv">
-						<div class="ui grid" id="list">
-
-							<div class="two wide column" id="cnt">${status.count}.</div>
-							<div class="fourteen wide column">
-
-								<div class="ui grid">
-
-									<div class="four wide column" id="hirename">${e.NAME}</div>
-									<div class="twelve wide column" id="hireinfo">
-										<div style="width: 100%" id="detail">
-											<b>${e.TITLE}</b>
-										</div>
-										<div style="width: 100%" id="detail">
-											<small>${e.JOBCATE}</small>
-										</div>
-										<div style="width: 100%" id="detail">${e.HIRESHAPE}</div>
-									</div>
-									
-
-								</div>
 
 
 
 
 
-							</div>
 
-						</div>
-					</div>
-					--%>
+			<c:choose>
+				<c:when test="${!empty userId}">
+
+
+				</c:when>
+				<c:otherwise>
+
+
+				</c:otherwise>
+			</c:choose>
+
+
+
 
 			<%-- ---------------------------오른쪽 시작----------------------------------- --%>
 
@@ -414,7 +434,7 @@ span:hover {
 		</div>
 	</div>
 
-	
+
 
 </body>
 <!-- Scripts -->
@@ -422,6 +442,7 @@ span:hover {
 
 <script>
 	var count = 1;
+	
 	$("#plus").on("click", function() {
 		count++;
 		console.log(count);
@@ -484,31 +505,72 @@ span:hover {
 
 	var menu = function(obj) {
 
-		
-
 		var param = {
 			"menu" : obj.dataset.value
 		};
-		$.post("${path}/essay/essayMenuAjax.do", param).done(function(rst) {
-			console.log(rst);
-			for (var i = 0; i < rst.length; i++) {
-				
-				var html = "";
-				
-				html += "<div id=\"passdiv\"><div class=\"ui grid\" id=\"list\">"
-				html +="<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}${e.PATH}\"></div>"
-					html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
+		$
+				.post("${path}/essay/essayMenuAjax.do", param)
+				.done(
+						function(rst) {
+							console.log(rst);
+							var html = "";
+							var page= "";
+							if(rst[0].mode =='hire'){
+							for (var i = 0; i < rst.length-1; i++) {
+								
+									
+									html += "<div id=\"hirediv\"><div class=\"ui grid\" id=\"list\">"
+									html +=	"<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].PATH +"\"></div>"
+								html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\">"+rst[i].NAME+"</div>";
+								html += "<div class=\"eight wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\"><b>"+rst[i].TITLE+"</b>"
+								html += "</div><div style=\"width: 100%\" id=\"detail\"><small>"+rst[i].JOBCATE+"</small></div>"
+								html += "<div style=\"width: 100%\" id=\"detail\">"+rst[i].HIRESHAPE+"</div></div><div class=\"four wide column\" align=\"right\">"
+								html +=	"<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"+rst[i].DDAY+"</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\"${e.HINO}\""
+								html += "data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"add icon\"></i> 자소서 쓰기</div></div></div></div></div></div>"
+								
+									var listcnt = rst[rst.length-1].listcnt;
+								
+								
 
-						html += "<div class=\"four wide column\" id=\"hirename\">"+rst[i].CONAME+"</div>"
-						html += "<div class=\"twelve wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\">"
-						html += "<b>"+rst[i].TITLE+"</b></div><div style=\"width: 100%\" id=\"detail\"><small>"+rst[i].CATE+"</small>"
-						html += "</div></div></div></div></div></div>"
-						
-						$("#left").html(html);
-				
-			}
 
-		});
+									
+								
+							}
+								}else{
+									for (var i = 0; i < rst.length; i++) {
+									html += "<div id=\"passdiv\" data-value=\""+rst[i].PASSNO+"\" onclick=\"passjaso(this)\"><div class=\"ui grid\" id=\"list\">"
+								
+
+								
+								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}${e.PATH}\"></div>"
+								html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
+
+								html += "<div class=\"four wide column\" id=\"hirename\">"
+										+ rst[i].CONAME + "</div>"
+								html += "<div class=\"twelve wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\">"
+								html += "<b>"
+										+ rst[i].TITLE
+										+ "</b></div><div style=\"width: 100%\" id=\"detail\"><small>"
+										+ rst[i].CATE + "</small>"
+								html += "</div></div></div></div></div></div>"
+								}
+
+							}
+							page += "<div align=\"center\"><div aria-label='Pagination Navigation' role='navigation' class='ui pagination pointing secondary menu'>"
+								page += "<a aria-current='false' tabindex='0' value='1' aria-label='Previous item' type='prevItem' class='item'"
+									page += "style=\"font-size: 15pt;\"> ⟨ </a>"
+									for(var i=0; i<=listcnt; i++){
+										
+										page += "<a aria-current='true' tabindex='0' value='${e}' type='pageItem'"
+											page +="class='active item' href=\"${path}/essay/essay.do?page=${e}\" style=\"font-size: 18pt;\">"+(i+1)+"</a>"
+									}
+									
+									page+="<a aria-current='false' tabindex='0' value='2'aria-label='Next item' type='nextItem' class='item' style=\"font-size: 15pt;\"> ⟩ </a></div></div>"	
+							$("#left").html(html);
+									$("#paging").html(page);
+
+
+						});
 
 	}
 	$("#outside")
@@ -593,6 +655,57 @@ span:hover {
 		});
 
 	});
+	
+	
+	
+	
+	var passjaso = function(obj) {
+		console.log(obj.dataset.value);
+
+		var param = {
+			"passno" : obj.dataset.value
+		};
+		
+		$.post("${path}/essay/passJasoAjax.do", param)
+		.done(
+				function(rst) {
+					console.log(rst);
+					
+					var html="";
+					
+					html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
+						
+					<%-- 노가다1--%>
+					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+					html +=	"<span style=\"font-size: 20pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+					html +=	"aria-controls=\"collapseOne\">"+rst.Q1+"</a></h5></div>"
+					html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+					html += "<div class=\"card-body\">"+rst.A1+"</div></div></div>"
+					<%-- 노가다2--%>
+					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+						html +=	"<span style=\"font-size: 20pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+						html +=	"aria-controls=\"collapseOne\">"+rst.Q2+"</a></h5></div>"
+						html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+						html += "<div class=\"card-body\">"+rst.A2+"</div></div></div>"
+						<%-- 노가다3--%>
+						html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html +=	"<span style=\"font-size: 20pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+							html +=	"aria-controls=\"collapseOne\">"+rst.Q3+"</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">"+rst.A3+"</div></div></div>"
+							<%-- 노가다4--%>
+							html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+								html +=	"<span style=\"font-size: 20pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+								html +=	"aria-controls=\"collapseOne\">"+rst.Q4+"</a></h5></div>"
+								html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+								html += "<div class=\"card-body\">"+rst.A4+"</div></div></div>"
+						
+						
+						html += "</div></div>"
+							$("#left").html(html);
+				});
+				
+	}
 </script>
 
 <script src="${path}/assets/js/jquery.min.js"></script>

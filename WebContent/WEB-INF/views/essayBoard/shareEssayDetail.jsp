@@ -1,10 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
+<style>
+
+
+#date{
+
+font-size: 10pt;
+color :gray;
+margin: 10px;
+}
+#btn {
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	color: #434e6e;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+}
+
+#btn:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 15px;
+	font-size: 15pt;
+	border-radius: 5%;
+	padding: 15px
+}
+</style>
 <div class="container" style="margin-top: 20px;">
 
 	<div class="card" style="width: 100%;">
@@ -101,8 +130,10 @@
 	<c:choose>
 		<c:when test="${empty like}">
 			<div style="margin-top: 15px;" align="right">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-					id="likebtn" data-target="#exampleModal">LIKE</button>
+			
+					
+				<button type="button" class="btn btn-warning"  data-toggle="modal"
+					id="likebtn" data-target="#exampleModal" >LIKE</button>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -175,35 +206,47 @@
 	<%-- ===============================댓글 시작=====================================  --%>
 
 
+
+
+
 	<div style="border: 1px solid gray; margin-top: 20px;">
 
 		<c:forEach var="e" items="${reply}">
 			<c:if test="${empty e.PARENTNO}">
+			
+			
 				<div class="form-group" style="margin: 20px;">
 					<c:choose>
 						<c:when test="${e.FLAG eq 'A'}">
-							<div>
+							<div style="font-size: 13pt; font-weight: bolder;">
 								<p>관리자에 의해 삭제된 댓글입니다.</p>
 							</div>
 						</c:when>
 						<c:when test="${e.FLAG eq 'W'}">
-							<div>
+							<div style="font-size: 13pt; font-weight: bolder;">
 								<p>작성자에 의해 삭제된 게시글입니다.</p>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div>
-								<p>${e.WRITER}: ${e.REPLY }</p>
-								<div align="left">
-								<c:if test="${e.WRITER eq userId }">
-									<a href="${path}/essayBoard/reply.do?handle=delete&no=${e.NO}">
-										<button
-											style="border: none; background-color: rgba(0, 0, 0, 0);"><small>삭제하기</small></button>
-									</a>
+								<div style="font-size: 13pt; font-weight: bolder;">${e.WRITER} <small id="date">
+								<fmt:formatDate value="${e.LEFTDATE}" pattern="yyyy-MM-dd"/></small></div>
+								<div style="margin-top: 10px; font-size: 13pt; font-weight: bolder;">${e.REPLY}</div>
+								<div align="left" style="margin-top: 10px;">
+									<c:if test="${e.WRITER eq userId }">
+										<a
+											href="${path}/essayBoard/reply.do?handle=delete&no=${e.NO}&jasono=${essay.NO}">
+											<button
+												style="border: none; background-color: rgba(0, 0, 0, 0);">
+												<small>삭제하기</small>
+											</button>
+										</a>
 									</c:if>
 									<button class="comment"
-										style="border: none; background-color: rgba(0, 0, 0, 0);"><small>답글달기</small></button>
-									
+										style="border: none; background-color: rgba(0, 0, 0, 0);">
+										<small>답글달기</small>
+									</button>
+
 									<form action="${path}/essayBoard/replyComment.do" method="post"
 										style="display: none;">
 										<input type="hidden" name="parent" value="${e.NO}"> <input
@@ -229,18 +272,29 @@
 					<c:if test="${e.NO eq h.PARENTNO}">
 						<c:choose>
 							<c:when test="${h.FLAG eq 'A'}">
-								<div style="margin: 20px; margin-left: 30px;">
+								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p>┗ ${h.WRITER} : 관리자에 의해 삭제된 댓글입니다.</p>
 								</div>
 							</c:when>
 							<c:when test="${h.FLAG eq 'W'}">
-								<div style="margin: 20px; margin-left: 30px;">
+								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p>┗ ${h.WRITER} : 작성자에 의해 삭제된 게시글입니다.</p>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div style="margin: 20px; margin-left: 30px;">
-									<p>┗ ${h.WRITER} : ${h.REPLY }</p>
+								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
+									<p style="width: 100%;">┗ ${h.WRITER} : ${h.REPLY }</p>
+										<c:if test="${e.WRITER eq userId }">
+											<a
+												href="${path}/essayBoard/reply.do?handle=delete&no=${h.NO}&jasono=${essay.NO}">
+												<button
+													style="border: none; background-color: rgba(0, 0, 0, 0);">
+													<small>삭제하기</small>
+												</button>
+											</a>
+										</c:if>
+								
+
 
 								</div>
 							</c:otherwise>
@@ -271,11 +325,21 @@
 
 		</form>
 	</div>
+	
 	<%-- ===============================댓글 끝=====================================  --%>
+	<div class="ui grid" style="margin-top: 20px;">
+	
+	
+	<div class="thirteen wide column"></div>
+	<div class="three wide column" align="right"><a
+												href="${path}/essayBoard/shareEssayDelete.do?no=${essay.NO}"><button id="btn">글 삭제하기</button></a></div>
+	
+	
+	</div>
 </div>
 <script>
 	$(".comment").on("click", function() {
-		
+
 		$(this).next().toggle();
 	});
 </script>

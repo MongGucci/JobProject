@@ -11,7 +11,9 @@
 		resultType="java.util.HashMap">
 		select * from (select* from reply  where jasono=#{jasono} order by PARENTNO desc) order by no desc
 	</select>
-	
+	<update id="updateReply" parameterType="java.lang.Integer">
+	update reply set flag='W' where no =#{no}
+	</update>
 	
 
 </mapper>
