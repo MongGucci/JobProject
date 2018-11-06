@@ -28,13 +28,13 @@
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 		switch(obj.mode) {
-		case "public":
-			publicHandle(obj);
+		case "co":
+			coHandle(obj);
 			break;
 		}
 	} 
 	
-	var publicHandle = function(obj) {
+	var coHandle = function(obj) {
 		var txt = obj.text;
 		//<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
 		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
@@ -48,7 +48,7 @@
 	document.getElementById("input").onchange= function() {
 		console.log(this.value);
 		var msg = {
-			"mode":"public",
+			"mode":"co",
 			"text":this.value		
 		};
 		chatws.send(JSON.stringify(msg));

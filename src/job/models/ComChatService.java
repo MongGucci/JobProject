@@ -41,6 +41,7 @@ public class ComChatService{
 	}
 	
 	public boolean removeSocket(WebSocketSession target) {
+		
 		return comlist.remove(target);
 	}
 	

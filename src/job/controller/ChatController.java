@@ -48,12 +48,19 @@ public class ChatController extends TextWebSocketHandler{
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		service.removeSocket(session);
+		try{
+			service.removeSocket(session);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		//전체채팅 
+		try {
+			
+		
 		String payload = message.getPayload();
 		//System.out.println("payload : "+payload);
 		Map got = gson.fromJson(payload, Map.class);
@@ -61,20 +68,36 @@ public class ChatController extends TextWebSocketHandler{
 		Map user = (Map) session.getAttributes().get("user");
 		//got.put("nick", (String)user.get("NICK"));
 		got.put("talker",(String)session.getAttributes().get("nick"));
+		
 		System.out.println("nick네임 : "+(String)session.getAttributes().get("nick"));
 		//TextMessage tmt = new TextMessage(gson.toJson(got));
 		
-		service.sendAll(got);
+		
+		//service.sendAll(got);
 		
 		
-		/*List<String> ids = phrepo.getIdsbyCono(1116);
+		List<Map> ids = phrepo.getIdsbyCono(1116);
+		
+		
+		System.out.println("comlist : "+service.comlist);
+		
+		for(int i=0;i<service.comlist.size();i++) {
+			String id=(String)service.comlist.get(i).getAttributes().get("userId");
+			System.out.println("userid뽑은거 : "+id);
+			if(ids.get(i).containsValue(id)) {
+				System.out.println("ㅇㅇㅇ :" +ids.get(i).containsValue(id));
+				System.out.println("got : "+got);
+				System.out.println("누구한테보내녀 : "+service.comlist.get(i));
+				service.comlist.get(i).sendMessage(new TextMessage(gson.toJson(got)));
+			}
+		}
 		System.out.println("뽑힌아이디들 / "+ids);
-		String[] id = new String[ids.size()];
+		/*String[] id = new String[ids.size()];
 		for(int i=0;i<ids.size();i++) {
 			id[i]=ids.get(i);
 		}*/
 		//got.put("ids", ids);
-		//service.sendIncludeGroup(gson.toJson(got),id);
+		/*service.sendIncludeGroup(gson.toJson(got),id);*/
 		
 		
 		String nick= (String)user.get("NICK");
@@ -90,8 +113,11 @@ public class ChatController extends TextWebSocketHandler{
 		if(ret==null) {
 			System.out.println("몽고에넣기실패 흙흙모래모래");
 		}
-		List<Map> chathistory = crepo.getChatLog();	
-		wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
+		/*List<Map> chathistory = crepo.getChatLog();	
+		wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);*/
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
