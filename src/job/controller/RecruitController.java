@@ -69,7 +69,7 @@ public class RecruitController {
 		map.put("startpage",startpage);
 		map.put("hitspage",hitspage);
 		map.put("endpage",endpage);
-	
+		
 		List<Map> dead = hrepo.getDeadLine6();
 		System.out.println(dead);
 		map.put("dead",dead);
@@ -80,8 +80,11 @@ public class RecruitController {
 			
 			if(pg!=null) {
 				int page = Integer.parseInt(pg);
-				m.put("s", ((page-1)*10)+1);
-				m.put("e", page*10);
+				int s = ((page-1)*10)+1;
+				int e = page*10;
+				System.out.println("s/e : "+s +e);
+				m.put("s", s);
+				m.put("e", e);
 				
 			}else {
 				

@@ -21,7 +21,7 @@
 	<span style="font-weight: bolder;">전체채팅</span>
 	<hr/>
 	<div class="list-group" style="width:90%;">
-  		 <a href="${path }/recruit/enterchat.do" class="list-group-item list-group-item-action">전체채팅</a>
+  		 <a href="${path }/recruit/enterchat.do" class="list-group-item list-group-item-action">전체채팅 <br/><small></small></a>
 	</div>
 	<hr/>
 	<span style="font-weight: bolder;">내가 찜한 기업채팅</span>

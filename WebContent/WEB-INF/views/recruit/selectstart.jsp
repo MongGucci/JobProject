@@ -227,34 +227,6 @@ cursor: pointer;
 			</nav>
 </div>
 <script>
-	/* var getSmall = function(big){
-	   var xhr = new XMLHttpRequest();
-	   console.log("big :" +big);
-	   
-	   xhr.open("post", "${path}/recruit/selectajax.do", true);
-	   xhr.onreadystatechange = function(){
-	      if(this.readyState==4) {
-	         
-	         var small =JSON.parse(this.responseText.trim());
-	         
-	         for(var i=0;i<small.length;i++){
-	            document.getElementById("smalls").innerHTML +=
-	             "<option value=\""+small[i].SMALL+"\">"+small[i].SMALL+"</option><br/>";
-	             console.log(small[i].SMALL);
-	
-	         }
-	      }
-	   };
-	   var param = big;
-
-	   xhr.send(param);
-	   
-	}; */
-
-	$('.special.cards .image').dimmer({
-		on : 'hover'
-	});
-	
 	
 	$("#location").on(
 			"change",
