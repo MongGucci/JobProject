@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
 <link href="${path}/css/index.css" rel="stylesheet">
@@ -27,6 +29,16 @@
 						id="Sign up">Sign up</a>
 				</c:if>
 				<c:if test="${!empty userId}">
+				
+					<div class="dropdown show" style="margin-top: 15px;">
+					  <a class="btn btn-secondary dropdown-toggle"  role="button" id="recentcookie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    최근 본 채용공고
+					  </a>
+					
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id ="hilist">
+					    
+					  </div>
+					</div> 
 					<a class="btn btn-sm btn-outline-secondary"
 						href="${pageContext.servletContext.contextPath}/pwchange.do"
 						id="Sign out">MyPage</a>
@@ -52,3 +64,27 @@
 		</nav>
 	</div>
 </div>
+
+<script>
+
+	$("#recentcookie").on(
+		"click",
+		function() {
+			
+			$.get("${path}/recruit/recenthireajax.do").done(
+					function(rst) {
+						var html = "";
+						console.log(rst);
+						for (var i = 0; i < rst.length; i++) {
+							console.log(rst[i].HINO+"/"+rst[i].NAME);
+							html+= "<a class=\"dropdown-item\" href=\"${path}/recruit/jobpost.do?hino="+rst[i].HINO+"\">"+rst[i].NAME+"</a>";
+							
+						}
+						$("#hilist").html(html);
+
+					});
+		}); 
+	
+	</script>
+
+

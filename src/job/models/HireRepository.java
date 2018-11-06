@@ -80,4 +80,10 @@ public class HireRepository {
 			return null;
 		}
 	}
+	public Map forcookie(int hino){
+		
+		return  template.selectOne("hire.forcookie",hino);
+	
+	}
+	
 }

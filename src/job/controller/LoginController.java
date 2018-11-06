@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +55,11 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login.do")
-	public String loginPostHandle(WebRequest wr, ModelMap map) {
+	public String loginPostHandle(WebRequest wr, ModelMap map, HttpServletResponse response,HttpServletRequest request) {
 		String id = (String)wr.getParameter("id");
 		String pass = (String)wr.getParameter("pass");
-		
+		String day = (String)wr.getParameter("remember");
+		System.out.println("day? "+day);
 		Map data = new HashMap<>();
 		data.put("id", id);
 		data.put("password", pass);
@@ -89,19 +93,51 @@ public class LoginController {
 			
 			List<Map> chatrooms = comrepo.getChatRooms(id);
 			wr.setAttribute("chatrooms", chatrooms, WebRequest.SCOPE_SESSION);
+			
+			//------------------------------------------------------------------
+			// 쿠키 생성하기
+			Cookie setCookie = new Cookie("logined", "true"); // 쿠키 생성
+			if(day!=null) {
+				setCookie.setMaxAge(60*60*24*7); // 기간을 일주일로 지정
+			}else {
+				setCookie.setMaxAge(60*60*12); // 기간을 6시간으로 지정???이상해 기간이  60*60*12로하면 일주일잡히는데?
+			}
+			
+			response.addCookie(setCookie);
+			
+			
+			
 			return "job.index";
 		} else {
 			map.put("err", "on");
 			return "/login/login";
 		}
 	}
+
 	
 	@RequestMapping("/logout.do")
-	public String logoutHandle(WebRequest wr, HttpSession session) {
+	public String logoutHandle(WebRequest wr, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		//쿠키얻어서 login쿠키만 날리기
+		Cookie[] getCookie = request.getCookies();
+		if(getCookie != null){
+			for(int i=0; i<getCookie.length; i++){
+				Cookie c = getCookie[i];
+				if(c.getName().equals("logined")) {
+					c.setMaxAge(0);// 유효시간을 0으로 설정
+					response.addCookie(c); // 응답 헤더에 추가해서 없어지도록 함
+				}
+				
+			}
+		}
+		
+		
 		sessions.remove(id);
 		session.invalidate();
+		
+		
 		System.out.println("로그아웃 완료");
+		
 		return "redirect:/index.do";
 	}
 }

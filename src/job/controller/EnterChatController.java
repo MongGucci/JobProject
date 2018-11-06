@@ -1,5 +1,6 @@
 package job.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -44,19 +45,42 @@ public class EnterChatController {
 	@GetMapping("/cochat.do")
 	public String cochatHandle(@RequestParam Map param, Map map,WebRequest wr) {
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION)!=null) {
+			
+			String id = (String)wr.getAttribute("userId",wr.SCOPE_SESSION);
+			List<Map> myconos = (List)comrepo.didIPick(id);
+			System.out.println("내가 고른 회사들 : "+myconos);
 			String cono = (String)param.get("cono");
-			String coname = comrepo.getConameByCono(Integer.parseInt(cono));
-			System.out.println("cono :" +cono);
-			List<Map> chathistory = crepo.getChatLogbyCono(cono);
-			map.put("chatlog",chathistory);
-			map.put("coname", coname);
-			map.put("cono",cono );
-			System.out.println("cono엔터챗컨트롤러 chathistory: "+chathistory);
-		
-		return "job.cochat";
+			int conoo = Integer.parseInt(cono);
+			boolean flag = false;
+			for(int i=0;i<myconos.size();i++) {
+				System.out.println("내가고른회사인가? ("+conoo+")"+(((BigDecimal)myconos.get(i).get("CONO")).intValue()==conoo));
+				System.out.println("myconos.get(i).get(\"CONO\") :" +((BigDecimal)myconos.get(i).get("CONO")).intValue());
+				if((((BigDecimal)myconos.get(i).get("CONO")).intValue()==conoo)) {
+					flag=true;
+					String coname = comrepo.getConameByCono(conoo);
+					System.out.println("cono :" +cono);
+					List<Map> chathistory = crepo.getChatLogbyCono(cono);
+					map.put("chatlog",chathistory);
+					map.put("coname", coname);
+					map.put("cono",cono );
+					System.out.println("cono엔터챗컨트롤러 chathistory: "+chathistory);
+				}
+			}	
+			
+			if(flag) {
+				return "job.cochat";
+			}else {
+				return "job.index";
+			}
 		}else {
 			return "/login/login";
 		}
 	}
+	
+	
+	
+	
+	
+	
 }
 

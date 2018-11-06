@@ -1,10 +1,15 @@
 package job.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -195,11 +200,20 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/jobpost.do")
-	   public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr, ModelMap map) {
-	      SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+	   public String jobpostGetHandle(HttpServletResponse response,@RequestParam Map param, Map post,WebRequest wr, ModelMap map) {
+	     
+		
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 	      String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 	      int hino = Integer.parseInt((String)param.get("hino"));
 	      Map company= hrepo.getHirebyHino(hino);
+	      String hi = String.valueOf(hino);
+	      
+	      Cookie setCookie = new Cookie(hi, "hino"); // 쿠키 생성
+	      setCookie.setMaxAge(60*60*24); // 기간을 일주일로 지정
+	      response.addCookie(setCookie);
+			
 	      Date start = (Date) company.get("STARTDATE");
 	      Date end = (Date)company.get("ENDDATE");
 	      company.put("START", fmt.format(start));
@@ -334,5 +348,26 @@ public class RecruitController {
 		return "job.chat";
 	}
 	
+	@GetMapping(path="/recenthireajax.do", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String pickhireAjaxHandle(HttpServletRequest request) {
+		System.out.println("쿠카이아작스들옴");
+		Cookie[] getCookie = request.getCookies();
+		List<Map> recenthinos = new ArrayList<>();
+		if(getCookie != null){
+			for(int i=0; i<getCookie.length; i++){
+				Cookie c = getCookie[i];
+				if(c.getValue().equals("hino")) {
+					int h = Integer.parseInt(c.getName());
+					Map recent = hrepo.forcookie(h);
+					recenthinos.add(recent);
+				}
+				
+			}
+		}
+		System.out.println("최근 본 공고 번호들 (아작스쿠키 ) :"+recenthinos);
+		
+		return gson.toJson(recenthinos);
 	
+	}
 }

@@ -104,6 +104,10 @@
 		enddate
 		asc) d) where r between 1 and 6
 	</select>
+	
+	<select id="forcookie" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select hino,name from hire where hino=#{hino}
+	</select>
 
 
 

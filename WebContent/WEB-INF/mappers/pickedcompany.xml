@@ -16,4 +16,8 @@
 	<select id="getIdsbyCono" parameterType="java.lang.Integer" resultType="java.util.HashMap">
    		select pickedcompany.id from pickedcompany where cono=#{cono}
    </select>
+   
+   <select id="didIPick" parameterType="java.lang.String" resultType="java.util.HashMap">
+   		select cono from pickedcompany where id=#{id}
+   </select> 
 </mapper>

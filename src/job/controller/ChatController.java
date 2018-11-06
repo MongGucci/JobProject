@@ -3,6 +3,7 @@ package job.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,42 @@ public class ChatController extends TextWebSocketHandler{
 		Map got = gson.fromJson(payload,Map.class);
 		Map user = (Map)session.getAttributes().get("user");
 		got.put("nick", (String) user.get("NICK"));
+		System.out.println("cochat : "+got);
+		String no = (String)got.get("cono");
+		int cono = Integer.parseInt(no);
+		List<Map> ids = phrepo.getIdsbyCono(cono);
+		System.out.println("cono로 가져온 ids : "+ids);
+		String userId= (String)user.get("ID");
 		
+		System.out.println("service.colist :"+service.colist );
 		
+		for(int i=0;i<service.colist.size();i++) {
+			Map socketuser = (Map)service.colist.get(i).getAttributes().get("user");
+			System.out.println("socketuser /" +socketuser);
+			
+			for(int j=0;j<ids.size();j++) {
+				System.out.println(ids.get(j).containsValue((String)socketuser.get("ID"))+"//"+ids.get(j).get("ID")+"/"+(String)socketuser.get("ID"));
+				if(ids.get(j).containsValue((String)socketuser.get("ID"))) {
+					System.out.println(ids.get(j).get("ID")+"/"+(String)socketuser.get("ID"));
+					System.out.println("보내는 메세지는  "+got);
+					service.colist.get(i).sendMessage(new TextMessage(gson.toJson(got)));
+				}
+			}
+		}
+		
+	/*	for(int i=0; i<service.colist.size();i++) {
+		
+			String id = (String)service.colist.get(i).getAttributes().get("userId");
+			System.out.println("colist의 id : "+id);
+			for(int j=0;j<ids.size();j++) {
+				System.out.println("ids.get(j).get(ID)/ colist.get(i) :" +ids.get(j).get("ID")+"/"+id);
+				if(ids.get(j).get("ID").equals(id)) {
+					service.colist.get(i).sendMessage(new TextMessage(gson.toJson(got)));
+				}
+			}
+		}
+		*/
+		//service.sendAll(got);
 		//phrepo.getIdsbyCono(cono);
 		//------------------------------------------------------------------------------------
 		//MongoDB에넣기 
@@ -70,7 +105,7 @@ public class ChatController extends TextWebSocketHandler{
 		mongo.put("nick", (String) user.get("NICK"));
 		mongo.put("text",  (String)got.get("text"));
 		mongo.put("senddate",sd.format(senddate));
-		mongo.put("mode", "all");
+		mongo.put("mode", cono);
 		Map ret = crep.insertLine(mongo);
 		if(ret==null) {
 			System.out.println("몽고에넣기실패 흙흙모래모래");

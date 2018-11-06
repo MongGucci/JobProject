@@ -34,7 +34,20 @@
 		</p>
 		<input type="password" id="inputPassword" class="form-control"
 			placeholder="비밀번호" name="pass" required  style="font-size: 17pt; ">
-
+		<label class="btn btn-secondary active">
+		   <input type="radio" name="remember" value="week" id="option" autocomplete="off"> OneWeek
+		</label>
+	<!-- 
+		<script>
+		$('#option').on('click',function(){
+			console.log($('#option').value);
+			if($('#option').attr('checked')==true){
+				$('#option').attr('checked',false);
+			}else{
+				$('#option').attr('checked',true);
+			}
+		});
+		</script> -->
 		<c:if test="${!empty err }">
 			<div class="alert alert-danger" role="alert">정보를 잘못 입력하셨습니다.</div>
 		</c:if>
@@ -45,3 +58,5 @@
 	</form>
 </body>
 </html>
+
+

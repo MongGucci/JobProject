@@ -35,4 +35,8 @@ public class CompanyRepository {
 	public String getConameByCono(int cono) {
 		return template.selectOne("company.getConameByCono",cono);
 	}
+	
+	public List<Map> didIPick(String id) {
+		return template.selectList("pickedcompany.didIPick",id);
+	}
 }

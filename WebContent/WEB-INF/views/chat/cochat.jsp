@@ -25,9 +25,11 @@ ${e.nick} : ${e.text}
 <script type="text/javascript">
 
 	$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
-
+		
+	
+		
 		var cows = new WebSocket("ws://" + location.host + "${path}/chat.do");
-		ws.onmessage = function(evt) { //매개변수설정하면
+		cows.onmessage = function(evt) { //매개변수설정하면
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 		switch(obj.mode) {
@@ -37,16 +39,16 @@ ${e.nick} : ${e.text}
 		}
 	} 
 	
-	var companyHandle = function(obj) {
-		var txt = obj.text;
-		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-		html += obj.nick + " : "+ obj.text;
-		html +="</div>";
-		document.getElementById("chatView").innerHTML += html;
-		document.getElementById("chatView").scrollTop = 
-			document.getElementById("chatView").scrollHeight; 
-	}
-	
+		var companyHandle = function(obj) {
+			
+			var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
+			html += obj.nick + " : "+ obj.text;
+			html +="</div>";
+			document.getElementById("chatView").innerHTML += html;
+			document.getElementById("chatView").scrollTop = 
+				document.getElementById("chatView").scrollHeight; 
+		}
+		
 	
 	document.getElementById("input").onchange= function() {
 		console.log(this.value);

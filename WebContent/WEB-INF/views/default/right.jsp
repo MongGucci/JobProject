@@ -4,17 +4,15 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <div class="dropdown show" style="margin-top: 15px;">
-  <a class="btn btn-secondary dropdown-toggle"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<!--  <div class="dropdown show" style="margin-top: 15px;">
+  <a class="btn btn-secondary dropdown-toggle"  role="button" id="recentcookie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     최근 본 채용공고
   </a>
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id ="hilist">
+    
   </div>
-</div> 
+</div>  -->
 
 <div id="page">
 	<hr/>
@@ -34,5 +32,47 @@
 
 </div>
 
+<script>
 
+
+$("#location").on(
+		"change",
+		function() {
+			var big = $("#location").val();
+			console.log("val:" + big);
+			var param = {
+				"big" : big
+			};
+			$.post("${path}/recruit/selectajax.do", param).done(
+					function(rst) {
+						var html = "";
+						for (var i = 0; i < rst.length; i++) {
+							html += "<option value=\""+rst[i].SMALL+"\">"
+									+ rst[i].SMALL + "</option><br/>";
+							//console.log(small[i].SMALL);
+						}
+						$("#smalls").html(html);
+
+					});
+		});
+		
+/* $("#recentcookie").on(
+		"click",
+		function() {
+			
+			$.get("${path}/recruit/recenthireajax.do").done(
+					function(rst) {
+						var html = "";
+						console.log(rst);
+						for (var i = 0; i < rst.length; i++) {
+							console.log(rst[i].HINO+"/"+rst[i].NAME);
+							html+= "<a class=\"dropdown-item\" href=\"${path}/recruit/jobpost.do?hino="+rst[i].HINO+"\">"+rst[i].NAME+"</a>";
+							
+						}
+						$("#hilist").html(html);
+
+					});
+		}); 		
+		 */
+</script>
 

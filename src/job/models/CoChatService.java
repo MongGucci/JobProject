@@ -19,7 +19,7 @@ public class CoChatService{
 	@Autowired
 	Gson gson;
 	
-	List<WebSocketSession> colist;
+	public List<WebSocketSession> colist;
 	
 	public CoChatService() {
 		colist = new ArrayList<>();
