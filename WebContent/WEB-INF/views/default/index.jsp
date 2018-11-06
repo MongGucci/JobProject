@@ -87,12 +87,12 @@ a:link {
 			</div>
 			<div class="ui grid">
   
-  <div class="three wide column"></div>
-   <div class="ten wide column" style="text-align: left; padding:30px;"><div class="ui list" style="width: 100%;">
+  <div class="two wide column"></div>
+   <div class="twelve wide column" style="text-align: left; padding:30px;"><div class="ui list" style="width: 100%;">
 				<div class="item">
 
 					<div class="content" style="color: white; font-size: 15pt; ">
-						<i class="users icon"></i>실시간 급상승 기업
+						<i class="users icon"></i>인기 기업
 					</div>
 					<div id="list" style="margin: 10px;" ></div>
 
@@ -100,7 +100,7 @@ a:link {
 
 				</div>
 			</div></div>
-  <div class="three wide column"></div>
+  <div class="two wide column"></div>
   
 </div>
 			
@@ -206,7 +206,7 @@ a:link {
 									$("#list").html(html);
 
 								});
-			}, 3000);
+			}, 60000);
 </script>
 
 

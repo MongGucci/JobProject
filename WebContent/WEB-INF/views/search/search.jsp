@@ -50,7 +50,7 @@ margin-top: 10px;
 	cursor: pointer;
 }
 img{
-width: 100px;
+width: 140px;
 
 }
 #hirename:hover{
@@ -126,33 +126,7 @@ cursor: pointer;
 
 </div>
 
-	<div align="center">
-		
-
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">기업</th>
-					<th scope="col">기업형태</th>
-					<th scope="col">산업군</th>
-					<th scope="col">위치</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="l" items="${company}">
-					<tr class="table"
-						onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">
-						<th scope="row">${l.CONO }</th>
-						<td>${l.CONAME }</td>
-						<td>${l.COTYPE }</td>
-						<td>${l.INDUSTRY}</td>
-						<td>${l.BIG }-${l.SMALL }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+	
 
 
 	<p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>

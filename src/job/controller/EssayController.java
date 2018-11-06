@@ -1,6 +1,7 @@
 package job.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -36,16 +37,24 @@ public class EssayController {
 	}
 
 	@PostMapping("/essayWrite.do")
-	public String writePostHandle(@RequestParam Map map) {
-
+	public String writePostHandle(@RequestParam Map map,WebRequest web) {
+		
+		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
 		String jasono = UUID.randomUUID().toString().split("-")[0];
+		if(map.get("hino").equals("")) {
+			map.put("hino", 0);
+		}else {
+			int hino = Integer.parseInt( (String) map.get("hino"));
+			map.put("hino", hino);
+		}
+		
 		map.put("jasono", jasono);
-		map.put("id", "yyj"); // 나중 되면 session에 저장된 아이디로 바뀜
+		map.put("id", id); // 나중 되면 session에 저장된 아이디로 바뀜
 
 		System.out.println(map);
 		int r = essay.setMyEssay(map);
 
-		return "essay.essayWrite";
+		return "redirect:/essay/essay.do";
 	}
 	// ====================================================================
 	// 내 자소서 리스트 가져오기
@@ -110,8 +119,38 @@ public class EssayController {
 
 	@GetMapping("/essay.do")
 	public String essayGetHandle(WebRequest web) {
-		List<Map> list = essay.getHire();
+		String page = web.getParameter("page");
+		int total = essay.totalHire();
+		System.out.println("total:"+total);
+		int listcnt = total/10;
+		if(total%10 !=0) {
+			listcnt++;
+		}
+		
 		List<Map> cate = essay.getJobCate();
+		Map pageMap = new HashMap<>();
+		
+		List<Map> list;
+		if(page != null) {
+			int param = Integer.parseInt(page);
+			System.out.println(page);
+			
+			int start = (10 * (param-1))+1;
+			int end = 10*param;
+			pageMap.put("start", start);
+			pageMap.put("end", end);
+			System.out.println(pageMap);
+			list = essay.getHire(pageMap);
+			
+		}else {
+			pageMap.put("start", 1);
+			pageMap.put("end", 10);
+			System.out.println(pageMap);
+			list = essay.getHire(pageMap);
+		}
+		System.out.println(list);
+		
+		
 		for(int i=0;i<list.size();i++) {
 			Map map = list.get(i);
 			
@@ -128,6 +167,8 @@ public class EssayController {
 	        System.out.println((end-current)/(1000*60*60*24));
 			
 		}
+		web.setAttribute("listcnt", listcnt, web.SCOPE_REQUEST);
+		web.setAttribute("page", page, web.SCOPE_REQUEST);
 		web.setAttribute("cate", cate, web.SCOPE_REQUEST);
 		web.setAttribute("list", list, web.SCOPE_REQUEST);
 		return "essay/essay";

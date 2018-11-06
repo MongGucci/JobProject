@@ -257,6 +257,16 @@
 
 	</definition>
 	
+	<definition name="job.essay.essay"
+		template="/WEB-INF/views/essay/essay.jsp">
+
+		
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+
+
+	</definition>
+	
 	
 	
 	

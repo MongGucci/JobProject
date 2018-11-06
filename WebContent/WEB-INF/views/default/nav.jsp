@@ -19,7 +19,7 @@
 				<a class="text-muted" href="#" id="etc">Subscribe</a>
 			</div>
 			<div class="col-4 text-center">
-				<a class="blog-header-logo text-dark" href="${path}" id="logo"><b>JOB Go</b></a>
+				<a class="blog-header-logo text-dark" href="${path}" id="logo"><b id="jobgo">JOB Go</b></a>
 			</div>
 
 			<div class="col-4 d-flex justify-content-end align-items-center">
