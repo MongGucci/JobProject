@@ -23,15 +23,16 @@ public class ChatlogRepository {
 		return ret;
 	}
 	
-	public List<Map> getChatLog(){
-		return template.findAll(Map.class,"chatlog");
-		
+	public List<Map> getAllChatLog(){
+		Criteria c = new Criteria().where("mode").is("all");
+		return template.find(new Query(c),Map.class,"chatlog");
 	}
 	
-	public void updateSome(String id) {
-		Criteria c = new Criteria().where("readers").ne(id); 
-
-		Update u= new Update().push("readers",id);
-		UpdateResult rst= template.updateMulti(new Query(c),u,"chatlog");
-	} 
+	public List<Map> getChatLogbyCono(String cono){
+		Criteria c = new Criteria().where("mode").in(cono);
+		System.out.println("cono챗로구 : " +template.find(new Query(c),Map.class,"chatlog"));
+		return template.find(new Query(c),Map.class,"chatlog");
+	}
+	
+	
 }

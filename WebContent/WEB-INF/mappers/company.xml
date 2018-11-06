@@ -19,4 +19,8 @@
 	<select id = "getconame" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		  select * from company where coname =#{coname}
 	</select>
+	
+	<select id = "getConameByCono" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select coname from company where cono=#{cono}
+	</select>
 </mapper> 

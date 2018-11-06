@@ -14,6 +14,6 @@
 	</select>
 	
 	<select id="getIdsbyCono" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-		select pickedcompany.id from pickedcompany join applicant on pickedcompany.ID=applicant.ID where cono=#{cono}
-	</select>
+   		select pickedcompany.id from pickedcompany where cono=#{cono}
+   </select>
 </mapper>

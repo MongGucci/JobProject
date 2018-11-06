@@ -268,7 +268,7 @@
 
 	</definition>
 	
-	<definition name="job.chat"
+	<definition name="job.allchat"
 		template="/WEB-INF/tiles/user-template.jsp">
 
 		<put-attribute name="nav"
@@ -277,6 +277,21 @@
 			value="/WEB-INF/views/default/left.jsp" />
 		<put-attribute name="center"
 			value="/WEB-INF/views/chat/allchat.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+
+
+	</definition>
+	
+	<definition name="job.cochat"
+		template="/WEB-INF/tiles/user-template.jsp">
+
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/chat/cochat.jsp" />
 		<put-attribute name="right"
 			value="/WEB-INF/views/default/right.jsp" />
 

@@ -93,7 +93,6 @@
 
 		<websocket:mapping handler="serviceController" path="/conn.do" />
 		<websocket:mapping handler="chatController" path="/chat.do" />
-		<websocket:mapping handler="deptchatController" path="/deptchat.do" />
 
 		<websocket:handshake-interceptors>
 			<bean

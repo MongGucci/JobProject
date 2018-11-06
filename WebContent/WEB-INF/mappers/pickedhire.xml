@@ -9,7 +9,4 @@
       select * from PICKEDHIRE where id=#{id} and hino=#{hino}
    </select>
    
-   <select id="getIdsbyCono" parameterType="java.lang.Integer" resultType="java.util.HashMap">
-   		select pickedcompany.id from pickedcompany where cono=#{cono}
-   </select>
 </mapper>

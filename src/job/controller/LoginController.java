@@ -85,15 +85,7 @@ public class LoginController {
 			wr.setAttribute("three", three,  wr.SCOPE_SESSION);
 			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
 
-			//------전체채팅 자동입장되었고, 채팅로그 가져오시오 ! -----//
-			String nick= logindao.getnick(id);
-			crepo.updateSome(nick); 
-			List<Map> chathistory = crepo.getChatLog();	
-			wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
-			String st = chathistory.toString();
-			//gson.fromJson(st,List.class);
-			//wr.setAttribute("chathistory", chathistory, WebRequest.SCOPE_SESSION);
-			System.out.println("chat history : "+chathistory);
+			
 			
 			List<Map> chatrooms = comrepo.getChatRooms(id);
 			wr.setAttribute("chatrooms", chatrooms, WebRequest.SCOPE_SESSION);

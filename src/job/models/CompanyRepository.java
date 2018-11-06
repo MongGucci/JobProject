@@ -31,4 +31,8 @@ public class CompanyRepository {
 	public List<Map> getChatRooms(String id){
 		return template.selectList("pickedcompany.getChatRooms",id);
 	}
+	
+	public String getConameByCono(int cono) {
+		return template.selectOne("company.getConameByCono",cono);
+	}
 }

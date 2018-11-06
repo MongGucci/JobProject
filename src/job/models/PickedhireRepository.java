@@ -24,7 +24,7 @@ public class PickedhireRepository {
    }
    
    public List<Map> getIdsbyCono(int cono){
-	   return template.selectList("pickedhire.getIdsbyCono",cono);
+	   return template.selectList("pickedcompany.getIdsbyCono",cono);
    }
    
 }

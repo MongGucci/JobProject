@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
 
-<h4>전체채팅</h4>
+<h4>${coname}</h4>
 <div style="height: 520px; overflow-y: scroll; " id="chatView">
 <c:forEach var="e" items="${chatlog}">
 <div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
@@ -26,19 +26,18 @@ ${e.nick} : ${e.text}
 
 	$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
 
-		var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
-		console.log("안녕");
+		var cows = new WebSocket("ws://" + location.host + "${path}/chat.do");
 		ws.onmessage = function(evt) { //매개변수설정하면
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 		switch(obj.mode) {
-		case "all":
-			allHandle(obj);
+		case "company":
+			companyHandle(obj);
 			break;
 		}
 	} 
 	
-	var allHandle = function(obj) {
+	var companyHandle = function(obj) {
 		var txt = obj.text;
 		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
 		html += obj.nick + " : "+ obj.text;
@@ -52,10 +51,11 @@ ${e.nick} : ${e.text}
 	document.getElementById("input").onchange= function() {
 		console.log(this.value);
 		var msg = {
-			"mode":"all",
-			"text":this.value
+			"mode":"company",
+			"text":this.value,
+			"cono": "${cono}"
 		};
-		ws.send(JSON.stringify(msg));
+		cows.send(JSON.stringify(msg));
 		this.value="";
 	};
 	
