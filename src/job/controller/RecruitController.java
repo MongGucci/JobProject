@@ -233,10 +233,14 @@ public class RecruitController {
          }
          post.put("list", company);
          
-          if(id == null) {
-               return "job.jobpost";
-            }
-          
+         if(id != null) {
+     		Map jjimap = new HashMap<>();
+     		jjimap.put("id", id);
+     		jjimap.put("hino", hino);
+     		
+     		List<Map> jjim = phrepo.myjjim(jjimap);
+     		wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
+     		}
         //==============================
          int cono = ((BigDecimal) company.get("CONO")).intValue();
             String coname = (String) company.get("CONAME");

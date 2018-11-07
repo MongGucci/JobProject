@@ -1,11 +1,13 @@
 package job.controller;
 
+import java.security.cert.CertPathValidatorException.Reason;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -84,7 +86,7 @@ public class SearchController {
 
    // 요게 상세보기
    @RequestMapping("/schdetail.do")
-   public String detailHandle(WebRequest wr, Map map) {
+   public String detailHandle(WebRequest wr, Map map, ModelMap mmp) {
      String no = (String)wr.getParameter("cono");
       int cono = Integer.parseInt(no);
      
@@ -101,12 +103,56 @@ public class SearchController {
       Map ch = new HashMap<>();
       ch.put("cono", cono);
       List<Map> chart = chartdao.comchart(ch);
-      map.put("chart", chart);
-      System.out.println("차트를 뽑아보자 : " +  chart);
+     
+      Map sa = new HashMap<>();
+      sa.put("cono", cono);
+      Map saram = chartdao.saram(sa);
+      System.out.println("사람 : " + saram);
+      map.put("saram", saram);
       
-      if(id == null) {
-          return "job.schdetail.index";
-       }
+      // 남/여 차트 세팅
+      String result = "";
+      
+      for(int i=0; i<chart.size(); i++) {
+    	  result += "['" + chart.get(i).get("GENDER") + "', " +chart.get(i).get("CNT") + "],";
+      }
+      
+      map.put("result", result);
+      
+      
+      // 나이별 차트
+      // 20대
+      Map tw = new HashMap<>();
+      tw.put("cono", cono);
+      tw.put("s", 20);
+      tw.put("e", 29);
+      List<Map> twenty = chartdao.agechart(tw);
+      System.out.println("twenty :"+twenty+"/"+tw);
+      System.out.println(twenty.size());
+      
+      // 30대
+      Map th = new HashMap<>();
+      th.put("cono", cono);
+      th.put("s", 30);
+      th.put("e", 39);
+    
+      List<Map> thirty = chartdao.agechart(th);
+      
+      // 40대
+      Map fo = new HashMap<>();
+      fo.put("cono", cono);
+      fo.put("s", 40);
+      fo.put("e", 49);
+      List<Map> fourty = chartdao.agechart(fo);
+      
+      String agetext = "";
+      
+      for(int i=0; i<twenty.size(); i++) {
+    	  result += "['" + twenty.get(i).get("SARAM") + "', " +twenty.get(i).get("CNT") + "],";
+      }
+      
+      map.put("agetext", agetext);
+      //====================================
       
       if(id!=null) {
          Map mm = new HashMap();
@@ -174,19 +220,10 @@ public class SearchController {
       System.out.println(after);
       
       //==============================
-
-      List<Map> jd = searchdao.ckbtn(sd);
-      if(jd.size() == 0) {
-         int c = searchdao.schbtn(sd);
-         return "job.schdetail.index";
-      }else {
-         map.put("btn", "ya");   
-         return "job.schdetail.index";
-      }
+      return "job.schdetail.index";
       
-      
-
    }
+   
 
    // 요게 해당하는 기업이름 촤르륵
    @GetMapping(path = "/searchajax.do", produces = "application/json;charset=UTF-8")

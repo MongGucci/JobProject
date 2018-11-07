@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="charts">
 
-	<select id="comchart" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-select 'M' as gender, count(*) cnt from (applicant join pickedcompany on applicant.id = pickedcompany.id) where cono = #{cono} and gender = 'M' 
-union
-select 'F' as gender, count(*) cnt from (applicant join pickedcompany on applicant.id = pickedcompany.id) where cono = #{cono} and gender = 'F'
-	</select>
+<select id="comchart" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select '남' as gender, count(*) cnt from (applicant join pickedcompany on applicant.id = pickedcompany.id) where cono = #{cono} and gender = 'M' 
+	union
+	select '여' as gender, count(*) cnt from (applicant join pickedcompany on applicant.id = pickedcompany.id) where cono = #{cono} and gender = 'F'
+</select>
+	
+<select id="saram" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select count(*) cnt from (applicant join pickedcompany on applicant.id = pickedcompany.id) where cono = #{cono}  
+</select>
+
+<select id="agechart" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select '연령' as saram, count(*) cnt from (pickedcompany join applicant on pickedcompany.id=applicant.id) where cono=#{cono} and age&lt;=#{e} and age&gt;=#{s}
+</select>
+
 </mapper>
