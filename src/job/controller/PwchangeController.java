@@ -49,7 +49,7 @@ public class PwchangeController {
 			return "redirect:/index.do";
 		}else {
 			map.put("err", "on");
-			return "/change/pwchange";
+			return "job.pwchange";
 		}
 			
 		
