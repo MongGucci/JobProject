@@ -7,11 +7,26 @@
 
 	<select id="schlist" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
-		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(coname) like UPPER('%''_'||#{coname}||'%')
-	</select>
-	
-	<select id="cksearch" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from company where UPPER(coname) like UPPER('%'||#{coname}||'%')
+		select * from company where UPPER(coname) like
+		UPPER('%'||#{coname}||'%') or UPPER(coname) like
+		UPPER('%''_'||#{coname}||'%')
 	</select>
 
+	<select id="cksearch" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select * from company where UPPER(coname) like
+		UPPER('%'||#{coname}||'%')
+	</select>
+
+	<select id="isearch" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		select * from (company
+		join hire on
+		company.coname=hire.name) where
+		(UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(title) like
+		UPPER('%'||#{title}||'%'))
+		or
+		UPPER(big) like UPPER('%'||#{big}||'%') or UPPER(small) like UPPER('%'||#{small}||'%')
+		order by startdate desc
+	</select>
 </mapper>

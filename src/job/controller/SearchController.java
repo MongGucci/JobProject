@@ -1,11 +1,12 @@
 package job.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
+import job.dao.chartDao;
 import job.dao.searchDao;
 import job.models.CompanyRepository;
 import job.models.HireRepository;
@@ -40,6 +42,9 @@ public class SearchController {
    
    @Autowired
    CompanyRepository crepo;
+   
+   @Autowired
+   chartDao chartdao;
    
    @Autowired
    Gson gson;
@@ -92,6 +97,13 @@ public class SearchController {
    
       List<Map> hiring = hrepo.getHirebyCono(cono);
       map.put("hiring", hiring);
+      
+      Map ch = new HashMap<>();
+      ch.put("cono", cono);
+      List<Map> chart = chartdao.comchart(ch);
+      map.put("chart", chart);
+      System.out.println("차트를 뽑아보자 : " +  chart);
+      
       if(id == null) {
           return "job.schdetail.index";
        }
@@ -101,6 +113,14 @@ public class SearchController {
          mm.put("id", id);
          mm.put("cono",cono);
          Map didI = rvrepo.didIWriteReview(mm);
+         
+         Map comap = new HashMap<>();
+         comap.put("id", id);
+         comap.put("cono", cono);
+         
+         List<Map> comjjim = searchdao.ckbtn(comap);
+         wr.setAttribute("comjjim", comjjim, wr.SCOPE_REQUEST);
+         
          System.out.println("썻냐안썻냐"+didI);
          if(didI!=null) {
             map.put("youwrote", true);
@@ -165,6 +185,7 @@ public class SearchController {
       }
       
       
+
    }
 
    // 요게 해당하는 기업이름 촤르륵
@@ -186,7 +207,7 @@ public class SearchController {
       return gson.toJson(sch);
    }
 
-   // 요게 관심 기업 버튼 클릭
+   // 요게 관심 기업 버튼 클릭 요거 안됨
    @GetMapping("/schbtn.do")
    public String schbtn(WebRequest wr, ModelMap map) {
       String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
@@ -199,5 +220,63 @@ public class SearchController {
          return "redirect:/search/schdetail.do?cono="+no;
          
       }
+   }
+   	// 요게 관심 기업 등록
+	@PostMapping(path = "/comjjimAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String comjjimAjaxHandle(@RequestParam Integer cono, WebRequest wr) {
+		Map comjjim = new HashMap<>();
+		
+		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+		Map cd = new HashMap<>();
+		cd.put("id", id);
+		cd.put("cono", cono);
+		System.out.println(cd);
+		
+		try {
+			int c = searchdao.schbtn(cd);
+			comjjim.put("comjjim", true);
+		}catch(Exception e) {
+			e.printStackTrace();
+			comjjim.put("comjjim", false);
+		}
+		return gson.toJson(comjjim);
+	}
+	
+   // 요게 통합 검색 
+   @PostMapping("/isearch.do")
+   public String isearchHandle(WebRequest wr, ModelMap map) {
+	   String coname = (String)wr.getParameter("isearch");
+	   String title = (String)wr.getParameter("isearch");
+	   String big = (String)wr.getParameter("isearch");
+	   String small = (String)wr.getParameter("isearch");
+	   
+	   Map ish = new HashMap<>();
+	   ish.put("coname", coname);
+	   ish.put("title", title);
+	   ish.put("big", big);
+	   ish.put("small", small);
+	   List<Map> isearck = searchdao.isearch(ish);
+	   
+	   if(coname.equals("") || title.equals("") || big.equals("") || small.equals("") || isearck.size() == 0) {
+		   return "job.index";
+	   } else {
+		List<Map> isearch = searchdao.isearch(ish);
+		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+		for (int i = 0; i < isearch.size(); i++) {
+			Map m = isearch.get(i);
+			Date date = (Date) m.get("STARTDATE");
+			Date dd = (Date)m.get("ENDDATE");
+			long endd =dd.getTime();
+			m.put("STARTDATE", fmt.format(date));
+			m.put("ENDDATE",fmt.format(dd) );
+			long gap = endd-System.currentTimeMillis();
+			if(gap<0) {
+				m.put("MAGAM",true);
+			}
+   }
+		map.put("isch", isearch);
+		return "job.isearchlist";
+   }
    }
 }

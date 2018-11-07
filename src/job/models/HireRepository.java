@@ -80,10 +80,16 @@ public class HireRepository {
 			return null;
 		}
 	}
+
 	public Map forcookie(int hino){
 		
 		return  template.selectOne("hire.forcookie",hino);
 	
 	}
 	
+
+	// 채용 정보 검색 
+	public List<Map> hiresearch(Map map) {
+		return template.selectList("hire.hiresearch", map);
+	}	
 }

@@ -271,43 +271,16 @@ public class RecruitController {
             System.out.println(after);
             
             //==============================
-         
-          Map sd = new HashMap<>();
-          sd.put("id", id);
-          sd.put("hino", hino);
-          
-          List<Map> cd = phrepo.myjjim(sd);
-          if(cd.size() == 0) { //찜되어있지 않을ㄸㅐ
-             int c = phrepo.pickHire(sd);
-             List<Map> three = hrepo.getDeadline3(id);
-             List<Map> today = hrepo.getToday(id);
-             wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+           List<Map> three = hrepo.getDeadline3(id);
+           List<Map> today = hrepo.getToday(id);
+           wr.setAttribute("three", three,  wr.SCOPE_SESSION);
            wr.setAttribute("today", today,  wr.SCOPE_SESSION);
            System.out.println("세션에 올라가는 today ? "+ today);
            System.out.println("세션에 올라가는 three ? "+ three);
            return "job.jobpost";
-          } else { //이미 찜이 되어있을때
-             map.put("jjim", "on");
-             return "job.jobpost";
-          }   
       
    }
 
-   
-      @GetMapping("/jjim.do")
-         public String schbtn(WebRequest wr, ModelMap map) {
-            String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
-            String hino = wr.getParameter("hino");
-            System.out.println("hino:"+ hino);
-            
-            if (id == null) {
-               return "/login/login";
-            } else {
-              
-               return "redirect:/recruit/jobpost.do?hino="+ hino;
-               
-            }
-      }
 
    
    @PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
@@ -397,4 +370,75 @@ public class RecruitController {
       return gson.toJson(recenthinos);
    
    }
-}
+
+	
+
+	  
+	   	// 요게 채용 공고 찜하기
+		@PostMapping(path = "/hirejjimAjax.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String hirejjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
+			
+			Map jjim = new HashMap<>();
+			
+			String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+			Map sd = new HashMap<>();
+			sd.put("id", id);
+			sd.put("hino", hino);
+			System.out.println(sd);
+			
+			try {
+				
+				int a = phrepo.pickHire(sd);
+				jjim.put("jjim", true);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				jjim.put("jjim", false);
+			}
+			return gson.toJson(jjim);
+		}
+	
+
+
+	
+	@PostMapping("/hiresearch.do")
+	public String hiresearchHandle(WebRequest wr, Map map) {
+		String title = (String)wr.getParameter("hsearch");
+		String name = (String)wr.getParameter("hsearch");
+		String content = (String)wr.getParameter("hsearch");
+		
+		
+		Map hch = new HashMap<>();
+		hch.put("title", title);
+		hch.put("name", name);
+		hch.put("content", content);
+		
+		List<Map> hck = hrepo.hiresearch(hch);
+		if(content.equals("") || title.equals("") || name.equals("") || hck.size() == 0) {
+			wr.setAttribute("contents", content, wr.SCOPE_REQUEST);
+			System.out.println("null에 들어왔어요");
+			return "job.hirelistnull";
+		} else {
+			
+			SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+			List<Map> hir = hrepo.hiresearch(hch);
+			for (int i = 0; i < hir.size(); i++) {
+				Map m = hir.get(i);
+				Date date = (Date) m.get("STARTDATE");
+				Date dd = (Date)m.get("ENDDATE");
+				long endd =dd.getTime();
+				m.put("STARTDATE", fmt.format(date));
+				m.put("ENDDATE",fmt.format(dd) );
+				long gap = endd-System.currentTimeMillis();
+				if(gap<0) {
+					m.put("MAGAM",true);
+				}
+				
+			}
+			map.put("hir", hir);
+			return "job.hirelist";
+		}
+		}
+	}
+	

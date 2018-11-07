@@ -46,29 +46,30 @@ a:link {
 </head>
 
 
-	<header id="header" class="alt">
-		<div class="logo" >
-			<a href="${path}/job/index.do" >JOB <span>Go</span></a>
-		</div>
-		<div style="margin-right: 20px;">
-			<c:if test="${empty userId}">
-				<a class="btn btn-sm btn-outline-secondary"
-					href="${pageContext.servletContext.contextPath }/login.do"
-					id="signin">Sign in</a>
-				<a class="btn btn-sm btn-outline-secondary"
-					href="${pageContext.servletContext.contextPath}/join/join.do"
-					id="Sign up">Sign up</a>
-			</c:if>
-			<c:if test="${!empty userId}">
-				<a class="btn btn-sm btn-outline-secondary"
-					href="${pageContext.servletContext.contextPath}/infor.do"
-					id="Sign out">MyPage</a>
-				<a class="btn btn-sm btn-outline-secondary"
-					href="${pageContext.servletContext.contextPath}/logout.do"
-					id="Sign out">Sign out</a>
-			</c:if>
-		</div>
-	</header>
+<header id="header" class="alt">
+	<div class="logo">
+		<a href="${path}/index.do">JOB <span>Go</span></a>
+	</div>
+	<div style="margin-right: 20px;">
+		<c:if test="${empty userId}">
+			<a class="btn btn-sm btn-outline-secondary"
+				href="${pageContext.servletContext.contextPath }/login.do"
+				id="signin">Sign in</a>
+			<a class="btn btn-sm btn-outline-secondary"
+				href="${pageContext.servletContext.contextPath}/join/join.do"
+				id="Sign up">Sign up</a>
+		</c:if>
+		<c:if test="${!empty userId}">
+			<a class="btn btn-sm btn-outline-secondary"
+				href="${pageContext.servletContext.contextPath}/infor.do"
+				id="Sign out">MyPage</a>
+			<a class="btn btn-sm btn-outline-secondary"
+				href="${pageContext.servletContext.contextPath}/logout.do"
+				id="Sign out">Sign out</a>
+		</c:if>
+	</div>
+</header>
+
 
 
 <!-- Banner -->
@@ -79,32 +80,42 @@ a:link {
 			<p>
 				뽑아주세요.<br />취직하고 싶어요.
 			</p>
-			<div class="ui category search">
-				<div class="ui icon input" style="width: 100%;">
-					<input class="prompt" type="text" placeholder="Search"> <i
-						class="search icon"></i>
-				</div>
-				<div class="results"></div>
-			</div>
-			<div class="ui grid">
-  
-  <div class="two wide column"></div>
-   <div class="twelve wide column" style="text-align: left; padding:30px;"><div class="ui list" style="width: 100%;">
-				<div class="item">
+			<form
+				action="${pageContext.servletContext.contextPath}/search/isearch.do"
+				method="post">
+				<div class="ui category search">
+					<div class="ui icon input" style="width: 100%;">
 
-					<div class="content" style="color: white; font-size: 15pt; ">
-						<i class="users icon"></i>인기 기업
+						<input class="prompt" type="text" placeholder="Search"
+							name="isearch"> <i class="search icon"></i>
+
 					</div>
-					<div id="list" style="margin: 10px;" ></div>
+					<div class="results"></div>
+				</div>
+			</form>
+			<div class="ui grid">
+
+				<div class="two wide column"></div>
+				<div class="twelve wide column"
+					style="text-align: left; padding: 30px;">
+					<div class="ui list" style="width: 100%;">
+						<div class="item">
+
+							<div class="content" style="color: white; font-size: 15pt;">
+								<i class="users icon"></i>인기 기업
 
 
+
+
+
+							</div>
+						</div>
+					</div>
+					<div class="two wide column"></div>
 
 				</div>
-			</div></div>
-  <div class="two wide column"></div>
-  
-</div>
-			
+			</div>
+
 		</header>
 
 

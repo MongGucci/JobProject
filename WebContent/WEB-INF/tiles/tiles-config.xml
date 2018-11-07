@@ -31,7 +31,7 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
 	<definition name="essay.myEssayDetail"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -73,7 +73,7 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
 	<definition name="essayBoard.shareEssayList"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -87,7 +87,7 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
 	<definition name="essayBoard.shareEssayDetail"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -209,7 +209,7 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
 	<definition name="job.join"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -223,7 +223,7 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
 	<definition name="job.search"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -239,7 +239,6 @@
 	</definition>
 
 
-
 	<definition name="job.schdetail.index"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -253,8 +252,8 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
-		<definition name="job.schlist.index"
+
+	<definition name="job.schlist.index"
 		template="/WEB-INF/tiles/user-template.jsp">
 
 		<put-attribute name="nav"
@@ -267,8 +266,8 @@
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
-		<definition name="job.schnull.index"
+
+	<definition name="job.schnull.index"
 		template="/WEB-INF/tiles/user-template.jsp">
 
 		<put-attribute name="nav"
@@ -280,9 +279,8 @@
 		<put-attribute name="right"
 			value="/WEB-INF/views/default/right.jsp" />
 
-
 	</definition>
-	
+
 	<definition name="job.allchat"
 		template="/WEB-INF/tiles/user-template.jsp">
 
@@ -312,19 +310,31 @@
 
 
 	</definition>
-	
+
 	<definition name="job.index"
 		template="/WEB-INF/views/default/index.jsp">
 
-		
+
 		<put-attribute name="left"
 			value="/WEB-INF/views/default/left.jsp" />
-		
+
 		<put-attribute name="right"
 			value="/WEB-INF/views/default/right.jsp" />
 
 	</definition>
-	
+
+	<definition name="job.hirelist"
+		template="/WEB-INF/tiles/user-template.jsp">
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/search/hirelist.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+	</definition>
+
 
 	<definition name="job.essay.essay"
 		template="/WEB-INF/views/essay/essay.jsp">
@@ -335,6 +345,28 @@
 
 
 	</definition>
+
+	<definition name="job.hirelistnull"
+		template="/WEB-INF/tiles/user-template.jsp">
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/search/hirelistnull.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+	</definition>
 	
-	
+	<definition name="job.isearchlist"
+		template="/WEB-INF/tiles/user-template.jsp">
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/search/isearchlist.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+	</definition>
 </tiles-definitions>

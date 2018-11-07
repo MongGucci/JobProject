@@ -19,8 +19,10 @@ public class PickedhireRepository {
 		return template.insert("pickedhire.pickhire", map);
 	}
 
+
 	public List<Map> myjjim(Map map) {
 		return template.selectList("pickedhire.myjjim", map);
+
 	}
 
 	public List<Map> getPick(String id) {

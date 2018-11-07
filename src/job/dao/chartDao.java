@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class chartDao {
 
+
    @Autowired
    SqlSessionTemplate template;
    
@@ -17,5 +18,6 @@ public class chartDao {
    public List<Map> comchart(Map map) {
       return template.selectList("charts.comchart",map);
    }
-   
+	
 }
+
