@@ -25,7 +25,7 @@
 <link href="${path}/css/default.css" rel="stylesheet">
 <title>JOB GO</title>
 </head>
-<body style="background-color: rgba(182, 183, 185, 0.25);">
+<body style="background-color: #F4F4F4;">
 	<div class="container-fluid" style="margin-top: 20px;">
 		<div
 			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center; font-weight:bolder; font-family: 'Patua One', cursive;" onclick="javascript:location.href='${path}/job/index.do'">JOB

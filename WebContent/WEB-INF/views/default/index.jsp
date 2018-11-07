@@ -93,28 +93,7 @@ a:link {
 					<div class="results"></div>
 				</div>
 			</form>
-			<div class="ui grid">
-
-				<div class="two wide column"></div>
-				<div class="twelve wide column"
-					style="text-align: left; padding: 30px;">
-					<div class="ui list" style="width: 100%;">
-						<div class="item">
-
-							<div class="content" style="color: white; font-size: 15pt;">
-								<i class="users icon"></i>인기 기업
-
-
-
-
-
-							</div>
-						</div>
-					</div>
-					<div class="two wide column"></div>
-
-				</div>
-			</div>
+			
 
 		</header>
 
@@ -171,7 +150,7 @@ a:link {
 						<p style="font-size: 12pt; color: #465674; font-weight: bolder;">여러분의
 							자소서를 작성하고 공유해보세요.</p>
 						<a href="${path}/essayBoard/shareEssayList.do?array=recent"><button
-								id="btn">A Letter Of Self-Introduction</button></a>
+								id="btn">Personal Statement</button></a>
 					</div>
 				</div>
 
@@ -195,12 +174,12 @@ a:link {
 						.get("${path}/indexAjax.do")
 						.done(
 								function(rst) {
-									console.log(rst[i]);
+									
 									var html = "";
 									for (var i = 0; i < 5; i++) {
-										console.log(rst[i]);
+										
 										if (rst[i] != null) {
-											html += "<div class=\"content\" id=\"rank\">"
+											html += "<div class=\"content\" id=\"rank\" align=\"left\">"
 											html += (i + 1)
 													+ ". <a href=\"${path}/search/schdetail.do?cono="
 													+ rst[i].cono + "\"> "

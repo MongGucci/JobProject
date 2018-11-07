@@ -110,13 +110,13 @@ public class IndexController {
 	@GetMapping(path = "/indexAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String indexAjaxHandle() {
-		System.out.println("새로고침");
+		;
 
 		List<Map> list = soar.getAllSoar();
 		Sorter sr = new Sorter();
 		list.sort((Comparator<? super Map>) sr);
 
-		System.out.println(list);
+		
 		return gson.toJson(list);
 	}
 

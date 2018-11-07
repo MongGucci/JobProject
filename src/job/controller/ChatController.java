@@ -50,6 +50,7 @@ public class ChatController extends TextWebSocketHandler {
 		Map got = gson.fromJson(payload, Map.class);
 		Map user = (Map) session.getAttributes().get("user");
 		got.put("nick", (String) user.get("NICK"));
+		
 		System.out.println("cochat : " + got);
 		String no = (String) got.get("cono");
 		int cono = Integer.parseInt(no);
