@@ -25,6 +25,7 @@ html, body {
 			<div align="right">
 				<a class="btn btn-outline-secondary"
 					href="${path}/search/schdetail.do?cono=${list.CONO}" role="button">기업보러가기</a>
+
 			</div>
 		</div>
 		<div class="card-body">
@@ -61,76 +62,64 @@ html, body {
 	<div align="right">
 		<c:choose>
 			<c:when test="${empty jjim }">
-
-				<div style="margin-top: 15px;" align="right">
-					<button type="button" class="btn btn-danger" data-toggle="modal"
-						id="pickhire" data-target="#focus" onclick="btn">공고찜하기</button>
-				</div>
+				<button type="button" class="btn btn-danger" data-toggle="modal"
+					id="pickhire" data-target="#jjimModal">공고찜하기</button>
+				<a class="btn btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
 			</c:when>
 			<c:otherwise>
-				<div style="margin-top: 15px;" align="right">
-					<button type="button" class="btn btn-warning" data-toggle="modal"
-						id="pickhire" data-target="#focus" disabled="disabled">등록된
-						공고</button>
-				</div>
-
+				<button type="button" class="btn btn-secondary" data-toggle="modal"
+					id="pickhire" data-target="#jjimModal" disabled="disabled">공고 찜 완료</button>
+				<a class="btn btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
 			</c:otherwise>
 		</c:choose>
-		<a class="btn btn-outline-secondary"
-			href="${pageContext.servletContext.contextPath}/recruit/select.do">다시검색하기</a>
-	</div>
 
-	<c:if test="${empty userId }">
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-			aria-labelledby="focus" aria-hidden="true"></div>
-	</c:if>
+		<c:if test="${empty userId }">
+			<div class="modal fade" id="jjimModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+		</c:if>
 
-	<c:choose>
-		<c:when test="${!empty userId }">
-			<script>
-	$("#pickhire").on(
-			"click",
-			function() {
-				var id = "${userId}";
-				console.log(id);
-				
-				var hino = "${company.HINO}";
-			
-				var param = {
-					"hino" : hino
-				};
-				$.post("${path}/recruit/recruitjjimAjax.do", param).done(
-						function(rst) {
-							if(rst.jjim) {
-							$("#pickhire").attr(
-								"disabled",
-								true);
-							$("#pickhire").html(
-									"등록된 공고");
-								
-							}
-
-						});
-			});
-	
-	</script>
-		</c:when>
-		<c:otherwise>
-			<script>
+		<c:choose>
+			<c:when test="${!empty userId }">
+				<script>
+					$("#pickhire").on("click", function() {
+						var id = "${userId}";
+						console.log(id);
+						
+						var hino = "${list.HINO}";
+						
+						var param = {
+								"hino" : hino
+						};
+						$.post("${path}/recruit/hirejjimAjax.do",param).done(
+								function(rst) {
+									console.log(param);
+									console.log(rst);
+									if(rst.jjim) {
+										$("#pickhire").attr("disabled", true);
+										$("#pickhire").html("공고 찜 완료")
+									}
+								});
+					})
+				</script>
+			</c:when>
+			<c:otherwise>
+				<script>
 				var html = "";
-				html = "<div class=\"modal-dialog\" role=\"document\">"
+				html = "<div class=\"modal-dialog\" role=\"document\" style=\"text-align: left\">"
 						+ "<div class=\"modal-content\"><div class=\"modal-header\">"
-						+ "<h5 class=\"modal-title\" id=\"exampleModal\">JOB GO</h5>"
+						+ "<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"
 						+ "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
 						+ "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
 						+ "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
 						+ "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
-
-				$("#focus").html(html);
+				$("#jjimModal").html(html);
 			</script>
-		</c:otherwise>
-	</c:choose>
 
+			</c:otherwise>
+		</c:choose>
+
+	</div>
 
 </div>
-

@@ -7,7 +7,7 @@
 
 <link href="${path}/css/index.css" rel="stylesheet">
 <!-- <link href="${path}/css/essayBoard.css" rel="stylesheet"> -->
-
+	
 <div class="container" style="margin-top: 20px;">
 
 	
@@ -99,15 +99,29 @@
 
 		</div>
 		<hr />
-
 		<div align="right">
 			<button type="submit" class="btn btn-dark">G O</button>
 		</div>
 
 	</form>
-
+	
 	<hr />
-
+		<div align="center">
+			<form class="form-signin"
+		action="${pageContext.servletContext.contextPath }/recruit/hiresearch.do"
+		method="post">
+		<div>
+			<input type="text" list="some" placeholder="궁금하신 채용 정보를 검색해주세요."
+				name="hsearch" style="width: 250px; height: 40px;  border: 0px;"/>
+			<button type="submit" style="height: 40px; background: #ffffff; outline: none; border: 0px;">
+				<img class=""
+					src="${pageContext.servletContext.contextPath }/image/dop.PNG"
+					style="width: 30px; height: 30px; padding: 0px;" border="0" />
+			</button>
+		</div>
+		<br>
+	</form>
+	</div>
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item"><a class="nav-link active" id="home-tab"
 			data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -259,10 +273,6 @@
 	   xhr.send(param);
 	   
 	}; */
-
-	$('.special.cards .image').dimmer({
-		on : 'hover'
-	});
 	$("#location").on(
 			"change",
 			function() {

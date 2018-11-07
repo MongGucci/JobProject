@@ -28,55 +28,87 @@ html, body {
    padding: 0;
 }
 </style>
+<img alt="" src="${pageContext.servletContext.contextPath }${dt.LOGO }"
+      style="float: center;">
 <hr />
 <div class="container" style="margin-top: 20px; text-align: center;">
-   <h1>${dt.CONO}</h1>
-
-   <img alt="" src="${pageContext.servletContext.contextPath }${dt.LOGO }"
-      style="float: left;">
-   <h3>${dt.CONAME }</h3>
+   <h3>${dt.CONAME }</h3> <c:forEach var = "a" items="${chart }"> ${a.GENDER } : ${a.CNT }<br></c:forEach>
    <small>가족친화</small> <br> <a href="${dt.HOMEPAGE }">${dt.HOMEPAGE }</a>
    <br> <br>
-   <c:choose>
-      <c:when test="${!empty btn }">
-         <a
-            href="${pageContext.servletContext.contextPath }/search/schbtn.do?no=${dt.CONO}"
-            id="f">
-            <button class="alert alert-secondary" style="height: 50px;" id="bt"
-               disabled>이미 등록된 관심 기업</button>
-         </a>
-      </c:when>
-      <c:otherwise>
-         <a
-            href="${pageContext.servletContext.contextPath }/search/schbtn.do?no=${dt.CONO}"
-            id="f">
-            <button class="alert alert-warning" style="height: 50px;" id="bt">+
-               관심 기업등록</button>
-         </a>
-      </c:otherwise>
-   </c:choose>
-
+	<!-- 여기다가 -->
+	<c:choose>
+		<c:when test="${empty comjjim }">
+			 <button class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
+			 data-target="#comjjimModal">+ 관심 기업등록</button>
+		</c:when>
+		<c:otherwise>
+			  <button class="alert alert-secondary" style="height: 50px;" id="btn" data-toggle="modal"
+               data-target="#comjjimModal" disabled="disabled" >이미 등록된 관심 기업</button>
+		</c:otherwise>
+	</c:choose>
+	<c:if test="${empty userId }">
+		<div class="modal fade" id="comjjimModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+	</c:if>
+	<c:choose>
+		<c:when test="${!empty userId }">
+			<script>
+				$("#btn").on("click", function() {
+					var id = "${userId}";
+					console.log(id);
+					
+					var cono = "${dt.CONO}";
+					
+					var param = {
+							"cono" : cono
+					};
+					$.post("${path}/search/comjjimAjax.do",param).done(
+							function(rst){
+								console.log(rst);
+								if(rst.comjjim) {
+									$("#btn").attr("disabled", true);
+									$("#btn").html("이미 등록된 관심 기업")
+								}
+							});
+				})
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script>
+			var html = "";
+			html = "<div class=\"modal-dialog\" role=\"document\" style=\"text-align: left\">"
+					+ "<div class=\"modal-content\"><div class=\"modal-header\">"
+					+ "<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"
+					+ "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
+					+ "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
+					+ "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
+					+ "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
+			$("#comjjimModal").html(html);
+			</script>
+		</c:otherwise>
+	</c:choose>
    <hr />
-
-   <table style="margin: auto">
-      <tr>
-         <td>대표자 : ${dt.CEO } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기업 형태
-            : ${dt.COTYPE }</td>
-      </tr>
-      <tr>
-         <td>매출액 : ${dt.SALES }천만원
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 사원수 :
-            ${dt.WORKERS }명</td>
-      </tr>
-      <tr>
-         <td>업종 : ${dt.INDUSTRY } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 초봉 :
-            ${dt.FIRST }만원</td>
-      </tr>
-      <tr>
-         <td>위치 : ${dt.BIG }&nbsp;${dt.SMALL }</td>
-         
-      </tr>
-   </table>
+   <br>
+	 <table style = "margin : auto; width: 50%; text-align: left; float: left; border-right:1px black solid;">
+	 <tr>
+		 <td >대표자 : ${dt.CEO }</td>
+	 	 <td>기업 형태 : ${dt.COTYPE }</td>
+	</tr>
+	<tr>
+		 <td>매출액 : ${dt.SALES }천만원</td>
+		 <td>사원수 : ${dt.WORKERS }명</td>
+	</tr>
+	<tr>
+		<td>업종 : ${dt.INDUSTRY }</td>
+		<td>초봉 : ${dt.FIRST }만원</td>
+	</tr>
+	<tr>
+		<td>위치 : ${dt.BIG } ${dt.SMALL }</td>
+		<td></td>
+	</tr>
+	</table>
+	<div id="donutchart" style="width: 350px; height: 100px; float: right;"></div>
+	<div style="clear: both;"></div>
    <hr />
    <div id="map" style="height: 150px; witdh:200px;"></div>
          <script>
@@ -96,7 +128,7 @@ html, body {
       <c:forEach var="h" items="${hiring}">
          <br/>${h.CONAME} - ${h.TITLE }  (<fmt:formatDate pattern="yyyy-MM-dd" 
          value="${h.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
-         value="${h.ENDDATE}" />) <a href="{path}/recruit/jobpost.do?hino=$h.HINO}">보러 가기</a>
+         value="${h.ENDDATE}" />) <a href="${path}/recruit/jobpost.do?hino=${h.HINO}">보러 가기</a>
       </c:forEach>   
 
 
@@ -153,11 +185,13 @@ html, body {
                
                이미 이 기업에 대한 후기를 남기셨네요!
                <hr/>
-               <div>
+               
+               <div style = "text-align: left;">
                <c:forEach var="r" items="${reviews}">
-                  이런점이 좋았어요 : ${r.GOOD} <br/>
-                  이런점이 별로였어요 : ${r.BAD }<br/>
-                  이 후기 작성자가 남긴 별점 : <span class="starR on" ></span>${r.STAR}
+		<c:forEach var ="i" begin="1" end="${r.STAR }"><i style="font-size: 15pt; color: orange;"class="star icon"></i></c:forEach><br>
+        <span style="color: blue;">장점</span> : ${r.GOOD} <br/>
+        <span style="color: red;">단점 </span>: ${r.BAD }<br/>
+                 <hr/>
                 </c:forEach>
             
                </div>
@@ -169,54 +203,35 @@ html, body {
       </c:choose>
    </div>
 
-   <hr />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['남/여', '남여 비율'],
+          ['남',      2],
+          ['여',      2],
+        ]);
+
+        var options = {
+          title: '남/여 비율',
+          pieHole: 0.3,
+         
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
 
 
 
 
 
    <p class="mt-5 mb-3 text-muted">&copy; 2018 JOB'A CORP</p>
-   <c:choose>
-      <c:when test="${userId eq null}">
-         <script>
-            $("#bt").on("click", function() {
-               var t = window.confirm("로그인 인증이 필요합니다.\n로그인 하시겠습니까?");
-               if (t) {
-                  $("#f").trigger("submit");
-               }
-            });
-         </script>
-      </c:when>
-      <c:otherwise>
-         <script>
-            $("#bt").on("click", function() {
-               $("#f").trigger("submit");
-            });
-         </script>
-      </c:otherwise>
-   </c:choose>
+  
 
 </div>
 
-<script>
-   $("#pickhire").on(
-         "click",
-         function() {
-            
-            var param = {
-               "big" : big
-            };
-            $.post("${path}/recruit/selectajax.do", param).done(
-                  function(rst) {
-                     var html = "";
-                     for (var i = 0; i < rst.length; i++) {
-                        html += "<option value=\""+rst[i].SMALL+"\">"
-                              + rst[i].SMALL + "</option><br/>";
-                        //console.log(small[i].SMALL);
-                     }
-                     $("#smalls").html(html);
-
-                  });
-         });
-   
-   </script>

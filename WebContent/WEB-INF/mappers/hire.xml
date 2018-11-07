@@ -94,6 +94,10 @@
 	</select>
 
 
-
+	<select id="hiresearch" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from hire where (UPPER(title) like UPPER('%'||#{title}||'%') or UPPER(name) like UPPER('%'||#{name}||'%'))
+		or
+		UPPER(content) like UPPER('%'||#{content}||'%') order by startdate desc
+	</select>
 
 </mapper>

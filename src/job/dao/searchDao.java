@@ -35,4 +35,8 @@ public class searchDao {
 	public List<Map> cksearch(String coname) {
 		return template.selectList("company.cksearch",coname);
 	}
+	// 요게 통합 검색 
+	public List<Map> isearch(Map map) {
+		return template.selectList("company.isearch",map);
+	}
 }

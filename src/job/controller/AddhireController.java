@@ -48,7 +48,6 @@ public class AddhireController {
 	
 	@PostMapping("/addhire.do") 
 	public String AddhirePostHandle(@RequestParam Map param, @RequestParam MultipartFile path) throws IOException {
-		
 		String fileName = path.getOriginalFilename();
 		System.out.println("사진 제목 : " + fileName);
 		String pat = ctx.getRealPath("/storage/hire");
@@ -59,6 +58,7 @@ public class AddhireController {
 		File dst = new File(dir,fileName);
 		path.transferTo(dst);
 		
+		System.out.println(dst);
 		String clientpath = "/storage/hire/" + fileName; // dao에 저장
 		System.out.println("사진 경로 : " + clientpath);
 		

@@ -68,4 +68,8 @@ public class HireRepository {
 			return null;
 		}
 	}
+	// 채용 정보 검색 
+	public List<Map> hiresearch(Map map) {
+		return template.selectList("hire.hiresearch", map);
+	}	
 }

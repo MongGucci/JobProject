@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -164,8 +165,9 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/jobpost.do")
-	public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr) {
+	public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr, ModelMap map) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		int hino = Integer.parseInt((String)param.get("hino"));
 		Map company= hrepo.getHirebyHino(hino);
 		Date start = (Date) company.get("STARTDATE");
@@ -176,37 +178,69 @@ public class RecruitController {
 		if(gap<0) {
 			company.put("MAGAM",true);
 		}
+		if(id != null) {
+		Map jjimap = new HashMap<>();
+		jjimap.put("id", id);
+		jjimap.put("hino", hino);
+		
+		List<Map> jjim = phrepo.myjjim(jjimap);
+		wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
+		}
 		post.put("list", company);
 		
-		if(wr.getAttribute("id", wr.SCOPE_SESSION) != null) {
+		return "job.jobpost";
+		
+	}
+	
+	   // 요게 채용 공고 찜 요거 안됩니다.
+	   @GetMapping("/jjim.do")
+	   public String schbtn(WebRequest wr, ModelMap map) {
+	      String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	      String hino = wr.getParameter("hino");
+	      System.out.println("hino:"+ hino);
+	      
+	      if (id == null) {
+	         return "/login/login";
+	      } else {
+	    	Map sd = new HashMap<>();
+	  	    sd.put("id", id);
+	  	    sd.put("hino", hino);
+	  	    
+	  	    List<Map> cd = phrepo.myjjim(sd);
+		    if(cd.size() == 0) {
+		    	int c = phrepo.pickHire(sd);
+		    	return "redirect:/recruit/jobpost.do?hino="+hino;
+		    } else {
+		    	map.put("jjim", "on");
+		    	return "redirect:/recruit/jobpost.do?hino="+hino;
+		    } 
+	      }
+	   }
+	   	// 요게 채용 공고 찜하기
+		@PostMapping(path = "/hirejjimAjax.do", produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public String hirejjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
 			
-			Map jjimap = new HashMap<>();
-			jjimap.put("hino", hino);
-			jjimap.put("id", wr.getAttribute("userId", wr.SCOPE_SESSION));
+			Map jjim = new HashMap<>();
 			
-			Map jjim = phrepo.myjjim(jjimap);
-			wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
+			String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+			Map sd = new HashMap<>();
+			sd.put("id", id);
+			sd.put("hino", hino);
+			System.out.println(sd);
+			
+			try {
+				
+				int a = phrepo.pickHire(sd);
+				jjim.put("jjim", true);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				jjim.put("jjim", false);
+			}
+			return gson.toJson(jjim);
 		}
 		
-		return "job.jobpost";
-	}
-	
-	@PostMapping(path = "/recruitjjimAjax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String recruitjjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
-		Map jjim = new HashMap<>();
-		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
-		Map map = new HashMap<>();
-		map.put("id", id);
-		map.put("hino", hino);
-		System.out.println(map);
-		
-		int r = phrepo.pickHire(map);
-		
-		return gson.toJson(jjim);
-	}
-	
 	@GetMapping("/comdetail.do")
 	public String comdetailGetHandle(WebRequest session, Map review) {
 		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
@@ -280,5 +314,44 @@ public class RecruitController {
 		alert.sendOne(msg, "skdbs0610");
 	}
 	
+	@PostMapping("/hiresearch.do")
+	public String hiresearchHandle(WebRequest wr, Map map) {
+		String title = (String)wr.getParameter("hsearch");
+		String name = (String)wr.getParameter("hsearch");
+		String content = (String)wr.getParameter("hsearch");
+		
+		
+		Map hch = new HashMap<>();
+		hch.put("title", title);
+		hch.put("name", name);
+		hch.put("content", content);
+		
+		List<Map> hck = hrepo.hiresearch(hch);
+		if(content.equals("") || title.equals("") || name.equals("") || hck.size() == 0) {
+			wr.setAttribute("contents", content, wr.SCOPE_REQUEST);
+			System.out.println("null에 들어왔어요");
+			return "job.hirelistnull";
+		} else {
+			
+			SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+			List<Map> hir = hrepo.hiresearch(hch);
+			for (int i = 0; i < hir.size(); i++) {
+				Map m = hir.get(i);
+				Date date = (Date) m.get("STARTDATE");
+				Date dd = (Date)m.get("ENDDATE");
+				long endd =dd.getTime();
+				m.put("STARTDATE", fmt.format(date));
+				m.put("ENDDATE",fmt.format(dd) );
+				long gap = endd-System.currentTimeMillis();
+				if(gap<0) {
+					m.put("MAGAM",true);
+				}
+				
+			}
+			map.put("hir", hir);
+			return "job.hirelist";
+		}
+		}
+	}
 	
-}
+

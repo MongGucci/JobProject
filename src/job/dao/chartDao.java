@@ -1,4 +1,4 @@
-package job.models;
+package job.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -8,19 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PickedhireRepository {
-
-	
+public class chartDao {
 
 	@Autowired
 	SqlSessionTemplate template;
 	
-	public int pickHire(Map map) {
-		return template.insert("pickedhire.pickhire",map);
-	}
-	
-	public List<Map> myjjim(Map map) {
-		return template.selectList("pickedhire.myjjim",map);
+	// 남/여 차트  
+	public List<Map> comchart(Map map) {
+		return template.selectList("charts.comchart",map);
 	}
 	
 }

@@ -37,7 +37,7 @@
 
 	<header id="header" class="alt">
 		<div class="logo" >
-			<a href="${path}/job/index.do" >JOB <span>Go</span></a>
+			<a href="${path}/index.do" >JOB <span>Go</span></a>
 		</div>
 		<div style="margin-right: 20px;">
 			<c:if test="${empty userId}">
@@ -68,13 +68,17 @@
 				<p>
 					뽑아주세요.<br />취직하고 싶어요.
 				</p>
+					<form action="${pageContext.servletContext.contextPath}/search/isearch.do" method = "post">
 				<div class="ui category search">
 					<div class="ui icon input" style="width: 100%;">
-						<input class="prompt" type="text" placeholder="Search" >
+				
+						<input class="prompt" type="text" placeholder="Search" name = "isearch">
 						<i class="search icon"></i>
+				
 					</div>
 					<div class="results"></div>
 				</div>
+					</form>
 			</header>
 
 
