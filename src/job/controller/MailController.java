@@ -10,23 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/test")
-public class mail {
+public class MailController {
 // 테스트
 	@Autowired
 	JavaMailSender sender;
-	
+
 	@RequestMapping("/mail.do")
 	public void sendTest() {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		sender.createMimeMessage();
 		msg.setSubject("메일테스"); // 메일제목
-		String txt = "인증키 ☞ ";	//인증키 
-		txt += UUID.randomUUID().toString().split("-")[0];	// 인증키
+		String txt = "인증키 ☞ "; // 인증키
+		txt += UUID.randomUUID().toString().split("-")[0]; // 인증키
 		msg.setText(txt);// 내용 보내는거
-		msg.setTo("hkdlye@naver.com");//받는 사람 이메일  
+		msg.setTo("hkdlye@naver.com");// 받는 사람 이메일
 		msg.setFrom("AA@aaa.com");
-		
-		
+
 		try {
 			sender.send(msg);
 			System.out.println("성공");

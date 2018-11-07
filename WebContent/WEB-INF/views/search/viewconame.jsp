@@ -32,14 +32,19 @@ html, body {
       style="float: center;">
 <hr />
 <div class="container" style="margin-top: 20px; text-align: center;">
-   <h3>${dt.CONAME }</h3> <c:forEach var = "a" items="${chart }"> ${a.GENDER } : ${a.CNT }<br></c:forEach>
+   <h3>${dt.CONAME }</h3>
    <small>가족친화</small> <br> <a href="${dt.HOMEPAGE }">${dt.HOMEPAGE }</a>
    <br> <br>
 	<!-- 여기다가 -->
 	<c:choose>
 		<c:when test="${empty comjjim }">
 			 <button class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
-			 data-target="#comjjimModal">+ 관심 기업등록</button>
+			 data-target="#comjjimModal">+ 관심 기업등록</button> 
+			 <button  class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
+			 data-target="#comjjimModal">기업 채팅 참여하기</button> 
+			 <c:if test="${!empty recommend }">
+			 <br/><div class="ui top pointing red basic label" id="pherror"
+								style=" font-size: 11pt;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div></c:if>
 		</c:when>
 		<c:otherwise>
 			  <button class="alert alert-secondary" style="height: 50px;" id="btn" data-toggle="modal"
@@ -87,6 +92,8 @@ html, body {
 			</script>
 		</c:otherwise>
 	</c:choose>
+	<hr />
+		관심 기업 등록<br> <b style="font-size: 20pt; color: blue;">${saram.CNT }</b>명
    <hr />
    <br>
 	 <table style = "margin : auto; width: 50%; text-align: left; float: left; border-right:1px black solid;">
@@ -109,8 +116,10 @@ html, body {
 	</table>
 	<div id="donutchart" style="width: 350px; height: 100px; float: right;"></div>
 	<div style="clear: both;"></div>
+	<hr>
+	<div id="agechart" style="width: 350px; height: 100px; float: center;"></div>
    <hr />
-   <div id="map" style="height: 150px; witdh:200px;"></div>
+  <div id="map" style="height: 400px"></div>
          <script>
             function initMap() {
                var loc = {lat: ${dt.LAT}, lng: ${dt.LNG}};
@@ -207,11 +216,11 @@ html, body {
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
+      console.log(${result})
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['남/여', '남여 비율'],
-          ['남',      2],
-          ['여',      2],
+          ${result}
         ]);
 
         var options = {
@@ -222,10 +231,31 @@ html, body {
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
-      }
+      };
     </script>
 
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      console.log(${agetext})
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['age', '나이별'],
+          ${agetext}
+        ]);
+
+        var options = {
+          title: '연령',
+          pieHole: 0.3,
+         
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('agechart'));
+        chart.draw(data, options);
+      };
+    </script>
 
 
 

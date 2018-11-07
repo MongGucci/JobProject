@@ -41,7 +41,7 @@ public class ShareEssayController {
 
 	@Autowired
 	Gson gson;
-	
+
 	@Autowired
 	AlertService alert;
 
@@ -113,17 +113,16 @@ public class ShareEssayController {
 	// ========================================================================================================
 
 	@GetMapping("/shareEssayList.do")
-	public String shareEssayListGetHandle(WebRequest web,@RequestParam String array) {
+	public String shareEssayListGetHandle(WebRequest web, @RequestParam String array) {
 		List<Map> essays = null;
-		if(array.equals("popular")) {
-			
+		if (array.equals("popular")) {
+
 			essays = shareEssay.getShareEssayPopular();
-		}else {
+		} else {
 			essays = shareEssay.getShareEssay();
-			
+
 		}
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd.HH:mm");
-		
 
 		for (int i = 0; i < essays.size(); i++) {
 			Map map = essays.get(i);
@@ -141,19 +140,19 @@ public class ShareEssayController {
 		String no = web.getParameter("no");
 		int ino = Integer.parseInt(no);
 		shareEssay.addInquire(ino);
-		
-		Integer jasono = Integer.parseInt(no); 
+
+		Integer jasono = Integer.parseInt(no);
 		Map map = shareEssay.getShareDetail(no);
 		List<Map> reply = shareEssay.getReply(jasono);
-		if(web.getAttribute("userId", web.SCOPE_SESSION) != null) {
+		if (web.getAttribute("userId", web.SCOPE_SESSION) != null) {
 
-		Map likeMap = new HashMap<>();
-		likeMap.put("jasono", no);
-		likeMap.put("id", web.getAttribute("userId", web.SCOPE_SESSION));
-		Map like = shareEssay.myLike(likeMap);
-		web.setAttribute("like", like, web.SCOPE_REQUEST);
+			Map likeMap = new HashMap<>();
+			likeMap.put("jasono", no);
+			likeMap.put("id", web.getAttribute("userId", web.SCOPE_SESSION));
+			Map like = shareEssay.myLike(likeMap);
+			web.setAttribute("like", like, web.SCOPE_REQUEST);
 		}
-		
+
 		for (int i = 1; i < 5; i++) {
 			if (map.get("A" + i) != null) {
 				String a = (String) map.get("A" + i);
@@ -170,8 +169,8 @@ public class ShareEssayController {
 			String FILE = ((String) map.get("PATH")).substring(((String) map.get("PATH")).lastIndexOf("/") + 1);
 			map.put("FILE", FILE);
 		}
-		System.out.println( "essay : " + map);
-		
+		System.out.println("essay : " + map);
+
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		web.setAttribute("reply", reply, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayDetail";
@@ -204,89 +203,73 @@ public class ShareEssayController {
 		return gson.toJson(like);
 
 	}
-	
-	
-	//===========================================================================
-	//181028 
+
+	// ===========================================================================
+	// 181028
 	@GetMapping("/reply.do")
 	public String replyGetHandle(@RequestParam Map map) {
 		System.out.println(map);
 		int no = Integer.parseInt((String) map.get("no"));
 		int r = shareEssay.updateReply(no);
-		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
-		
+		return "redirect:/essayBoard/essayBoardDetail.do?no=" + map.get("jasono");
+
 	}
-	
-	
+
 	@PostMapping("/reply.do")
-	public String replyPostHandle(@RequestParam Map map,WebRequest web) {
-		
-		
+	public String replyPostHandle(@RequestParam Map map, WebRequest web) {
+
 		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
 		map.put("writer", id);
 		map.put("parent", "");
 		map.put("flag", "T");
 		map.put("verify", "N");
-		
-		String replyid = (String)map.get("replyid");
+
+		String replyid = (String) map.get("replyid");
 		Map msg = new HashMap<>();
 		msg.put("mode", "reply");
 
-		msg.put("msg", map.get("replyid")+"님이 올린 자소서에 댓글이 올라왔습니다.");
+		msg.put("msg", map.get("replyid") + "님이 올린 자소서에 댓글이 올라왔습니다.");
 		msg.put("link", map.get("jasono"));
-		
+
 		alert.sendOne(msg, replyid);
-		
-		
-		
+
 		int r = shareEssay.setReply(map);
 		System.out.println(map.get("jasono"));
-		
-		//web.setAttribute("no", map.get("jasono"), web.SCOPE_REQUEST);
-		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
-		
+
+		// web.setAttribute("no", map.get("jasono"), web.SCOPE_REQUEST);
+		return "redirect:/essayBoard/essayBoardDetail.do?no=" + map.get("jasono");
+
 	}
-	
+
 	@PostMapping("/replyComment.do")
-	
-	public String replyCommentPostHandle(@RequestParam Map map,WebRequest web) {
+
+	public String replyCommentPostHandle(@RequestParam Map map, WebRequest web) {
 		System.out.println(map);
 		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
 		map.put("writer", id);
 		map.put("flag", "T");
 		map.put("verify", "N");
-		
-		String replyid = (String)map.get("replyid");
+
+		String replyid = (String) map.get("replyid");
 		Map msg = new HashMap<>();
 		msg.put("mode", "reply");
 
-		msg.put("msg", map.get("replyid")+"님의 댓글에 답글이 올라왔습니다.");
+		msg.put("msg", map.get("replyid") + "님의 댓글에 답글이 올라왔습니다.");
 		msg.put("link", map.get("jasono"));
 		alert.sendOne(msg, replyid);
-		
-		
+
 		int r = shareEssay.setReply(map);
-		return "redirect:/essayBoard/essayBoardDetail.do?no="+map.get("jasono");
-		
-		
-		
+		return "redirect:/essayBoard/essayBoardDetail.do?no=" + map.get("jasono");
+
 	}
-	
+
 	@GetMapping("/shareEssayDelete.do")
-	public String  shareEssayDeleteHandle(@RequestParam String no) {
+	public String shareEssayDeleteHandle(@RequestParam String no) {
 		int jasono = Integer.parseInt(no);
 		int r = shareEssay.deletePicked(jasono);
 		int t = shareEssay.deleteShareEssay(jasono);
-		
+
 		return "redirect:/essayBoard/shareEssayList.do";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

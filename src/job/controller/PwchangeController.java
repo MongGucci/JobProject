@@ -17,41 +17,38 @@ import job.dao.loginDao;
 public class PwchangeController {
 	@Autowired
 	loginDao logindao;
-	
+
 	@GetMapping("/pwchange.do")
 	public String pwchangeHandle(WebRequest wr, ModelMap map) {
-	/*	String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);*/
-		String cpass = (String)wr.getAttribute("password", wr.SCOPE_SESSION);
-		/*map.put("id", id);*/
+		/* String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION); */
+		String cpass = (String) wr.getAttribute("password", wr.SCOPE_SESSION);
+		/* map.put("id", id); */
 		System.out.println("기존 비밀번호 : " + cpass);
 		return "job.pwchange";
 	}
-	
+
 	@PostMapping("/pwchange.do")
 	public String pwchangePostHandle(WebRequest wr, ModelMap map) {
-		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);		// 로그인한 아이디
-		String cpass = (String)wr.getAttribute("password", wr.SCOPE_SESSION);	// 로그인한 비밀번호
-		String opass = (String)wr.getParameter("pass");							// 기존 비밀번호
-		String newpass = (String)wr.getParameter("newpass");					// 새로운 비밀번호
-		
+
+		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION); // 로그인한 아이디
+		String cpass = (String) wr.getAttribute("password", wr.SCOPE_SESSION); // 로그인한 비밀번호
+		String opass = (String) wr.getParameter("pass"); // 기존 비밀번호
+		String newpass = (String) wr.getParameter("newpass"); // 새로운 비밀번호
+
 		System.out.println("새로운 비밀번호 : " + newpass);
-		
+
 		Map data = new HashMap<>();
 		data.put("id", id);
 		data.put("password", newpass);
-		
-		
-		
-		if(cpass.equals(opass)) {								 
+
+		if (cpass.equals(opass)) {
 			int a = logindao.pwchange(data);
 			System.out.println(data);
 			return "redirect:/index.do";
-		}else {
+		} else {
 			map.put("err", "on");
-			return "/change/pwchange";
+			return "job.pwchange";
 		}
-			
-		
+
 	}
 }

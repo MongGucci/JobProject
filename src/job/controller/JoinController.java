@@ -37,183 +37,169 @@ import job.models.JoinRepository;
 @RequestMapping("/join")
 public class JoinController extends HttpServlet {
 
-   @Autowired
-   Gson gson;
+	@Autowired
+	Gson gson;
 
-   @Autowired
-   JoinRepository jr;
+	@Autowired
+	JoinRepository jr;
 
-   @Autowired
-   JobcateRepository jcr;
+	@Autowired
+	JobcateRepository jcr;
 
-   @Autowired
-   JavaMailSender sender;
+	@Autowired
+	JavaMailSender sender;
 
-   @GetMapping("/join.do")
-   public String joinGetHandle(ModelMap map) {
-      List<Map> cate = jcr.getAll();
-      map.put("map", cate);
-      System.out.println(cate);
-      return "join/signup";
-   }
+	@GetMapping("/join.do")
+	public String joinGetHandle(ModelMap map) {
+		List<Map> cate = jcr.getAll();
+		map.put("map", cate);
+		System.out.println(cate);
+		return "join/signup";
+	}
 
-   @PostMapping("/join.do")
-   public String joinPostHandle(WebRequest wr, ModelMap map) {
+	@PostMapping("/join.do")
+	public String joinPostHandle(WebRequest wr, ModelMap map) {
 
-      String id = (String) wr.getParameter("id");
-      String pass = (String) wr.getParameter("pass");
-      String name = (String) wr.getParameter("name");
-      String age = (String) wr.getParameter("age");
-      String gender = (String) wr.getParameter("gender");
-      String job = (String) wr.getParameter("job");
-      String nick = (String) wr.getParameter("nick");
-      String email = (String) wr.getParameter("email");
-      String phone = (String) wr.getParameter("phone");
+		String id = (String) wr.getParameter("id");
+		String pass = (String) wr.getParameter("pass");
+		String name = (String) wr.getParameter("name");
+		String age = (String) wr.getParameter("age");
+		String gender = (String) wr.getParameter("gender");
+		String job = (String) wr.getParameter("job");
+		String nick = (String) wr.getParameter("nick");
+		String email = (String) wr.getParameter("email");
+		String phone = (String) wr.getParameter("phone");
 
-      System.out.println(id + pass + name + gender + job + nick + email + phone);
+		System.out.println(id + pass + name + gender + job + nick + email + phone);
 
-      Map data = new HashMap<>();
-      data.put("id", id);
-      data.put("password", pass);
-      data.put("name", name);
-      data.put("age", age);
-      data.put("gender", gender);
-      data.put("nick", nick);
-      data.put("email", email);
-      data.put("phone", phone);
+		Map data = new HashMap<>();
+		data.put("id", id);
+		data.put("password", pass);
+		data.put("name", name);
+		data.put("age", age);
+		data.put("gender", gender);
+		data.put("nick", nick);
+		data.put("email", email);
+		data.put("phone", phone);
 
-      int a = jr.add(data);
+		int a = jr.add(data);
 
-      return "job.index";
+		return "job.index";
 
-   }
+	}
 
-   
-   // 아이디 중복 체크
-   @GetMapping(path = "/joinajax.do", produces = "application/json;charset=UTF-8")
-   @ResponseBody
-   public String joinAjaxHandle(@RequestParam String id) {
-      System.out.println("id :" + id);
-      Map cid = jr.getById(id);
-      System.out.println("cid :" + cid);
-      System.out.println(cid);
-      Map map = new HashMap<>();
-      if (cid != null) {
-         map.put("pass", "on");
-         System.out.println(id + "사용중인 아이디");
-      } else {
-         map.put("pass", "off");
-         System.out.println(id + "사용가능한 아이디");
-      }
-      return gson.toJson(map);
+	// 아이디 중복 체크
+	@GetMapping(path = "/joinajax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String joinAjaxHandle(@RequestParam String id) {
+		System.out.println("id :" + id);
+		Map cid = jr.getById(id);
+		System.out.println("cid :" + cid);
+		System.out.println(cid);
+		Map map = new HashMap<>();
+		if (cid != null) {
+			map.put("pass", "on");
+			System.out.println(id + "사용중인 아이디");
+		} else {
+			map.put("pass", "off");
+			System.out.println(id + "사용가능한 아이디");
+		}
+		return gson.toJson(map);
 
-   }
+	}
 
-   // 닉네임 중복 체크
-   
-   @GetMapping(path = "/nickajax.do", produces = "application/json;charset=UTF-8")
-   @ResponseBody
-   public String nickAjaxHandle(@RequestParam String nick) {
-      System.out.println("nick :" + nick);
-      Map cid = jr.getByNick(nick);
-      System.out.println("cid :" + cid);
-      System.out.println(cid);
-      Map m = new HashMap<>();
-      if (cid != null) {
-         m.put("pass", "on");
-         System.out.println(nick + "사용중인 닉네임");
-      } else {
-         m.put("pass", "off");
-         System.out.println(nick + "사용가능한 닉네임");
-      }
-      return gson.toJson(m);
+	// 닉네임 중복 체크
 
-   }
-   
-   // 이메일 인증
-   
-   @RequestMapping("/mail.do")
-   @ResponseBody
+	@GetMapping(path = "/nickajax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String nickAjaxHandle(@RequestParam String nick) {
+		System.out.println("nick :" + nick);
+		Map cid = jr.getByNick(nick);
+		System.out.println("cid :" + cid);
+		System.out.println(cid);
+		Map m = new HashMap<>();
+		if (cid != null) {
+			m.put("pass", "on");
+			System.out.println(nick + "사용중인 닉네임");
+		} else {
+			m.put("pass", "off");
+			System.out.println(nick + "사용가능한 닉네임");
+		}
+		return gson.toJson(m);
 
-   public String sendMail(@RequestParam Map param, WebRequest wr) {
-      String receiver = (String) param.get("email");
-      MimeMessage msg = sender.createMimeMessage();
-      String txt = "인증키  ☞  ";
-      String confirm = UUID.randomUUID().toString().split("-")[0];
-      System.out.println(receiver);
-      txt += confirm;
+	}
 
-      wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
-/*      
-      for(int i = 0;i<map.size();i++) {
-    	  try {
-        	  msg.setSubject("인증번호");
-        	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
-        	  msg.setContent(txt, "text/plain;charset=UTF-8");
-        	  msg.setFrom(new InternetAddress(map.get(i)));
-        	  msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
-             sender.send(msg);
-             System.out.println("성공");
-             return "true";
-          } catch (Exception e) {
-             e.printStackTrace();
-             System.out.println("실패");
-             return"false";
-          }
+	// 이메일 인증
 
-    	  
-      }
-      */
+	@RequestMapping("/mail.do")
+	@ResponseBody
 
-      
-      try {
-    	  msg.setSubject("인증번호");
-    	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
-    	  msg.setContent(txt, "text/plain;charset=UTF-8");
-    	  msg.setFrom(new InternetAddress());
-    	  msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
-         sender.send(msg);
-         System.out.println("성공");
-         return "true";
-      } catch (Exception e) {
-         e.printStackTrace();
-         System.out.println("실패");
-         return"false";
-      }
-   }
+	public String sendMail(@RequestParam Map param, WebRequest wr) {
+		String receiver = (String) param.get("email");
+		MimeMessage msg = sender.createMimeMessage();
+		String txt = "인증키  ☞  ";
+		String confirm = UUID.randomUUID().toString().split("-")[0];
+		System.out.println(receiver);
+		txt += confirm;
 
-   @RequestMapping("/emailauth.do")
-   @ResponseBody
+		wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
+		/*
+		 * for(int i = 0;i<map.size();i++) { try { msg.setSubject("인증번호");
+		 * msg.setSubject("[알림] 인증번호입니다.", "UTF-8"); msg.setContent(txt,
+		 * "text/plain;charset=UTF-8"); msg.setFrom(new InternetAddress(map.get(i)));
+		 * msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
+		 * sender.send(msg); System.out.println("성공"); return "true"; } catch (Exception
+		 * e) { e.printStackTrace(); System.out.println("실패"); return"false"; }
+		 * 
+		 * 
+		 * }
+		 */
 
-   public String emailauthHandle(@RequestParam Map param, WebRequest wr) {
-      String confirm = (String) wr.getAttribute("confirm", WebRequest.SCOPE_SESSION);
-      String confrim1 = (String) param.get("confirmkey");
-      String rst;
-      wr.removeAttribute("confirmKey", WebRequest.SCOPE_REQUEST);
-      if (confirm.equals(confrim1)) {
-         rst = "true";
-         wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
-         System.out.println(rst);
-         return rst;
-      } else {
-         rst = null;
-         wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
-         System.out.println(rst);
-         return rst;
-      }
+		try {
+			msg.setSubject("인증번호");
+			msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
+			msg.setContent(txt, "text/plain;charset=UTF-8");
+			msg.setFrom(new InternetAddress());
+			msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
+			sender.send(msg);
+			System.out.println("성공");
+			return "true";
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("실패");
+			return "false";
+		}
+	}
 
-   }
-   
-   
-   
+	@RequestMapping("/emailauth.do")
+	@ResponseBody
 
-   @RequestMapping("/emailcheck.do")
-   @ResponseBody
-   public String emailcheckHandle(HttpServletRequest req, @RequestParam String mail) throws IOException {
+	public String emailauthHandle(@RequestParam Map param, WebRequest wr) {
+		String confirm = (String) wr.getAttribute("confirm", WebRequest.SCOPE_SESSION);
+		String confrim1 = (String) param.get("confirmkey");
+		String rst;
+		wr.removeAttribute("confirmKey", WebRequest.SCOPE_REQUEST);
+		if (confirm.equals(confrim1)) {
+			rst = "true";
+			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+			System.out.println(rst);
+			return rst;
+		} else {
+			rst = null;
+			wr.setAttribute("rst", rst, WebRequest.SCOPE_SESSION);
+			System.out.println(rst);
+			return rst;
+		}
 
-      String w = req.getParameter("w");
-      Map map = (Map) jr.getByEmail(w);
-      gson.toJson(map);
-      return gson.toJson(mail);
-   }
+	}
+
+	@RequestMapping("/emailcheck.do")
+	@ResponseBody
+	public String emailcheckHandle(HttpServletRequest req, @RequestParam String mail) throws IOException {
+
+		String w = req.getParameter("w");
+		Map map = (Map) jr.getByEmail(w);
+		gson.toJson(map);
+		return gson.toJson(mail);
+	}
 }

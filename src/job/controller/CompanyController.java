@@ -33,31 +33,29 @@ import job.models.RecruitRepository;
 
 @Controller
 @RequestMapping("/admin")
-public class CompanyController extends HttpServlet{
+public class CompanyController extends HttpServlet {
 	@Autowired
 	Gson gson;
 	@Autowired
 	ServletContext sc;
-	
+
 	@Autowired
 	RecruitRepository rrepo;
-	
+
 	@Autowired
 	CompanyRepository cr;
-	
+
 	@Autowired
 	ServletContext ctx;
-	
-	
-	@PostMapping(path="/writeajax.do", produces="application/json;charset=UTF-8")
+
+	@PostMapping(path = "/writeajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String selectAjaxHandle(@RequestParam String big) {
 		List<Map> small = rrepo.getAllSmallLocation(big);
 		return gson.toJson(small);
-		
-		
+
 	}
-	
+
 	@GetMapping("/write.do")
 	public String writeGetHandle(Map map) {
 
@@ -65,41 +63,38 @@ public class CompanyController extends HttpServlet{
 		map.put("big", big);
 		return "/admin/write";
 	}
-	
-	
-	
+
 	@PostMapping("/write.do")
-	public String wirtePostHandle(WebRequest wr, ModelMap map,
-			@RequestParam MultipartFile attach) throws IOException {
-		System.out.println("attach = " + attach +" / " + attach.isEmpty());
-		String coname = (String)wr.getParameter("coname");
-		String industry = (String)wr.getParameter("industry");
-		String sales = (String)wr.getParameter("sales");
-		String ceo = (String)wr.getParameter("ceo");
-		String salary = (String)wr.getParameter("salary");
-		String workers = (String)wr.getParameter("workers");
-		String lat = (String)wr.getParameter("lat");
-		String lng = (String)wr.getParameter("lng");
-		String first = (String)wr.getParameter("first");
-		String homepage = (String)wr.getParameter("homepage");
-		String cotype = (String)wr.getParameter("cotype");
-		String big = (String)wr.getParameter("big");
-		String small = (String)wr.getParameter("small");
-		
+	public String wirtePostHandle(WebRequest wr, ModelMap map, @RequestParam MultipartFile attach) throws IOException {
+		System.out.println("attach = " + attach + " / " + attach.isEmpty());
+		String coname = (String) wr.getParameter("coname");
+		String industry = (String) wr.getParameter("industry");
+		String sales = (String) wr.getParameter("sales");
+		String ceo = (String) wr.getParameter("ceo");
+		String salary = (String) wr.getParameter("salary");
+		String workers = (String) wr.getParameter("workers");
+		String lat = (String) wr.getParameter("lat");
+		String lng = (String) wr.getParameter("lng");
+		String first = (String) wr.getParameter("first");
+		String homepage = (String) wr.getParameter("homepage");
+		String cotype = (String) wr.getParameter("cotype");
+		String big = (String) wr.getParameter("big");
+		String small = (String) wr.getParameter("small");
+
 		String fileName = attach.getOriginalFilename();
 		String name = attach.getName();
 		String path = ctx.getRealPath("/storage/logo");
 		File dir = new File(path);
-		if(!dir.exists()) {
+		if (!dir.exists()) {
 			dir.mkdirs();
 		}
 		File dst = new File(dir, fileName);
 		attach.transferTo(dst);
 		System.out.println("사진 : " + dst);
 		String clientpath = "/storage/logo/" + fileName; // dao에 저장
-		System.out.println(coname +" / "+ industry +" / "+ sales +" / "+ ceo +" / "+ salary +" / "+ lat +" / "
-		+ lng +" / "+ first +" / "+ homepage);
-		
+		System.out.println(coname + " / " + industry + " / " + sales + " / " + ceo + " / " + salary + " / " + lat
+				+ " / " + lng + " / " + first + " / " + homepage);
+
 		Map data = new HashMap<>();
 		data.put("coname", coname);
 		data.put("industry", industry);
@@ -115,10 +110,10 @@ public class CompanyController extends HttpServlet{
 		data.put("big", big);
 		data.put("small", small);
 		data.put("logo", clientpath);
-		
+
 		int r = cr.addAll(data);
-		
+
 		return "/admin/write";
 	}
-	
+
 }

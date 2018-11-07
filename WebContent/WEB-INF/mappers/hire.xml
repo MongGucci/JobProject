@@ -116,4 +116,8 @@
 	</select>
 	
 
+	<update id="increaseHits" parameterType="java.lang.Integer">
+		update hire set hits = hits + 1 where hino=#{hino}
+	</update>
+
 </mapper>

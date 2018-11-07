@@ -28,7 +28,7 @@ public class EssayController {
 
 	@Autowired
 	Gson gson;
-	
+
 	@Autowired
 	EssayService essayservice;
 
@@ -41,17 +41,17 @@ public class EssayController {
 	}
 
 	@PostMapping("/essayWrite.do")
-	public String writePostHandle(@RequestParam Map map,WebRequest web) {
-		
+	public String writePostHandle(@RequestParam Map map, WebRequest web) {
+
 		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
 		String jasono = UUID.randomUUID().toString().split("-")[0];
-		if(map.get("hino").equals("")) {
+		if (map.get("hino").equals("")) {
 			map.put("hino", 0);
-		}else {
-			int hino = Integer.parseInt( (String) map.get("hino"));
+		} else {
+			int hino = Integer.parseInt((String) map.get("hino"));
 			map.put("hino", hino);
 		}
-		
+
 		map.put("jasono", jasono);
 		map.put("id", id); // 나중 되면 session에 저장된 아이디로 바뀜
 
@@ -124,30 +124,28 @@ public class EssayController {
 	@GetMapping("/essay.do")
 	public String essayGetHandle(WebRequest web) {
 		String page = web.getParameter("page");
-		
-		
+
 		List<Map> cate = essay.getJobCate();
 		List<Map> list = essay.getAllJasoForm();
 		System.out.println(list);
-		
-		
-		for(int i=0;i<list.size();i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			Map map = list.get(i);
-			
+
 			java.sql.Timestamp timeStamp = (Timestamp) map.get("ENDDATE");
-	        java.sql.Date date = new java.sql.Date(timeStamp.getTime()); 
-	        long end = date.getTime();
-	        long current = System.currentTimeMillis();
-	        long day = (end-current)/(1000*60*60*24);
-	        if(day == 0) {
-	        	map.put("DDAY", "D-DAY");
-	        }else {
-	        	map.put("DDAY", "D"+day);
-	        }
-	        System.out.println((end-current)/(1000*60*60*24));
-			
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long end = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (end - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				map.put("DDAY", "D-DAY");
+			} else {
+				map.put("DDAY", "D" + day);
+			}
+			System.out.println((end - current) / (1000 * 60 * 60 * 24));
+
 		}
-		
+
 		web.setAttribute("page", page, web.SCOPE_REQUEST);
 		web.setAttribute("cate", cate, web.SCOPE_REQUEST);
 		web.setAttribute("list", list, web.SCOPE_REQUEST);
@@ -167,15 +165,14 @@ public class EssayController {
 
 	@PostMapping(path = "/essayMenuAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String essayMenuAjaxHandle(@RequestParam String menu,WebRequest web) {
+	public String essayMenuAjaxHandle(@RequestParam String menu, WebRequest web) {
 
-		
 		System.out.println("menu: " + menu);
 		List<Map> list = null;
-		
+
 		switch (menu) {
 		case "hire":
-				list = essayservice.hireAjax();
+			list = essayservice.hireAjax();
 			break;
 		case "pass":
 			list = essayservice.passAjax();
@@ -185,14 +182,12 @@ public class EssayController {
 
 			break;
 
-		
 		}
-		
 
 		return gson.toJson(list);
 
 	}
-	
+
 	@PostMapping(path = "/passJasoAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String passJasoAjaxHandle(@RequestParam String passno) {
@@ -200,7 +195,7 @@ public class EssayController {
 		System.out.println("menu: " + passno);
 		int no = Integer.parseInt(passno);
 		Map map = essay.getPassJasoOne(no);
-		
+
 		for (int i = 1; i < 5; i++) {
 			if (map.get("A" + i) != null) {
 				String a = (String) map.get("A" + i);
@@ -213,38 +208,36 @@ public class EssayController {
 				map.put("Q" + i, q);
 			}
 		}
-		
 
 		return gson.toJson(map);
 
 	}
-	
+
 	@PostMapping(path = "/myJasoAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String myJasoAjaxHandle(@RequestParam String jasono) {
 
 		System.out.println("menu: " + jasono);
-		
+
 		Map map = essay.getDetailEssay(jasono);
-		
+
 		for (int i = 1; i < 5; i++) {
 			if (map.get("A" + i) != null) {
 				String a = (String) map.get("A" + i);
 				a = a.replace("\r\n", "<br>");
 				map.put("A" + i, a);
-			}else {
-				
+			} else {
+
 				map.put("A" + i, "");
 			}
 			if (map.get("Q" + i) != null) {
 				String q = (String) map.get("Q" + i);
 				q = q.replace("\r\n", "<br>");
 				map.put("Q" + i, q);
-			}else {
+			} else {
 				map.put("Q" + i, "");
 			}
 		}
-		
 
 		return gson.toJson(map);
 

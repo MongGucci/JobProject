@@ -16,16 +16,13 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
-
 @Controller
 public class TotalController extends TextWebSocketHandler {
 	@Autowired
 	Gson gson;
-	
+
 	@Autowired
 	ServletContext sc;
-
-	
 
 	List<WebSocketSession> list;
 	List<String> sce;
@@ -37,11 +34,10 @@ public class TotalController extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		
+
 		sce.add(session.getId());
 		sc.setAttribute("sessionId", sce);
-		
-		
+
 		list.add(session);
 	}
 
@@ -52,7 +48,7 @@ public class TotalController extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
+
 	}
 
 }
