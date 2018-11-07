@@ -10,6 +10,12 @@
 		select * from(company join hire on
 		company.coname=hire.name) order by startdate desc
 	</select>
+	
+	
+	<select id="getStartByPage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select rownum as r , s.* from (select * from company join hire on
+		company.coname=hire.name) s order by startdate desc) where  r between #{s} and #{e}
+	</select>
 
 	<select id="getAllHiresByEnddate" resultType="java.util.HashMap">
 		select *
@@ -17,13 +23,21 @@
 		company.coname=hire.name) order by enddate
 		asc
 	</select>
-
+	
+	<select id="getEndByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from (select rownum as r , s.* from (select * from company join hire on
+		company.coname=hire.name) s order by enddate asc) where r between #{s} and #{e}
+	</select>
 
 	<select id="getAllHiresByHits" resultType="java.util.HashMap">
 		select * from (company
 		join hire on
 		company.coname=hire.name) order by hits
 		desc
+	</select>
+	<select id="getHitsByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from (select rownum as r , s.* from (select * from company join hire on
+		company.coname=hire.name) s order by hits desc) where r between #{s} and #{e}
 	</select>
 
 
@@ -65,9 +79,8 @@
 		resultType="java.util.HashMap">
 		select * from (select * from hire join company on hire.name
 		= company.coname)t
-		join PICKEDCOMPANY on t.cono=pickedcompany.cono
-		where pickedcompany.id=#{id} and enddate-sysdate&lt;=3 and
-		enddate-sysdate&gt;=2
+		join pickedhire on t.hino=pickedhire.hino
+		where pickedhire.id=#{id} and enddate-sysdate between 1 and 3
 	</select>
 
 	<insert id="addhire" parameterType="java.util.HashMap">
@@ -79,9 +92,8 @@
 		resultType="java.util.HashMap">
 		select * from (select * from hire join company on hire.name
 		= company.coname)t
-		join PICKEDCOMPANY on t.cono=pickedcompany.cono
-		where pickedcompany.id=#{id} and enddate-sysdate&lt;=1 and
-		enddate-sysdate&gt;=-1
+		join pickedhire on t.hino=pickedhire.hino
+		where pickedhire.id=#{id} and enddate-sysdate between -1 and 1
 	</select>
 
 	<select id="getDeadLine6" resultType="java.util.HashMap">
@@ -92,7 +104,10 @@
 		enddate
 		asc) d) where r between 1 and 6
 	</select>
-
+	
+	<select id="forcookie" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select hino,name from hire where hino=#{hino}
+	</select>
 
 
 

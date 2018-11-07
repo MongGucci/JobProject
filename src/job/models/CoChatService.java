@@ -15,39 +15,39 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 @Service
-public class AlertService{
+public class CoChatService{
 	@Autowired
 	Gson gson;
 	
-	List<WebSocketSession> list;
+	public List<WebSocketSession> colist;
 	
-	public AlertService() {
-		list = new ArrayList<>();
+	public CoChatService() {
+		colist = new ArrayList<>();
 	}
 	
 	public List<WebSocketSession> allList() {
-		return list;
+		return colist;
 		
 	}
 	
 	public boolean addSocket(WebSocketSession target) {
-		return list.add(target);
+		return colist.add(target);
 		
 	}
 	
 	public int sessionSize() {
-		return list.size();
+		return colist.size();
 	}
 	
 	public boolean removeSocket(WebSocketSession target) {
-		return list.remove(target);
+		return colist.remove(target);
 	}
 	
 	public void sendAll(String txt) {
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0;i<list.size();i++) {
+		for(int i=0;i<colist.size();i++) {
 			try {
-				list.get(i).sendMessage(msg);
+				colist.get(i).sendMessage(msg);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -61,9 +61,9 @@ public class AlertService{
 	}
 	public void sendOne(String txt,String target) {
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0;i<list.size();i++) {
+		for(int i=0;i<colist.size();i++) {
 			try {
-				WebSocketSession ws = list.get(i);
+				WebSocketSession ws = colist.get(i);
 				String id = (String)ws.getAttributes().get("userId");
 				if(id.equals(target)) {
 					ws.sendMessage(msg);
@@ -85,9 +85,9 @@ public class AlertService{
 	public void sendSome(String txt,String...target) {
 		
 		TextMessage msg = new TextMessage(txt);
-		for(int i=0;i<list.size();i++) {
+		for(int i=0;i<colist.size();i++) {
 			try {
-				WebSocketSession ws = list.get(i);
+				WebSocketSession ws = colist.get(i);
 				String id = (String)ws.getAttributes().get("userId");
 				if(id.equals(target)) {
 					ws.sendMessage(msg);
@@ -108,9 +108,9 @@ public class AlertService{
 	
 	public void sendIncludeGroup(String txt,  List<String> group) {
 		TextMessage msg = new TextMessage(txt);
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < colist.size(); i++) {
 			try {
-				WebSocketSession ws =list.get(i);
+				WebSocketSession ws =colist.get(i);
 				String userId = (String) ws.getAttributes().get("userId");
 				if(group.contains(userId)) {
 					ws.sendMessage(msg);

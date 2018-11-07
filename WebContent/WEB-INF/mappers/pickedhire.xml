@@ -5,7 +5,8 @@
 		insert into pickedhire values(#{id},#{hino})
 	</insert>
 	
-	<select id = "myjjim" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from PICKEDHIRE where id=#{id} and hino=#{hino}
-	</select>
+ 	<select id = "myjjim" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+      select * from PICKEDHIRE where id=#{id} and hino=#{hino}
+   </select>
+   
 </mapper>

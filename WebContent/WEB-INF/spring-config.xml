@@ -91,15 +91,14 @@
 
 	<websocket:handlers>
 
+
 		<websocket:mapping handler="serviceController"
 			path="/conn.do" />
 		<websocket:mapping handler="chatController"
 			path="/chat.do" />
-		<websocket:mapping handler="deptchatController"
-			path="/deptchat.do" />
+
 		<websocket:mapping handler="totalController"
 			path="/total.do" />
-
 
 		<websocket:handshake-interceptors>
 			<bean

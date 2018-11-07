@@ -96,7 +96,7 @@ html, body {
       <c:forEach var="h" items="${hiring}">
          <br/>${h.CONAME} - ${h.TITLE }  (<fmt:formatDate pattern="yyyy-MM-dd" 
          value="${h.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
-         value="${h.ENDDATE}" />) <a href="{path}/recruit/jobpost.do?hino=$h.HINO}">보러 가기</a>
+         value="${h.ENDDATE}" />) <a href="${path}/recruit/jobpost.do?hino=${h.HINO}">보러 가기</a>
       </c:forEach>   
 
 

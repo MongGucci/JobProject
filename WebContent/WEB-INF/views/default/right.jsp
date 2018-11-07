@@ -1,107 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="accordion" role="tablist">
-  <div class="card">
-    <div class="card-header" role="tab" id="headingOne" style="background-color: #434e6e;">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          전체채팅
-        </a>
-      </h5>
-    </div>
-
-    <div  id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-     		<div style="width:100%; margin-left:1px; max-height:300px; overflow-y: scroll; boarder=1px solid darkgray;" id="chatView" >
-				<c:forEach var="obj" items="${chathistory}">
-				  	<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-				  		${obj.nick} : ${obj.text} (${obj.senddate})
-				  	</div>
-				</c:forEach>
-			</div>
-  
-     		<div class="input-group mb-3">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon1">CHAT</span>
-			  </div>
-			  <input type="text" class="form-control" aria-describedby="basic-addon1"
-			  	id="input" >
-				</div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header" role="tab" id="headingOne" style="background-color: #434e6e;">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
-          부서채팅
-        </a>
-      </h5>
-    </div>
-
-    <div  id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-     		<div style="width:100%; margin-left:1px; max-height:300px; overflow-y: scroll; boarder=1px solid darkgray;" id="dchatView" >
-
-			</div>
-  
-     		<div class="input-group mb-3">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon1">CHAT</span>
-			  </div>
-			  <input type="text" class="form-control" aria-describedby="basic-addon1"
-			  	id="input" >
-				</div>
-      </div>
-    </div>
-  </div>
- 
-</div>    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--  <div class="dropdown show" style="margin-top: 15px;">
+  <a class="btn btn-secondary dropdown-toggle"  role="button" id="recentcookie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    최근 본 채용공고
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id ="hilist">
     
+  </div>
+</div>  -->
 
+<div id="page">
+	<hr/>
+	<span style="font-weight: bolder;">전체채팅</span>
+	<hr/>
+	<div class="list-group" style="width:90%;">
+  		 <a href="${path }/chat/allchat.do" class="list-group-item list-group-item-action">전체채팅 <br/><small></small></a>
+	</div>
+	<hr/>
+	<span style="font-weight: bolder;">내가 찜한 기업채팅</span>
+	<hr/>
+	<div class="list-group" style="width:90%;">
+		<c:forEach var="r" items="${chatrooms}">
+  			 <a href="${path }/chat/cochat.do?cono=${r.CONO}" class="list-group-item list-group-item-action">${r.CONAME}</a>
+  		</c:forEach>
+	</div>
 
-
+</div>
 
 <script>
-
-	var chatws = new WebSocket("ws://"+location.host+"${pageContext.servletContext.contextPath}/chat.do");
-	
-	chatws.onmessage= function(evt) {
-		console.log(evt.data);
-		var obj = JSON.parse(evt.data);
-		switch(obj.mode) {
+$("#location").on(
+		"change",
+		function() {
+			var big = $("#location").val();
+			console.log("val:" + big);
+			var param = {
+				"big" : big
+			};
+			$.post("${path}/recruit/selectajax.do", param).done(
+					function(rst) {
+						var html = "";
+						for (var i = 0; i < rst.length; i++) {
+							html += "<option value=\""+rst[i].SMALL+"\">"
+									+ rst[i].SMALL + "</option><br/>";
+							//console.log(small[i].SMALL);
+						}
+						$("#smalls").html(html);
+					});
+		});
 		
-		case "all":
-			allHandle(obj);
-			break;
-		}
-	} 
-	
-	var allHandle = function(obj) {
-		var txt = obj.text;
-		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-		html += obj.nick+" : "+ obj.text;
-		html +="</div>";
-		document.getElementById("chatView").innerHTML += html;
-		document.getElementById("chatView").scrollTop +=  document.getElementById("chatView").scrollHeight; 
-	}
-	
-	
-	document.getElementById("input").onchange= function() {
-		console.log(this.value);
-		var msg = {
-			"mode":"all",
-			"text":this.value		
-		};
-		chatws.send(JSON.stringify(msg));
-		this.value="";
-	
-	};
-	
-	
-	
-	
+/* $("#recentcookie").on(
+		"click",
+		function() {
+			
+			$.get("${path}/recruit/recenthireajax.do").done(
+					function(rst) {
+						var html = "";
+						console.log(rst);
+						for (var i = 0; i < rst.length; i++) {
+							console.log(rst[i].HINO+"/"+rst[i].NAME);
+							html+= "<a class=\"dropdown-item\" href=\"${path}/recruit/jobpost.do?hino="+rst[i].HINO+"\">"+rst[i].NAME+"</a>";
+							
+						}
+						$("#hilist").html(html);
+					});
+		}); 		
+		 */
 </script>
-

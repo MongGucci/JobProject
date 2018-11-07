@@ -9,4 +9,15 @@
 		select * from pickedcompany where id = #{id} and cono=#{cono}
 	</select>
 	
+	<select id="getChatRooms" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from pickedcompany join company on pickedcompany.cono = company.cono where id=#{id}
+	</select>
+	
+	<select id="getIdsbyCono" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+   		select pickedcompany.id from pickedcompany where cono=#{cono}
+   </select>
+   
+   <select id="didIPick" parameterType="java.lang.String" resultType="java.util.HashMap">
+   		select cono from pickedcompany where id=#{id}
+   </select> 
 </mapper>

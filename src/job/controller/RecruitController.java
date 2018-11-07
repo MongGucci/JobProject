@@ -10,8 +10,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +58,7 @@ public class RecruitController {
 	
 	
 	@GetMapping("/select.do")
-	public String selectGetHandle(Map map) {
+	public String selectGetHandle(Map map,WebRequest wr) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		
 		List<Map> cate= rrepo.getAllCate();
@@ -62,61 +68,91 @@ public class RecruitController {
 		map.put("cate",cate);
 		map.put("big",big);
 		map.put("cotype",cotype);
-		map.put("hireshape",hireshape);
+	 	map.put("hireshape",hireshape);
 		
-		List<Map> start = hrepo.getAllHiresByStartdate();
-		List<Map> end = hrepo.getAllHiresByEnddate();
-		List<Map> hits = hrepo.getAllHiresByHits();
+		String mode= (String)wr.getParameter("mode");
+		String pg = (String)wr.getParameter("page");
+		System.out.println("mode/pg : "+mode+"/"+pg);
+		List<Map> Totalstart = hrepo.getAllHiresByStartdate();
+		List<Map> Totalhits = hrepo.getAllHiresByHits();
+		List<Map> Totalend = hrepo.getAllHiresByEnddate();
+		
+		int startpage = (Totalstart.size()%10==0) ? (Totalstart.size()/10):(Totalstart.size()/10)+1;
+		int hitspage = (Totalhits.size()%10==0) ? (Totalhits.size()/10):(Totalhits.size()/10)+1;
+		int endpage = (Totalend.size()%10==0) ? (Totalend.size()/10):(Totalend.size()/10)+1;
+		
+		map.put("startpage",startpage);
+		map.put("hitspage",hitspage);
+		map.put("endpage",endpage);
 		
 		List<Map> dead = hrepo.getDeadLine6();
 		System.out.println(dead);
-		
-		for (int i = 0; i < start.size(); i++) {
-			Map m = start.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date)m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd) );
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-			//System.out.println("마감?"+m.get("MAGAM"));
-			//System.out.println("startdate:"+fmt.format(date) );
-		}
-		
-		for (int i = 0; i < end.size(); i++) {
-			Map m = end.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd));
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-		}
-
-		for (int i = 0; i < hits.size(); i++) {
-			Map m = hits.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd));
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
-		}
 		map.put("dead",dead);
-		map.put("start",start);
-		map.put("end",end);
-		map.put("hits",hits);
-		return "job.select";
+		
+		Map m = new HashMap<>();
+		if(mode==null) {
+			
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				int s = ((page-1)*10)+1;
+				int e = page*10;
+				System.out.println("s/e : "+s +e);
+				m.put("s", s);
+				m.put("e", e);
+				
+			}else {
+				
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> start = hrepo.getStartByPage(m);
+			System.out.println("페이지눌러들갈때 값 start "+start);
+			map.put("start", start);
+			return "job.selectstart";
+		
+		}else if(mode.equals("hits")) {
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				m.put("s", ((page-1)*10)+1);
+				m.put("e", page*10);
+				
+			}else {
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> hits = hrepo.getHitsByPage(m);
+			System.out.println("페이지눌러들갈때 값 hits "+hits);
+			map.put("hits", hits);
+			return "job.selecthits";
+		}else if(mode.equals("end")) {
+			
+			if(pg!=null) {
+				int page = Integer.parseInt(pg);
+				m.put("s", ((page-1)*10)+1);
+				m.put("e", page*10);
+				
+			}else {
+				m.put("s", 1);
+				m.put("e", 10);
+			}
+			
+			List<Map> end= hrepo.getEndByPage(m);
+			System.out.println("페이지눌러들갈때 값 end "+end);
+			map.put("end", end);
+			return "job.selectend";
+		}else {
+			System.out.println("mode값이 이상함select.do");
+			return "job.index";
+		}
+		
 	}
+	
+
+	
 	
 	@PostMapping(path="/selectajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
@@ -174,105 +210,105 @@ public class RecruitController {
 	}
 	
 	@GetMapping("/jobpost.do")
-	public String jobpostGetHandle(@RequestParam Map param, Map post,WebRequest wr) {
-		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-		int hino = Integer.parseInt((String)param.get("hino"));
-		Map company= hrepo.getHirebyHino(hino);
-		System.out.println("company:"  +company);
+	   public String jobpostGetHandle(HttpServletResponse response,@RequestParam Map param, Map post,WebRequest wr, ModelMap map) {
+	     
 		
-		
-		
-		
-		Date start = (Date) company.get("STARTDATE");
-		Date end = (Date)company.get("ENDDATE");
-		company.put("START", fmt.format(start));
-		company.put("END", fmt.format(end));
-		long gap = end.getTime()-System.currentTimeMillis();
-		if(gap<0) {
-			company.put("MAGAM",true);
-		}
-		post.put("list", company);
-		
-		if(wr.getAttribute("id", wr.SCOPE_SESSION) != null) {
-			
-			Map jjimap = new HashMap<>();
-			jjimap.put("hino", hino);
-			jjimap.put("id", wr.getAttribute("userId", wr.SCOPE_SESSION));
-			
-			Map jjim = phrepo.myjjim(jjimap);
-			wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
-		}
-		int cono = ((BigDecimal) company.get("CONO")).intValue();
-		 //==============================
-	      String coname = (String) company.get("CONAME");
-	      System.out.println("어딘???:" + soar.getCompany(coname));
-	      Map comp = soar.getCompany(coname); 
-	      List<Map> before = soar.getAllSoar();
-	      System.out.println(before);
-	      System.out.println("id:" +session.getId());
+		  SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+	      String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	      int hino = Integer.parseInt((String)param.get("hino"));
+	      Map company= hrepo.getHirebyHino(hino);
+	      String hi = String.valueOf(hino);
 	      
-	      if(comp == null) {
-	    	  Map skyrocket = new HashMap<>();
-	    	  List<String> inner = new ArrayList<>();
-	          skyrocket.put("coname", coname);
-	          skyrocket.put("cono", cono);
-	          skyrocket.put("cnt", 1);
-	          inner.add(session.getId());
-	          skyrocket.put("inner", inner);
-	         
-	    	  soar.insertCompany(skyrocket);
-	      }else {
-	    	  List in = (List) comp.get("inner");
-	    	  if(!in.contains(session.getId())) {
-	    		  in.add(session.getId());
-	    		  int count = (int) comp.get("cnt");
-	        	  count += 1;
-	        	  soar.updateComapny(coname, count,in);
-	    	  }
-	    	  
+	      Cookie setCookie = new Cookie(hi, "hino"); // 쿠키 생성
+	      setCookie.setMaxAge(60*60*24); // 기간을 일주일로 지정
+	      response.addCookie(setCookie);
+			
+	      Date start = (Date) company.get("STARTDATE");
+	      Date end = (Date)company.get("ENDDATE");
+	      company.put("START", fmt.format(start));
+	      company.put("END", fmt.format(end));
+	      long gap = end.getTime()-System.currentTimeMillis();
+	      if(gap<0) {
+	         company.put("MAGAM",true);
 	      }
+	      post.put("list", company);
 	      
-	      List<Map> after = soar.getAllSoar();
-	      System.out.println(after);
+	       if(id == null) {
+	            return "job.jobpost";
+	         }
+	       
+	     //==============================
+			int cono = ((BigDecimal) company.get("CONO")).intValue();
+		      String coname = (String) company.get("CONAME");
+		      System.out.println("어딘???:" + soar.getCompany(coname));
+		      Map comp = soar.getCompany(coname); 
+		      List<Map> before = soar.getAllSoar();
+		      System.out.println(before);
+		      System.out.println("id:" +session.getId());
+		      
+		      if(comp == null) {
+		    	  Map skyrocket = new HashMap<>();
+		    	  List<String> inner = new ArrayList<>();
+		          skyrocket.put("coname", coname);
+		          skyrocket.put("cono", cono);
+		          skyrocket.put("cnt", 1);
+		          inner.add(session.getId());
+		          skyrocket.put("inner", inner);
+		         
+		    	  soar.insertCompany(skyrocket);
+		      }else {
+		    	  List in = (List) comp.get("inner");
+		    	  if(!in.contains(session.getId())) {
+		    		  in.add(session.getId());
+		    		  int count = (int) comp.get("cnt");
+		        	  count += 1;
+		        	  soar.updateComapny(coname, count,in);
+		    	  }
+		    	  
+		      }
+		      
+		      List<Map> after = soar.getAllSoar();
+		      System.out.println(after);
+		      
+		      //==============================
 	      
-	      //==============================
+	       Map sd = new HashMap<>();
+	       sd.put("id", id);
+	       sd.put("hino", hino);
+	       
+	       List<Map> cd = phrepo.myjjim(sd);
+	       if(cd.size() == 0) { //찜되어있지 않을ㄸㅐ
+	          int c = phrepo.pickHire(sd);
+	          List<Map> three = hrepo.getDeadline3(id);
+	          List<Map> today = hrepo.getToday(id);
+	          wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+			  wr.setAttribute("today", today,  wr.SCOPE_SESSION);
+			  System.out.println("세션에 올라가는 today ? "+ today);
+			  System.out.println("세션에 올라가는 three ? "+ three);
+			  return "job.jobpost";
+	       } else { //이미 찜이 되어있을때
+	          map.put("jjim", "on");
+	          return "job.jobpost";
+	       }	
 		
-		return "job.jobpost";
 	}
+
 	
-	@PostMapping(path = "/recruitjjimAjax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String recruitjjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
-		Map jjim = new HashMap<>();
-		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
-		Map map = new HashMap<>();
-		map.put("id", id);
-		map.put("hino", hino);
-		System.out.println(map);
-		
-		int r = phrepo.pickHire(map);
-		
-		return gson.toJson(jjim);
-	}
-	
-//	@GetMapping("/comdetail.do")
-//	public String comdetailGetHandle(WebRequest session, Map review) {
-//		System.out.println("여기는 어디???");
-//		String id =(String)session.getAttribute("userId", session.SCOPE_SESSION);
-//		int cono =(int)session.getAttribute("cono",session.SCOPE_SESSION);
-//		Map map = new HashMap();
-//		map.put("id", id);
-//		map.put("cono",cono);
-//		System.out.println(soar.getCompany(cono));
-//		Map didI = rvrepo.didIWriteReview(map);
-//		System.out.println("썻냐안썻냐"+didI);
-//		if(didI==null) {
-//			session.setAttribute("youwrote", true, session.SCOPE_SESSION);
-//		}
-//		review.put("review",rvrepo.getReviewsByCono(cono));
-//		return "job.schdetail.index";
-//	}
+	   @GetMapping("/jjim.do")
+	      public String schbtn(WebRequest wr, ModelMap map) {
+	         String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+	         String hino = wr.getParameter("hino");
+	         System.out.println("hino:"+ hino);
+	         
+	         if (id == null) {
+	            return "/login/login";
+	         } else {
+	        	
+	            return "redirect:/recruit/jobpost.do?hino="+ hino;
+	            
+	         }
+	   }
+
 	
 	@PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
@@ -331,5 +367,34 @@ public class RecruitController {
 		alert.sendOne(msg, "skdbs0610");
 	}
 	
+	@GetMapping("/enterchat.do")
+	public String enterchatHandle( WebRequest wr) {
+		//System.out.println("채팅방 입장./mode : "+mode);
+		//System.out.println("채팅방 wrparam : "+wr.getParameter("mode"));
+		
+		return "job.chat";
+	}
 	
+	@GetMapping(path="/recenthireajax.do", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String pickhireAjaxHandle(HttpServletRequest request) {
+		System.out.println("쿠카이아작스들옴");
+		Cookie[] getCookie = request.getCookies();
+		List<Map> recenthinos = new ArrayList<>();
+		if(getCookie != null){
+			for(int i=0; i<getCookie.length; i++){
+				Cookie c = getCookie[i];
+				if(c.getValue().equals("hino")) {
+					int h = Integer.parseInt(c.getName());
+					Map recent = hrepo.forcookie(h);
+					recenthinos.add(recent);
+				}
+				
+			}
+		}
+		System.out.println("최근 본 공고 번호들 (아작스쿠키 ) :"+recenthinos);
+		
+		return gson.toJson(recenthinos);
+	
+	}
 }
