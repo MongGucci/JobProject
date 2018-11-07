@@ -8,7 +8,7 @@
 	<h1>채용 정보 공고</h1>
 	<form
 		action="${pageContext.servletContext.contextPath }/hire/addhire.do"
-		method="post" enctype="multipart/form-data">
+		id="sb" method="post" enctype="multipart/form-data">
 		채용 제목 : <input type="text" name="title"
 			style="width: 200px; height: 28px;" id="title" onchange="ti(this)"><br>
 		<br> 채용 내용 : <input type="text" name="content"
@@ -40,7 +40,8 @@
 			</c:forEach>
 		</select><br> <br> 채용 정보 : <input type="file" name="path"> <br>
 		<br>
-		<button type="submit" id="sbt" disabled>채용 공고 등록</button>
+		<button type="submit" id="sbt" onchange="sbt(this)" disabled>채용 공고 등록</button>
+			
 	</form>
 </div>
 <script>
@@ -53,28 +54,31 @@
 		} else {
 			document.getElementById("sbt").disabled = false;
 		}
+		
+		
+		
 	};
-	
-	var ti = function(a) {	
+
+	var ti = function(a) {
 		var tiput = a.value
-		if(tiput == null){
+		if (tiput == null) {
 			ar[0] = false;
-		}else {
+		} else {
 			ar[0] = true;
 		}
 		vaild();
 	};
-	
-	var c = function(b) {	
+
+	var c = function(b) {
 		var cput = b.value
-		if(cput == null){
+		if (cput == null) {
 			ar[1] = false;
-		}else {
+		} else {
 			ar[1] = true;
 		}
 		vaild();
 	};
-	
+
 	var con = function(a) {
 		var cona = a.value;
 		console.log("회사 이름 : " + cona);
@@ -98,14 +102,21 @@
 		}
 		xhr.send();
 	};
-	
-	var em = function(d) {	
+
+	var em = function(d) {
 		var emput = d.value
-		if(emput == null){
+		if (emput == null) {
 			ar[3] = false;
-		}else {
+		} else {
 			ar[3] = true;
 		}
 		vaild();
 	};
+	
+/* 	var sbt = function(k){
+		var ek = k.value
+		var xhr = new XMLHttpRequest();
+		xhr.open("post","${pageContext.servletContext.contextPath}/hire/mail.do?")
+	} */
+	
 </script>
