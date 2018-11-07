@@ -216,6 +216,7 @@ public class RecruitController {
         SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
          String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
          int hino = Integer.parseInt((String)param.get("hino"));
+         hrepo.increaseHits(hino);
          Map company= hrepo.getHirebyHino(hino);
          String hi = String.valueOf(hino);
          
@@ -233,9 +234,14 @@ public class RecruitController {
          }
          post.put("list", company);
          
-          if(id == null) {
-               return "job.jobpost";
-            }
+         if(id != null) {
+             Map jjimap = new HashMap<>();
+             jjimap.put("id", id);
+             jjimap.put("hino", hino);
+             
+             List<Map> jjim = phrepo.myjjim(jjimap);
+             wr.setAttribute("jjim", jjim, wr.SCOPE_REQUEST);
+             }
           
         //==============================
          int cono = ((BigDecimal) company.get("CONO")).intValue();
@@ -271,12 +277,7 @@ public class RecruitController {
             System.out.println(after);
             
             //==============================
-           List<Map> three = hrepo.getDeadline3(id);
-           List<Map> today = hrepo.getToday(id);
-           wr.setAttribute("three", three,  wr.SCOPE_SESSION);
-           wr.setAttribute("today", today,  wr.SCOPE_SESSION);
-           System.out.println("세션에 올라가는 today ? "+ today);
-           System.out.println("세션에 올라가는 three ? "+ three);
+          
            return "job.jobpost";
       
    }
@@ -285,7 +286,15 @@ public class RecruitController {
    
    @PostMapping(path="/pickhireajax.do", produces="application/json;charset=UTF-8")
    @ResponseBody
-   public String pickhireAjaxHandle(@RequestParam Map map) {
+   public String pickhireAjaxHandle(@RequestParam Map map,WebRequest wr) {
+	  String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
+      
+      List<Map> three = hrepo.getDeadline3(id);
+      List<Map> today = hrepo.getToday(id);
+      wr.setAttribute("three", three,  wr.SCOPE_SESSION);
+      wr.setAttribute("today", today,  wr.SCOPE_SESSION);
+      System.out.println("세션에 올라가는 today ? "+ today);
+      System.out.println("세션에 올라가는 three ? "+ three);
       int r = phrepo.pickHire(map);
       if(r==1) {
          return gson.toJson(true);

@@ -50,7 +50,7 @@ public class LoginController {
 	
 	@GetMapping("/login.do")
 	public String loginGetHandle() {
-
+		
 		return "/login/login";
 	}
 	
@@ -66,6 +66,7 @@ public class LoginController {
 		
 		Map log = logindao.loginck(data);
 	
+		
 		if(log != null) {
 			wr.setAttribute("userId", id, wr.SCOPE_SESSION);
 			wr.setAttribute("password", pass, wr.SCOPE_SESSION);
@@ -88,7 +89,7 @@ public class LoginController {
 			
 			wr.setAttribute("three", three,  wr.SCOPE_SESSION);
 			wr.setAttribute("today", today,  wr.SCOPE_SESSION);
-
+ 
 			
 			
 			List<Map> chatrooms = comrepo.getChatRooms(id);
@@ -96,7 +97,7 @@ public class LoginController {
 			
 			//------------------------------------------------------------------
 			// 쿠키 생성하기
-			Cookie setCookie = new Cookie("logined", "true"); // 쿠키 생성
+			Cookie setCookie = new Cookie("logined", id); // 쿠키 생성
 			if(day!=null) {
 				setCookie.setMaxAge(60*60*24*7); // 기간을 일주일로 지정
 			}else {

@@ -92,4 +92,14 @@ public class HireRepository {
 	public List<Map> hiresearch(Map map) {
 		return template.selectList("hire.hiresearch", map);
 	}	
+	
+	public int increaseHits(int hino) {
+		int r = template.update("hire.increaseHits",hino);
+		System.out.println("hrepo.increaseHits(hino); 결과 "+r);
+		return r;
+	}
+	
+	
+	
+	
 }

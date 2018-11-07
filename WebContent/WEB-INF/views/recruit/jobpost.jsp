@@ -39,13 +39,14 @@ html, body {
 			</div>
 			<hr />
 			<div>
+				- 조회수 : ${list.HITS}<br/>
 				- 채용 기간 : ${list.START } - ${list.END}
 				<c:if test="${!empty list.MAGAM}">[마감]</c:if>
 				<br /> - 관심 기업으로 ${list.FAVORITE}명 이상이 찜한 선망받는 기업<br /> -
 				${list.COTYPE}<br />
 			</div>
 			
-			 <div id="map" style="height: 600px"></div>
+			 <div id="map" style="height: 400px"></div>
          <script>
             function initMap() {
                var loc = {lat: ${list.LAT}, lng: ${list.LNG}};
@@ -59,22 +60,8 @@ html, body {
       </div>
 
    </div>
-   <hr />
+   </div>
 
-
-			<div id="map" style="height: 600px"></div>
-			<script>
-				function initMap() {
-					var loc = {lat: ${list.LAT}, lng: ${list.LNG}};
-					var map = new google.maps.Map(document.getElementById('map'), {
-						zoom : 15, center:loc});
-					var marker = new google.maps.Marker({position: loc, map: map});
-				};
-			</script>
-			<script
-				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD8qI5EvQZevGwG3EIOHuKIPwbi9yS-mc&callback=initMap"></script>
-
-	</div>
 	<hr />
 	<div align="right">
 		<c:choose>
@@ -138,24 +125,3 @@ html, body {
 		</c:choose>
 
 	</div>
-
-<c:choose>
-      <c:when test="${empty userId}">
-         <script>
-            $("#pickhire").on("click", function() {
-               var t = window.confirm("로그인 인증이 필요합니다.\n로그인 하시겠습니까?");
-               if (t) {
-                  $("#f").trigger("submit");
-               }
-            });
-         </script>
-      </c:when>
-      <c:otherwise>
-         <script>
-            $("#pickhire").on("click", function() {
-               $("#f").trigger("submit");
-            });
-         </script>
-      </c:otherwise>
-   </c:choose>
-

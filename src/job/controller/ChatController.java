@@ -76,27 +76,7 @@ public class ChatController extends TextWebSocketHandler{
 				}
 			}
 		}
-		
-	/*	for(int i=0; i<service.colist.size();i++) {
-		
-			String id = (String)service.colist.get(i).getAttributes().get("userId");
-			System.out.println("colist의 id : "+id);
-			for(int j=0;j<ids.size();j++) {
-				System.out.println("ids.get(j).get(ID)/ colist.get(i) :" +ids.get(j).get("ID")+"/"+id);
-				if(ids.get(j).get("ID").equals(id)) {
-					service.colist.get(i).sendMessage(new TextMessage(gson.toJson(got)));
-				}
-			}
-		}
-		*/
-		//service.sendAll(got);
-		//phrepo.getIdsbyCono(cono);
-		//------------------------------------------------------------------------------------
-		//MongoDB에넣기 
-		// 1. id(보낸사람) / 2.text내용 / 3.senddate/ 4.읽은사람(list형으로)
-		// 1.(String) session.getAttributes().get("userId");
-		// 2. (String)map.get("text")
-		//3. senddate
+	
 		Date senddate = new Date(System.currentTimeMillis());
 		SimpleDateFormat sd = new SimpleDateFormat("YYYY-MM-dd hh:mm");
 		sd.format(senddate);
@@ -105,7 +85,7 @@ public class ChatController extends TextWebSocketHandler{
 		mongo.put("nick", (String) user.get("NICK"));
 		mongo.put("text",  (String)got.get("text"));
 		mongo.put("senddate",sd.format(senddate));
-		mongo.put("mode", cono);
+		mongo.put("mode", no);
 		Map ret = crep.insertLine(mongo);
 		if(ret==null) {
 			System.out.println("몽고에넣기실패 흙흙모래모래");

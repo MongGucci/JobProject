@@ -28,10 +28,9 @@
                <c:forEach var="h" items="${today}">
                   <a href="${path}/recruit/jobpost.do?hino=${h.HINO}" class="item"
                      style="font-size: 13pt; font-weight: bolder; color: #465674;"><i
-                     class="bell outline icon"></i>${h.CONAME} | 공고보러가기</a>
+                     class="bell outline icon"></i>${h.CONAME}(${h.HIRESHAPE }) | 공고보러가기</a>
                </c:forEach>
             </div>
-
          </div>
          <hr>
       </c:if>
@@ -45,7 +44,7 @@
                <c:forEach var="h" items="${three}">
                   <a href="${path}/recruit/jobpost.do?hino=${h.HINO}" class="item"
                      style="font-size: 13pt; font-weight: bolder; color: #465674;"><i
-                     class="bell outline icon"></i>${h.CONAME} | 공고보러가기</a>
+                     class="bell outline icon"></i>${h.CONAME}(${h.HIRESHAPE }) | 공고보러가기</a>
                </c:forEach>
             </div>
          </div>
