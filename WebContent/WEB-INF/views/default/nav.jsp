@@ -21,7 +21,7 @@
 				<a class="text-muted" href="#" id="etc">Subscribe</a>
 			</div>
 			<div class="col-4 text-center">
-				<a class="blog-header-logo text-dark" href="${path}" id="logo"><b id="jobgo">JOB Go</b></a>
+				<a class="blog-header-logo text-dark" href="${path}" id="logo"><span id="jobgo" style="font-size: 50pt; color: #434e6e; font-weight: bolder;">JOB Go</span></a>
 			</div>
 
 			<div class="col-4 d-flex justify-content-end align-items-center">
@@ -63,7 +63,7 @@
 			<a class="p-2 text-muted" id="list" href="${path}/search/search.do">기업정보</a>
 			<a class="p-2 text-muted" id="list" href="${path}/recruit/select.do">채용공고</a>
 			<a class="p-2 text-muted" id="list"
-				href="${path}/essayBoard/shareEssayList.do">자기소개서 공유 게시판</a> <a
+				href="${path}/essayBoard/shareEssayList.do?array=recent">자기소개서 공유 게시판</a> <a
 				class="p-2 text-muted" id="list" href="${path}/essay/essay.do">자기소개서</a>
 
 		</nav></div>

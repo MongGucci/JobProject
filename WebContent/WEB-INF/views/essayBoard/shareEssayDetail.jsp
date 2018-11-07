@@ -8,7 +8,11 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
 <style>
-
+#likebtn{
+background-color: rgba(0, 0, 0, 0);
+border: none;
+font-size: 25pt;
+}
 
 #date{
 
@@ -18,7 +22,7 @@ margin: 10px;
 }
 #btn {
 	background-color: rgba(0, 0, 0, 0);
-	border: none;
+	border: 1px solid #434e6e;
 	color: #434e6e;
 	padding: 15px;
 	font-size: 15pt;
@@ -33,8 +37,27 @@ margin: 10px;
 	border-radius: 5%;
 	padding: 15px
 }
+#down{
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #434e6e;
+	color: #434e6e;
+	padding: 10px;
+	font-size: 10pt;
+	border-radius: 5%;
+}
+
+#down:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 15px;
+	font-size: 10pt;
+	border-radius: 5%;
+	padding: 10px
+}
 </style>
 <div class="container" style="margin-top: 20px;">
+<div class="three wide column" align="right" style="margin-bottom: 10px;"><a
+												href="${path}/essayBoard/shareEssayList.do"><button id="down">글 목록가기</button></a></div>
 
 	<div class="card" style="width: 100%;">
 
@@ -44,8 +67,8 @@ margin: 10px;
 			<p class="card-text">${essay.CONTENT}</p>
 
 			<c:if test="${!empty essay.PATH}">
-				<a href="<c:url value="${essay.PATH}"/>" class="btn btn-primary"
-					download>다운로드 : ${essay.FILE}</a>
+				<a href="<c:url value="${essay.PATH}"/>"
+					download><button id="down">다운도르 : ${essay.FILE}</button> </a>
 			</c:if>
 
 		</div>
@@ -132,14 +155,14 @@ margin: 10px;
 			<div style="margin-top: 15px;" align="right">
 			
 					
-				<button type="button" class="btn btn-warning"  data-toggle="modal"
-					id="likebtn" data-target="#exampleModal" >LIKE</button>
+				<button type="button" data-toggle="modal"
+					id="likebtn" data-target="#exampleModal" ><i class="heart icon"></i></button>
 			</div>
 		</c:when>
 		<c:otherwise>
 			<div style="margin-top: 15px;" align="right">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-					id="likebtn" data-target="#exampleModal" disabled="disabled">DONE</button>
+				<button type="button" data-toggle="modal"
+					id="likebtn" data-target="#exampleModal" disabled="disabled"><i class="heart icon" style="color:#F14444;"></i></button>
 			</div>
 		</c:otherwise>
 	</c:choose>
@@ -209,7 +232,7 @@ margin: 10px;
 
 
 
-	<div style="border: 1px solid gray; margin-top: 20px;">
+	<div style="border: 1px solid gray; margin-top: 20px; background-color: white;">
 
 		<c:forEach var="e" items="${reply}">
 			<c:if test="${empty e.PARENTNO}">

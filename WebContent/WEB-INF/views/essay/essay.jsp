@@ -24,9 +24,6 @@
 	rel="stylesheet">
 <title>Insert title here</title>
 <style>
-body {
-	color: #434e6e;
-}
 
 span:hover {
 	color: white;
@@ -67,6 +64,9 @@ span:hover {
 	font-size: 15pt;
 	font-weight: bolder;
 	padding-top: 30px;
+}
+#hirename:hover{
+cursor: pointer;
 }
 
 #hireinfo {
@@ -195,15 +195,15 @@ span:hover {
 
 					<div class="four wide column">
 						<button id="btn" onclick="menu(this)" data-value="hire">
-							채용공고</button>
+							<b>채용공고</b></button>
 					</div>
 					<div class="four wide column">
 						<button id="btn" onclick="menu(this)" data-value="pass">
-							합격자소서</button>
+							<b>합격자소서</b></button>
 					</div>
 					<div class="six wide column">
 						<button id="myessay" data-toggle="modal"
-							data-target="#exampleModal">내가 쓴 자소서</button>
+							data-target="#exampleModal" data-value="myessay" onclick="menu(this)"><b>내가 쓴 자소서</b></button>
 					</div>
 					<div class="two wide column"></div>
 
@@ -216,7 +216,7 @@ span:hover {
 							<div class="ui grid" id="list">
 
 								<div class="four wide column" id="cnt">
-									<img src="${path}${e.PATH}">
+									<img src="${path}${e.LOGO}">
 								</div>
 								<div class="twelve wide column">
 
@@ -250,24 +250,7 @@ span:hover {
 
 				<%-- ──────────────────────────── 페이징시작  ───────────────────────────────────────────────────--%>
 
-				<div align="center" id="paging">
-					<div aria-label='Pagination Navigation' role='navigation'
-						class='ui pagination pointing secondary menu'>
-						<a aria-current='false' tabindex='0' value='1'
-							aria-label='Previous item' type='prevItem' class='item'
-							style="font-size: 15pt;"> ⟨ </a>
-						<c:forEach var="e" begin="1" end="${listcnt}">
-							<a aria-current='true' tabindex='0' value='${e}' type='pageItem'
-								class='active item' href="${path}/essay/essay.do?page=${e}"
-								style="font-size: 18pt;">${e } </a>
-						</c:forEach>
-
-
-						<a aria-current='false' tabindex='0' value='2'
-							aria-label='Next item' type='nextItem' class='item'
-							style="font-size: 15pt;"> ⟩ </a>
-					</div>
-				</div>
+				
 
 				<%-- ──────────────────────────── 모달끝  ───────────────────────────────────────────────────--%>
 			</div>
@@ -320,8 +303,10 @@ span:hover {
 						<div style="margin-top: 20px; margin-bottom: 20px;">
 							<button type="button" id="outside" class="btn btn-outline-dark"
 								style="margin-right: 20px;">외부에서 파일 불러오기</button>
+		
 						</div>
 						<div class="form-group" id="file"></div>
+						
 
 					</div>
 					<div id="textarea" style="margin-top: 20px;">
@@ -516,19 +501,19 @@ span:hover {
 							var html = "";
 							var page= "";
 							if(rst[0].mode =='hire'){
-							for (var i = 0; i < rst.length-1; i++) {
+							for (var i = 0; i < rst.length; i++) {
 								
 									
 									html += "<div id=\"hirediv\"><div class=\"ui grid\" id=\"list\">"
-									html +=	"<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].PATH +"\"></div>"
-								html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\">"+rst[i].NAME+"</div>";
+									html +=	"<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO +"\"></div>"
+								html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\" onclick=\"location.href='${path}/search/schdetail.do?cono="+rst[i].CONO+"'\">"+rst[i].NAME+"</div>";
 								html += "<div class=\"eight wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\"><b>"+rst[i].TITLE+"</b>"
 								html += "</div><div style=\"width: 100%\" id=\"detail\"><small>"+rst[i].JOBCATE+"</small></div>"
 								html += "<div style=\"width: 100%\" id=\"detail\">"+rst[i].HIRESHAPE+"</div></div><div class=\"four wide column\" align=\"right\">"
-								html +=	"<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"+rst[i].DDAY+"</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\"${e.HINO}\""
+								html +=	"<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"+rst[i].DDAY+"</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\""+rst[i].HINO+"\""
 								html += "data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"add icon\"></i> 자소서 쓰기</div></div></div></div></div></div>"
 								
-									var listcnt = rst[rst.length-1].listcnt;
+									
 								
 								
 
@@ -536,13 +521,13 @@ span:hover {
 									
 								
 							}
-								}else{
+								}else if(rst[0].mode =='pass'){
 									for (var i = 0; i < rst.length; i++) {
 									html += "<div id=\"passdiv\" data-value=\""+rst[i].PASSNO+"\" onclick=\"passjaso(this)\"><div class=\"ui grid\" id=\"list\">"
 								
 
 								
-								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}${e.PATH}\"></div>"
+								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO+"\"></div>"
 								html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
 
 								html += "<div class=\"four wide column\" id=\"hirename\">"
@@ -555,20 +540,24 @@ span:hover {
 								html += "</div></div></div></div></div></div>"
 								}
 
-							}
-							page += "<div align=\"center\"><div aria-label='Pagination Navigation' role='navigation' class='ui pagination pointing secondary menu'>"
-								page += "<a aria-current='false' tabindex='0' value='1' aria-label='Previous item' type='prevItem' class='item'"
-									page += "style=\"font-size: 15pt;\"> ⟨ </a>"
-									for(var i=0; i<=listcnt; i++){
-										
-										page += "<a aria-current='true' tabindex='0' value='${e}' type='pageItem'"
-											page +="class='active item' href=\"${path}/essay/essay.do?page=${e}\" style=\"font-size: 18pt;\">"+(i+1)+"</a>"
-									}
-									
-									page+="<a aria-current='false' tabindex='0' value='2'aria-label='Next item' type='nextItem' class='item' style=\"font-size: 15pt;\"> ⟩ </a></div></div>"	
-							$("#left").html(html);
-									$("#paging").html(page);
+							}else{
+								for (var i = 0; i < rst.length; i++) {
+									html += "<div id=\"passdiv\" data-value=\""+rst[i].JASONO+"\" onclick=\"myjaso(this)\"><div class=\"ui grid\" id=\"list\">"
+								
 
+								
+								html += "<div class=\"twelve wide column\" id=\"cnt\"><b>"+rst[i].TITLE+"</b></div>"
+								html += "<div class=\"four wide column\"><div>"+rst[i].JOBCATE+"</div><div><small>"+rst[i].LASTDATE+"</small></div></div>"
+
+								
+								html += "</div></div>"
+								}
+								
+								
+								
+							}
+							$("#left").html(html);
+								
 
 						});
 
@@ -667,6 +656,54 @@ span:hover {
 		};
 		
 		$.post("${path}/essay/passJasoAjax.do", param)
+		.done(
+				function(rst) {
+					console.log(rst);
+					
+					var html="";
+					
+					html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
+						
+					<%-- 노가다1--%>
+					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+					html +=	"<span style=\"font-size: 13pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+					html +=	"aria-controls=\"collapseOne\">"+rst.Q1+"</a></h5></div>"
+					html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+					html += "<div class=\"card-body\">"+rst.A1+"</div></div></div>"
+					<%-- 노가다2--%>
+					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+						html +=	"<span style=\"font-size: 13pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+						html +=	"aria-controls=\"collapseOne\">"+rst.Q2+"</a></h5></div>"
+						html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+						html += "<div class=\"card-body\">"+rst.A2+"</div></div></div>"
+						<%-- 노가다3--%>
+						html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html +=	"<span style=\"font-size: 13pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+							html +=	"aria-controls=\"collapseOne\">"+rst.Q3+"</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">"+rst.A3+"</div></div></div>"
+							<%-- 노가다4--%>
+							html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+								html +=	"<span style=\"font-size: 13pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+								html +=	"aria-controls=\"collapseOne\">"+rst.Q4+"</a></h5></div>"
+								html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+								html += "<div class=\"card-body\">"+rst.A4+"</div></div></div>"
+						
+						
+						html += "</div></div>"
+							$("#left").html(html);
+				});
+				
+	}
+	
+	var myjaso = function(obj) {
+		console.log(obj.dataset.value);
+
+		var param = {
+			"jasono" : obj.dataset.value
+		};
+		
+		$.post("${path}/essay/myJasoAjax.do", param)
 		.done(
 				function(rst) {
 					console.log(rst);

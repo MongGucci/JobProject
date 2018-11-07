@@ -113,9 +113,17 @@ public class ShareEssayController {
 	// ========================================================================================================
 
 	@GetMapping("/shareEssayList.do")
-	public String shareEssayListGetHandle(WebRequest web) {
+	public String shareEssayListGetHandle(WebRequest web,@RequestParam String array) {
+		List<Map> essays = null;
+		if(array.equals("popular")) {
+			
+			essays = shareEssay.getShareEssayPopular();
+		}else {
+			essays = shareEssay.getShareEssay();
+			
+		}
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd.HH:mm");
-		List<Map> essays = shareEssay.getShareEssay();
+		
 
 		for (int i = 0; i < essays.size(); i++) {
 			Map map = essays.get(i);
@@ -131,6 +139,8 @@ public class ShareEssayController {
 	@GetMapping("/essayBoardDetail.do")
 	public String essayBoardDetailGetHandle(WebRequest web) {
 		String no = web.getParameter("no");
+		int ino = Integer.parseInt(no);
+		shareEssay.addInquire(ino);
 		
 		Integer jasono = Integer.parseInt(no); 
 		Map map = shareEssay.getShareDetail(no);

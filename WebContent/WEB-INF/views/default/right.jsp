@@ -13,16 +13,27 @@
   </div>
 </div>  -->
 
-<div id="page">
-	<hr/>
-	<span style="font-weight: bolder;">전체채팅</span>
-	<hr/>
+<style>
+
+jjim:hover {
+	background-color:#434e6e; 
+}
+
+</style>
+<div id="page" style="margin-top: 20px;" >
+	
+	<div  style="font-weight: bolder; background-color:#434e6e; color: white;padding: 20px; width:90%">
+	전체채팅
+	</div>
+	
 	<div class="list-group" style="width:90%;">
   		 <a href="${path }/chat/allchat.do" class="list-group-item list-group-item-action">전체채팅 <br/><small></small></a>
 	</div>
-	<hr/>
-	<span style="font-weight: bolder;">내가 찜한 기업채팅</span>
-	<hr/>
+	
+	<div  style="font-weight: bolder; background-color:#434e6e; color: white;padding: 20px; width:90%">
+	기업채팅
+	</div>
+	
 	<div class="list-group" style="width:90%;">
 		<c:forEach var="r" items="${chatrooms}">
   			 <a href="${path }/chat/cochat.do?cono=${r.CONO}" class="list-group-item list-group-item-action">${r.CONAME}</a>

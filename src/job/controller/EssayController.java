@@ -124,34 +124,10 @@ public class EssayController {
 	@GetMapping("/essay.do")
 	public String essayGetHandle(WebRequest web) {
 		String page = web.getParameter("page");
-		int total = essay.totalHire();
-		System.out.println("total:"+total);
-		int listcnt = total/10;
-		if(total%10 !=0) {
-			listcnt++;
-		}
+		
 		
 		List<Map> cate = essay.getJobCate();
-		Map pageMap = new HashMap<>();
-		
-		List<Map> list;
-		if(page != null) {
-			int param = Integer.parseInt(page);
-			System.out.println(page);
-			
-			int start = (10 * (param-1))+1;
-			int end = 10*param;
-			pageMap.put("start", start);
-			pageMap.put("end", end);
-			System.out.println(pageMap);
-			list = essay.getHire(pageMap);
-			
-		}else {
-			pageMap.put("start", 1);
-			pageMap.put("end", 10);
-			System.out.println(pageMap);
-			list = essay.getHire(pageMap);
-		}
+		List<Map> list = essay.getAllJasoForm();
 		System.out.println(list);
 		
 		
@@ -166,12 +142,12 @@ public class EssayController {
 	        if(day == 0) {
 	        	map.put("DDAY", "D-DAY");
 	        }else {
-	        	map.put("DDAY", "D-"+day);
+	        	map.put("DDAY", "D"+day);
 	        }
 	        System.out.println((end-current)/(1000*60*60*24));
 			
 		}
-		web.setAttribute("listcnt", listcnt, web.SCOPE_REQUEST);
+		
 		web.setAttribute("page", page, web.SCOPE_REQUEST);
 		web.setAttribute("cate", cate, web.SCOPE_REQUEST);
 		web.setAttribute("list", list, web.SCOPE_REQUEST);
@@ -191,8 +167,9 @@ public class EssayController {
 
 	@PostMapping(path = "/essayMenuAjax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String essayMenuAjaxHandle(@RequestParam String menu) {
+	public String essayMenuAjaxHandle(@RequestParam String menu,WebRequest web) {
 
+		
 		System.out.println("menu: " + menu);
 		List<Map> list = null;
 		
@@ -201,9 +178,10 @@ public class EssayController {
 				list = essayservice.hireAjax();
 			break;
 		case "pass":
-			list = essay.getPassJaso();
+			list = essayservice.passAjax();
 			break;
 		case "myessay":
+			list = essayservice.myEssayAjax();
 
 			break;
 
@@ -233,6 +211,37 @@ public class EssayController {
 				String q = (String) map.get("Q" + i);
 				q = q.replace("\r\n", "<br>");
 				map.put("Q" + i, q);
+			}
+		}
+		
+
+		return gson.toJson(map);
+
+	}
+	
+	@PostMapping(path = "/myJasoAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String myJasoAjaxHandle(@RequestParam String jasono) {
+
+		System.out.println("menu: " + jasono);
+		
+		Map map = essay.getDetailEssay(jasono);
+		
+		for (int i = 1; i < 5; i++) {
+			if (map.get("A" + i) != null) {
+				String a = (String) map.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				map.put("A" + i, a);
+			}else {
+				
+				map.put("A" + i, "");
+			}
+			if (map.get("Q" + i) != null) {
+				String q = (String) map.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				map.put("Q" + i, q);
+			}else {
+				map.put("Q" + i, "");
 			}
 		}
 		

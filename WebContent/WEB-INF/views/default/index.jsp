@@ -123,9 +123,9 @@ a:link {
 </section>
 
 <!-- Main -->
-<div id="main">
+<div id="main" >
 
-	<div class="container-fluid" style="background-color: #F4F4F4;">
+	<div class="container-fluid" style="background-color: #F4F4F4; margin-bottom: 30px;">
 		<div class="row">
 			<div id="leftdiv" class="col-2">
 				<tiles:insertAttribute name="left" />
@@ -170,7 +170,7 @@ a:link {
 
 						<p style="font-size: 12pt; color: #465674; font-weight: bolder;">여러분의
 							자소서를 작성하고 공유해보세요.</p>
-						<a href="${path}/essayBoard/shareEssayList.do"><button
+						<a href="${path}/essayBoard/shareEssayList.do?array=recent"><button
 								id="btn">A Letter Of Self-Introduction</button></a>
 					</div>
 				</div>

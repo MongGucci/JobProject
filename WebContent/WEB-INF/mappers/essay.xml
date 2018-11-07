@@ -26,9 +26,8 @@
 
 	<select id="getHire" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
-		select * from (select rownum as r, d.* from(select * from hire where sysdate
-		&lt; enddate order by enddate asc) d) where r between #{start} and
-		#{end}
+		select * from (select rownum as r , s.* from (select * from company join hire on
+		company.coname=hire.name) s order by enddate asc) 
 	</select>
 
 	<select id="getJasoForm" parameterType="java.lang.Integer"
@@ -50,5 +49,10 @@
 			SELECT * from (select * from jaso) where writer =#{writer}
 
 		</select>
+		
+		<select id="getAllJasoForm" 
+		resultType="java.util.HashMap">
+		select  *  from jasoform join (select * from hire join company on company.coname = hire.name) t on jasoform.hino = t.hino
+	</select>
 
 </mapper>

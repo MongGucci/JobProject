@@ -20,6 +20,9 @@ public class ShareEssayRepository {
 	public List<Map> getShareEssay(){
 		return template.selectList("shareEssay.getShareEssay");
 	}
+	public List<Map> getShareEssayPopular(){
+		return template.selectList("shareEssay.getShareEssayPopular");
+	}
 	
 	public Map getShareDetail(String no){
 		return template.selectOne("shareEssay.getShareDetail",no);
@@ -30,7 +33,10 @@ public class ShareEssayRepository {
 	}
 	
 	public Integer addLike(Integer no) {
-		return template.insert("like.addLike", no);
+		return template.update("like.addLike", no);
+	}
+	public Integer addInquire(Integer no) {
+		return template.update("shareEssay.addInquire", no);
 	}
 	
 	public Map myLike(Map map){

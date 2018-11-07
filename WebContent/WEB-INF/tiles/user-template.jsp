@@ -34,7 +34,7 @@
 
 <title>JOB GO</title>
 </head>
-<body>
+<body style="background-color: #F8F9F9;">
 	<nav>
 		<tiles:insertAttribute name="nav" />
 	</nav>

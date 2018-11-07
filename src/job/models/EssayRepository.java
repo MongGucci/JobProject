@@ -51,6 +51,10 @@ public class EssayRepository {
 		return template.selectOne("essay.totalHire");
 	}
 	
+	public List<Map> getAllJasoForm() {
+		return template.selectList("essay.getAllJasoForm");
+	}
+	
 	
 
 	public List<Map> getMyJaso(String id){

@@ -8,7 +8,11 @@
 	</insert>
 
 	<select id="getShareEssay" resultType="java.util.HashMap">
-		select no,title,cate,writedate,hits from sharejaso order by writedate desc
+		select * from sharejaso order by writedate desc
+	</select>
+	
+	<select id="getShareEssayPopular" resultType="java.util.HashMap">
+		select * from sharejaso order by hits desc
 	</select>
 
 	<select id="getShareDetail" resultType="java.util.HashMap"
@@ -19,9 +23,7 @@
 	<insert id="setLike" parameterType="java.util.HashMap">
 		insert into pickedjaso values(#{id}, #{no})
 	</insert>
-	<update id="addLike" parameterType="java.lang.Integer">
-		update sharejaso set hits = hits + 1 where no=#{no}
-	</update>
+	
 	<select id="myLike" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from PICKEDJASO where id=#{id} and jasono=#{jasono}
 	</select>
@@ -31,4 +33,7 @@
 	<delete id="deletePicked" parameterType="java.lang.Integer">
 	delete from pickedjaso where jasono =#{no}
 	</delete>
+	<update id="addInquire" parameterType="java.lang.Integer">
+		update sharejaso set good = good + 1 where no=#{no}
+	</update>
 </mapper>
