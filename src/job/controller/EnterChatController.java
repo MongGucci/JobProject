@@ -45,11 +45,12 @@ public class EnterChatController {
 	@GetMapping("/cochat.do")
 	public String cochatHandle(@RequestParam Map param, Map map,WebRequest wr) {
 		if(wr.getAttribute("auth", wr.SCOPE_SESSION)!=null) {
-			
+			String cono = (String)param.get("cono");
+			System.out.println(" cochat.do?cono="+cono+"입장");
 			String id = (String)wr.getAttribute("userId",wr.SCOPE_SESSION);
 			List<Map> myconos = (List)comrepo.didIPick(id);
 			System.out.println("내가 고른 회사들 : "+myconos);
-			String cono = (String)param.get("cono");
+			
 			int conoo = Integer.parseInt(cono);
 			boolean flag = false;
 			for(int i=0;i<myconos.size();i++) {
@@ -70,7 +71,8 @@ public class EnterChatController {
 			if(flag) {
 				return "job.cochat";
 			}else {
-				return "job.index";
+				
+				return "redirect:/search/schdetail.do?cono="+cono+"&recommend=true";
 			}
 		}else {
 			return "/login/login";

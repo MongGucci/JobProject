@@ -29,7 +29,7 @@ public class ChatlogRepository {
 	}
 	
 	public List<Map> getChatLogbyCono(String cono){
-		Criteria c = new Criteria().where("mode").in(cono);
+		Criteria c = new Criteria().where("mode").is(cono);
 		System.out.println("cono챗로구 : " +template.find(new Query(c),Map.class,"chatlog"));
 		return template.find(new Query(c),Map.class,"chatlog");
 	}

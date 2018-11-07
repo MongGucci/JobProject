@@ -39,7 +39,12 @@ html, body {
 	<c:choose>
 		<c:when test="${empty comjjim }">
 			 <button class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
-			 data-target="#comjjimModal">+ 관심 기업등록</button>
+			 data-target="#comjjimModal">+ 관심 기업등록</button> 
+			 <button  class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
+			 data-target="#comjjimModal">기업 채팅 참여하기</button> 
+			 <c:if test="${!empty recommend }">
+			 <br/><div class="ui top pointing red basic label" id="pherror"
+								style=" font-size: 11pt;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div></c:if>
 		</c:when>
 		<c:otherwise>
 			  <button class="alert alert-secondary" style="height: 50px;" id="btn" data-toggle="modal"
@@ -114,7 +119,7 @@ html, body {
 	<hr>
 	<div id="agechart" style="width: 350px; height: 100px; float: center;"></div>
    <hr />
-   <div id="map" style="height: 150px; witdh:200px;"></div>
+  <div id="map" style="height: 400px"></div>
          <script>
             function initMap() {
                var loc = {lat: ${dt.LAT}, lng: ${dt.LNG}};

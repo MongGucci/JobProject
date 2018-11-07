@@ -29,4 +29,16 @@
 		UPPER(big) like UPPER('%'||#{big}||'%') or UPPER(small) like UPPER('%'||#{small}||'%')
 		order by startdate desc
 	</select>
+	
+	<!-- 
+	<select id="searchFJASO" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from (select  *  from jasoform join (select * from hire join company on company.coname = hire.name) t on jasoform.hino = t.hino)
+		<where></where>
+	</select>
+	주말에 시간 나면 해봅세다!
+	http://www.mybatis.org/mybatis-3/ko/dynamic-sql.html#
+	 -->
+	
+	
+	
 </mapper>

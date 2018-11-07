@@ -1,13 +1,11 @@
 package job.controller;
 
-import java.security.cert.CertPathValidatorException.Reason;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -103,6 +101,7 @@ public class SearchController {
       Map ch = new HashMap<>();
       ch.put("cono", cono);
       List<Map> chart = chartdao.comchart(ch);
+
      
       Map sa = new HashMap<>();
       sa.put("cono", cono);
@@ -153,6 +152,11 @@ public class SearchController {
       
       map.put("agetext", agetext);
       //====================================
+
+      map.put("chart", chart);
+      System.out.println("차트를 뽑아보자 : " +  chart);
+    
+
       
       if(id!=null) {
          Map mm = new HashMap();
@@ -218,8 +222,11 @@ public class SearchController {
       
       List<Map> after = soar.getAllSoar();
       System.out.println(after);
-      
-      //==============================
+
+      if(wr.getParameter("recommend")!=null) {
+    	  map.put("recommend", true);
+      }
+
       return "job.schdetail.index";
       
    }
@@ -258,62 +265,62 @@ public class SearchController {
          
       }
    }
-   	// 요게 관심 기업 등록
-	@PostMapping(path = "/comjjimAjax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String comjjimAjaxHandle(@RequestParam Integer cono, WebRequest wr) {
-		Map comjjim = new HashMap<>();
-		
-		String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
-		Map cd = new HashMap<>();
-		cd.put("id", id);
-		cd.put("cono", cono);
-		System.out.println(cd);
-		
-		try {
-			int c = searchdao.schbtn(cd);
-			comjjim.put("comjjim", true);
-		}catch(Exception e) {
-			e.printStackTrace();
-			comjjim.put("comjjim", false);
-		}
-		return gson.toJson(comjjim);
-	}
-	
+      // 요게 관심 기업 등록
+   @PostMapping(path = "/comjjimAjax.do", produces = "application/json;charset=UTF-8")
+   @ResponseBody
+   public String comjjimAjaxHandle(@RequestParam Integer cono, WebRequest wr) {
+      Map comjjim = new HashMap<>();
+      
+      String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);
+      Map cd = new HashMap<>();
+      cd.put("id", id);
+      cd.put("cono", cono);
+      System.out.println(cd);
+      
+      try {
+         int c = searchdao.schbtn(cd);
+         comjjim.put("comjjim", true);
+      }catch(Exception e) {
+         e.printStackTrace();
+         comjjim.put("comjjim", false);
+      }
+      return gson.toJson(comjjim);
+   }
+   
    // 요게 통합 검색 
    @PostMapping("/isearch.do")
    public String isearchHandle(WebRequest wr, ModelMap map) {
-	   String coname = (String)wr.getParameter("isearch");
-	   String title = (String)wr.getParameter("isearch");
-	   String big = (String)wr.getParameter("isearch");
-	   String small = (String)wr.getParameter("isearch");
-	   
-	   Map ish = new HashMap<>();
-	   ish.put("coname", coname);
-	   ish.put("title", title);
-	   ish.put("big", big);
-	   ish.put("small", small);
-	   List<Map> isearck = searchdao.isearch(ish);
-	   
-	   if(coname.equals("") || title.equals("") || big.equals("") || small.equals("") || isearck.size() == 0) {
-		   return "job.index";
-	   } else {
-		List<Map> isearch = searchdao.isearch(ish);
-		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-		for (int i = 0; i < isearch.size(); i++) {
-			Map m = isearch.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date)m.get("ENDDATE");
-			long endd =dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE",fmt.format(dd) );
-			long gap = endd-System.currentTimeMillis();
-			if(gap<0) {
-				m.put("MAGAM",true);
-			}
+      String coname = (String)wr.getParameter("isearch");
+      String title = (String)wr.getParameter("isearch");
+      String big = (String)wr.getParameter("isearch");
+      String small = (String)wr.getParameter("isearch");
+      
+      Map ish = new HashMap<>();
+      ish.put("coname", coname);
+      ish.put("title", title);
+      ish.put("big", big);
+      ish.put("small", small);
+      List<Map> isearck = searchdao.isearch(ish);
+      
+      if(coname.equals("") || title.equals("") || big.equals("") || small.equals("") || isearck.size() == 0) {
+         return "job.index";
+      } else {
+      List<Map> isearch = searchdao.isearch(ish);
+      SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+      for (int i = 0; i < isearch.size(); i++) {
+         Map m = isearch.get(i);
+         Date date = (Date) m.get("STARTDATE");
+         Date dd = (Date)m.get("ENDDATE");
+         long endd =dd.getTime();
+         m.put("STARTDATE", fmt.format(date));
+         m.put("ENDDATE",fmt.format(dd) );
+         long gap = endd-System.currentTimeMillis();
+         if(gap<0) {
+            m.put("MAGAM",true);
+         }
    }
-		map.put("isch", isearch);
-		return "job.isearchlist";
+      map.put("isch", isearch);
+      return "job.isearchlist";
    }
    }
 }

@@ -114,5 +114,8 @@
 		or
 		UPPER(content) like UPPER('%'||#{content}||'%') order by startdate desc
 	</select>
-
+	
+	<update id="increaseHits" parameterType="java.lang.Integer">
+		update hire set hits = hits + 1 where hino=#{hino}
+	</update>
 </mapper>
