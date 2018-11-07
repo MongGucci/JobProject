@@ -50,6 +50,7 @@ html, body {
 					var map = new google.maps.Map(document.getElementById('map'), {
 						zoom : 15, center:loc});
 					var marker = new google.maps.Marker({position: loc, map: map});
+				     
 				};
 			</script>
 			<script

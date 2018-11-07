@@ -33,4 +33,8 @@ public class EssayRepository {
 		return template.update("essay.updateEssay", map);
 	}
 
+	public List<Map> getMyJaso(String id){
+		return template.selectList("essay.getMyJaso",id);
+	}
+	
 }

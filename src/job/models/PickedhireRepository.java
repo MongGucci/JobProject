@@ -10,17 +10,24 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PickedhireRepository {
 
-	
-
 	@Autowired
 	SqlSessionTemplate template;
-	
+
 	public int pickHire(Map map) {
-		return template.insert("pickedhire.pickhire",map);
+		return template.insert("pickedhire.pickhire", map);
 	}
-	
-	public Map myjjim(Map map) {
-		return template.selectOne("pickedhire.myjjim",map);
+
+	public List<Map> myjjim(Map map) {
+		return template.selectList("pickedhire.myjjim", map);
 	}
-	
+
+	public List<Map> getPick(String id) {
+		return template.selectList("pickedhire.getPick", id);
+	}
+
+	public String ckemail() {
+		return template.selectOne("pickhire.ckemail");
+	}
+
+
 }

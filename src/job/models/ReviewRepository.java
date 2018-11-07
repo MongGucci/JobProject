@@ -41,4 +41,9 @@ public class ReviewRepository {
 		
 	}
 	
+	public List<Map> getReview(String id){
+		return template.selectList("review.getReview",id);
+	}
+
+	
 }

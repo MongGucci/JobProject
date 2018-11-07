@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 <hr>
-	
 	<form class="form-signin"
 		action="${pageContext.servletContext.contextPath }/pwchange.do" method="post">
 		<p style="font-size: small;">

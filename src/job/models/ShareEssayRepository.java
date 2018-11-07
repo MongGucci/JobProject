@@ -44,4 +44,7 @@ public class ShareEssayRepository {
 		return template.selectList("reply.getReply", no);
 	}
 
+	public List<Map> getMyRe(String id){
+		return template.selectList("reply.getMyRe",id);
+	}
 }

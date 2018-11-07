@@ -144,12 +144,33 @@ public class JoinController extends HttpServlet {
       txt += confirm;
 
       wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
+/*      
+      for(int i = 0;i<map.size();i++) {
+    	  try {
+        	  msg.setSubject("인증번호");
+        	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
+        	  msg.setContent(txt, "text/plain;charset=UTF-8");
+        	  msg.setFrom(new InternetAddress(map.get(i)));
+        	  msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
+             sender.send(msg);
+             System.out.println("성공");
+             return "true";
+          } catch (Exception e) {
+             e.printStackTrace();
+             System.out.println("실패");
+             return"false";
+          }
 
+    	  
+      }
+      */
+
+      
       try {
     	  msg.setSubject("인증번호");
     	  msg.setSubject("[알림] 인증번호입니다.", "UTF-8");
     	  msg.setContent(txt, "text/plain;charset=UTF-8");
-    	  msg.setFrom(new InternetAddress("jobgo@mockingu.com"));
+    	  msg.setFrom(new InternetAddress());
     	  msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
          sender.send(msg);
          System.out.println("성공");

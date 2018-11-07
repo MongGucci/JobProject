@@ -18,4 +18,8 @@
 	<select id="getAvgStar" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
 		select round(avg(star)) from review where cono=#{cono}
 	</select>
+	
+	<select id="getReview" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from review where id=#{id}
+	</select>
 </mapper>

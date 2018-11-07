@@ -6,10 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +28,7 @@ import com.google.gson.Gson;
 
 import job.models.CompanyRepository;
 import job.models.LocationRepository;
+import job.models.PickedhireRepository;
 import job.models.RecruitRepository;
 
 @Controller
@@ -42,6 +47,7 @@ public class CompanyController extends HttpServlet{
 	
 	@Autowired
 	ServletContext ctx;
+	
 	
 	@PostMapping(path="/writeajax.do", produces="application/json;charset=UTF-8")
 	@ResponseBody
