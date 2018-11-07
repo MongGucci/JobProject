@@ -10,20 +10,20 @@
 <c:choose>
 
 <c:when test="${sessionScope.nick eq e.nick}">
-<div class="inline field" align="left" style="margin-bottom: 10px;">
-   
-    <div class="ui left pointing black basic label" style="font-size: 15pt; ">
-      ${e.nick} : ${e.text}
-    </div>
+<div class="inline field" align="right" style="margin-bottom: 10px;">
+    <div class="ui right pointing red basic label"  style="font-size: 15pt;">
+      ${e.nick} : ${e.text}  </div>
+    <i class="user icon" style="font-size: 15pt; margin-right: 2px; color: #F14444; " ></i>
   </div>
 
 </c:when>
 <c:otherwise>
- <div class="inline field" align="right" style="margin-bottom: 10px;">
-   
-    <div class="ui right pointing red basic label"  style="font-size: 15pt;">
+ <div class="inline field" align="left" style="margin-bottom: 10px;">
+ 	<i class="user icon" style="font-size: 15pt; margin-left: 2px;"></i>
+   <div class="ui left pointing black basic label" style="font-size: 15pt; color :#F4F4F4;">
       ${e.nick} : ${e.text}
     </div>
+   
   </div>
 </c:otherwise>
 </c:choose>
@@ -43,7 +43,7 @@ ${e.nick} : ${e.text}
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">CHAT</span>
+    <span class="input-group-text" id="basic-addon1" style="color :#F4F4F4;"><i class="comment alternate outline icon" style=" font-size: 15pt; "></i></span>
   </div>
   <input type="text" class="form-control" aria-describedby="basic-addon1" id="input">
 </div>
@@ -106,3 +106,4 @@ ${e.nick} : ${e.text}
 	
 	
 </script>
+	
