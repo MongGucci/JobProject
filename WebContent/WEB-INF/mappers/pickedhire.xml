@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pickedhire">
 
-	<insert id="pickhire" parameterType="java.util.HashMap">
-		insert into pickedhire values(#{id},#{hino})
-	</insert>
-	
- 	<select id = "myjjim" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+   <insert id="pickhire" parameterType="java.util.HashMap">
+      insert into pickedhire values(#{id},#{hino})
+   </insert>
+   
+   <select id = "myjjim" parameterType="java.util.HashMap" resultType="java.util.HashMap">
       select * from PICKEDHIRE where id=#{id} and hino=#{hino}
    </select>
-   
+	
+
+	<select id="getPick" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from hire inner JOIN PICKEDHIRE on hire.HINO = PICKEDHIRE.HINO where id = #{id}
+	</select>
 </mapper>

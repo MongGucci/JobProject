@@ -19,9 +19,10 @@ public class PwchangeController {
 	loginDao logindao;
 	
 	@GetMapping("/pwchange.do")
-	public String pwchangeHandle(WebRequest wr) {
+	public String pwchangeHandle(WebRequest wr, ModelMap map) {
+	/*	String id = (String)wr.getAttribute("userId", wr.SCOPE_SESSION);*/
 		String cpass = (String)wr.getAttribute("password", wr.SCOPE_SESSION);
-		
+		/*map.put("id", id);*/
 		System.out.println("기존 비밀번호 : " + cpass);
 		return "job.pwchange";
 	}
@@ -45,7 +46,7 @@ public class PwchangeController {
 		if(cpass.equals(opass)) {								 
 			int a = logindao.pwchange(data);
 			System.out.println(data);
-			return "redirect:/job/index.do";
+			return "redirect:/index.do";
 		}else {
 			map.put("err", "on");
 			return "/change/pwchange";

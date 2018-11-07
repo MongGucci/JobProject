@@ -45,29 +45,30 @@ a:link {
 
 </head>
 
-<header id="header" class="alt">
-	<div class="logo">
-		<a href="${path}/job/index.do">JOB <span>Go</span></a>
-	</div>
-	<div style="margin-right: 20px;">
-		<c:if test="${empty userId}">
-			<a class="btn btn-sm btn-outline-secondary"
-				href="${pageContext.servletContext.contextPath }/login.do"
-				id="signin">Sign in</a>
-			<a class="btn btn-sm btn-outline-secondary"
-				href="${pageContext.servletContext.contextPath}/join/join.do"
-				id="Sign up">Sign up</a>
-		</c:if>
-		<c:if test="${!empty userId}">
-			<a class="btn btn-sm btn-outline-secondary"
-				href="${pageContext.servletContext.contextPath}/pwchange.do"
-				id="Sign out">MyPage</a>
-			<a class="btn btn-sm btn-outline-secondary"
-				href="${pageContext.servletContext.contextPath}/logout.do"
-				id="Sign out">Sign out</a>
-		</c:if>
-	</div>
-</header>
+
+	<header id="header" class="alt">
+		<div class="logo" >
+			<a href="${path}/job/index.do" >JOB <span>Go</span></a>
+		</div>
+		<div style="margin-right: 20px;">
+			<c:if test="${empty userId}">
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath }/login.do"
+					id="signin">Sign in</a>
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/join/join.do"
+					id="Sign up">Sign up</a>
+			</c:if>
+			<c:if test="${!empty userId}">
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/infor.do"
+					id="Sign out">MyPage</a>
+				<a class="btn btn-sm btn-outline-secondary"
+					href="${pageContext.servletContext.contextPath}/logout.do"
+					id="Sign out">Sign out</a>
+			</c:if>
+		</div>
+	</header>
 
 
 <!-- Banner -->

@@ -56,4 +56,7 @@ public class ShareEssayRepository {
 		return template.delete("shareEssay.deletePicked", no);
 	}
 
+	public List<Map> getMyRe(String id){
+		return template.selectList("reply.getMyRe",id);
+	}
 }

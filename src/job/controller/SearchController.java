@@ -130,24 +130,24 @@ public class SearchController {
       System.out.println("id:" +session.getId());
       
       if(company == null) {
-    	  Map skyrocket = new HashMap<>();
-    	  List<String> inner = new ArrayList<>();
+         Map skyrocket = new HashMap<>();
+         List<String> inner = new ArrayList<>();
           skyrocket.put("coname", coname);
           skyrocket.put("cono", cono);
           skyrocket.put("cnt", 1);
           inner.add(session.getId());
           skyrocket.put("inner", inner);
          
-    	  soar.insertCompany(skyrocket);
+         soar.insertCompany(skyrocket);
       }else {
-    	  List in = (List) company.get("inner");
-    	  if(!in.contains(session.getId())) {
-    		  in.add(session.getId());
-    		  int count = (int) company.get("cnt");
-        	  count += 1;
-        	  soar.updateComapny(coname, count,in);
-    	  }
-    	  
+         List in = (List) company.get("inner");
+         if(!in.contains(session.getId())) {
+            in.add(session.getId());
+            int count = (int) company.get("cnt");
+             count += 1;
+             soar.updateComapny(coname, count,in);
+         }
+         
       }
       
       List<Map> after = soar.getAllSoar();

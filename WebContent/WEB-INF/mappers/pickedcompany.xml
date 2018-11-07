@@ -8,7 +8,7 @@
 	<select id="ckbtn" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		select * from pickedcompany where id = #{id} and cono=#{cono}
 	</select>
-	
+
 	<select id="getChatRooms" parameterType="java.lang.String" resultType="java.util.HashMap">
 		select * from pickedcompany join company on pickedcompany.cono = company.cono where id=#{id}
 	</select>
@@ -20,4 +20,9 @@
    <select id="didIPick" parameterType="java.lang.String" resultType="java.util.HashMap">
    		select cono from pickedcompany where id=#{id}
    </select> 
+	<select id="ckemail" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select applicant.email from(select * from(select * from company join 
+		hire on company.coname = hire.name)t join pickedcompany on t.cono=pickedcompany.cono 
+		where t.cono=#{cono})d join applicant on d.id=applicant.id
+	</select>
 </mapper>

@@ -53,4 +53,8 @@ public class EssayRepository {
 	
 	
 
+	public List<Map> getMyJaso(String id){
+		return template.selectList("essay.getMyJaso",id);
+	}
+	
 }

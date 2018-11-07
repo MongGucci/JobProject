@@ -46,7 +46,7 @@
 					  </div>
 					</div> 
 					<a class="btn btn-sm btn-outline-secondary"
-						href="${pageContext.servletContext.contextPath}/pwchange.do"
+						href="${pageContext.servletContext.contextPath}/infor.do"
 						id="Sign out">MyPage</a>
 					<a class="btn btn-sm btn-outline-secondary"
 						href="${pageContext.servletContext.contextPath}/logout.do"
