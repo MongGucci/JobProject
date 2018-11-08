@@ -83,7 +83,7 @@
 	</bean>
 
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="13.125.229.1" />
+		<property name="host" value="54.180.8.185" />
 		<property name="port" value="25" />
 		<property name="protocol" value="smtp" />
 		<property name="defaultEncoding" value="UTF-8" />
