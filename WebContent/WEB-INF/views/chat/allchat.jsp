@@ -67,25 +67,23 @@ ${e.nick} : ${e.text}
 		var txt = obj.text;
 		var html ="";
 		var mynick = "${sessionScope.nick}";
-		if(mynick == 'obj.nick'){
-			html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
-			   
-		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; \">";
-		      html += obj.nick +" : "+  obj.text;
-		    html += "</div></div>";
-			
-		}else{
+		console.log(mynick == obj.nick);
+		
+		if(mynick == obj.nick){
+			console.log("ture 라며 ");
 			html += "<div class=\"inline field\" align=\"right\" style=\"margin-bottom: 10px;\">";
-			   
 		    html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; \">";
-		      html += obj.nick +" : "+  obj.text;
+		     html += obj.nick +" : "+  obj.text;
+		     html+="</div><i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px; color: #F14444;\"></i></div>"; 
+		}else{
+			console.log("???");
+			html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
+			html += "<i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px;\"></i>";
+		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; \">";
+		    html += obj.nick +" : "+  obj.text;
 		    html += "</div></div>";
 		}
-		<%--
-		var html = "<div class=\"alert alert-secondary\" role=\"alert\" style=\"padding:3px; margin-bottom:3px;\">";
-		html += obj.nick + " : "+ obj.text;
-		html +="</div>";
-		--%>
+		
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = 
 			document.getElementById("chatView").scrollHeight; 
