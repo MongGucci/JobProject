@@ -317,4 +317,23 @@ public class SearchController {
 			return "job.isearchlist";
 		}
 	}
+	
+	//동적Nㅝ리연습
+	@PostMapping("/dynamic.do")
+	public void dynamicsearchHandle(WebRequest wr,Map map) {
+		String keyword = (String)wr.getParameter("search");
+		System.out.println("검색한 단어 : "+keyword);
+		String[] words = keyword.split(" ");
+		List search = new ArrayList();
+		for(int i=0;i<words.length;i++) {
+			search.add(words[i]);
+			System.out.println("list에 들어가는거 " +words[i]);
+		}
+		List<Map> results = searchdao.sharejaso(search);
+		for(int i=0;i<results.size();i++) {
+			System.out.println("results: "+results.get(i));
+		}
+		
+		
+	}
 }

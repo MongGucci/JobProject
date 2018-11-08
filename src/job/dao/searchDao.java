@@ -24,7 +24,7 @@ public class searchDao {
 		return template.selectList("company.schlist",coname);
 	}
 	// 요게 관심기업 버튼
-	public int schbtn(Map map) {
+	public int schbtn(Map map) { 
 		return template.insert("pickedcompany.schbtn",map);
 	}
 	// 요게 관심기업 중복 검사
@@ -40,5 +40,20 @@ public class searchDao {
 	public List<Map> isearch(Map map) {
 		return template.selectList("company.isearch",map);
 	}
+	
+	public List<Map> dynamic(List list){
+		return template.selectList("search.dynamic",list);
+	}
+	public List<Map> hire(List list){
+		return template.selectList("search.hire",list);
+	}
+	public List<Map> passjaso(List list){
+		return template.selectList("search.passjaso",list);
+	}
+	public List<Map> sharejaso(List list){
+		return template.selectList("search.sharejaso",list);
+	}
+	
+	
 }
 
