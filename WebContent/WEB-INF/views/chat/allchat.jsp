@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
 <hr/>
-<div><span style="font-size: x-large; color : #434e6e; font-weight: bolder;">&nbsp;<i class="users icon" style="font-size: x-large; color : #434e6e;"></i>&nbsp; 전체채팅</span></div>
+<div><span style="font-size: x-large; color : #434e6e; font-weight: bolder;">&nbsp;<i class="users icon" style="font-size: x-large; color : #434e6e;"></i>&nbsp; 전체채팅 <span id="total" style="font-size: x-large; color : #434e6e;"></span></span></div>
 <hr/>
 <div style="height: 520px; overflow-y: scroll; " id="chatView">
 <c:forEach var="e" items="${chatlog}">
@@ -84,7 +84,9 @@ ${e.nick} : ${e.text}
 		    html += obj.nick +" : "+  obj.text;
 		    html += "</div></div>";
 		}
-		
+		var total = obj.total;
+		console.log(total+"명");
+		document.getElementById("total").innerHTML = "("+total +"명)";
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = 
 			document.getElementById("chatView").scrollHeight; 

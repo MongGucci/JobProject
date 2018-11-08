@@ -5,7 +5,8 @@
 
 
 <hr/>
-<div><span style="font-size: x-large; color : #434e6e; font-weight: bolder;">&nbsp;<i class="building icon" style="font-size: x-large; color : #434e6e;"></i>&nbsp; ${coname}</span></div>
+<div><span style="font-size: x-large; color : #434e6e; font-weight: bolder;">
+&nbsp;<i class="building icon" style="font-size: x-large; color : #434e6e;"></i>&nbsp; ${coname} <span id="total" style="font-size: x-large; color : #434e6e;"></span></span></div>
 <hr/>
 <div style="height: 520px; overflow-y: scroll; " id="chatView">
 <c:forEach var="e" items="${chatlog}">
@@ -46,9 +47,9 @@
 
 	$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
 
-		var ws = new WebSocket("ws://" + location.host + "${path}/conn.do");
+		var cows = new WebSocket("ws://" + location.host + "${path}/chat.do");
 		console.log("안녕");
-		ws.onmessage = function(evt) { //매개변수설정하면
+		 cows.onmessage = function(evt) { //매개변수설정하면
 		console.log(evt.data);
 		var obj = JSON.parse(evt.data);
 		switch(obj.mode) {
@@ -78,7 +79,8 @@
 		    html += obj.nick +" : "+  obj.text;
 		    html += "</div></div>";
 		}
-		
+		var total = obj.total;
+		document.getElementById("total").innerHTML ="("+total+"명)";
 		document.getElementById("chatView").innerHTML += html;
 		document.getElementById("chatView").scrollTop = 
 			document.getElementById("chatView").scrollHeight; 
@@ -92,7 +94,7 @@
 			"text":this.value,
 			"cono":"${cono}"
 		};
-		ws.send(JSON.stringify(msg));
+		 cows.send(JSON.stringify(msg));
 		this.value="";
 	};
 	

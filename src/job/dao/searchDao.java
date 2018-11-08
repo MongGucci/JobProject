@@ -21,7 +21,7 @@ public class searchDao {
 	}
 	// 요게 기업검색 리스트
 	public List<Map> schlist(String coname) {
-		return template.selectList("company.schlist",coname);
+		return template.selectList("search.company",coname);
 	}
 	// 요게 관심기업 버튼
 	public int schbtn(Map map) { 
@@ -41,8 +41,8 @@ public class searchDao {
 		return template.selectList("company.isearch",map);
 	}
 	
-	public List<Map> dynamic(List list){
-		return template.selectList("search.dynamic",list);
+	public List<Map> company(List list){
+		return template.selectList("search.company",list);
 	}
 	public List<Map> hire(List list){
 		return template.selectList("search.hire",list);

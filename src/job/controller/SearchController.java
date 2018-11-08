@@ -67,8 +67,20 @@ public class SearchController {
 	@PostMapping("/search.do")
 	public String searchPostHandle(WebRequest wr) {
 		String coname = (String) wr.getParameter("search");
-		wr.setAttribute("coname", coname, wr.SCOPE_SESSION);
-		System.out.println(coname);
+		String[] words = coname.split(" ");
+		List search = new ArrayList();
+		for(int i=0;i<words.length;i++) {
+			search.add(words[i]);
+			System.out.println("list에 들어가는거 " +words[i]);
+		}
+		List<Map> results = searchdao.company(search);
+		for(int i=0;i<results.size();i++) {
+			System.out.println("results: "+results.get(i));
+		}
+		wr.setAttribute("sli", results, wr.SCOPE_REQUEST);
+		
+		wr.setAttribute("coname", coname, wr.SCOPE_REQUEST);
+		/*System.out.println(coname);
 		List<Map> cks = searchdao.cksearch(coname);
 		System.out.println(cks);
 		if (coname.equals("") || cks.size() == 0) {
@@ -79,7 +91,8 @@ public class SearchController {
 			System.out.println(sli);
 			wr.setAttribute("sli", sli, wr.SCOPE_SESSION);
 			return "job.schlist.index";
-		}
+		}*/
+		return "job.schlist.index";
 	}
 
 	// 요게 상세보기
