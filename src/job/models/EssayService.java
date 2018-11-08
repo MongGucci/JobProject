@@ -38,7 +38,7 @@ public class EssayService {
 	        if(day == 0) {
 	        	map.put("DDAY", "D-DAY");
 	        }else {
-	        	map.put("DDAY", "D"+day);
+	        	map.put("DDAY", "D-"+day);
 	        }
 	        System.out.println((end-current)/(1000*60*60*24));
 			

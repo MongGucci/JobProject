@@ -61,4 +61,8 @@ public class EssayRepository {
 		return template.selectList("essay.getMyJaso",id);
 	}
 	
+	public int deleteEssay(String no) {
+		return template.delete("essay.deleteEssay", no);
+	}
+	
 }

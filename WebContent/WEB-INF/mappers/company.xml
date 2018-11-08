@@ -23,4 +23,20 @@
 	<select id = "getConameByCono" parameterType="java.lang.Integer" resultType="java.lang.String">
 		select coname from company where cono=#{cono}
 	</select>
+	
+		<select id="passSearch" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		
+		select * from (company
+		join passjaso on
+		passjaso.comno = company.cono) where
+		(UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(title) like
+		UPPER('%'||#{title}||'%'))
+		or
+		UPPER(big) like UPPER('%'||#{big}||'%') or UPPER(small) like UPPER('%'||#{small}||'%')
+		order by coname desc
+
+		
+		</select>
+	
 </mapper> 

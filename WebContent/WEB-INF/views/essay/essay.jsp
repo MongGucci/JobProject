@@ -22,9 +22,8 @@
 	href="${path}/semantic/semantic.css">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic"
 	rel="stylesheet">
-<title>Insert title here</title>
+<title>JOB Go</title>
 <style>
-
 span:hover {
 	color: white;
 }
@@ -65,8 +64,9 @@ span:hover {
 	font-weight: bolder;
 	padding-top: 30px;
 }
-#hirename:hover{
-cursor: pointer;
+
+#hirename:hover {
+	cursor: pointer;
 }
 
 #hireinfo {
@@ -143,7 +143,7 @@ cursor: pointer;
 			</c:if>
 			<c:if test="${!empty userId}">
 				<a class="btn btn-sm btn-outline-secondary"
-					href="${pageContext.servletContext.contextPath}/pwchange.do"
+					href="${pageContext.servletContext.contextPath}/infor.do"
 					id="Sign out">MyPage</a>
 				<a class="btn btn-sm btn-outline-secondary"
 					href="${pageContext.servletContext.contextPath}/logout.do"
@@ -195,15 +195,20 @@ cursor: pointer;
 
 					<div class="four wide column">
 						<button id="btn" onclick="menu(this)" data-value="hire">
-							<b>채용공고</b></button>
+							<b>채용공고</b>
+						</button>
 					</div>
 					<div class="four wide column">
 						<button id="btn" onclick="menu(this)" data-value="pass">
-							<b>합격자소서</b></button>
+							<b>합격자소서</b>
+						</button>
 					</div>
 					<div class="six wide column">
 						<button id="myessay" data-toggle="modal"
-							data-target="#exampleModal" data-value="myessay" onclick="menu(this)"><b>내가 쓴 자소서</b></button>
+							data-target="#exampleModal" data-value="myessay"
+							onclick="menu(this)">
+							<b>내가 쓴 자소서</b>
+						</button>
 					</div>
 					<div class="two wide column"></div>
 
@@ -211,8 +216,27 @@ cursor: pointer;
 
 				<%-- ──────────────────────────── 중앙  ───────────────────────────────────────────────────--%>
 				<div id="left">
+
+
+
+					<div align="right" style="margin-right: 20px;">
+						<div class="ui search">
+							<div class="ui icon input" style="">
+								<input class="prompt" type="text" placeholder="검색어를 입력해주세요."
+									id="hiresearch" name="hiresearch" style="width: 300px;">
+								<div onclick="hiresearch()" style="margin-top: 10px;">
+									<i class="search icon"></i>
+								</div>
+							</div>
+							<div class="results"></div>
+						</div>
+
+					</div>
+
+
 					<c:forEach var="e" items="${list}" varStatus="status">
 						<div id="hirediv">
+
 							<div class="ui grid" id="list">
 
 								<div class="four wide column" id="cnt">
@@ -250,7 +274,7 @@ cursor: pointer;
 
 				<%-- ──────────────────────────── 페이징시작  ───────────────────────────────────────────────────--%>
 
-				
+
 
 				<%-- ──────────────────────────── 모달끝  ───────────────────────────────────────────────────--%>
 			</div>
@@ -303,10 +327,10 @@ cursor: pointer;
 						<div style="margin-top: 20px; margin-bottom: 20px;">
 							<button type="button" id="outside" class="btn btn-outline-dark"
 								style="margin-right: 20px;">외부에서 파일 불러오기</button>
-		
+
 						</div>
 						<div class="form-group" id="file"></div>
-						
+
 
 					</div>
 					<div id="textarea" style="margin-top: 20px;">
@@ -418,16 +442,63 @@ cursor: pointer;
 
 		</div>
 	</div>
-
-
-
+	
 </body>
 <!-- Scripts -->
+<c:if test="${!empty userId}">
+<script>
 
+var hino = function(obj) {
+	console.log(obj.dataset.value);
+
+	var param = {
+		"hino" : obj.dataset.value
+	};
+	$("#hino").val(obj.dataset.value);
+
+	$.post("${path}/essay/essayPostAjax.do", param).done(function(rst) {
+		console.log(rst);
+		if (rst != null) {
+			var before = $("#textarea").html();
+			$("#title").val(rst.TITLE);
+			$("#job").val(rst.JOBCATE);
+
+			if (rst.Q2 != null) {
+				$("#jaso2").show();
+
+			}
+			if (rst.Q3 != null) {
+				$("#jaso3").show();
+
+			}
+			if (rst.Q4 != null) {
+				$("#jaso4").show();
+
+			}
+
+			$("#Q1").val(rst.Q1);
+			$("#Q2").val(rst.Q2);
+			$("#Q3").val(rst.Q3);
+			$("#Q4").val(rst.Q4);
+
+		} else {
+			$("#title").val("");
+			$("#job").val("");
+			$("#Q1").val("");
+			$("#Q2").val("");
+			$("#Q3").val("");
+			$("#Q4").val("");
+		}
+
+	});
+}
+
+</script>
+</c:if>
 
 <script>
 	var count = 1;
-	
+
 	$("#plus").on("click", function() {
 		count++;
 		console.log(count);
@@ -443,51 +514,7 @@ cursor: pointer;
 
 	});
 
-	var hino = function(obj) {
-		console.log(obj.dataset.value);
-
-		var param = {
-			"hino" : obj.dataset.value
-		};
-		$("#hino").val(obj.dataset.value);
-
-		$.post("${path}/essay/essayPostAjax.do", param).done(function(rst) {
-			console.log(rst);
-			if (rst != null) {
-				var before = $("#textarea").html();
-				$("#title").val(rst.TITLE);
-				$("#job").val(rst.JOBCATE);
-
-				if (rst.Q2 != null) {
-					$("#jaso2").show();
-
-				}
-				if (rst.Q3 != null) {
-					$("#jaso3").show();
-
-				}
-				if (rst.Q4 != null) {
-					$("#jaso4").show();
-
-				}
-
-				$("#Q1").val(rst.Q1);
-				$("#Q2").val(rst.Q2);
-				$("#Q3").val(rst.Q3);
-				$("#Q4").val(rst.Q4);
-
-			} else {
-				$("#title").val("");
-				$("#job").val("");
-				$("#Q1").val("");
-				$("#Q2").val("");
-				$("#Q3").val("");
-				$("#Q4").val("");
-			}
-
-		});
-	}
-
+	
 	var menu = function(obj) {
 
 		var param = {
@@ -499,65 +526,77 @@ cursor: pointer;
 						function(rst) {
 							console.log(rst);
 							var html = "";
-							var page= "";
-							if(rst[0].mode =='hire'){
-							for (var i = 0; i < rst.length; i++) {
-								
-									
-									html += "<div id=\"hirediv\"><div class=\"ui grid\" id=\"list\">"
-									html +=	"<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO +"\"></div>"
-								html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\" onclick=\"location.href='${path}/search/schdetail.do?cono="+rst[i].CONO+"'\">"+rst[i].NAME+"</div>";
-								html += "<div class=\"eight wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\"><b>"+rst[i].TITLE+"</b>"
-								html += "</div><div style=\"width: 100%\" id=\"detail\"><small>"+rst[i].JOBCATE+"</small></div>"
-								html += "<div style=\"width: 100%\" id=\"detail\">"+rst[i].HIRESHAPE+"</div></div><div class=\"four wide column\" align=\"right\">"
-								html +=	"<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"+rst[i].DDAY+"</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\""+rst[i].HINO+"\""
-								html += "data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"add icon\"></i> 자소서 쓰기</div></div></div></div></div></div>"
-								
-									
-								
-								
-
-
-									
-								
-							}
-								}else if(rst[0].mode =='pass'){
-									for (var i = 0; i < rst.length; i++) {
-									html += "<div id=\"passdiv\" data-value=\""+rst[i].PASSNO+"\" onclick=\"passjaso(this)\"><div class=\"ui grid\" id=\"list\">"
-								
-
-								
-								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO+"\"></div>"
-								html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
-
-								html += "<div class=\"four wide column\" id=\"hirename\">"
-										+ rst[i].CONAME + "</div>"
-								html += "<div class=\"twelve wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\">"
-								html += "<b>"
-										+ rst[i].TITLE
-										+ "</b></div><div style=\"width: 100%\" id=\"detail\"><small>"
-										+ rst[i].CATE + "</small>"
-								html += "</div></div></div></div></div></div>"
-								}
-
-							}else{
+							var page = "";
+							if (rst[0].mode == 'hire') {
+								html += "<div align=\"right\" style=\"margin-right: 20px;\"><div class=\"ui search\">"
+								html += "<div class=\"ui icon input\"><input class=\"prompt\" type=\"text\""
+									html +=	"placeholder=\"검색어를 입력해주세요.\" id = \"hiresearch\" name=\"hiresearch\" style=\"width: 300px;\"> <div onclick=\"hiresearch()\" style=\" margin-top: 10px;\"> <i"
+									html += " class=\"search icon\"></i></div><div class=\"results\"></div></div></div></div>"
 								for (var i = 0; i < rst.length; i++) {
-									html += "<div id=\"passdiv\" data-value=\""+rst[i].JASONO+"\" onclick=\"myjaso(this)\"><div class=\"ui grid\" id=\"list\">"
-								
 
-								
-								html += "<div class=\"twelve wide column\" id=\"cnt\"><b>"+rst[i].TITLE+"</b></div>"
-								html += "<div class=\"four wide column\"><div>"+rst[i].JOBCATE+"</div><div><small>"+rst[i].LASTDATE+"</small></div></div>"
+									html += "<div id=\"hirediv\"><div class=\"ui grid\" id=\"list\">"
+									html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO +"\"></div>"
+									html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\" onclick=\"location.href='${path}/search/schdetail.do?cono="
+											+ rst[i].CONO
+											+ "'\">"
+											+ rst[i].NAME + "</div>";
+									html += "<div class=\"eight wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\"><b>"
+											+ rst[i].TITLE + "</b>"
+									html += "</div><div style=\"width: 100%\" id=\"detail\"><small>"
+											+ rst[i].JOBCATE + "</small></div>"
+									html += "<div style=\"width: 100%\" id=\"detail\">"
+											+ rst[i].HIRESHAPE
+											+ "</div></div><div class=\"four wide column\" align=\"right\">"
+									html += "<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"
+											+ rst[i].DDAY
+											+ "</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\""
+											+ rst[i].HINO + "\""
+									html += "data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"add icon\"></i> 자소서 쓰기</div></div></div></div></div></div>"
 
-								
-								html += "</div></div>"
 								}
-								
-								
-								
+							} else if (rst[0].mode == 'pass') {
+								html += "<div align=\"right\" style=\"margin-right: 20px;\"><div class=\"ui search\">"
+								html += "<div class=\"ui icon input\"><input class=\"prompt\" type=\"text\""
+									html +=	"placeholder=\"검색어를 입력해주세요.\" id = \"passsearch\" name=\"passsearch\" style=\"width: 300px;\">  <div onclick=\"passsearch()\"  style=\" margin-top: 10px;\"><i"
+									html += " class=\"search icon\"></i></div><div class=\"results\"></div></div></div></div>"
+								for (var i = 0; i < rst.length; i++) {
+
+									html += "<div id=\"passdiv\" data-value=\""
+											+ rst[i].PASSNO
+											+ "\" onclick=\"passjaso(this)\"><div class=\"ui grid\" id=\"list\">"
+
+									html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO+"\"></div>"
+									html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
+
+									html += "<div class=\"four wide column\" id=\"hirename\">"
+											+ rst[i].CONAME + "</div>"
+									html += "<div class=\"twelve wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\">"
+									html += "<b>"
+											+ rst[i].TITLE
+											+ "</b></div><div style=\"width: 100%\" id=\"detail\"><small>"
+											+ rst[i].CATE + "</small>"
+									html += "</div></div></div></div></div></div>"
+								}
+
+							} else {
+								for (var i = 0; i < rst.length; i++) {
+									html += "<div id=\"passdiv\" data-value=\""
+											+ rst[i].JASONO
+											+ "\" onclick=\"myjaso(this)\"><div class=\"ui grid\" id=\"list\">"
+
+									html += "<div class=\"twelve wide column\" id=\"cnt\"><b>"
+											+ rst[i].TITLE + "</b></div>"
+									html += "<div class=\"four wide column\"><div>"
+											+ rst[i].JOBCATE
+											+ "</div><div><small>"
+											+ rst[i].LASTDATE
+											+ "</small></div></div>"
+
+									html += "</div></div>"
+								}
+
 							}
 							$("#left").html(html);
-								
 
 						});
 
@@ -644,104 +683,205 @@ cursor: pointer;
 		});
 
 	});
-	
-	
-	
-	
+
 	var passjaso = function(obj) {
 		console.log(obj.dataset.value);
 
 		var param = {
 			"passno" : obj.dataset.value
 		};
-		
-		$.post("${path}/essay/passJasoAjax.do", param)
-		.done(
-				function(rst) {
-					console.log(rst);
-					
-					var html="";
-					
-					html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
-						
-					<%-- 노가다1--%>
-					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-					html +=	"<span style=\"font-size: 13pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-					html +=	"aria-controls=\"collapseOne\">"+rst.Q1+"</a></h5></div>"
-					html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-					html += "<div class=\"card-body\">"+rst.A1+"</div></div></div>"
-					<%-- 노가다2--%>
-					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-						html +=	"<span style=\"font-size: 13pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-						html +=	"aria-controls=\"collapseOne\">"+rst.Q2+"</a></h5></div>"
-						html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-						html += "<div class=\"card-body\">"+rst.A2+"</div></div></div>"
-						<%-- 노가다3--%>
-						html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-							html +=	"<span style=\"font-size: 13pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-							html +=	"aria-controls=\"collapseOne\">"+rst.Q3+"</a></h5></div>"
+
+		$
+				.post("${path}/essay/passJasoAjax.do", param)
+				.done(
+						function(rst) {
+							console.log(rst);
+
+							var html = "";
+
+							html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
+<%-- 노가다1--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 13pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+					html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q1 + "</a></h5></div>"
 							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-							html += "<div class=\"card-body\">"+rst.A3+"</div></div></div>"
-							<%-- 노가다4--%>
-							html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-								html +=	"<span style=\"font-size: 13pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-								html +=	"aria-controls=\"collapseOne\">"+rst.Q4+"</a></h5></div>"
-								html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-								html += "<div class=\"card-body\">"+rst.A4+"</div></div></div>"
-						
-						
-						html += "</div></div>"
+							html += "<div class=\"card-body\">" + rst.A1
+									+ "</div></div></div>"
+<%-- 노가다2--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 13pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+						html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q2 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A2
+									+ "</div></div></div>"
+<%-- 노가다3--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 13pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+							html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q3 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A3
+									+ "</div></div></div>"
+<%-- 노가다4--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 13pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+		html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q4 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A4
+									+ "</div></div></div>"
+							console.log(html);
 							$("#left").html(html);
-				});
-				
+						});
+
 	}
-	
+
 	var myjaso = function(obj) {
 		console.log(obj.dataset.value);
 
 		var param = {
 			"jasono" : obj.dataset.value
 		};
-		
-		$.post("${path}/essay/myJasoAjax.do", param)
-		.done(
-				function(rst) {
-					console.log(rst);
-					
-					var html="";
-					
-					html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
-						
-					<%-- 노가다1--%>
-					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-					html +=	"<span style=\"font-size: 20pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-					html +=	"aria-controls=\"collapseOne\">"+rst.Q1+"</a></h5></div>"
-					html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-					html += "<div class=\"card-body\">"+rst.A1+"</div></div></div>"
-					<%-- 노가다2--%>
-					html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-						html +=	"<span style=\"font-size: 20pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-						html +=	"aria-controls=\"collapseOne\">"+rst.Q2+"</a></h5></div>"
-						html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-						html += "<div class=\"card-body\">"+rst.A2+"</div></div></div>"
-						<%-- 노가다3--%>
-						html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-							html +=	"<span style=\"font-size: 20pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-							html +=	"aria-controls=\"collapseOne\">"+rst.Q3+"</a></h5></div>"
+
+		$
+				.post("${path}/essay/myJasoAjax.do", param)
+				.done(
+						function(rst) {
+							console.log(rst);
+
+							var html = "";
+							html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
+<%-- 노가다1--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 20pt;\">Q1.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+					html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q1 + "</a></h5></div>"
 							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-							html += "<div class=\"card-body\">"+rst.A3+"</div></div></div>"
-							<%-- 노가다4--%>
-							html +=	"<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
-								html +=	"<span style=\"font-size: 20pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
-								html +=	"aria-controls=\"collapseOne\">"+rst.Q4+"</a></h5></div>"
-								html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
-								html += "<div class=\"card-body\">"+rst.A4+"</div></div></div>"
-						
-						
-						html += "</div></div>"
+							html += "<div class=\"card-body\">" + rst.A1
+									+ "</div></div></div>"
+<%-- 노가다2--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 20pt;\">Q2.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+						html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q2 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A2
+									+ "</div></div></div>"
+<%-- 노가다3--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 20pt;\">Q3.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+							html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q3 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A3
+									+ "</div></div></div>"
+<%-- 노가다4--%>
+	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"
+							html += "<span style=\"font-size: 20pt;\">Q4.</span> <a data-toggle=\"collapse\" href=\"#collapseOne\" aria-expanded=\"true\" "
+								html +=	"aria-controls=\"collapseOne\">"
+									+ rst.Q4 + "</a></h5></div>"
+							html += "<div id=\"collapseOne\" class=\"collapse show\" role=\"tabpanel\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"
+							html += "<div class=\"card-body\">" + rst.A4
+									+ "</div></div></div>"
+
+							html += "</div></div>"
+							console.log(html);
 							$("#left").html(html);
-				});
-				
+						});
+
+	}
+
+	var hiresearch = function() {
+		console.log("11111");
+		console.log($("#hiresearch").val());
+		var word = $("#hiresearch").val();
+		var html = "";
+		var param = {
+			"hiresearch" : word
+		};
+		$
+				.post("${path}/essay/searchHireAjax.do", param)
+				.done(
+						function(rst) {
+							console.log(rst);
+
+							html += "<div align=\"right\" style=\"margin-right: 20px;\"><div class=\"ui search\">"
+							html += "<div class=\"ui icon input\"><input class=\"prompt\" type=\"text\""
+									html +=	"placeholder=\"검색어를 입력해주세요.\" id = \"hiresearch\" name=\"hiresearch\" style=\"width: 300px;\"> <div onclick=\"hiresearch()\" style=\" margin-top: 10px;\"> <i"
+									html += " class=\"search icon\"></i></div><div class=\"results\"></div></div></div></div>"
+
+							for (var i = 0; i < rst.length; i++) {
+
+								html += "<div id=\"hirediv\"><div class=\"ui grid\" id=\"list\">"
+								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO +"\"></div>"
+								html += "<div class=\"twelve wide column\"><div class=\"ui grid\"><div class=\"four wide column\" id=\"hirename\" onclick=\"location.href='${path}/search/schdetail.do?cono="
+										+ rst[i].CONO
+										+ "'\">"
+										+ rst[i].NAME
+										+ "</div>";
+								html += "<div class=\"eight wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\"><b>"
+										+ rst[i].TITLE + "</b>"
+								html += "</div><div style=\"width: 100%\" id=\"detail\"><small>"
+										+ rst[i].JOBCATE + "</small></div>"
+								html += "<div style=\"width: 100%\" id=\"detail\">"
+										+ rst[i].HIRESHAPE
+										+ "</div></div><div class=\"four wide column\" align=\"right\">"
+								html += "<div style=\"padding-top: 10px; font-size: 13pt; font-weight: bolder;\">"
+										+ rst[i].DDAY
+										+ "</div><div id=\"jaso\" onclick=\"hino(this)\" data-value=\""
+										+ rst[i].HINO + "\""
+								html += "data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"add icon\"></i> 자소서 쓰기</div></div></div></div></div></div>"
+							}
+							console.log(html);
+							$("#left").html(html);
+						});
+
+	}
+
+	var passsearch = function() {
+		console.log("11111");
+		console.log($("#passsearch").val());
+		var word = $("#passsearch").val();
+		var html = "";
+		var param = {
+			"passsearch" : word
+		};
+		$
+				.post("${path}/essay/searchPassAjax.do", param)
+				.done(
+						function(rst) {
+							console.log(rst);
+
+							html += "<div align=\"right\" style=\"margin-right: 20px;\"><div class=\"ui search\">"
+							html += "<div class=\"ui icon input\"><input class=\"prompt\" type=\"text\""
+									html +=	"placeholder=\"검색어를 입력해주세요.\" id = \"hiresearch\" name=\"hiresearch\" style=\"width: 300px;\"> <div onclick=\"hiresearch()\" style=\" margin-top: 10px;\"> <i"
+									html += " class=\"search icon\"></i></div><div class=\"results\"></div></div></div></div>"
+
+							for (var i = 0; i < rst.length; i++) {
+
+								html += "<div id=\"passdiv\" data-value=\""
+										+ rst[i].PASSNO
+										+ "\" onclick=\"passjaso(this)\"><div class=\"ui grid\" id=\"list\">"
+
+								html += "<div class=\"four wide column\" id=\"cnt\"><img src=\"${path}"+rst[i].LOGO+"\"></div>"
+								html += "<div class=\"twelve wide column\"><div class=\"ui grid\">"
+
+								html += "<div class=\"four wide column\" id=\"hirename\">"
+										+ rst[i].CONAME + "</div>"
+								html += "<div class=\"twelve wide column\" id=\"hireinfo\"><div style=\"width: 100%\" id=\"detail\">"
+								html += "<b>"
+										+ rst[i].TITLE
+										+ "</b></div><div style=\"width: 100%\" id=\"detail\"><small>"
+										+ rst[i].CATE + "</small>"
+								html += "</div></div></div></div></div></div>"
+
+							}
+							console.log(html);
+							$("#left").html(html);
+						});
+
 	}
 </script>
 

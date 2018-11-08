@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.google.gson.Gson;
 
+import job.dao.searchDao;
 import job.models.EssayRepository;
 import job.models.EssayService;
 
@@ -31,6 +32,9 @@ public class EssayController {
 
 	@Autowired
 	EssayService essayservice;
+	
+	@Autowired
+	searchDao search;
 
 	@GetMapping("/essayWrite.do")
 	public String writeGetHandle(WebRequest web) {
@@ -140,7 +144,7 @@ public class EssayController {
 			if (day == 0) {
 				map.put("DDAY", "D-DAY");
 			} else {
-				map.put("DDAY", "D" + day);
+				map.put("DDAY", "D-" + day);
 			}
 			System.out.println((end - current) / (1000 * 60 * 60 * 24));
 
@@ -240,6 +244,85 @@ public class EssayController {
 		}
 
 		return gson.toJson(map);
+
+	}
+	
+	@PostMapping(path = "/searchHireAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchHireAjaxHandle(@RequestParam String hiresearch) {
+
+		System.out.println("menu: " + hiresearch);
+		String coname = hiresearch;
+		String title = hiresearch;
+		String big = hiresearch;
+		String small = hiresearch;
+
+		Map ish = new HashMap<>();
+		ish.put("coname", coname);
+		ish.put("title", title);
+		ish.put("big", big);
+		ish.put("small", small);
+		List<Map> isearck = search.hireFormSearch(ish);
+
+		for (int i = 0; i < isearck.size(); i++) {
+			Map map = isearck.get(i);
+
+			java.sql.Timestamp timeStamp = (Timestamp) map.get("ENDDATE");
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long end = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (end - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				map.put("DDAY", "D-DAY");
+			} else {
+				map.put("DDAY", "D-" + day);
+			}
+			System.out.println((end - current) / (1000 * 60 * 60 * 24));
+
+		}
+		
+		
+
+		
+
+		return gson.toJson(isearck);
+
+	}
+	
+	@GetMapping("/essayDelete.do")
+	public String essayDeleteGetHandle(WebRequest web) {
+		String no = web.getParameter("no");
+		System.out.println(no);
+		int r = essay.deleteEssay(no);
+		
+		return "redirect:/infor.do";
+	}
+	
+	@PostMapping(path = "/searchPassAjax.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String searchPassAjaxHandle(@RequestParam String passsearch) {
+
+		System.out.println("menu: " + passsearch);
+		String coname = passsearch;
+		String title = passsearch;
+		String big = passsearch;
+		String small = passsearch;
+
+		Map ish = new HashMap<>();
+		ish.put("coname", coname);
+		ish.put("title", title);
+		ish.put("big", big);
+		ish.put("small", small);
+		List<Map> isearck = search.passSearch(ish);
+
+	
+		
+		
+		
+
+		
+
+		return gson.toJson(isearck);
 
 	}
 }

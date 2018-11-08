@@ -2,14 +2,31 @@
 	pageEncoding="UTF-8"%>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+
+#down{
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #434e6e;
+	color: #434e6e;
+	padding: 10px;
+	font-size: 10pt;
+	border-radius: 5%;
+}
+
+#down:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 10px;
+	font-size: 10pt;
+	border-radius: 5%;
+	
+</style>
 
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
-
-	<div align="right">
-		<a class="btn btn-dark" href="${path}/essayBoard/essayBoard.do"
-			role="button">게시판 목록</a>
-	</div>
+<div class="container" style="margin-top: 20px;">
+	<div class="three wide column" align="right" style="margin-bottom: 10px;"><a
+												href="${path}/essayBoard/shareEssayList.do"><button id="down">글 목록가기</button></a></div>
 
 	<form action="${path}/essayBoard/shareEssay.do" method="post"
 		enctype="multipart/form-data">
@@ -117,9 +134,10 @@
 
 
 		<div align="right">
-			<button class="btn btn-dark">올리기</button>
+			<button id="down">글 올리긴</button>
 		</div>
 	</form>
+	</div>
 
 <script>
 	$("#A1").keyup(function() {

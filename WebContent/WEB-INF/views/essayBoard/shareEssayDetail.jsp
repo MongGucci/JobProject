@@ -156,7 +156,7 @@ margin: 10px;
 			
 					
 				<button type="button" data-toggle="modal"
-					id="likebtn" data-target="#exampleModal" ><i class="heart icon"></i></button>
+					id="likebtn" data-target="#exampleModal" ><i class="heart outline icon" style="color:#F14444;"></i></button>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -201,7 +201,7 @@ margin: 10px;
 																	"disabled",
 																	true);
 															$("#likebtn").html(
-																	"DONE");
+																	"<i class=\"heart icon\" style=\"color:#F14444;\"></i>");
 														}
 
 													});
@@ -342,7 +342,7 @@ margin: 10px;
 				<textarea class="form-control" id="exampleFormControlTextarea1"
 					name="reply" rows="3"></textarea>
 				<div align="right" style="margin-top: 10px;">
-					<button>댓글달기</button>
+					<button id="down">댓글 달기</button>
 				</div>
 			</div>
 
@@ -354,9 +354,10 @@ margin: 10px;
 	
 	
 	<div class="thirteen wide column"></div>
+	<c:if test="${userId eq essay.WRITER}">
 	<div class="three wide column" align="right"><a
 												href="${path}/essayBoard/shareEssayDelete.do?no=${essay.NO}"><button id="btn">글 삭제하기</button></a></div>
-	
+	</c:if>
 	
 	</div>
 </div>
