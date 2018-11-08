@@ -50,7 +50,7 @@ public class EssayController {
 		String id = (String) web.getAttribute("userId", web.SCOPE_SESSION);
 		String jasono = UUID.randomUUID().toString().split("-")[0];
 		if (map.get("hino").equals("")) {
-			map.put("hino", 0);
+			map.put("hino", "");
 		} else {
 			int hino = Integer.parseInt((String) map.get("hino"));
 			map.put("hino", hino);

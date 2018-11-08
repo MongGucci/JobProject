@@ -99,8 +99,14 @@ public class LoginController {
 			}
 
 			response.addCookie(setCookie);
+			
+			if (wr.getAttribute("target",wr.SCOPE_SESSION) != null) {
+				return "redirect:"+(String) wr.getAttribute("target",wr.SCOPE_SESSION);
+			} else {
+				return "redirect:/info.do";
+			}
 
-			return "job.index";
+			
 		} else {
 			map.put("err", "on");
 			return "/login/login";
