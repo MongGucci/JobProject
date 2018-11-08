@@ -3,16 +3,17 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 
-
-<h4>전체채팅</h4>
+<hr/>
+<div><span style="font-size: x-large; color : #434e6e; font-weight: bolder;">&nbsp;<i class="users icon" style="font-size: x-large; color : #434e6e;"></i>&nbsp; 전체채팅</span></div>
+<hr/>
 <div style="height: 520px; overflow-y: scroll; " id="chatView">
 <c:forEach var="e" items="${chatlog}">
 <c:choose>
 
 <c:when test="${sessionScope.nick eq e.nick}">
 <div class="inline field" align="right" style="margin-bottom: 10px;">
-    <div class="ui right pointing red basic label"  style="font-size: 15pt;">
-      ${e.nick} : ${e.text}  </div>
+    <div class="ui right pointing red basic label"  style="font-size: 15pt; max-width: 70%;">
+     ${e.text}  </div>
     <i class="user icon" style="font-size: 15pt; margin-right: 2px; color: #F14444; " ></i>
   </div>
 
@@ -20,7 +21,7 @@
 <c:otherwise>
  <div class="inline field" align="left" style="margin-bottom: 10px;">
  	<i class="user icon" style="font-size: 15pt; margin-left: 2px;"></i>
-   <div class="ui left pointing black basic label" style="font-size: 15pt; color :#F4F4F4;">
+   <div class="ui left pointing black basic label" style="font-size: 15pt; color :#F4F4F4 ;max-width: 70%;">
       ${e.nick} : ${e.text}
     </div>
    
@@ -43,7 +44,7 @@ ${e.nick} : ${e.text}
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1" style="color :#F4F4F4;"><i class="comment alternate outline icon" style=" font-size: 15pt; "></i></span>
+    <span class="input-group-text" id="basic-addon1" style="color :#434e6e; font-weight: bolder;">CHAT</span>
   </div>
   <input type="text" class="form-control" aria-describedby="basic-addon1" id="input">
 </div>
@@ -72,14 +73,14 @@ ${e.nick} : ${e.text}
 		if(mynick == obj.nick){
 			console.log("ture 라며 ");
 			html += "<div class=\"inline field\" align=\"right\" style=\"margin-bottom: 10px;\">";
-		    html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; \">";
-		     html += obj.nick +" : "+  obj.text;
+		    html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
+		     html += obj.text;
 		     html+="</div><i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px; color: #F14444;\"></i></div>"; 
 		}else{
 			console.log("???");
 			html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
 			html += "<i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px;\"></i>";
-		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; \">";
+		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
 		    html += obj.nick +" : "+  obj.text;
 		    html += "</div></div>";
 		}

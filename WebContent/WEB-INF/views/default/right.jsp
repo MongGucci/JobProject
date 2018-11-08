@@ -4,14 +4,14 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--  <div class="dropdown show" style="margin-top: 15px;">
+  <div class="dropdown show" style="margin-top: 15px;">
   <a class="btn btn-secondary dropdown-toggle"  role="button" id="recentcookie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     최근 본 채용공고
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id ="hilist">
     
   </div>
-</div>  -->
+</div> 
 
 <style>
 
@@ -63,7 +63,7 @@ $("#location").on(
 					});
 		});
 		
-/* $("#recentcookie").on(
+ $("#recentcookie").on(
 		"click",
 		function() {
 			
@@ -79,5 +79,5 @@ $("#location").on(
 						$("#hilist").html(html);
 					});
 		}); 		
-		 */
+		 
 </script>

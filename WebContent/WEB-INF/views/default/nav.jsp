@@ -36,7 +36,7 @@
 				</c:if>
 				<c:if test="${!empty userId}">
 				
-					<div class="dropdown show" style="margin-top: 15px;">
+					<!-- <div class="dropdown show" style="margin-top: 15px;">
 					  <a class="btn btn-secondary dropdown-toggle"  role="button" id="recentcookie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    최근 본 채용공고
 					  </a>
@@ -44,7 +44,7 @@
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id ="hilist">
 					    
 					  </div>
-					</div> 
+					</div> --> 
 					<a class="btn btn-sm btn-outline-secondary"
 						href="${pageContext.servletContext.contextPath}/infor.do"
 						id="Sign out">MyPage</a>
@@ -74,7 +74,7 @@
 
 <script>
 
-	$("#recentcookie").on(
+	<!-- $("#recentcookie").on(
 		"click",
 		function() {
 			
@@ -90,8 +90,8 @@
 						$("#hilist").html(html);
 
 					});
-		}); 
+		}); -->
 	
-	</script>
+	</script> 
 
 
