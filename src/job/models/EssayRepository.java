@@ -65,4 +65,8 @@ public class EssayRepository {
 		return template.delete("essay.deleteEssay", no);
 	}
 	
+	public Map getPassJasoDetail(Integer passno) {
+		return template.selectOne("essay.getPassJasoDetail",passno);
+	}
+	
 }

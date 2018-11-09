@@ -58,5 +58,8 @@
 		resultType="java.util.HashMap">
 		select  *  from jasoform join (select * from hire join company on company.coname = hire.name where sysdate &lt; enddate) t on jasoform.hino = t.hino
 	</select>
+	<select id="getPassJasoDetail" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select * from (company join passjaso on company.cono = passjaso.comno) where passno=#{no}
+	</select>
 
 </mapper>

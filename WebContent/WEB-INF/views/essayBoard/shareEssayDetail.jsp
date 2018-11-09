@@ -341,9 +341,11 @@ margin: 10px;
 				<label for="exampleFormControlTextarea1">댓글</label>
 				<textarea class="form-control" id="exampleFormControlTextarea1"
 					name="reply" rows="3"></textarea>
+					
 				<div align="right" style="margin-top: 10px;">
-					<button id="down">댓글 달기</button>
+					<button type="button" id="down" data-toggle="modal" data-target="#exampleModal">댓글 달기</button>
 				</div>
+				
 			</div>
 
 		</form>

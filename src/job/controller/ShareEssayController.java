@@ -280,5 +280,29 @@ public class ShareEssayController {
 
 		return "redirect:/essayBoard/shareEssayList.do";
 	}
+	@GetMapping("/passEssayDetail.do")
+	public String passEssayDetailGetHandle(WebRequest web) {
+		String no = web.getParameter("passno");
+		int passno = Integer.parseInt(no);
+		
+		
+		Map map = essay.getPassJasoDetail(passno);
+		for (int i = 1; i < 5; i++) {
+			if (map.get("A" + i) != null) {
+				String a = (String) map.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				map.put("A" + i, a);
+			}
+			if (map.get("Q" + i) != null) {
+				String q = (String) map.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				map.put("Q" + i, q);
+			}
+		}
+		
+		web.setAttribute("essay", map, web.SCOPE_REQUEST);
+		return "essayBoard.passEssayDetail";
+		
+	}
 
 }
