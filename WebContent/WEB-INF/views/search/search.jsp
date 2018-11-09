@@ -110,9 +110,9 @@ img {
 
 						<div class="ui grid">
 
-							<div class="four wide column" id="hirename"
+							<div class="five wide column" id="hirename"
 								onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">${l.CONAME }</div>
-							<div class="eight wide column" id="hireinfo">
+							<div class="seven wide column" id="hireinfo">
 								<div style="width: 100%" id="detail">${e.TITLE}</div>
 								<div style="width: 100%" id="detail">
 									<small>${l.INDUSTRY}</small>
@@ -128,7 +128,6 @@ img {
 							</div>
 
 						</div>
-
 
 
 
