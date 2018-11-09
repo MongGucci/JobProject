@@ -114,7 +114,7 @@ public class SearchController {
 		}
 
 		map.put("result", result);
-
+		System.out.println("ehlfk");
 		// 나이별 차트
 		Map tw = new HashMap<>();
 		tw.put("cono", cono);
