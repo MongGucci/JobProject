@@ -18,24 +18,20 @@ public class LoginFilter extends HttpFilter {
 	protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
-		System.out.println("����������" + req.getRequestURI());
 		HttpSession session = req.getSession();
 		ServletContext ctx = session.getServletContext();
-		
+
 		String query = req.getQueryString();
 		String uri = req.getRequestURI();
 		String target = uri.substring(req.getContextPath().length());
-		session.setAttribute("target", target + (query!=null ? "?"+query : ""));
-		
-		
-		
-		if(session.getAttribute("auth") == null) {
+		session.setAttribute("target", target + (query != null ? "?" + query : ""));
+
+		if (session.getAttribute("auth") == null) {
 			res.sendRedirect(ctx.getContextPath() + "/login.do");
-			
-		}else {
+
+		} else {
 			chain.doFilter(req, res);
 		}
-		
-		
+
 	}
 }

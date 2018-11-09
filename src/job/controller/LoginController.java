@@ -103,7 +103,7 @@ public class LoginController {
 			if (wr.getAttribute("target",wr.SCOPE_SESSION) != null) {
 				return "redirect:"+(String) wr.getAttribute("target",wr.SCOPE_SESSION);
 			} else {
-				return "redirect:/info.do";
+				return "redirect:/infor.do";
 			}
 
 			

@@ -55,6 +55,9 @@ public class RecruitController {
 	@Autowired
 	HttpSession session;
 
+	@Autowired
+	HttpServletRequest req;
+	
 	@GetMapping("/select.do")
 	public String selectGetHandle(Map map, WebRequest wr) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
@@ -271,6 +274,11 @@ public class RecruitController {
 		System.out.println(after);
 
 		// ==============================
+		String uri = req.getRequestURI();
+		String target = uri.substring(req.getContextPath().length())+"?hino="+hino;
+		
+		System.out.println(req.getRequestURI());
+		wr.setAttribute("target", target, wr.SCOPE_SESSION);
 
 		return "job.jobpost";
 

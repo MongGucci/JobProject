@@ -38,7 +38,7 @@
 		<filter-name>in</filter-name>
 		<url-pattern>/essay/*</url-pattern>
 		<url-pattern>/essayBoard/shareEssay.do</url-pattern>
-		
+		<url-pattern>/chat/*</url-pattern>
 	</filter-mapping>
 	
 </web-app>

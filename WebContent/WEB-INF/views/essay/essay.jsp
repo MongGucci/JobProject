@@ -124,6 +124,15 @@ span:hover {
 	font-size: 15pt;
 	border-radius: 5%;
 }
+#jasodiv{
+border: 1px solid #434e6e;
+	font-weight:bolder;
+	font-size:13pt;
+	background-color: white;
+	padding: 10px;
+	font-family: 'Nanum Gothic', sans-serif;
+
+}
 </style>
 </head>
 <nav style="margin: 20px;">
@@ -216,6 +225,7 @@ span:hover {
 
 				<%-- ──────────────────────────── 중앙  ───────────────────────────────────────────────────--%>
 				<div id="left">
+				
 
 
 
@@ -698,6 +708,9 @@ var hino = function(obj) {
 							console.log(rst);
 
 							var html = "";
+							html +="<div id=\"jasodiv\">"
+								html += "<div class=\"ui grid\"><div class=\"twelve wide column\">"
+								html += rst.TITLE + "</div><div class=\"four wide column\">"+rst.CATE+"</div></div></div>"
 
 							html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
 <%-- 노가다1--%>
@@ -752,6 +765,9 @@ var hino = function(obj) {
 							console.log(rst);
 
 							var html = "";
+							html +="<div id=\"jasodiv\">"
+							html += "<div class=\"ui grid\"><div class=\"twelve wide column\">"
+							html += rst.TITLE + "</div><div class=\"four wide column\">"+rst.JOBCATE+"</div></div></div>"
 							html += "<div class=\"accordion\" id=\"accordionExample\"><div id=\"accordion\" role=\"tablist\">"
 <%-- 노가다1--%>
 	html += "<div class=\"card\"><div class=\"card-header\" role=\"tab\" id=\"headingOne\"><h5 class=\"mb-0\">"

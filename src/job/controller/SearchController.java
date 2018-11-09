@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public class SearchController {
 
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	HttpServletRequest req;
 
 	@GetMapping("/search.do")
 	public String searchGetHandle(Map map) {
@@ -220,6 +224,12 @@ public class SearchController {
 		if (wr.getParameter("recommend") != null) {
 			map.put("recommend", true);
 		}
+		
+		String uri = req.getRequestURI();
+		String target = uri.substring(req.getContextPath().length())+"?cono="+cono;
+		
+		System.out.println(req.getRequestURI());
+		wr.setAttribute("target", target, wr.SCOPE_SESSION);
 
 		return "job.schdetail.index";
 
