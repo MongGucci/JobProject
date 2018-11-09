@@ -214,25 +214,47 @@ public class RecruitController {
 		return gson.toJson(small);
 	}
 
-	@PostMapping("/select.do")
-	public String selectPostHandle(@RequestParam Map param, Map map) {
-		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
+	@GetMapping("/selectdetail.do")
+	public String selectdetailPostHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		List<Map> results = hrepo.getSearchResults(param);
-		map.put("lists", results);
-		for (int i = 0; i < results.size(); i++) {
-			Map m = results.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd = dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE", fmt.format(dd));
-			long gap = endd - System.currentTimeMillis();
-			if (gap < 0) {
-				m.put("MAGAM", true);
-			}
-		}
+		System.out.println("selectdetail.do에 들어온 param값 ? "+param);
+		int totalpage = (results.size() % 10 == 0) ? (results.size() / 10) : (results.size() / 10) + 1;
+		map.put("totalpage", totalpage);
+		String pg = (String) param.get("page");
+		
+		if (pg != null) {
+			int page = Integer.parseInt(pg);
+			param.put("s", ((page - 1) * 10) + 1);
+			param.put("e", page * 10);
 
-		map.put("condition", param);
+		} else {
+			param.put("s", 1);
+			param.put("e", 10);
+		}
+		List<Map> result = hrepo.getSearchResultsbyPage(param);
+		
+		for (int i = 0; i < results.size(); i++) {
+			Map p = results.get(i);
+
+			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long endd = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (endd - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				p.put("DDAY", "D-DAY");
+			} else if(day>0){
+
+				p.put("DDAY", "D-" + (day+1));
+			} else {
+				p.put("DDAY", "[마감]");
+			}
+			System.out.println((endd - current) / (1000 * 60 * 60 * 24));
+
+		}
+		
+		map.put("lists", result);
+		wr.setAttribute("condition", param, wr.SCOPE_SESSION);
 
 		return "job.selectdetail";
 	}
