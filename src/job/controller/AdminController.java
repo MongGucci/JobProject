@@ -80,6 +80,7 @@ public class AdminController {
 	@PostMapping("/passjaso.do")
 	public String passPostHandle(@RequestParam Map param) {
 		System.out.println(param);
+		System.out.println("???");
 
 		int r = jaso.addPassJaso(param);
 		return "redirect:/admin/passjaso.do";
