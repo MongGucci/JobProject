@@ -1,6 +1,7 @@
 package job.controller;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -106,6 +107,26 @@ public class RecruitController {
 
 			List<Map> start = hrepo.getStartByPage(m);
 			System.out.println("페이지눌러들갈때 값 start " + start);
+			
+			for (int i = 0; i < start.size(); i++) {
+				Map p = start.get(i);
+
+				java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+				java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+				long end = date.getTime();
+				long current = System.currentTimeMillis();
+				long day = (end - current) / (1000 * 60 * 60 * 24);
+				if (day == 0) {
+					p.put("DDAY", "D-DAY");
+				} else if(day>0){
+
+					p.put("DDAY", "D-" + (day+1));
+				} else {
+					p.put("DDAY", "[마감]");
+				}
+				System.out.println((end - current) / (1000 * 60 * 60 * 24));
+
+			}
 			map.put("start", start);
 			return "job.selectstart";
 
@@ -123,6 +144,25 @@ public class RecruitController {
 
 			List<Map> hits = hrepo.getHitsByPage(m);
 			System.out.println("페이지눌러들갈때 값 hits " + hits);
+			for (int i = 0; i < hits.size(); i++) {
+				Map p = hits.get(i);
+
+				java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+				java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+				long end = date.getTime();
+				long current = System.currentTimeMillis();
+				long day = (end - current) / (1000 * 60 * 60 * 24);
+				if (day == 0) {
+					p.put("DDAY", "D-DAY");
+				} else if(day>0){
+
+					p.put("DDAY", "D-" + (day+1));
+				} else {
+					p.put("DDAY", "[마감]");
+				}
+				System.out.println((end - current) / (1000 * 60 * 60 * 24));
+
+			}
 			map.put("hits", hits);
 			return "job.selecthits";
 		} else if (mode.equals("end")) {
@@ -139,6 +179,25 @@ public class RecruitController {
 
 			List<Map> end = hrepo.getEndByPage(m);
 			System.out.println("페이지눌러들갈때 값 end " + end);
+			for (int i = 0; i < end.size(); i++) {
+				Map p = end.get(i);
+
+				java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+				java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+				long endd = date.getTime();
+				long current = System.currentTimeMillis();
+				long day = (endd - current) / (1000 * 60 * 60 * 24);
+				if (day == 0) {
+					p.put("DDAY", "D-DAY");
+				} else if(day>0){
+
+					p.put("DDAY", "D-" + (day+1));
+				} else {
+					p.put("DDAY", "[마감]");
+				}
+				System.out.println((endd - current) / (1000 * 60 * 60 * 24));
+
+			}
 			map.put("end", end);
 			return "job.selectend";
 		} else {

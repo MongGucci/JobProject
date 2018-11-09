@@ -87,21 +87,48 @@ color: white;
 
 							<div class="four wide column" id="hirename" onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">
 							<c:choose>
-								<c:when test = "${fn:containsIgnoreCase(${l.CONAME}, ${coname})}"><a style="font-weight: bolder; color: red;">${l.CONAME }</a></c:when> 
+								<c:when test = "${fn:containsIgnoreCase(l.CONAME, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.CONAME }</a></c:when> 
 								<c:otherwise>${l.CONAME }</c:otherwise>
 							</c:choose>
 							</div>
 								<div class="eight wide column" id="hireinfo">
-									<div style="width: 100%" id="detail" >${e.TITLE}</div>
-									<div style="width: 100%" id="detail"><small>${l.INDUSTRY}</small></div>
-									<div style="width: 100%" id="detail">${l.COTYPE }</div>
+									<div style="width: 100%" id="detail" >
+									<c:choose>
+										<c:when test = "${fn:containsIgnoreCase(l.TITLE, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.TITLE}</a></c:when> 
+										<c:otherwise>${l.TITLE}</c:otherwise>
+									</c:choose>
+									
+									</div>
+									<div style="width: 100%" id="detail">
+									<c:choose>
+										<c:when test = "${fn:containsIgnoreCase(l.INDUSTRY, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;"><small>${l.INDUSTRY}</small></a></c:when> 
+										<c:otherwise><small>${l.INDUSTRY}</small></c:otherwise>
+									</c:choose>
+									
+									</div>
+									<div style="width: 100%" id="detail">
+									<c:choose>
+										<c:when test = "${fn:containsIgnoreCase(l.COTYPE, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.COTYPE}</a></c:when> 
+										<c:otherwise>${l.COTYPE }</c:otherwise>
+									</c:choose>
+									</div>
 								</div>
-							<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${e.DDAY}</div><div id="jaso" onclick="hino(this)"
-								data-value="${e.HINO}" ><i class="building icon"></i>${l.BIG } ${l.SMALL }</div></div>
-
+							<div class="four wide column" align="left" ><%-- <div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${e.DDAY}</div><div id="jaso" onclick="hino(this)"
+								data-value="${l.HINO}" > --%>
+								
+								<i class="building icon"></i>
+								<c:choose>
+										<c:when test = "${fn:containsIgnoreCase(l.BIG, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.BIG }</a></c:when> 
+										<c:otherwise>${l.BIG }</c:otherwise>
+								</c:choose>
+								<c:choose>
+										<c:when test = "${fn:containsIgnoreCase(l.SMALL, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.SMALL }</a></c:when> 
+										<c:otherwise>${l.SMALL }</c:otherwise>
+								</c:choose>
+								
 							</div>
 					</div>
-
+					</div>
 				</div>
 			</div>
 	</c:forEach>

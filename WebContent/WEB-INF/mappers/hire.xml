@@ -5,42 +5,43 @@
 		select * from hire
 	</select>
 
-	<select id="getAllHiresByStartdate"
-		resultType="java.util.HashMap">
-		select * from(company join hire on
-		company.coname=hire.name) order by startdate desc
+	<select id="getAllHiresByStartdate" resultType="java.util.HashMap">
+		 select *
+		from(company join hire on
+		company.coname=hire.name) where startdate&lt;sysdate order by startdate desc
 	</select>
 	
-	
-	<select id="getStartByPage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select rownum as r , s.* from (select * from company join hire on
-		company.coname=hire.name) s order by startdate desc) where  r between #{s} and #{e}
+	<select id="getAllHiresByHits" resultType="java.util.HashMap">
+		select *
+		from(company join hire on
+		company.coname=hire.name ) where enddate&gt;sysdate order by hits desc
 	</select>
-
+	
 	<select id="getAllHiresByEnddate" resultType="java.util.HashMap">
 		select *
 		from(company join hire on
-		company.coname=hire.name) order by enddate
-		asc
+		company.coname=hire.name ) where enddate&gt;sysdate order by enddate asc
 	</select>
 	
+	<select id="getStartByPage" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		  select * from (select rownum as r , s.* from (select *
+		from(company join hire on
+		company.coname=hire.name) where startdate&lt;sysdate order by startdate desc) s) where r between ${s} and ${e}
+	</select>
+
 	<select id="getEndByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
-		select * from (select rownum as r , s.* from (select * from company join hire on
-		company.coname=hire.name) s order by enddate asc) where r between #{s} and #{e}
+	 select * from (select rownum as r , s.* from (select *
+		from(company join hire on
+		company.coname=hire.name ) where enddate&gt;sysdate order by enddate asc) s) where  r between ${s} and ${e}
+
 	</select>
 
-	<select id="getAllHiresByHits" resultType="java.util.HashMap">
-		select * from (company
-		join hire on
-		company.coname=hire.name) order by hits
-		desc
-	</select>
 	<select id="getHitsByPage" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
-		select * from (select rownum as r , s.* from (select * from company join hire on
-		company.coname=hire.name) s order by hits desc) where r between #{s} and #{e}
+		select * from (select rownum as r , s.* from (select *
+		from(company join hire on
+		company.coname=hire.name ) where enddate&gt;sysdate order by hits desc) s) where r between ${s} and ${e}
 	</select>
-
-
+	
 	<select id="getSearchResults" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select * from(company join hire on company.coname=hire.name) where
