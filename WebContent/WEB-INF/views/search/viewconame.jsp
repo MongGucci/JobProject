@@ -35,89 +35,89 @@ html, body {
    <h3>${dt.CONAME }</h3>
    <small>가족친화</small> <br> <a href="${dt.HOMEPAGE }">${dt.HOMEPAGE }</a>
    <br> <br>
-	<!-- 여기다가 -->
-	<c:choose>
-		<c:when test="${empty comjjim }">
-			 <button class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
-			 data-target="#comjjimModal">+ 관심 기업등록</button> 
-			 <button  class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
-			 data-target="#comjjimModal">기업 채팅 참여하기</button> 
-			 <c:if test="${!empty recommend }">
-			 <br/><div class="ui top pointing red basic label" id="pherror"
-								style=" font-size: 11pt;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div></c:if>
-		</c:when>
-		<c:otherwise>
-			  <button class="alert alert-secondary" style="height: 50px;" id="btn" data-toggle="modal"
+   <!-- 여기다가 -->
+   <c:choose>
+      <c:when test="${empty comjjim }">
+          <button class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
+          data-target="#comjjimModal">+ 관심 기업등록</button> 
+          <button  class="alert alert-warning" style="height: 50px;" id="btn" data-toggle="modal"
+          data-target="#comjjimModal">기업 채팅 참여하기</button> 
+          <c:if test="${!empty recommend }">
+          <br/><div class="ui top pointing red basic label" id="pherror"
+                        style=" font-size: 11pt;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div></c:if>
+      </c:when>
+      <c:otherwise>
+           <button class="alert alert-secondary" style="height: 50px;" id="btn" data-toggle="modal"
                data-target="#comjjimModal" disabled="disabled" >이미 등록된 관심 기업</button>
-		</c:otherwise>
-	</c:choose>
-	<c:if test="${empty userId }">
-		<div class="modal fade" id="comjjimModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
-	</c:if>
-	<c:choose>
-		<c:when test="${!empty userId }">
-			<script>
-				$("#btn").on("click", function() {
-					var id = "${userId}";
-					console.log(id);
-					
-					var cono = "${dt.CONO}";
-					
-					var param = {
-							"cono" : cono
-					};
-					$.post("${path}/search/comjjimAjax.do",param).done(
-							function(rst){
-								console.log(rst);
-								if(rst.comjjim) {
-									$("#btn").attr("disabled", true);
-									$("#btn").html("이미 등록된 관심 기업")
-								}
-							});
-				})
-			</script>
-		</c:when>
-		<c:otherwise>
-			<script>
-			var html = "";
-			html = "<div class=\"modal-dialog\" role=\"document\" style=\"text-align: left\">"
-					+ "<div class=\"modal-content\"><div class=\"modal-header\">"
-					+ "<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"
-					+ "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
-					+ "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
-					+ "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
-					+ "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
-			$("#comjjimModal").html(html);
-			</script>
-		</c:otherwise>
-	</c:choose>
-	<hr />
-		관심 기업 등록<br> <b style="font-size: 20pt; color: blue;">${saram.CNT }</b>명
+      </c:otherwise>
+   </c:choose>
+   <c:if test="${empty userId }">
+      <div class="modal fade" id="comjjimModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+   </c:if>
+   <c:choose>
+      <c:when test="${!empty userId }">
+         <script>
+            $("#btn").on("click", function() {
+               var id = "${userId}";
+               console.log(id);
+               
+               var cono = "${dt.CONO}";
+               
+               var param = {
+                     "cono" : cono
+               };
+               $.post("${path}/search/comjjimAjax.do",param).done(
+                     function(rst){
+                        console.log(rst);
+                        if(rst.comjjim) {
+                           $("#btn").attr("disabled", true);
+                           $("#btn").html("이미 등록된 관심 기업")
+                        }
+                     });
+            })
+         </script>
+      </c:when>
+      <c:otherwise>
+         <script>
+         var html = "";
+         html = "<div class=\"modal-dialog\" role=\"document\" style=\"text-align: left\">"
+               + "<div class=\"modal-content\"><div class=\"modal-header\">"
+               + "<h5 class=\"modal-title\" id=\"exampleModalLabel\">JOB GO</h5>"
+               + "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">"
+               + "<span aria-hidden=\"true\">&times;</span></button></div><div class=\"modal-body\">로그인을 원츄</div>"
+               + "<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>"
+               + "<a href=\"${path}/login.do\"><button type=\"button\" class=\"btn btn-primary\">로그인 하러가기</button></a></div></div></div>";
+         $("#comjjimModal").html(html);
+         </script>
+      </c:otherwise>
+   </c:choose>
+   <hr />
+      관심 기업 등록<br> <b style="font-size: 20pt; color: blue;">${saram.CNT }</b>명
    <hr />
    <br>
-	 <table style = "margin : auto; width: 50%; text-align: left; float: left; border-right:1px black solid;">
-	 <tr>
-		 <td >대표자 : ${dt.CEO }</td>
-	 	 <td>기업 형태 : ${dt.COTYPE }</td>
-	</tr>
-	<tr>
-		 <td>매출액 : ${dt.SALES }천만원</td>
-		 <td>사원수 : ${dt.WORKERS }명</td>
-	</tr>
-	<tr>
-		<td>업종 : ${dt.INDUSTRY }</td>
-		<td>초봉 : ${dt.FIRST }만원</td>
-	</tr>
-	<tr>
-		<td>위치 : ${dt.BIG } ${dt.SMALL }</td>
-		<td></td>
-	</tr>
-	</table>
-	<div id="donutchart" style="width: 350px; height: 100px; float: right;"></div>
-	<div style="clear: both;"></div>
-	<hr>
-	<div id="agechart" style="width: 350px; height: 100px; float: center;"></div>
+    <table style = "margin : auto; width: 50%; text-align: left; float: left; border-right:1px black solid;">
+    <tr>
+       <td >대표자 : ${dt.CEO }</td>
+        <td>기업 형태 : ${dt.COTYPE }</td>
+   </tr>
+   <tr>
+       <td>매출액 : ${dt.SALES }천만원</td>
+       <td>사원수 : ${dt.WORKERS }명</td>
+   </tr>
+   <tr>
+      <td>업종 : ${dt.INDUSTRY }</td>
+      <td>초봉 : ${dt.FIRST }만원</td>
+   </tr>
+   <tr>
+      <td>위치 : ${dt.BIG } ${dt.SMALL }</td>
+      <td></td>
+   </tr>
+   </table>
+   <div id="donutchart" style="width: 350px; height: 100px; float: right;"></div>
+   <div style="clear: both;"></div>
+   <hr>
+   <div id="agechart" style="width: 785px; height: 250px;"></div>
    <hr />
   <div id="map" style="height: 400px"></div>
          <script>
@@ -197,7 +197,7 @@ html, body {
                
                <div style = "text-align: left;">
                <c:forEach var="r" items="${reviews}">
-		<c:forEach var ="i" begin="1" end="${r.STAR }"><i style="font-size: 15pt; color: orange;"class="star icon"></i></c:forEach><br>
+      <c:forEach var ="i" begin="1" end="${r.STAR }"><i style="font-size: 15pt; color: orange;"class="star icon"></i></c:forEach><br>
         <span style="color: blue;">장점</span> : ${r.GOOD} <br/>
         <span style="color: red;">단점 </span>: ${r.BAD }<br/>
                  <hr/>
@@ -216,7 +216,7 @@ html, body {
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
-      console.log(${result})
+      console.log(${result});
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['남/여', '남여 비율'],
@@ -224,7 +224,7 @@ html, body {
         ]);
 
         var options = {
-          title: '남/여 비율',
+          title: '관심 기업 등록 남/여 비율',
           pieHole: 0.3,
          
         };
@@ -235,27 +235,34 @@ html, body {
     </script>
 
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
-      console.log(${agetext})
+      console.log(${agetext});
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['age', '나이별'],
+          ['','연령'],
           ${agetext}
         ]);
-
+        
         var options = {
-          title: '연령',
-          pieHole: 0.3,
-         
+          chart: {
+            title: '관심 기업 연령',
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('agechart'));
-        chart.draw(data, options);
-      };
+        var chart = new google.charts.Bar(document.getElementById('agechart'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
     </script>
+    
+
 
 
 
@@ -264,4 +271,3 @@ html, body {
   
 
 </div>
-

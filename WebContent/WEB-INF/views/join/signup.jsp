@@ -326,8 +326,7 @@
 				}
 				req.send();
 			} else {
-				document.getElementsByTagName("span")[3].innerHTML = "닉네임은 한글,영어 4~19자로 설정바랍니다.";
-				document.getElementsByTagName("span")[3].style.color = "red";
+			
 			}
 		}
 

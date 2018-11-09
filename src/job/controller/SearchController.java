@@ -121,36 +121,19 @@ public class SearchController {
 
 		// 나이별 차트
 		// 20대
-		Map tw = new HashMap<>();
-		tw.put("cono", cono);
-		tw.put("s", 20);
-		tw.put("e", 29);
-		List<Map> twenty = chartdao.agechart(tw);
-		System.out.println("twenty :" + twenty + "/" + tw);
-		System.out.println(twenty.size());
+	      Map tw = new HashMap<>();
+	      tw.put("cono", cono);
+	      List<Map> age = chartdao.agechart(tw);
+	      System.out.println("연령대별을 찍어봅니다 :" + age + "/" + tw);
+	      System.out.println(age.size());
 
-		// 30대
-		Map th = new HashMap<>();
-		th.put("cono", cono);
-		th.put("s", 30);
-		th.put("e", 39);
+	      String agetext = "";
 
-		List<Map> thirty = chartdao.agechart(th);
+	      for (int i = 0; i < age.size(); i++) {
+	         agetext += "['" + age.get(i).get("SARAM") + "', " + age.get(i).get("CNT") + "],";
+	      }
 
-		// 40대
-		Map fo = new HashMap<>();
-		fo.put("cono", cono);
-		fo.put("s", 40);
-		fo.put("e", 49);
-		List<Map> fourty = chartdao.agechart(fo);
-
-		String agetext = "";
-
-		for (int i = 0; i < twenty.size(); i++) {
-			result += "['" + twenty.get(i).get("SARAM") + "', " + twenty.get(i).get("CNT") + "],";
-		}
-
-		map.put("agetext", agetext);
+	      map.put("agetext", agetext);
 		// ====================================
 
 		map.put("chart", chart);
