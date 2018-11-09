@@ -17,6 +17,8 @@
 <select id="getByNick" parameterType="java.util.HashMap" resultType="java.util.HashMap">
    select * from applicant where nick =#{nick}
 </select>
-
+<select id="userinfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	select * from applicant where id = #{id}
+</select>
 
 </mapper>

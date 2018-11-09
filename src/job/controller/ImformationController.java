@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import job.models.EssayRepository;
+import job.models.JoinRepository;
 import job.models.PickedhireRepository;
 import job.models.ReviewRepository;
 import job.models.ShareEssayRepository;
@@ -30,7 +31,10 @@ public class ImformationController {
 
 	@Autowired
 	ShareEssayRepository ser;
-
+	
+	@Autowired
+	JoinRepository jo;
+	
 	@GetMapping("/infor.do")
 	public String inforHandle(WebRequest wr) {
 
@@ -38,19 +42,31 @@ public class ImformationController {
 
 		Map map = new HashMap<>();
 		map.put("id", id);
-
+		
+		// 내가 찜한 채용 공고
 		List<Map> r = pr.getPick(id);
 		wr.setAttribute("r", r, wr.SCOPE_REQUEST);
-
+		
+		// 내가 쓴 후기
 		List<Map> p = rr.getReview(id);
 		wr.setAttribute("p", p, wr.SCOPE_REQUEST);
-
+		
+		// 내가 쓴 자소서
 		List<Map> j = er.getMyJaso(id);
 		wr.setAttribute("j", j, wr.SCOPE_REQUEST);
-
+		
+		// 내가 쓴 댓글
 		List<Map> g = ser.getMyRe(id);
 		wr.setAttribute("g", g, wr.SCOPE_REQUEST);
 
+		// 유저 정보
+		Map u = (Map) wr.getAttribute("user", wr.SCOPE_SESSION);
+	    wr.setAttribute("u", u, wr.SCOPE_REQUEST);
+		
+	    // 내가 찜한 기업
+	    List<Map> c = pr.getCom(id);
+	    wr.setAttribute("c", c, wr.SCOPE_REQUEST);
+	    
 		return "job.infor";
 
 	}

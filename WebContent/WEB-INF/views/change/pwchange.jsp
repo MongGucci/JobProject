@@ -17,10 +17,10 @@
 			placeholder="기존 비밀번호" required autofocus name="pass" style="width: 300px;"> 
 			<br>
 		<input type="password" id="cpass" onchange="checkPass(this);" class="form-control"
-			placeholder="새 비밀번호" required style="width: 300px;"><span></span>
+			placeholder="새 비밀번호" required style="width: 300px;"><span id = "pw"></span>
 			<br>
 		<input type="password" id="confirm" onkeyup="ckpass(this);" class="form-control"
-			placeholder="비밀번호 재확인" required name="newpass"  style="width: 300px;"><span></span>
+			placeholder="비밀번호 재확인" required name="newpass"  style="width: 300px;"><span id = "pw2"></span>
 		<br>
 		<button class="btn btn-lg btn-warning btn-block" type="submit"  style="width: 300px;">
 			비밀번호 변경</button>
@@ -35,11 +35,11 @@
 				return;	
 			}
 			if(c1 == c2) {
-				document.getElementsByTagName("span")[1].innerHTML = "<small>비밀번호가 일치합니다.</small>";
-				document.getElementsByTagName("span")[1].style.color = "blue";
+				document.getElementById("pw2").innerHTML = "<small>비밀번호가 일치합니다.</small>";
+				document.getElementById("pw2").style.color = "blue";
 			}else {
-				document.getElementsByTagName("span")[1].innerHTML = "<small>비밀번호가 일치하지 않습니다.</small>";
-				document.getElementsByTagName("span")[1].style.color = "red";
+				document.getElementById("pw2").innerHTML = "<small>비밀번호가 일치하지 않습니다.</small>";
+				document.getElementById("pw2").style.color = "red";
 			}
 		};
 		var checkPass = function(b) {
@@ -47,11 +47,11 @@
 			var passInput = b.value;
 			
 			if(passInput.match(p1) != null) {
-				document.getElementsByTagName("span")[0].innerHTML = "";
-				document.getElementsByTagName("span")[0].style.color = "blue";
+				document.getElementById("pw").innerHTML = "";
+				document.getElementById("pw").style.color = "blue";
 			}else {
-				document.getElementsByTagName("span")[0].innerHTML = "<small>비밀번호를 영문숫자 포함 4자리 이상을 입력해주세요.</small>";
-				document.getElementsByTagName("span")[0].style.color = "red";
+				document.getElementById("pw").innerHTML = "<small>비밀번호를 영문숫자 포함 4자리 이상을 입력해주세요.</small>";
+				document.getElementById("pw").style.color = "red";
 			}
 		}
 	</script>

@@ -11,6 +11,6 @@
 	
 
 	<select id="getPick" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from hire inner JOIN PICKEDHIRE on hire.HINO = PICKEDHIRE.HINO where id = #{id}
+		select * from (select * from hire join company on hire.name = company.coname)t join pickedhire on t.hino = pickedhire.hino where id=#{id}
 	</select>
 </mapper>

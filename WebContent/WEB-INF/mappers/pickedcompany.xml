@@ -25,4 +25,8 @@
 		hire on company.coname = hire.name)t join pickedcompany on t.cono=pickedcompany.cono 
 		where t.cono=#{cono})d join applicant on d.id=applicant.id
 	</select>
+	
+	<select id="getCom" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from company join pickedcompany on company.cono = pickedcompany.cono where id=#{id}
+	</select>
 </mapper>

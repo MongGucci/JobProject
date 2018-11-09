@@ -12,7 +12,11 @@
 </select>
 
 <select id="agechart" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-	select '연령' as saram, count(*) cnt from (pickedcompany join applicant on pickedcompany.id=applicant.id) where cono=#{cono} and age&lt;=#{e} and age&gt;=#{s}
+select '20대' as saram, count(*) cnt from (pickedcompany join applicant on pickedcompany.id=applicant.id) where cono=#{cono} and age&lt;=29 and age&gt;=20
+union
+select '30대' as saram, count(*) cnt from (pickedcompany join applicant on pickedcompany.id=applicant.id) where cono=#{cono} and age&lt;=39 and age&gt;=30
+union
+select '40대' as saram, count(*) cnt from (pickedcompany join applicant on pickedcompany.id=applicant.id) where cono=#{cono} and age&lt;=49 and age&gt;=40
 </select>
 
 </mapper>

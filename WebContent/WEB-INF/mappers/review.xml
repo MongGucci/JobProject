@@ -20,6 +20,6 @@
 	</select>
 	
 	<select id="getReview" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from review where id=#{id}
+		select * from company join review on review.CONO = company.CONO where id=#{id}
 	</select>
 </mapper>

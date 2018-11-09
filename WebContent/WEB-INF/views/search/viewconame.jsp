@@ -117,7 +117,7 @@ html, body {
 	<div id="donutchart" style="width: 350px; height: 100px; float: right;"></div>
 	<div style="clear: both;"></div>
 	<hr>
-	<div id="agechart" style="width: 350px; height: 100px; float: center;"></div>
+	<div id="agechart" style="width: 785px; height: 250px;"></div>
    <hr />
   <div id="map" style="height: 400px"></div>
          <script>
@@ -216,7 +216,7 @@ html, body {
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
-      console.log(${result})
+      console.log(${result});
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['남/여', '남여 비율'],
@@ -224,7 +224,7 @@ html, body {
         ]);
 
         var options = {
-          title: '남/여 비율',
+          title: '관심 기업 등록 남/여 비율',
           pieHole: 0.3,
          
         };
@@ -235,27 +235,34 @@ html, body {
     </script>
 
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
+      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
-      console.log(${agetext})
+      console.log(${agetext});
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['age', '나이별'],
+          ['','연령'],
           ${agetext}
         ]);
-
+        
         var options = {
-          title: '연령',
-          pieHole: 0.3,
-         
+          chart: {
+            title: '관심 기업 연령',
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('agechart'));
-        chart.draw(data, options);
-      };
+        var chart = new google.charts.Bar(document.getElementById('agechart'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
     </script>
+    
+
 
 
 
