@@ -75,10 +75,11 @@
 </c:if>
 
 
-<div id="alert" style="font-size: .75em; width: 100%;"></div>
+<div id="alert" style="font-size: .75em; width: 100%;">${sessionScope.rank}</div>
 
 
 <c:if test="${!empty userId}">
+
 
 	<script type="text/javascript">
 		console.log("연결");
@@ -181,5 +182,5 @@
 									$("#rank").html(html);
 
 								});
-			}, 3000);
+			}, 500);
 </script>

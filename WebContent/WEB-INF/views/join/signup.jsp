@@ -28,8 +28,8 @@
 <body style="background-color: #F4F4F4;">
 	<div class="container-fluid" style="margin-top: 20px;">
 		<div
-			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center; font-weight:bolder; font-family: 'Patua One', cursive;" onclick="javascript:location.href='${path}/job/index.do'">JOB
-			GO</div>
+			style="font-size: 50pt; color: #4F6994; margin: 50px; text-align: center; font-weight: bolder; font-family: 'Patua One', cursive;"
+			onclick="javascript:location.href='${path}'">JOB GO</div>
 		<div class="ui page  grid">
 
 			<div class="row">
@@ -86,10 +86,9 @@
 						<div class="inline field" style="margin-bottom: 30px;">
 							<label style="font-size: 15pt; color: #465674"><i
 								class="female icon" style="font-size: 15pt; color: gray;"></i><i
-								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> 
-								<select name="gender"
+								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> <select
 								class="ui dropdown"
-								style="width: 100%; height: 50px; border: 1px solid #174374; ">
+								style="width: 100%; height: 50px; border: 1px solid #174374;">
 								<option value="">성별</option>
 								<option value="M">남자</option>
 								<option value="F">여자</option>
@@ -98,17 +97,20 @@
 
 
 						<div style="margin-bottom: 30px;">
-						<label style="font-size: 15pt; color:#465674;  font-weight: bolder;"><i class="star icon" style="font-size: 15pt; color: gray;"></i>관심 분야</label><br>
+							<label
+								style="font-size: 15pt; color: #465674; font-weight: bolder;"><i
+								class="star icon" style="font-size: 15pt; color: gray;"></i>관심
+								분야</label><br>
 							<c:forEach var="i" items="${map}">
 								<div class="ui checkbox"
 									style="width: 200px; color: navy; font-size: 15pt;">
 
 									<input type="checkbox" value="${i.CATENAME }"
 										onchange="gc(this)" name="job"> <label
-										style="color: #465674;font-weight: bolder;">${i.CATENAME }</label>
+										style="color: #465674; font-weight: bolder;">${i.CATENAME }</label>
 
 								</div>
-								
+
 							</c:forEach>
 						</div>
 
@@ -116,8 +118,8 @@
 
 
 						<div class="inline field" style="margin-bottom: 30px;">
-						<label style="font-size: 15pt; color: #465674"><i
-								class="user icon" style="font-size: 15pt; color: gray;"></i>닉네임</label> 
+							<label style="font-size: 15pt; color: #465674"><i
+								class="user icon" style="font-size: 15pt; color: gray;"></i>닉네임</label>
 							<input type="text" name="nick" placeholder="닉네임(4~10 영어,한글 포함)"
 								onchange="nkn(this)"
 								style="width: 100%; height: 50px; border: 1px solid #174374;"
@@ -128,7 +130,7 @@
 								style="display: none; font-size: 11pt;"></div>
 						</div>
 
-						<div class="inline field" >
+						<div class="inline field">
 							<label style="font-size: 15pt; color: #465674"><i
 								class="at icon" style="font-size: 15pt; color: gray;"></i>이메일</label> <input
 								type="text" type="email" onchange="em(this)" name="email"
@@ -143,11 +145,12 @@
 						</div>
 
 
-						
-						<div class="inline field" align="right" style="margin-bottom: 30px;">
-							<button type="button" class="ui inverted secondary button"
 
-								id="emailauth" disabled="disabled" style="font-family: 'Song Myung', serif;">인증번호 전송</button>
+						<div class="inline field" align="right"
+							style="margin-bottom: 30px;">
+							<button type="button" class="ui inverted secondary button"
+								id="emailauth" disabled="disabled"
+								style="font-family: 'Song Myung', serif;">인증번호 전송</button>
 
 							<small id="checked"></small><br>
 
@@ -163,13 +166,13 @@
 
 						<div class="inline field" align="right">
 							<button type="button" class="ui inverted secondary button"
-
-								id="confirmok" disabled="disabled" style="font-family: 'Song Myung', serif;">인증하기</button>
+								id="confirmok" disabled="disabled"
+								style="font-family: 'Song Myung', serif;">인증하기</button>
 						</div>
 
 
 						<small id="checked1"></small><br>
-						
+
 						<div class="inline field">
 							<label style="font-size: 15pt; color: #465674"><i
 								class="mobile alternate icon"
@@ -185,32 +188,33 @@
 						</div>
 						<div align="right">
 
-							<button class="ui grey button" id="btnsubmit" disabled="disabled" style="font-size: 15pt; background-color:#4F6994; font-family: 'Song Myung', serif;">회원
+							<button class="ui grey button" id="btnsubmit" disabled="disabled"
+								style="font-size: 15pt; background-color: #4F6994; font-family: 'Song Myung', serif;">회원
 								가입</button>
 						</div>
 						<p>JOB GO ㏇</p>
-						</form>
-						</div>
-
-
-
-
-						
-
-					
-
+					</form>
 				</div>
-				
-				<div class="three wide column"></div>
+
+
+
+
+
+
 
 
 			</div>
+
+			<div class="three wide column"></div>
+
+
 		</div>
+	</div>
 
 
 
 
-		<%-----------------------------------------------------------------------css 변경전 --%>
+	<%-----------------------------------------------------------------------css 변경전 --%>
 
 	</div>
 	<script>
@@ -247,7 +251,10 @@
 				}
 				req.send();
 			} else {
+<<<<<<< HEAD
 				
+=======
+>>>>>>> refs/remotes/origin/yyj96
 				$('#iderror').show();
 				$('#iderror').html("아이디는 영문,숫자 4~12자로 설정바랍니다.");
 				$('#idmsg').hide();
@@ -291,29 +298,29 @@
 
 			}
 		}; */
-		
-		var nkn = function(n){
+
+		var nkn = function(n) {
 			var nick = n.value;
 			console.log("nick : " + nick);
 			var k = /^[가-힣a-zA-Z]{3,10}$/;
-			if(k.test(nick)){
+			if (k.test(nick)) {
 				var req = new XMLHttpRequest();
 				req.open("get", "nickajax.do?nick=" + nick, true);
 				req.onreadystatechange = function() {
-					if(this.readyState == 4){
+					if (this.readyState == 4) {
 						var i = JSON.parse(this.responseText);
 						console.log(i);
-						
-						if(i.pass == "on"){
+
+						if (i.pass == "on") {
 							console.log("1");
 							$('#nickerror').show();
 							$('#nickerror').html("이미 사용중인 닉네임입니다.");
 							$('#nickmsg').hide();
-							
+
 							document.getElementById("nickerror").innerHTML = "이미 사용중인 닉네임입니다.";
-						}else{
+						} else {
 							console.log("2");
-							
+
 							$('#nickmsg').show();
 							$('#nickmsg').html("아주 멋진 닉네임입니다.");
 							$('#nickerror').hide();
@@ -321,16 +328,11 @@
 					}
 				}
 				req.send();
-			}else{
+			} else {
 				document.getElementsByTagName("span")[3].innerHTML = "닉네임은 한글,영어 4~19자로 설정바랍니다.";
 				document.getElementsByTagName("span")[3].style.color = "red";
 			}
 		}
-		
-		
-		
-		
-		
 
 		var em = function(e) {
 			var e1 = new RegExp(
@@ -350,7 +352,6 @@
 				$('#emerror').show();
 				$('#emerror').html("유효하지 않은 이메일 입니다.");
 				$('#emmsg').hide();
-				
 
 			}
 		}

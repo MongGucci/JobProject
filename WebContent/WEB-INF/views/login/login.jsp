@@ -20,7 +20,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 	<link href="${path}/css/default.css" rel="stylesheet">
 	
-<title>Job아주세요</title>
+<title>JOB Go</title>
 </head>
 <body class="text-center">
 	<form class="form-signin"

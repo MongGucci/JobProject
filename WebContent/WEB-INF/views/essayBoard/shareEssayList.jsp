@@ -14,7 +14,7 @@ a:active {
 	color: orange;
 }
 
-<
+
 style>span:hover {
 	color: white;
 }

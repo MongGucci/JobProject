@@ -37,9 +37,7 @@
 	margin: 10px;
 }
 
-a:link {
-	color: white;
-}
+
 </style>
 
 

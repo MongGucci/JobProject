@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,9 @@ public class ShareEssayController {
 
 	@Autowired
 	AlertService alert;
+	
+	@Autowired
+	HttpServletRequest req;
 
 	@GetMapping("/shareEssay.do")
 	public String shareEssayGetHandle(WebRequest web) {
@@ -113,7 +117,7 @@ public class ShareEssayController {
 	// ========================================================================================================
 
 	@GetMapping("/shareEssayList.do")
-	public String shareEssayListGetHandle(WebRequest web, @RequestParam String array) {
+	public String shareEssayListGetHandle(WebRequest web, @RequestParam String array,HttpServletRequest req) {
 		List<Map> essays = null;
 		if (array.equals("popular")) {
 
@@ -170,7 +174,11 @@ public class ShareEssayController {
 			map.put("FILE", FILE);
 		}
 		System.out.println("essay : " + map);
-
+		String uri = req.getRequestURI();
+		String target = uri.substring(req.getContextPath().length())+"?no="+ino;
+		
+		System.out.println(req.getRequestURI());
+		web.setAttribute("target", target, web.SCOPE_SESSION);
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		web.setAttribute("reply", reply, web.SCOPE_REQUEST);
 		return "essayBoard.shareEssayDetail";
@@ -236,6 +244,7 @@ public class ShareEssayController {
 		int r = shareEssay.setReply(map);
 		System.out.println(map.get("jasono"));
 
+		
 		// web.setAttribute("no", map.get("jasono"), web.SCOPE_REQUEST);
 		return "redirect:/essayBoard/essayBoardDetail.do?no=" + map.get("jasono");
 
@@ -270,6 +279,30 @@ public class ShareEssayController {
 		int t = shareEssay.deleteShareEssay(jasono);
 
 		return "redirect:/essayBoard/shareEssayList.do";
+	}
+	@GetMapping("/passEssayDetail.do")
+	public String passEssayDetailGetHandle(WebRequest web) {
+		String no = web.getParameter("passno");
+		int passno = Integer.parseInt(no);
+		
+		
+		Map map = essay.getPassJasoDetail(passno);
+		for (int i = 1; i < 5; i++) {
+			if (map.get("A" + i) != null) {
+				String a = (String) map.get("A" + i);
+				a = a.replace("\r\n", "<br>");
+				map.put("A" + i, a);
+			}
+			if (map.get("Q" + i) != null) {
+				String q = (String) map.get("Q" + i);
+				q = q.replace("\r\n", "<br>");
+				map.put("Q" + i, q);
+			}
+		}
+		
+		web.setAttribute("essay", map, web.SCOPE_REQUEST);
+		return "essayBoard.passEssayDetail";
+		
 	}
 
 }

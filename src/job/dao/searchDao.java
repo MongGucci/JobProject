@@ -40,5 +40,12 @@ public class searchDao {
 	public List<Map> isearch(Map map) {
 		return template.selectList("company.isearch",map);
 	}
+	public List<Map> hireFormSearch(Map map) {
+		return template.selectList("company.hireFormSearch",map);
+	}
+	
+	public List<Map> passSearch(Map map) {
+		return template.selectList("company.passSearch",map);
+	}
 }
 

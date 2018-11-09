@@ -2,9 +2,27 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
+
 <link href="${path}/css/index.css" rel="stylesheet">
 
 <style>
+#down {
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #434e6e;
+	color: #434e6e;
+	padding: 10px;
+	font-size: 10pt;
+	border-radius: 5%;
+}
+
+#down:hover {
+	background-color: #434e6e;
+	color: white;
+	padding: 10px;
+	font-size: 10pt;
+	border-radius: 5%;
+}
+
 span:hover {
 	color: white;
 }
@@ -48,27 +66,46 @@ span:hover {
 img {
 	width: 100px;
 }
+#tag{
+width: 100px;
+}
+
 
 #hirename:hover {
 	cursor: pointer;
+}
+
+table {
+  border-spacing: 7px;
+  border-collapse: separate;
 }
 </style>
 <hr />
 
 <%-- 본인 아이디 띄우기 --%>
 <h3 style="text-align: center;">사용자 정보</h3>
-<table style="margin: auto; text-align: left;">
+<table style="margin: auto; text-align: left;font-size: 15pt; font-weight: bolder; ">
 	<tr>
-		<td>아이디 : ${u.ID }</td>
+		<td id="tag" align="right">아이디 : </td>
+		<td >&nbsp; ${u.ID }</td>
 	</tr>
 	<tr>
-		<td>이메일 : ${u.EMAIL }</td>
+	<td id="tag" align="right">이메일 : </td>
+		<td >&nbsp; ${u.EMAIL }</td>
 	</tr>
 	<tr>
-		<td>이 름 : ${u.NAME }</td>
+	<td id="tag" align="right">이름 : </td>
+		<td>&nbsp; ${u.NAME }</td>
 	</tr>
+	
 </table>
 <hr />
+<div align="right">
+<form class="form-signin"
+	action="${pageContext.servletContext.contextPath }/pwchange.do">
+	<button id="down">비밀번호 변경하기</button>
+</form>
+</div>
 <%-- 찝한 기업  --%>
 <h3 style="text-align: left;">내가 찜한 공고</h3>
 <c:choose>
@@ -216,11 +253,4 @@ img {
 	</c:choose>
 </div>
 <hr />
-<form class="form-signin"
-	action="${pageContext.servletContext.contextPath }/pwchange.do">
-	<button class="btn btn-lg btn-warning btn-block" type="submit"
-		style="margin: auto; width: 50%;">비밀번호 변경</button>
-</form>
-<br>
-<br>
-<br>
+
