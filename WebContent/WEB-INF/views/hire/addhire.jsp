@@ -40,8 +40,9 @@
 			</c:forEach>
 		</select><br> <br> 채용 정보 : <input type="file" name="path"> <br>
 		<br>
-		<button type="submit" id="sbt" onchange="sbt(this)" disabled>채용 공고 등록</button>
-			
+		<button type="submit" id="sbt" onchange="sbt(this)" disabled>채용
+			공고 등록</button>
+
 	</form>
 </div>
 <script>
@@ -54,9 +55,7 @@
 		} else {
 			document.getElementById("sbt").disabled = false;
 		}
-		
-		
-		
+
 	};
 
 	var ti = function(a) {
@@ -112,11 +111,7 @@
 		}
 		vaild();
 	};
+
 	
-/* 	var sbt = function(k){
-		var ek = k.value
-		var xhr = new XMLHttpRequest();
-		xhr.open("post","${pageContext.servletContext.contextPath}/hire/mail.do?")
-	} */
 	
 </script>

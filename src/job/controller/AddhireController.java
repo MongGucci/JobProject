@@ -1,11 +1,15 @@
+
 package job.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Address;
+import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
@@ -59,7 +63,7 @@ public class AddhireController {
 	}
 
 	@PostMapping("/addhire.do")
-	public String AddhirePostHandle(@RequestParam Map param, @RequestParam MultipartFile path) throws IOException {
+	public String AddhirePostHandle(@RequestParam Map param, @RequestParam MultipartFile path, WebRequest wr) throws IOException, MessagingException {
 		String fileName = path.getOriginalFilename();
 		System.out.println("사진 제목 : " + fileName);
 		String pat = ctx.getRealPath("/storage/hire");
@@ -76,51 +80,41 @@ public class AddhireController {
 
 		param.put("path", clientpath);
 		System.out.println("다 나와 : " + param);
+		
 		int a = addhire.addhire(param);
-
-		return "job.index";
-
-	}
-
-	@RequestMapping("/mail.do")
-	@ResponseBody
-	public String sendMail(@RequestParam Map param, WebRequest wr) {
-		String receiver = (String) phrepo.ckemail();
+		String coname = wr.getParameter("name");
+		System.out.println("회사 이름 : " + coname);
+		Map con = addhire.getconame(coname);
+		System.out.println("회사정보 :" + con.get("CONO"));
+		
+		String ap = con.get("CONO").toString();
+		System.out.println("뭐지? : " + ap);
+		int cono = Integer.parseInt(ap);
+		List<Map> receiver =  phrepo.ckemail(cono);
 		MimeMessage msg = sender.createMimeMessage();
 		String txt = "찜한 기업의 공고가 올라 왔습니다";
-		List<Map> confirm = phrepo.myjjim(param);
-		System.out.println(receiver);
-
-		txt += confirm;
-
-		wr.setAttribute("confirm", confirm, WebRequest.SCOPE_SESSION);
-
-		try {
+		
+		System.out.println("이메일 : " + receiver);
+		
+		wr.setAttribute("txt", txt, WebRequest.SCOPE_SESSION);
+			for(int i = 0; i<receiver.size();i++) {
+				Map m = receiver.get(i);
+				
+				
+			
 			msg.setSubject("기업 공고");
 			msg.setSubject("찜한 기업 공고 입니다.", "UTF-8");
 			msg.setContent(txt, "text/plain;charset=UTF-8");
 			msg.setFrom(new InternetAddress("jobgo@mockingu.com"));
-			msg.setRecipient(RecipientType.TO, new InternetAddress(receiver));
+			msg.setRecipient(RecipientType.TO,  new InternetAddress((String)m.get("EMAIL")));
+			
 			sender.send(msg);
-			System.out.println("성공");
-			return "true";
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("실패");
-			return "false";
-		}
-
+			
+			}
+		return "job.index";
 	}
 
-	@RequestMapping("/mailauth.do")
-	@ResponseBody
 
-	public String emailauthHandle(@RequestParam Map param, WebRequest wr) {
-		String confrim = (String) wr.getAttribute("txt", WebRequest.SCOPE_SESSION);
-		String rst;
-
-		return "true";
-	}
 
 	// 요거는 회사가 등록되어있는지 아닌지
 	@GetMapping(path = "/coajax.do", produces = "application/json;charset=UTF-8")

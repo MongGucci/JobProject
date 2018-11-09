@@ -87,9 +87,9 @@
 							<label style="font-size: 15pt; color: #465674"><i
 								class="female icon" style="font-size: 15pt; color: gray;"></i><i
 								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> 
-								<select
+								<select name="gender"
 								class="ui dropdown"
-								style="width: 100%; height: 50px; border: 1px solid #174374;">
+								style="width: 100%; height: 50px; border: 1px solid #174374; ">
 								<option value="">성별</option>
 								<option value="M">남자</option>
 								<option value="F">여자</option>
@@ -247,8 +247,11 @@
 				}
 				req.send();
 			} else {
-				document.getElementsByTagName("span")[0].innerHTML = "아이디는 영문,숫자 4~12자로 설정바랍니다.";
-				document.getElementsByTagName("span")[0].style.color = "red";
+				
+				$('#iderror').show();
+				$('#iderror').html("아이디는 영문,숫자 4~12자로 설정바랍니다.");
+				$('#idmsg').hide();
+
 			}
 		};
 

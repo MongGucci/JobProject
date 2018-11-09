@@ -29,8 +29,8 @@ public class PickedhireRepository {
 		return template.selectList("pickedhire.getPick", id);
 	}
 
-	public String ckemail() {
-		return template.selectOne("pickhire.ckemail");
+	public List<Map> ckemail(int cono) {
+		return template.selectList("pickedcompany.ckemail", cono);
 	}
 	 public List<Map> getIdsbyCono(int cono){
 		   return template.selectList("pickedcompany.getIdsbyCono",cono);
