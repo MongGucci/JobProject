@@ -1,8 +1,7 @@
 package job.controller;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +80,36 @@ public class SearchController {
 		for(int i=0;i<results.size();i++) {
 			System.out.println("results: "+results.get(i));
 		}
-		wr.setAttribute("sli", results, wr.SCOPE_REQUEST);
+		for (int i = 0; i < results.size(); i++) {
+			Map p = results.get(i);
+
+			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long endd = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (endd - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				p.put("DDAY", "D-DAY");
+			} else if(day>0){
+
+				p.put("DDAY", "D-" + (day+1));
+			} else {
+				p.put("DDAY", "[마감]");
+			}
+			System.out.println((endd - current) / (1000 * 60 * 60 * 24));
+
+		}
+
+		wr.setAttribute("keyword", coname, wr.SCOPE_REQUEST);
 		
-		wr.setAttribute("coname", coname, wr.SCOPE_REQUEST);
+		if(results.size()==0) {
+			return "job.schnull.index";
+		}else {
+			wr.setAttribute("sli", results, wr.SCOPE_REQUEST);
+			return "job.schlist.index";
+		}
+		
+		
 		/*System.out.println(coname);
 		List<Map> cks = searchdao.cksearch(coname);
 		System.out.println(cks);
@@ -96,7 +122,7 @@ public class SearchController {
 			wr.setAttribute("sli", sli, wr.SCOPE_SESSION);
 			return "job.schlist.index";
 		}*/
-		return "job.schlist.index";
+		
 	}
 
 	// 요게 상세보기
@@ -286,36 +312,50 @@ public class SearchController {
 	// 요게 통합 검색
 	@PostMapping("/isearch.do")
 	public String isearchHandle(WebRequest wr, ModelMap map) {
-		String coname = (String) wr.getParameter("isearch");
-		String title = (String) wr.getParameter("isearch");
-		String big = (String) wr.getParameter("isearch");
-		String small = (String) wr.getParameter("isearch");
+		String keyword = (String)wr.getParameter("isearch");
+		map.put("keyword", keyword);
+		System.out.println("검색한 단어 : "+keyword);
+		String[] words = keyword.split(" ");
+		List search = new ArrayList();
+		for(int i=0;i<words.length;i++) {
+			search.add(words[i]);
+			System.out.println("list에 들어가는거 " +words[i]);
+		}
+		List<Map> company = searchdao.company(search);
+		List<Map> hire = searchdao.hire(search);
+		for (int i = 0; i < hire.size(); i++) {
+			Map p = hire.get(i);
 
-		Map ish = new HashMap<>();
-		ish.put("coname", coname);
-		ish.put("title", title);
-		ish.put("big", big);
-		ish.put("small", small);
-		List<Map> isearck = searchdao.isearch(ish);
+			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long endd = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (endd - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				p.put("DDAY", "D-DAY");
+			} else if(day>0){
 
-		if (coname.equals("") || title.equals("") || big.equals("") || small.equals("") || isearck.size() == 0) {
-			return "job.index";
-		} else {
-			List<Map> isearch = searchdao.isearch(ish);
-			SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-			for (int i = 0; i < isearch.size(); i++) {
-				Map m = isearch.get(i);
-				Date date = (Date) m.get("STARTDATE");
-				Date dd = (Date) m.get("ENDDATE");
-				long endd = dd.getTime();
-				m.put("STARTDATE", fmt.format(date));
-				m.put("ENDDATE", fmt.format(dd));
-				long gap = endd - System.currentTimeMillis();
-				if (gap < 0) {
-					m.put("MAGAM", true);
-				}
+				p.put("DDAY", "D-" + (day+1));
+			} else {
+				p.put("DDAY", "[마감]");
 			}
-			map.put("isch", isearch);
+			System.out.println((endd - current) / (1000 * 60 * 60 * 24));
+
+		}
+		List<Map> passjaso = searchdao.passjaso(search);
+		List<Map> sharejaso =searchdao.sharejaso(search);
+		
+ 		if(company.size()==0&&hire.size()==0&&passjaso.size()==0&&sharejaso.size()==0) {
+			return "job.schlist.index";
+		}else {
+			map.put("company", company);
+			map.put("hire",hire);
+			map.put("passjaso", passjaso);
+			map.put("sharejaso",sharejaso);
+			System.out.println("company : "+company);
+			System.out.println("hire : "+hire);
+			System.out.println("passjaso : "+passjaso);
+			System.out.println("sharejaso :"+sharejaso);
 			return "job.isearchlist";
 		}
 	}

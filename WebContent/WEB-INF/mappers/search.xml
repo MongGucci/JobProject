@@ -32,19 +32,6 @@
 		</foreach>
 		</where>
 	</select>
-	<select id="hireFormSearch" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select  *  from jasoform join (select * from (company
-		join hire on
-		company.coname=hire.name) where
-		(UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(title) like
-		UPPER('%'||#{title}||'%'))
-		or
-		UPPER(big) like UPPER('%'||#{big}||'%') or UPPER(small) like UPPER('%'||#{small}||'%')
-		order by startdate desc) t on jasoform.hino = t.hino where sysdate &lt; enddate
-		
-		</select>
-	
 	
 	<select id="hire" resultType="java.util.HashMap">
 		select * from hire 
@@ -79,7 +66,7 @@
 	</select>
 	 
 	<select id="passjaso" resultType="java.util.HashMap">
-		select * from passjaso 
+		select * from company join passjaso on passjaso.comno = company.cono
 		<where>
 		<foreach item="item" index="index" collection="list">
 		    <if test="item != null ">
@@ -124,10 +111,11 @@
 		    </if>
 		</foreach>
 		</where>
+		order by coname desc
 	</select>
 	
 	<select id="sharejaso" resultType="java.util.HashMap">
-		select * from hire 
+		select * from sharejaso
 		<where>
 		<foreach item="item" index="index" collection="list">
 		    <if test="item != null ">

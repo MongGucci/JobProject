@@ -1,6 +1,8 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
@@ -10,11 +12,9 @@
 #body {
 	color: #434e6e;
 }
-
 span:hover {
 	color: white;
 }
-
 #searchdiv {
 	border: 1px solid #434e6e;
 	margin: 20px;
@@ -22,57 +22,49 @@ span:hover {
 	padding: 10px;
 	font-family: 'Nanum Gothic', sans-serif;
 }
-
 #cnt {
 	font-size: 20pt;
 	text-align: center;
 }
-
 #hirename {
 	font-size: 17pt;
 	font-weight: bolder;
 	padding-top: 30px;
 }
-
 #hireinfo {
 	font-size: 12pt;
 }
-
 #detail {
 	margin: 5px;
 }
-
 #jaso {
 	font-size: 13pt;
 	margin-top: 10px;
 }
-
 #jaso:hover {
 	cursor: pointer;
 }
-
 img {
 	width: 140px;
 }
-
 #hirename:hover {
 	cursor: pointer;
 }
-
 #searchdiv:hover {
 	background-color: #434e6e;
 	color: white;
 }
-
 #cnt {
 	font-size: 13pt;
 	text-align: center;
 }
 </style>
 <div class="container" style="margin-top: 20px;">
-
+	<h4 style="font-size: 20pt; color : #434e6e;">'${keyword}'에 대한 검색결과 입니다.</h4>
 
 	<p>기업정보</p>
+	<c:if test="${empty company}"> 검색 결과가 없습니다. </c:if>
+	<c:forEach var="l" items="${company}"  varStatus="status">
 	<div id="searchdiv">
 		<div class="ui grid">
 
@@ -84,39 +76,33 @@ img {
 				<div class="ui grid">
 
 					<div class="four wide column" id="hirename"
-						onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">회사
-						이름</div>
+						onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">${l.CONAME }</div>
 					<div class="eight wide column" id="hireinfo">
 						<div style="width: 100%" id="detail">
-							<b>공고제목</b>
+							<b>${l.TITLE }</b>
 						</div>
 						<div style="width: 100%" id="detail">
-							<small>산업군</small>
+							<small>${l.INDUSTRY }</small>
 						</div>
-						<div style="width: 100%" id="detail">고용형태</div>
+						<div style="width: 100%" id="detail">${l.HIRESHAPE }</div>
 					</div>
 					<div class="four wide column" align="left">
 						<div
-							style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">몇일
-							남았는지</div>
+							style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${l.DDAY }</div>
 						<div>
-							<i class="building icon"></i>큰구역 작은구역
+							<i class="building icon"></i>${l.BIG} ${l.SMALL}
 						</div>
 					</div>
 
 				</div>
-
-
-
-
-
-			</div>
-
+				</div>
 		</div>
 	</div>
-
+	</c:forEach>
 
 	<p>합격자소서</p>
+	<c:if test="${empty passjaso}"> 검색 결과가 없습니다. </c:if>
+	<c:forEach var="l" items="${passjaso}"  varStatus="status">
 	<div id="searchdiv">
 		<div class="ui grid">
 
@@ -126,53 +112,60 @@ img {
 			<div class="twelve wide column">
 				<div class="ui grid">
 
-					<div class="four wide column" id="hirename">회사이름</div>
+					<div class="four wide column" id="hirename">${l.CONAME }</div>
 					<div class="twelve wide column" id="hireinfo">
 						<div style="width: 100%" id="detail">
-							<b>자소서 제목</b>
+							<b>${l.TITLE }</b>
 						</div>
 						<div style="width: 100%" id="detail">
-							<small>분야</small>
+							<small>${l.CATE}</small>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</c:forEach>
+	
+	
 	<p>자소서 게시판</p>
+	<c:if test="${empty sharejaso}"> 검색 결과가 없습니다. </c:if>
+	<c:forEach var="l" items="${sharejaso}"  varStatus="status">
 	<div id="searchdiv" align="left"
 		onclick="location.href='${path}/essayBoard/essayBoardDetail.do?no=${e.NO}'">
 		<div class="ui grid" id="list">
 
 			<div class="one wide column" id="cnt" style="padding-top: 30px;">
-				NO</div>
+				${l.NO }</div>
 			<div class="eight wide column"
-				style="padding-top: 30px; font-weight: bolder;">TITLE</div>
+				style="padding-top: 30px; font-weight: bolder;">${l.TITLE}</div>
 			<div class="four wide column" id="cnt" style="text-align: center;">
 
 				<div style="width: 100%" id="detail">
-					<b>WRITER</b>
+					<b>${l.WRITER}</b>
 				</div>
 				<div style="width: 100%" id="detail">
-					<small>CATE</small>
+					<small>${l.CATE}</small>
 				</div>
-				<div style="width: 100%; font-size: 10pt;" id="detail">WRITEDATE</div>
+				<div style="width: 100%; font-size: 10pt;" id="detail">${l.WRITEDATE}</div>
 			</div>
 			<div class="three wide column" id="cnt">
 
 				<div align="left">
-					<i class="heart icon" style="color: #F14444;"></i>HITS
+					<i class="heart icon" style="color: #F14444;"></i>${l.HITS}
 				</div>
 				<div align="left" style="margin-top: 10px;">
-					<i class="eye icon" style="color: #707374;"></i>GOOD
+					<i class="eye icon" style="color: #707374;"></i>${l.GOOD}
 				</div>
 			</div>
 		</div>
 	</div>
-
+	</c:forEach>
 
 
 	<p>채용공고</p>
+	<c:if test="${empty hire}"> 검색 결과가 없습니다. </c:if>
+	<c:forEach var="l" items="${hire}"  varStatus="status">
 	<div id="searchdiv">
 
 		<div class="ui grid" id="list">
@@ -181,39 +174,29 @@ img {
 				<img src="${path}/storage/logo/korail.PNG">
 			</div>
 			<div class="twelve wide column">
-
-				<div class="ui grid">
-
-					<div class="four wide column" id="hirename">NAME</div>
+				<div class="ui grid" >
+									
+					<div class="four wide column" id="hirename" onclick="location.href='${path}/recruit/jobpost.do?hino=${l.HINO}'">${l.NAME }</div>
 					<div class="eight wide column" id="hireinfo">
+						<div style="width: 100%" id="detail" >${l.TITLE}</div>
 						<div style="width: 100%" id="detail">
-							<b>TITLE</b>
-						</div>
-						<div style="width: 100%" id="detail">
-							<small>JOBCATE</small>
-						</div>
-						<div style="width: 100%" id="detail">HIRESHAPE</div>
+							<small><fmt:formatDate pattern="yyyy-MM-dd" 
+								value="${l.STARTDATE}" />-<fmt:formatDate pattern="yyyy-MM-dd" 
+								value="${l.ENDDATE}" /></small></div>
+						<div style="width: 100%" id="detail">${l.COTYPE }</div>
 					</div>
-					<div class="four wide column" align="right">
-						<div
-							style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">DDAY</div>
-						<div id="jaso" onclick="hino(this)" data-value="${e.HINO}"
-							data-toggle="modal" data-target="#exampleModal">
-							<i class="add icon"></i>자소서 쓰러가기
-						</div>
+					<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${l.DDAY }</div>
+						<div  align="left" style="margin-top: 7px;" ><i class="building icon"></i>${l.BIG} ${l.SMALL}</div>
+							<div align="left" style="margin-top: 7px;"><i class="eye icon" style="color:#707374;"></i>${l.HITS}</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
 
-
+	</c:forEach>
 
 
 </div>
-
-
-
 
 

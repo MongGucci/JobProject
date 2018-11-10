@@ -28,7 +28,7 @@
 <body style="text-align: center;">
 	<div style="text-align: center; margin-top: 50px;">
 
-		<h4 style="font-size: 20pt;">'${conames}'에 대한 검색결과가 없습니다.</h4>
+		<h4 style="font-size: 20pt;">'${keyword}'에 대한 검색결과가 없습니다.</h4>
 		<small style="margin-top: 30px;"> ＊ 단어의 철자가 정확한지 확인해 보세요.</small>
 
 		<form action="${path}/search/search.do">

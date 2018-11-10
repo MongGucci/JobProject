@@ -236,8 +236,8 @@ public class RecruitController {
 		}
 		List<Map> result = hrepo.getSearchResultsbyPage(param);
 		
-		for (int i = 0; i < results.size(); i++) {
-			Map p = results.get(i);
+		for (int i = 0; i < result.size(); i++) {
+			Map p = result.get(i);
 
 			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
 			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
