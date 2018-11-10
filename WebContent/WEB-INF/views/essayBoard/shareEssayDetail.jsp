@@ -296,18 +296,18 @@ margin: 10px;
 						<c:choose>
 							<c:when test="${h.FLAG eq 'A'}">
 								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
-									<p>┗ ${h.WRITER} : 관리자에 의해 삭제된 댓글입니다.</p>
+									<p>┗ 관리자에 의해 삭제된 댓글입니다.</p>
 								</div>
 							</c:when>
 							<c:when test="${h.FLAG eq 'W'}">
 								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
-									<p>┗ ${h.WRITER} : 작성자에 의해 삭제된 게시글입니다.</p>
+									<p>┗ 작성자에 의해 삭제된 게시글입니다.</p>
 								</div>
 							</c:when>
 							<c:otherwise>
 								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p style="width: 100%;">┗ ${h.WRITER} : ${h.REPLY }</p>
-										<c:if test="${e.WRITER eq userId }">
+										<c:if test="${h.WRITER eq userId }">
 											<a
 												href="${path}/essayBoard/reply.do?handle=delete&no=${h.NO}&jasono=${essay.NO}">
 												<button
@@ -343,7 +343,7 @@ margin: 10px;
 					name="reply" rows="3"></textarea>
 					
 				<div align="right" style="margin-top: 10px;">
-					<button type="button" id="down" data-toggle="modal" data-target="#exampleModal">댓글 달기</button>
+					<button id="down" data-toggle="modal" data-target="#exampleModal">댓글 달기</button>
 				</div>
 				
 			</div>

@@ -149,7 +149,7 @@ style>span:hover {
 						</div>
 						<div style="width: 100%; font-size: 10pt;" id="detail">${e.WRITEDATE}</div>
 					</div>
-					<div class="two wide column" id="cnt" style="padding-top: 30px;">
+					<div class="two wide column" id="cnt" style="padding: 15px 0px;">
 
 						<div align="left"><i class="heart icon" style="color:#F14444;"></i>${e.HITS}</div>
 						<div align="left" style="margin-top: 10px;"><i class="eye icon" style="color:#707374;"></i>${e.GOOD}</div>
@@ -162,7 +162,7 @@ style>span:hover {
 
 
 	<div align="right" style="margin-right: 20px;">
-		<a href="${path}/essayBoard/shareEssay.do"><button id="btn">글 쓰러가기</button></a>
+		<a href="${path}/essayBoard/shareEssay.do?array=recent"><button id="btn">글 쓰러가기</button></a>
 	</div>
 </div>
 

@@ -55,17 +55,17 @@ public class EssayService {
 			Map map = list.get(i);
 			Date date = (Date) map.get("LASTDATE");
 			map.put("LASTDATE", fmt.format(date));
+			map.put("mode", "myEssay");
+			if(map.get("JOBCATE")==null) {
+				map.put("JOBCATE","직군");
+			}
+
 
 		}
 		
 		
 		
-		for(int i=0;i<list.size();i++) {
-			Map map = list.get(i);
-			map.put("mode", "myEssay");
-	
-			
-		}
+		
 		
 		return list;
 	}

@@ -55,6 +55,10 @@ public class EssayController {
 			int hino = Integer.parseInt((String) map.get("hino"));
 			map.put("hino", hino);
 		}
+		
+		if (map.get("job").equals("직군")) {
+			map.put("job", "");
+		}
 
 		map.put("jasono", jasono);
 		map.put("id", id); // 나중 되면 session에 저장된 아이디로 바뀜
@@ -187,6 +191,7 @@ public class EssayController {
 			break;
 
 		}
+		
 
 		return gson.toJson(list);
 
@@ -242,6 +247,10 @@ public class EssayController {
 				map.put("Q" + i, "");
 			}
 		}
+		if(map.get("JOBCATE")==null) {
+			map.put("JOBCATE","직군");
+		}
+		
 
 		return gson.toJson(map);
 

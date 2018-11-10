@@ -45,7 +45,7 @@ public class ShareEssayController {
 
 	@Autowired
 	AlertService alert;
-	
+
 	@Autowired
 	HttpServletRequest req;
 
@@ -75,26 +75,30 @@ public class ShareEssayController {
 		System.out.println("공유 게시판");
 		// String userId = (String)web.getAttribute("userId", web.SCOPE_SESSION);
 		map.put("id", "yyj");
+		if (attach != null) {
+			if (!attach.isEmpty()) {
+				String real = sc.getRealPath("/");
+				String filename = attach.getOriginalFilename();
+				long now = System.currentTimeMillis();
+				String nowfolder = String.valueOf(now);
 
-		if (!attach.isEmpty()) {
-			String real = sc.getRealPath("/");
-			String filename = attach.getOriginalFilename();
-			long now = System.currentTimeMillis();
-			String nowfolder = String.valueOf(now);
+				String path = real + "storage/share/" + nowfolder; // 저장 경로
+				String clientpath = "/storage/share/" + nowfolder + "/" + filename; // dao에 저장
 
-			String path = real + "storage/share/" + nowfolder; // 저장 경로
-			String clientpath = "/storage/share/" + nowfolder + "/" + filename; // dao에 저장
+				File dest = new File(path);
+				if (!dest.exists()) {
+					dest.mkdirs();
+				}
+				File dst = new File(dest, filename);
 
-			File dest = new File(path);
-			if (!dest.exists()) {
-				dest.mkdirs();
+				attach.transferTo(dst);
+				map.put("path", clientpath);
 			}
-			File dst = new File(dest, filename);
-
-			attach.transferTo(dst);
-			map.put("path", clientpath);
 		} else {
 			map.put("path", "");
+		}
+		if (map.get("job").equals("직군")) {
+			map.put("job", "");
 		}
 
 		System.out.println(map);
@@ -117,7 +121,7 @@ public class ShareEssayController {
 	// ========================================================================================================
 
 	@GetMapping("/shareEssayList.do")
-	public String shareEssayListGetHandle(WebRequest web, @RequestParam String array,HttpServletRequest req) {
+	public String shareEssayListGetHandle(WebRequest web, @RequestParam String array, HttpServletRequest req) {
 		List<Map> essays = null;
 		if (array.equals("popular")) {
 
@@ -132,6 +136,9 @@ public class ShareEssayController {
 			Map map = essays.get(i);
 			Date date = (Date) map.get("WRITEDATE");
 			map.put("WRITEDATE", fmt.format(date));
+			if(map.get("JOBCATE")==null) {
+				map.put("JOBCATE","직군");
+			}
 
 		}
 
@@ -175,8 +182,8 @@ public class ShareEssayController {
 		}
 		System.out.println("essay : " + map);
 		String uri = req.getRequestURI();
-		String target = uri.substring(req.getContextPath().length())+"?no="+ino;
-		
+		String target = uri.substring(req.getContextPath().length()) + "?no=" + ino;
+
 		System.out.println(req.getRequestURI());
 		web.setAttribute("target", target, web.SCOPE_SESSION);
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
@@ -244,7 +251,6 @@ public class ShareEssayController {
 		int r = shareEssay.setReply(map);
 		System.out.println(map.get("jasono"));
 
-		
 		// web.setAttribute("no", map.get("jasono"), web.SCOPE_REQUEST);
 		return "redirect:/essayBoard/essayBoardDetail.do?no=" + map.get("jasono");
 
@@ -280,12 +286,12 @@ public class ShareEssayController {
 
 		return "redirect:/essayBoard/shareEssayList.do";
 	}
+
 	@GetMapping("/passEssayDetail.do")
 	public String passEssayDetailGetHandle(WebRequest web) {
 		String no = web.getParameter("passno");
 		int passno = Integer.parseInt(no);
-		
-		
+
 		Map map = essay.getPassJasoDetail(passno);
 		for (int i = 1; i < 5; i++) {
 			if (map.get("A" + i) != null) {
@@ -299,10 +305,10 @@ public class ShareEssayController {
 				map.put("Q" + i, q);
 			}
 		}
-		
+
 		web.setAttribute("essay", map, web.SCOPE_REQUEST);
 		return "essayBoard.passEssayDetail";
-		
+
 	}
 
 }
