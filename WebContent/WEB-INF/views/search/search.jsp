@@ -67,7 +67,7 @@ img {
 <div class="container" style="margin-top: 20px;" id="body">
 
 	<form class="form-signin"
-		action="${pageContext.servletContext.contextPath }/search/search.do"
+		action="${pageContext.servletContext.contextPath }/search/searchpost.do"
 		method="post">
 		<div>
 
@@ -97,8 +97,6 @@ img {
 
 
 	<div>
-
-
 		<c:forEach var="l" items="${company}" varStatus="status">
 			<div id="hirediv">
 				<div class="ui grid">
@@ -120,20 +118,12 @@ img {
 								<div style="width: 100%" id="detail">${l.COTYPE }</div>
 							</div>
 							<div class="four wide column" align="left">
-								<div
-									style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${e.DDAY}</div>
 								<div id="jaso" onclick="hino(this)" data-value="${e.HINO}">
 									<i class="building icon"></i>${l.BIG } ${l.SMALL }
 								</div>
 							</div>
-
 						</div>
-
-
-
-
 					</div>
-
 				</div>
 			</div>
 		</c:forEach>

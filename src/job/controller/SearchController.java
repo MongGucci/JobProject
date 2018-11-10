@@ -67,7 +67,7 @@ public class SearchController {
 	}
 
 	// 검색
-	@PostMapping("/search.do")
+	@PostMapping("/searchpost.do")
 	public String searchPostHandle(WebRequest wr) {
 		String coname = (String) wr.getParameter("search");
 		String[] words = coname.split(" ");
@@ -359,6 +359,42 @@ public class SearchController {
 			return "job.isearchlist";
 		}
 	}
+	
+	@GetMapping("/onlyhire.do")
+	public String onlyhireHandle(@RequestParam Map param,Map map) {
+		String keyword = (String)param.get("keyword");
+		String[] words = keyword.split(" ");
+		List search = new ArrayList();
+		for(int i=0;i<words.length;i++) {
+			search.add(words[i]);
+			System.out.println("list에 들어가는거 " +words[i]);
+		}
+		List<Map> hire = searchdao.hire(search);
+		
+		for (int i = 0; i < hire.size(); i++) {
+			Map p = hire.get(i);
+
+			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
+			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
+			long endd = date.getTime();
+			long current = System.currentTimeMillis();
+			long day = (endd - current) / (1000 * 60 * 60 * 24);
+			if (day == 0) {
+				p.put("DDAY", "D-DAY");
+			} else if(day>0){
+
+				p.put("DDAY", "D-" + (day+1));
+			} else {
+				p.put("DDAY", "[마감]");
+			}
+			System.out.println((endd - current) / (1000 * 60 * 60 * 24));
+
+		}
+		map.put("lists", hire);
+		map.put("keyword", keyword);
+		return "job.onlyhire";
+	}
+
 	
 	//동적Nㅝ리연습
 	@PostMapping("/dynamic.do")

@@ -152,6 +152,18 @@
 		<put-attribute name="right"
 			value="/WEB-INF/views/default/right.jsp" />
 	</definition>
+	
+	<definition name="job.onlyhire"
+		template="/WEB-INF/tiles/user-template.jsp">
+		<put-attribute name="nav"
+			value="/WEB-INF/views/default/nav.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/default/left.jsp" />
+		<put-attribute name="center"
+			value="/WEB-INF/views/recruit/onlyhire.jsp" />
+		<put-attribute name="right"
+			value="/WEB-INF/views/default/right.jsp" />
+	</definition>
 
 	<definition name="job.jobpost"
 		template="/WEB-INF/tiles/user-template.jsp">

@@ -62,52 +62,53 @@ img {
 <div class="container" style="margin-top: 20px;">
 	<h4 style="font-size: 20pt; color : #434e6e;">'${keyword}'에 대한 검색결과 입니다.</h4>
 
-	<p>기업정보</p>
-	<c:if test="${empty company}"> 검색 결과가 없습니다. </c:if>
-	<c:forEach var="l" items="${company}"  varStatus="status">
-	<div id="searchdiv">
-		<div class="ui grid">
-
-			<div class="four wide column" id="cnt" style="width: 100%;">
-				<img src="${path}/storage/logo/korail.PNG">
+	<p style="margin-top: 20px; margin-left: 20px; color :#434e6e; font-weight: boler;"><b>기업정보</b></p>
+	<c:if test="${empty company}">  <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a></c:if>
+	<c:forEach begin="0" end= "4" var="l" items="${company}" varStatus="status">
+		<div id="searchdiv">
+			<div class="ui grid">
+	
+				<div class="four wide column" id="cnt" style="width: 100%;">
+					<img src="${path}/storage/logo/${l.LOGO}">
+				</div>
+				<div class="twelve wide column">
+	
+					<div class="ui grid">
+	
+						<div class="four wide column" id="hirename"
+							onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">${l.CONAME }</div>
+						<div class="eight wide column" id="hireinfo">
+							<div style="width: 100%" id="detail">
+								<b>${l.TITLE }</b>
+							</div>
+							<div style="width: 100%" id="detail">
+								<small>${l.INDUSTRY }</small>
+							</div>
+							<div style="width: 100%" id="detail">${l.COTYPE }</div>
+						</div>
+						<div class="four wide column" align="left">
+							<div id="jaso" onclick="hino(this)" data-value="${e.HINO}">
+										<i class="building icon"></i>${l.BIG } ${l.SMALL }
+							</div>
+						</div>
+	
+					</div>
+					</div>
 			</div>
-			<div class="twelve wide column">
-
-				<div class="ui grid">
-
-					<div class="four wide column" id="hirename"
-						onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">${l.CONAME }</div>
-					<div class="eight wide column" id="hireinfo">
-						<div style="width: 100%" id="detail">
-							<b>${l.TITLE }</b>
-						</div>
-						<div style="width: 100%" id="detail">
-							<small>${l.INDUSTRY }</small>
-						</div>
-						<div style="width: 100%" id="detail">${l.HIRESHAPE }</div>
-					</div>
-					<div class="four wide column" align="left">
-						<div
-							style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${l.DDAY }</div>
-						<div>
-							<i class="building icon"></i>${l.BIG} ${l.SMALL}
-						</div>
-					</div>
-
-				</div>
-				</div>
 		</div>
-	</div>
 	</c:forEach>
-
-	<p>합격자소서</p>
-	<c:if test="${empty passjaso}"> 검색 결과가 없습니다. </c:if>
-	<c:forEach var="l" items="${passjaso}"  varStatus="status">
+	<a href="${path }/search/searchpost.do?search=${keyword }" style="margin-top: 20px; margin-left: 20px; color : #434e6e; font-weight: boler;"><b>+더보기</b></a>
+	<hr/>
+	
+	
+	<p style="margin-top: 20px; margin-left: 20px; color:#434e6e; font-weight: boler;"><b>합격자소서</b></p>
+	<c:if test="${empty passjaso}">  <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a></c:if>
+	<c:forEach begin="1" end= "5" var="l" items="${passjaso}"  varStatus="status">
 	<div id="searchdiv">
 		<div class="ui grid">
 
 			<div class="four wide column" id="cnt">
-				<img src="${path}/storage/logo/korail.PNG">
+				<img src="${path}/storage/logo/${l.LOGO}">
 			</div>
 			<div class="twelve wide column">
 				<div class="ui grid">
@@ -126,10 +127,10 @@ img {
 		</div>
 	</div>
 	</c:forEach>
+	<hr/>
 	
-	
-	<p>자소서 게시판</p>
-	<c:if test="${empty sharejaso}"> 검색 결과가 없습니다. </c:if>
+	<p style="margin-top: 20px; margin-left: 20px; color :#434e6e; font-weight: boler;"><b>자소서 게시판</b></p>
+	<c:if test="${empty sharejaso}">  <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a> </c:if>
 	<c:forEach var="l" items="${sharejaso}"  varStatus="status">
 	<div id="searchdiv" align="left"
 		onclick="location.href='${path}/essayBoard/essayBoardDetail.do?no=${e.NO}'">
@@ -161,17 +162,18 @@ img {
 		</div>
 	</div>
 	</c:forEach>
-
-
-	<p>채용공고</p>
-	<c:if test="${empty hire}"> 검색 결과가 없습니다. </c:if>
-	<c:forEach var="l" items="${hire}"  varStatus="status">
+	<hr/>
+	
+	<p style="margin-top: 20px; margin-left: 20px; color : #434e6e; font-weight: boler;"><b>채용공고</b></p>
+	
+	<c:if test="${empty hire}"> <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a></c:if>
+	<c:forEach begin="0" end= "4" var="l" items="${hire}"  varStatus="status">
 	<div id="searchdiv">
 
 		<div class="ui grid" id="list">
 
 			<div class="four wide column" id="cnt">
-				<img src="${path}/storage/logo/korail.PNG">
+				<img src="${path}/storage/logo/${l.LOGO}">
 			</div>
 			<div class="twelve wide column">
 				<div class="ui grid" >
@@ -195,7 +197,8 @@ img {
 	</div>
 
 	</c:forEach>
-
+	<a href="${path }/search/onlyhire.do?keyword=${keyword }" style="margin-top: 20px; margin-left: 20px; color : #434e6e; font-weight: boler;"><b>+더보기</b></a>
+	<hr/>
 
 </div>
 

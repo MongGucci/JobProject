@@ -209,7 +209,7 @@ public class RecruitController {
 		}
 
 	}
-
+	
 	@PostMapping(path = "/selectajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String selectAjaxHandle(@RequestParam String big) {
