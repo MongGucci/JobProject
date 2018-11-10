@@ -65,43 +65,11 @@ cursor: pointer;
 
 <div class="container" style="margin-top: 20px;">
 
-	
-
-		<div class="ui special cards" style="margin: 50px;">
-			<c:forEach var="e" items="${dead}">
-				<div class="card">
-					<div class="blurring dimmable image">
-						<div class="ui inverted dimmer">
-							<div class="content">
-								<div class="center">
-									<div class="ui primary button">Add Friend</div>
-								</div>
-							</div>
-						</div>
-						<img src="${path}${e.PATH}" style="height:200px;">
-					</div>
-					<div class="content">
-						<a class="header">${e.CONAME}</a>
-						<div class="meta">
-							<span class="date">${e.TITLE}</span>
-						</div>
-					</div>
-					<div class="extra content">
-						<a> <i class="users icon"></i> 2 Members
-						</a>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-
-
-		
-
 
 
 	
 
-	<form action="${path}/recruit/select.do" method="post">
+	<form action="${path}/recruit/selectdetail.do" >
 
 		<div class="row">
 
@@ -179,7 +147,7 @@ cursor: pointer;
 							<div class="twelve wide column">
 
 								<div class="ui grid" >
-									<c:if test="${empty l.MAGAM}">
+									
 									<div class="four wide column" id="hirename" onclick="location.href='${path}/recruit/jobpost.do?hino=${l.HINO}'">${l.NAME }</div>
 									<div class="eight wide column" id="hireinfo">
 										<div style="width: 100%" id="detail" >${l.TITLE}</div>
@@ -190,18 +158,11 @@ cursor: pointer;
 									    </small></div>
 										<div style="width: 100%" id="detail">${l.COTYPE }</div>
 									</div>
-									<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">몇일남았는지!</div><div id="jaso" onclick="hino(this)"
-									data-value="${l.HINO}" ><i class="building icon"></i>${l.BIG} ${l.SMALL}</div></div>
-									</c:if> 
-									<c:if test="${!empty l.MAGAM}">
-										<div class="eight wide column" id="hireinfo">
-										<div style="width: 100%" id="detail" >${l.TITLE}</div>
-										<div style="width: 100%" id="detail">
-										<small>마감된 공고입니다</small></div>
-										<div style="width: 100%" id="detail">${l.COTYPE }</div>
+									<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${l.DDAY }</div>
+									<div  align="left" style="margin-top: 7px;" ><i class="building icon"></i>${l.BIG} ${l.SMALL}</div>
+									<div align="left" style="margin-top: 7px;"><i class="eye icon" style="color:#707374;"></i>${l.HITS}</div>
 									</div>
-									
-									</c:if>
+								
 								</div>
 							</div>
 

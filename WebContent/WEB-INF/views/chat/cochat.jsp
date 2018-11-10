@@ -22,7 +22,7 @@
 </c:when>
 <c:otherwise>
  <div class="inline field" align="left" style="margin-bottom: 10px;">
-    <i class="user icon" style="font-size: 15pt; margin-left: 2px;"></i>
+ 	<i class="user icon" style="font-size: 15pt; margin-left: 2px;"></i>
    <div class="ui left pointing black basic label" style="font-size: 15pt; color :#F4F4F4 ;max-width: 70%;">
       ${e.nick} : ${e.text}
     </div>
@@ -32,7 +32,7 @@
 </c:choose>
 
 </c:forEach>
-   
+	
 </div>
 
 
@@ -44,62 +44,59 @@
   <input type="text" class="form-control" aria-describedby="basic-addon1" id="input">
 </div>
 <script type="text/javascript">
-
-   $('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
-
-      var cows = new WebSocket("ws://" + location.host + "${path}/chat.do");
-      console.log("안녕");
-       cows.onmessage = function(evt) { //매개변수설정하면
-      console.log(evt.data);
-      var obj = JSON.parse(evt.data);
-      switch(obj.mode) {
-      case "com":
-         comHandle(obj);
-         break;
-      }
-   } 
-   
-   var comHandle = function(obj) {
-      var txt = obj.text;
-      var html ="";
-      var mynick = "${sessionScope.nick}";
-      console.log(mynick == obj.nick);
-      
-      if(mynick == obj.nick){
-         console.log("ture 라며 ");
-         html += "<div class=\"inline field\" align=\"right\" style=\"margin-bottom: 10px;\">";
-          html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
-           html += obj.text;
-           html+="</div><i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px; color: #F14444;\"></i></div>"; 
-      }else{
-         console.log("???");
-         html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
-         html += "<i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px;\"></i>";
-          html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
-          html += obj.nick +" : "+  obj.text;
-          html += "</div></div>";
-      }
-      var total = obj.total;
-      document.getElementById("total").innerHTML ="("+total+"명)";
-      document.getElementById("chatView").innerHTML += html;
-      document.getElementById("chatView").scrollTop = 
-         document.getElementById("chatView").scrollHeight; 
-   }
-   
-   
-   document.getElementById("input").onchange= function() {
-      console.log(this.value);
-      var msg = {
-         "mode":"com",
-         "text":this.value,
-         "cono":"${cono}"
-      };
-       cows.send(JSON.stringify(msg));
-      this.value="";
-   };
-   
-   
-   
-   
+	$('#chatView').scrollTop($('#chatView')[0].scrollHeight - $('#chatView')[0].clientHeight);
+		var cows = new WebSocket("ws://" + location.host + "${path}/chat.do");
+		console.log("안녕");
+		 cows.onmessage = function(evt) { //매개변수설정하면
+		console.log(evt.data);
+		var obj = JSON.parse(evt.data);
+		switch(obj.mode) {
+		case "com":
+			comHandle(obj);
+			break;
+		}
+	} 
+	
+	var comHandle = function(obj) {
+		var txt = obj.text;
+		var html ="";
+		var mynick = "${sessionScope.nick}";
+		console.log(mynick == obj.nick);
+		
+		if(mynick == obj.nick){
+			console.log("ture 라며 ");
+			html += "<div class=\"inline field\" align=\"right\" style=\"margin-bottom: 10px;\">";
+		    html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
+		     html += obj.text;
+		     html+="</div><i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px; color: #F14444;\"></i></div>"; 
+		}else{
+			console.log("???");
+			html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
+			html += "<i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px;\"></i>";
+		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
+		    html += obj.nick +" : "+  obj.text;
+		    html += "</div></div>";
+		}
+		var total = obj.total;
+		document.getElementById("total").innerHTML ="("+total+"명)";
+		document.getElementById("chatView").innerHTML += html;
+		document.getElementById("chatView").scrollTop = 
+			document.getElementById("chatView").scrollHeight; 
+	}
+	
+	
+	document.getElementById("input").onchange= function() {
+		console.log(this.value);
+		var msg = {
+			"mode":"com",
+			"text":this.value,
+			"cono":"${cono}"
+		};
+		 cows.send(JSON.stringify(msg));
+		this.value="";
+	};
+	
+	
+	
+	
 </script>
-   

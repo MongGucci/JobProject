@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="company">
-	<select id="searchcom" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select * from company where cono=#{cono}
-	</select>
-
-	<select id="schlist" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select * from company where UPPER(coname) like
-		UPPER('%'||#{coname}||'%') or UPPER(coname) like
-		UPPER('%''_'||#{coname}||'%')
-	</select>
-
-	<select id="cksearch" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select * from company where UPPER(coname) like
-		UPPER('%'||#{coname}||'%')
-	</select>
-
-	<select id="isearch" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select * from (company
-		join hire on
-		company.coname=hire.name) where
-		(UPPER(coname) like UPPER('%'||#{coname}||'%') or UPPER(title) like
-		UPPER('%'||#{title}||'%'))
-		or
-		UPPER(big) like UPPER('%'||#{big}||'%') or UPPER(small) like UPPER('%'||#{small}||'%')
-		order by startdate desc
+<mapper namespace="search">
+	
+	<select id="company" resultType="java.util.HashMap">
+		select * from company 
+		<where>
+		<foreach item="item" index="index" collection="list">
+		    <if test="item != null ">
+		       	or UPPER(coname) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+	 		<if test="item != null">
+		        or UPPER(ceo) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(industry) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(big) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(small) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(cotype) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		</foreach>
+		</where>
 	</select>
 	<select id="hireFormSearch" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
@@ -43,15 +46,141 @@
 		</select>
 	
 	
-	<!-- 
-	<select id="searchFJASO" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from (select  *  from jasoform join (select * from hire join company on company.coname = hire.name) t on jasoform.hino = t.hino)
-		<where></where>
+	<select id="hire" resultType="java.util.HashMap">
+		select * from hire 
+		<where>
+		<foreach item="item" index="index" collection="list">
+		    <if test="item != null ">
+		       	or UPPER(title) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+	 		<if test="item != null">
+		        or UPPER(content) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(name) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(jobcate) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(email) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(hireshape) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		</foreach>
+		</where>
 	</select>
-	주말에 시간 나면 해봅세다!
-	http://www.mybatis.org/mybatis-3/ko/dynamic-sql.html#
-	 -->
+	 
+	<select id="passjaso" resultType="java.util.HashMap">
+		select * from passjaso 
+		<where>
+		<foreach item="item" index="index" collection="list">
+		    <if test="item != null ">
+		       	or UPPER(TITLE) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+	 		<if test="item != null">
+		        or UPPER(CATE) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(Q1) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(Q2) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q3) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q4) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		       <if test="item != null">
+		    	or UPPER(A1) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(A2) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(A3) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(A4) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		</foreach>
+		</where>
+	</select>
 	
+	<select id="sharejaso" resultType="java.util.HashMap">
+		select * from hire 
+		<where>
+		<foreach item="item" index="index" collection="list">
+		    <if test="item != null ">
+		       	or UPPER(TITLE) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+	 		<if test="item != null">
+		        or UPPER(content) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(writer) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(cate) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q1) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q2) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q3) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(Q4) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		       <if test="item != null">
+		    	or UPPER(A1) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		    <if test="item != null">
+		    	or UPPER(A2) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(A3) like
+				UPPER('%'||#{item}||'%')
+		    </if> 
+		    <if test="item != null">
+		    	or UPPER(A4) like
+				UPPER('%'||#{item}||'%')
+		    </if>
+		</foreach>
+		</where>
+	</select>
 	
 	
 </mapper>

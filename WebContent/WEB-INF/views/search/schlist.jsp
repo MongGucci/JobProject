@@ -11,11 +11,9 @@
 #body {
 	color: #434e6e;
 }
-
 span:hover {
 	color: white;
 }
-
 #hirediv {
 	border: 1px solid #434e6e;
 	margin: 20px;
@@ -23,43 +21,34 @@ span:hover {
 	padding: 10px;
 	font-family: 'Nanum Gothic', sans-serif;
 }
-
 #cnt {
 	font-size: 20pt;
 	text-align: center;
 }
-
 #hirename {
 	font-size: 17pt;
 	font-weight: bolder;
 	padding-top: 30px;
 }
-
 #hireinfo {
 	font-size: 12pt;
 }
-
 #detail {
 	margin: 5px;
 }
-
 #jaso {
 	font-size: 13pt;
 	margin-top: 10px;
 }
-
 #jaso:hover {
 	cursor: pointer;
 }
-
 img {
 	width: 140px;
 }
-
 #hirename:hover {
 	cursor: pointer;
 }
-
 #hirediv:hover {
 	background-color: #434e6e;
 	color: white;

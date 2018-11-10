@@ -47,7 +47,7 @@ public class ServiceController extends TextWebSocketHandler {
 		Map user = (Map) session.getAttributes().get("user");
 		got.put("nick", (String) user.get("NICK"));
 		got.put("id", (String) user.get("ID"));
-
+		got.put("total", alert.allList().size()/2);
 		alert.sendAll(got);
 		// ------------------------------------------------------------------------------------
 		// MongoDB에넣기

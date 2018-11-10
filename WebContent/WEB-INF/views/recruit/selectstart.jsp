@@ -68,7 +68,7 @@ cursor: pointer;
 
 	
 
-	<form action="${path}/recruit/select.do" method="post">
+	<form action="${path}/recruit/selectdetail.do" >
 
 		<div class="row">
 
@@ -146,7 +146,7 @@ cursor: pointer;
 							<div class="twelve wide column">
 
 								<div class="ui grid" >
-									<c:if test="${empty l.MAGAM}">
+									
 									<div class="four wide column" id="hirename" onclick="location.href='${path}/recruit/jobpost.do?hino=${l.HINO}'">${l.NAME }</div>
 									<div class="eight wide column" id="hireinfo">
 										<div style="width: 100%" id="detail" >${l.TITLE}</div>
@@ -157,24 +157,16 @@ cursor: pointer;
 									    </small></div>
 										<div style="width: 100%" id="detail">${l.COTYPE }</div>
 									</div>
-									<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">몇일남았는지!</div><div id="jaso" onclick="hino(this)"
-									data-value="${l.HINO}" ><i class="building icon"></i>${l.BIG} ${l.SMALL}</div></div>
-									</c:if> 
-									<c:if test="${!empty l.MAGAM}">
-										<div class="eight wide column" id="hireinfo">
-										<div style="width: 100%" id="detail" >${l.TITLE}</div>
-										<div style="width: 100%" id="detail">
-										<small>마감된 공고입니다</small></div>
-										<div style="width: 100%" id="detail">${l.COTYPE }</div>
+									<div class="four wide column" align="left" ><div style="padding-top: 10px; font-size: 13pt; font-weight: bolder;">${l.DDAY }</div>
+									<div  align="left" style="margin-top: 7px;" ><i class="building icon"></i>${l.BIG} ${l.SMALL}</div>
+									<div align="left" style="margin-top: 7px;"><i class="eye icon" style="color:#707374;"></i>${l.HITS}</div>
 									</div>
-									
-									</c:if>
 								</div>
 							</div>
 
 						</div>
 					</div>
-				</c:forEach>
+		</c:forEach>
 
 	</div>
 

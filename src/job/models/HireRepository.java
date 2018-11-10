@@ -23,6 +23,9 @@ public class HireRepository {
 	public List<Map> getSearchResults(Map map){
 		return template.selectList("hire.getSearchResults",map);
 	}
+	public List<Map> getSearchResultsbyPage(Map map){
+		return template.selectList("hire.getSearchResultsbyPage",map);
+	}
 	
 	public Map getHirebyHino(int hino){
 		return template.selectOne("hire.getHireByHino",hino);
