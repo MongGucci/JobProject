@@ -21,7 +21,7 @@
 				<a class="text-muted" href="#" id="etc"></a>
 			</div>
 			<div class="col-4 text-center">
-				<a class="blog-header-logo text-dark" href="${path}" id="logo"><span id="jobgo" style="font-size: 50pt; color: #434e6e; font-weight: bolder;">JOB Go</span></a>
+				<a class="blog-header-logo text-dark" href="${path}/index.do" id="logo"><span id="jobgo" style="font-size: 50pt; color: #434e6e; font-weight: bolder;">JOB Go</span></a>
 			</div>
 
 			<div class="col-4 d-flex justify-content-end align-items-center">
