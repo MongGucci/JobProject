@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="hire" resultType="java.util.HashMap">
-		select * from hire 
+		select * from hire join company on hire.name=company.coname 
 		<where>
 		<foreach item="item" index="index" collection="list">
 		    <if test="item != null ">

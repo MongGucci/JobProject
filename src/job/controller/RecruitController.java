@@ -59,7 +59,8 @@ public class RecruitController {
 	@Autowired
 	HttpServletRequest req;
 	
-	@GetMapping("/select.do")
+	@GetMapping("/select.do") //Index나 nav에서 채용공고 클릭 시
+
 	public String selectGetHandle(Map map, WebRequest wr) {
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 
@@ -211,13 +212,15 @@ public class RecruitController {
 	}
 	
 	@PostMapping(path = "/selectajax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
+	@ResponseBody //채용공고 	선택검색에서     지역(대) 선택 시
+
 	public String selectAjaxHandle(@RequestParam String big) {
 		List<Map> small = rrepo.getAllSmallLocation(big);
 		return gson.toJson(small);
 	}
 
-	@GetMapping("/selectdetail.do")
+	@GetMapping("/selectdetail.do") //리스트에서 어느 기업의 채용공고를 클릭 시
+
 	public String selectdetailPostHandle(@RequestParam Map param, Map map, WebRequest wr) {
 		List<Map> results = hrepo.getSearchResults(param);
 		System.out.println("selectdetail.do에 들어온 param값 ? "+param);
@@ -262,29 +265,7 @@ public class RecruitController {
 		return "job.selectdetail";
 	}
 
-	@GetMapping("/buttonselect.do")
-	public String selectButtonGetHandle(@RequestParam Map param, Map map) {
-		List<Map> results = hrepo.getSearchResults(param);
-		map.put("lists", results);
-
-		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-		for (int i = 0; i < results.size(); i++) {
-			Map m = results.get(i);
-			Date date = (Date) m.get("STARTDATE");
-			Date dd = (Date) m.get("ENDDATE");
-			long endd = dd.getTime();
-			m.put("STARTDATE", fmt.format(date));
-			m.put("ENDDATE", fmt.format(dd));
-			long gap = endd - System.currentTimeMillis();
-			if (gap < 0) {
-				m.put("MAGAM", true);
-			}
-		}
-		System.out.println(" 이상하네 : " + map);
-		map.put("condition", param);
-
-		return "job.selectdetail";
-	}
+	
 
 	@GetMapping("/jobpost.do")
 	public String jobpostGetHandle(HttpServletResponse response, @RequestParam Map param, Map post, WebRequest wr,
@@ -438,13 +419,6 @@ public class RecruitController {
 		alert.sendOne(msg, "skdbs0610");
 	}
 
-	@GetMapping("/enterchat.do")
-	public String enterchatHandle(WebRequest wr) {
-		// System.out.println("채팅방 입장./mode : "+mode);
-		// System.out.println("채팅방 wrparam : "+wr.getParameter("mode"));
-
-		return "job.chat";
-	}
 
 	@GetMapping(path = "/recenthireajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody

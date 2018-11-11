@@ -74,6 +74,7 @@ public class LoginController {
 			wr.setAttribute("user", user, wr.SCOPE_SESSION);
 			wr.setAttribute("auth", true, wr.SCOPE_SESSION);
 			wr.setAttribute("nick", (String) user.get("NICK"), wr.SCOPE_SESSION);
+	
 			System.out.println("유저 정보 : " + user);
 
 			// ----3일남은공고, 오늘제출해야하는 공고 띄울 고야 세션에 올리자! ----//

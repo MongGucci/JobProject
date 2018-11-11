@@ -290,6 +290,7 @@ public class SearchController {
 		}
 		List<Map> company = searchdao.company(search);
 		List<Map> hire = searchdao.hire(search);
+		System.out.println("hire 뭐가뜨냐" + hire);
 		for (int i = 0; i < hire.size(); i++) {
 			Map p = hire.get(i);
 
