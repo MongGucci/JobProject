@@ -34,7 +34,7 @@
 				role="button">게시판 목록</a>
 		</div>
 
-		<form action="${path}/admin//passjaso.do" method="post">
+		<form action="${path}/admin/passjaso.do" method="post">
 
 
 

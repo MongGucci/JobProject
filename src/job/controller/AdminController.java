@@ -55,6 +55,7 @@ public class AdminController {
 	@PostMapping("/passjaso.do")
 	public String passPostHandle(@RequestParam Map param) {
 		System.out.println(param);
+		param.put("path", "해당없음");
 
 		int r = jaso.addPassJaso(param);
 		return "redirect:/admin/passjaso.do";

@@ -18,6 +18,6 @@
 	</insert>
 	<insert id="addPassJaso" parameterType="java.util.HashMap">
 		insert into passjaso
-		values(passjaso_seq.nextval,#{cono},#{title},#{job},#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4})
+		values(passjaso_seq.nextval,#{cono},#{title},#{job},#{Q1},#{Q2},#{Q3},#{Q4},#{A1},#{A2},#{A3},#{A4},#{path})
 	</insert>
 </mapper> 
