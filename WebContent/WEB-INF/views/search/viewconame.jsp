@@ -88,10 +88,10 @@ img {
 				<c:choose>
 					<c:when test="${empty comjjim }">
 						<button type="button" class="btn" data-toggle="modal" style="background-color: white;"
-								id="pickcom" data-target="#jjimModal"><i class="heart outline icon" style="color: #F14444;"></i><b style="color:#434e6e;">기업찜하기</b></button>
+								id="pickcom" data-target="#comjjimModal"><i class="heart outline icon" style="color: #F14444;"></i><b style="color:#434e6e;">기업찜하기</b></button>
 
 						<a href="${path }/chat/cochat.do?cono=${dt.CONO}">
-							<button type="button" class="btn " data-toggle="modal" style="background-color: white;">
+							<button type="button" class="btn " data-toggle="modal" style="background-color: white;" data-target="#comjjimModal" id="pickcom">
 								<i class="building icon" style="color: #434e6e;"></i><b style="color:#434e6e;">기업 채팅</b>
 						</button></a>	
 						<c:if test="${!empty recommend }">
