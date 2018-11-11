@@ -290,13 +290,14 @@ public class RecruitController {
 	public String jobpostGetHandle(HttpServletResponse response, @RequestParam Map param, Map post, WebRequest wr,
 			ModelMap map) {
 
+		
 		SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		int hino = Integer.parseInt((String) param.get("hino"));
 		hrepo.increaseHits(hino);
 		Map company = hrepo.getHirebyHino(hino);
 		String hi = String.valueOf(hino);
-
+		System.out.println("무슨 상세내용을 넣어줘야하지 : "+company);
 		Cookie setCookie = new Cookie(hi, "hino"); // 쿠키 생성
 		setCookie.setMaxAge(60 * 60 * 24); // 기간을 일주일로 지정
 		response.addCookie(setCookie);
@@ -329,6 +330,7 @@ public class RecruitController {
 		List<Map> before = soar.getAllSoar();
 		System.out.println(before);
 		System.out.println("id:" + session.getId());
+		
 
 		if (comp == null) {
 			Map skyrocket = new HashMap<>();
@@ -355,6 +357,13 @@ public class RecruitController {
 		System.out.println(after);
 
 		// ==============================
+		int avg = rvrepo.getAvgStar(cono);
+		if (avg == 0) {
+			map.put("avg", 0);
+		} else {
+			map.put("avg", avg);
+		}
+		//===============================
 		String uri = req.getRequestURI();
 		String target = uri.substring(req.getContextPath().length())+"?hino="+hino;
 		

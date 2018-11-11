@@ -18,7 +18,7 @@
 		<div
 			class="row flex-nowrap justify-content-between align-items-center">
 			<div class="col-4 pt-1">
-				<a class="text-muted" href="#" id="etc">Subscribe</a>
+				<a class="text-muted" href="#" id="etc"></a>
 			</div>
 			<div class="col-4 text-center">
 				<a class="blog-header-logo text-dark" href="${path}" id="logo"><span id="jobgo" style="font-size: 50pt; color: #434e6e; font-weight: bolder;">JOB Go</span></a>

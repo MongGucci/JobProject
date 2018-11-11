@@ -145,8 +145,8 @@
 							<img src="${path}/images/hiring.png" style="width: 100%;">
 						</div>
 
-						<p style="font-size: 12pt; color: #465674; font-weight: bolder;">여러분의
-							자소서를 작성하고 공유해보세요.</p>
+						<p style="font-size: 12pt; color: #465674; font-weight: bolder;">
+							자소서를 작성/공유해보세요.</p>
 						<a href="${path}/essayBoard/shareEssayList.do?array=recent"><button
 								id="btn">Personal Statement</button></a>
 					</div>

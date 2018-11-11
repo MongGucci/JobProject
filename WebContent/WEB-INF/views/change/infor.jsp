@@ -106,6 +106,38 @@ table {
 	<button id="down">비밀번호 변경하기</button>
 </form>
 </div>
+
+<div style="text-align: center;">
+	<h3 style="text-align: left;">내가 쓴 자소서</h3> <br />
+	<c:choose>
+		<c:when test="${empty j }">
+			<br>내가 쓴 자기소개서가 없습니다.<br>
+		☞ <a href="${path }/essay/essay.do">자소서 쓰러가기</a>
+			<br>
+		</c:when>
+		<c:otherwise>
+			<div class="row" align="center">
+				<c:forEach begin="0" end="4" var="e" items="${j}">
+
+
+					<div class="card col-3" style="margin: 0px; padding: 0px;"
+						onclick="location.href='${path}/essay/myEssayDetail.do?no=${e.JASONO}'">
+						<div class="card-body">
+							<h5 class="card-title" style="font-size: 10pt;">${e.ID}</h5>
+							<p class="card-text" style="font-size: 10pt;">${e.TITLE}</p>
+							<h6 class="card-subtitle mb-2 text-muted" style="font-size: 9pt;">${e.LASTDATE}</h6>
+							<a href="${path}/essay/essayChange.do?no=${e.JASONO}"
+								class="card-link" style="font-size: 10pt;">수정하기</a> <a href="#"
+								class="card-link" style="font-size: 10pt;">삭제하기</a>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</div>
+<hr />
+
 <%-- 찝한 기업  --%>
 <h3 style="text-align: left;">내가 찜한 공고</h3>
 <c:choose>
@@ -113,7 +145,7 @@ table {
 	내가 찜한 공고가 없습니다.
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="i" items="${r }" varStatus="status">
+		<c:forEach begin="0" end="4" var="i" items="${r }" varStatus="status">
 			<div id="hirediv">
 				<div class="ui grid">
 					<div class="four wide column" id="cnt" style="width: 100%;">
@@ -149,7 +181,7 @@ table {
 	등록한 관심 기업이 없습니다.
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="a" items="${c }" varStatus="status">
+		<c:forEach begin="0" end="4" var="a" items="${c }" varStatus="status">
 			<div id="hirediv">
 				<div class="ui grid">
 					<div class="four wide column" id="cnt" style="width: 100%;">
@@ -186,7 +218,7 @@ table {
 	</c:when>
 	<c:otherwise>
 		<div>
-			<c:forEach var="d" items="${p }">
+			<c:forEach begin="0" end="4" var="d" items="${p }">
 				<div id="hirediv">
 					<div class="ui grid">
 
@@ -223,34 +255,4 @@ table {
 </c:choose>
 <hr />
 <%--내가 쓴 자소서 --%>
-<div style="text-align: center;">
-	<b>내가 쓴 자소서</b> <br />
-	<c:choose>
-		<c:when test="${empty j }">
-			<br>내가 쓴 자기소개서가 없습니다.<br>
-		☞ <a href="${path }/essay/essay.do">자소서 쓰러가기</a>
-			<br>
-		</c:when>
-		<c:otherwise>
-			<div class="row" align="center">
-				<c:forEach var="e" items="${j}">
-
-
-					<div class="card col-3" style="margin: 0px; padding: 0px;"
-						onclick="location.href='${path}/essay/myEssayDetail.do?no=${e.JASONO}'">
-						<div class="card-body">
-							<h5 class="card-title" style="font-size: 10pt;">${e.ID}</h5>
-							<p class="card-text" style="font-size: 10pt;">${e.TITLE}</p>
-							<h6 class="card-subtitle mb-2 text-muted" style="font-size: 9pt;">${e.LASTDATE}</h6>
-							<a href="${path}/essay/essayChange.do?no=${e.JASONO}"
-								class="card-link" style="font-size: 10pt;">수정하기</a> <a href="#"
-								class="card-link" style="font-size: 10pt;">삭제하기</a>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</c:otherwise>
-	</c:choose>
-</div>
-<hr />
 

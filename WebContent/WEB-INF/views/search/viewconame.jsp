@@ -87,26 +87,27 @@ img {
 			<div class="four wide column" align="left" style="padding: 50px 0px;">
 				<c:choose>
 					<c:when test="${empty comjjim }">
-						<div style="font-size: 12pt;" data-toggle="modal"
-							data-target="#comjjimModal">
-							<i class="heart outline icon" style="color: #F14444;"></i><b>관심
-								기업등록</b>
-						</div>
+						<button type="button" class="btn" data-toggle="modal" style="background-color: white;"
+								id="pickcom" data-target="#jjimModal"><i class="heart outline icon" style="color: #F14444;"></i><b style="color:#434e6e;">기업찜하기</b></button>
 
-						<div style="margin-top: 10px; font-size: 12pt;"
-							data-toggle="modal" data-target="#comjjimModal">
-							<i class="building icon" style="color: #434e6e;"></i><b>기업 채팅</b>
-						</div>
+						<a href="${path }/chat/cochat.do?cono=${dt.CONO}">
+							<button type="button" class="btn " data-toggle="modal" style="background-color: white;">
+								<i class="building icon" style="color: #434e6e;"></i><b style="color:#434e6e;">기업 채팅</b>
+						</button></a>	
 						<c:if test="${!empty recommend }">
 							<br />
 							<div class="ui top pointing red basic label" id="pherror"
-								style="font-size: 11pt;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div>
+								style="font-size: 11pt; margin-left :2px;">이 기업의 채팅방에 참여하고 싶다면 기업을 찜해주세요!</div>
 						</c:if>
 					</c:when>
 					<c:otherwise>
 						<div style="font-size: 13pt;">
 							<i class="heart icon" style="color: #F14444;"></i>이미 찜한 관심 기업
 						</div>
+						<a href="${path }/chat/cochat.do?cono=${dt.CONO}">
+							<button type="button" class="btn " data-toggle="modal" style="background-color: white;">
+								<i class="building icon" style="color: #434e6e;"></i><b style="color:#434e6e;">기업 채팅</b>
+						</button></a>	
 					</c:otherwise>
 				</c:choose>
 				<c:if test="${empty userId }">
@@ -117,7 +118,7 @@ img {
 				<c:choose>
 					<c:when test="${!empty userId }">
 						<script>
-				$("#btn").on("click", function() {
+				$("#pickcom").on("click", function() {
 					var id = "${userId}";
 					console.log(id);
 					
@@ -130,8 +131,8 @@ img {
 							function(rst){
 								console.log(rst);
 								if(rst.comjjim) {
-									$("#btn").attr("disabled", true);
-									$("#btn").html("이미 등록된 관심 기업")
+									$("#pickcom").attr("disabled", true);
+									$("#pickcom").html("이미 등록된 관심 기업")
 								}
 							});
 				})
@@ -198,11 +199,11 @@ img {
 
 		</div>
 
-		<div style="margin-top: 30px;">
+		<div align="center" style="margin-top: 30px;">
 			<p style="font-size: 15pt; font-weight: bolder;">
 				<i class="car icon"></i>회사 위치
 			</p>
-			<div id="map" style="height: 400px"></div>
+			<div id="map"  style="height: 300px; width : 80%;"></div>
 			<script>
             function initMap() {
                var loc = {lat: ${dt.LAT}, lng: ${dt.LNG}};
