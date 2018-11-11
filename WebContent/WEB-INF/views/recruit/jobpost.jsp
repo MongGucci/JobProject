@@ -79,7 +79,8 @@ img {
 				<img src="${pageContext.servletContext.contextPath }${list.LOGO }">
 			</div>
 			<div class="eight wide column" style="padding: 50px 0px;">
-				<div style="font-size: 17pt; font-weight: bolder;">${list.CONAME }</div>
+				<div style="font-size: 17pt; font-weight: bolder;"><a 
+					href="${path}/search/schdetail.do?cono=${list.CONO}">${list.CONAME }</a></div>
 				<div style="margin-top: 10px;">
 					<a href="${list.HOMEPAGE }">${list.HOMEPAGE }</a>
 				</div>

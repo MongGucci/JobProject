@@ -67,7 +67,7 @@ public class SearchController {
 	}
 
 	// 검색
-	@PostMapping("/searchpost.do")
+	@RequestMapping("/searchpost.do")
 	public String searchPostHandle(WebRequest wr) {
 		String coname = (String) wr.getParameter("search");
 		String[] words = coname.split(" ");
@@ -80,25 +80,6 @@ public class SearchController {
 		for(int i=0;i<results.size();i++) {
 			System.out.println("results: "+results.get(i));
 		}
-		for (int i = 0; i < results.size(); i++) {
-			Map p = results.get(i);
-
-			java.sql.Timestamp timeStamp = (Timestamp) p.get("ENDDATE");
-			java.sql.Date date = new java.sql.Date(timeStamp.getTime());
-			long endd = date.getTime();
-			long current = System.currentTimeMillis();
-			long day = (endd - current) / (1000 * 60 * 60 * 24);
-			if (day == 0) {
-				p.put("DDAY", "D-DAY");
-			} else if(day>0){
-
-				p.put("DDAY", "D-" + (day+1));
-			} else {
-				p.put("DDAY", "[마감]");
-			}
-			System.out.println((endd - current) / (1000 * 60 * 60 * 24));
-
-		}
 
 		wr.setAttribute("keyword", coname, wr.SCOPE_REQUEST);
 		
@@ -108,20 +89,6 @@ public class SearchController {
 			wr.setAttribute("sli", results, wr.SCOPE_REQUEST);
 			return "job.schlist.index";
 		}
-		
-		
-		/*System.out.println(coname);
-		List<Map> cks = searchdao.cksearch(coname);
-		System.out.println(cks);
-		if (coname.equals("") || cks.size() == 0) {
-			wr.setAttribute("conames", coname, wr.SCOPE_SESSION);
-			return "job.schnull.index";
-		} else {
-			List<Map> sli = searchdao.schlist(coname);
-			System.out.println(sli);
-			wr.setAttribute("sli", sli, wr.SCOPE_SESSION);
-			return "job.schlist.index";
-		}*/
 		
 	}
 

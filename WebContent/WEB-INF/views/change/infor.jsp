@@ -107,6 +107,7 @@ table {
 </form>
 </div>
 
+<%--내가 쓴 자소서 --%>
 <div style="text-align: center;">
 	<h3 style="text-align: left;">내가 쓴 자소서</h3> <br />
 	<c:choose>
@@ -117,7 +118,7 @@ table {
 		</c:when>
 		<c:otherwise>
 			<div class="row" align="center">
-				<c:forEach begin="0" end="4" var="e" items="${j}">
+				<c:forEach var="e" items="${j}">
 
 
 					<div class="card col-3" style="margin: 0px; padding: 0px;"
@@ -145,7 +146,7 @@ table {
 	내가 찜한 공고가 없습니다.
 	</c:when>
 	<c:otherwise>
-		<c:forEach begin="0" end="4" var="i" items="${r }" varStatus="status">
+		<c:forEach var="i" items="${r }" varStatus="status">
 			<div id="hirediv">
 				<div class="ui grid">
 					<div class="four wide column" id="cnt" style="width: 100%;">
@@ -181,7 +182,7 @@ table {
 	등록한 관심 기업이 없습니다.
 	</c:when>
 	<c:otherwise>
-		<c:forEach begin="0" end="4" var="a" items="${c }" varStatus="status">
+		<c:forEach var="a" items="${c }" varStatus="status">
 			<div id="hirediv">
 				<div class="ui grid">
 					<div class="four wide column" id="cnt" style="width: 100%;">
@@ -218,7 +219,7 @@ table {
 	</c:when>
 	<c:otherwise>
 		<div>
-			<c:forEach begin="0" end="4" var="d" items="${p }">
+			<c:forEach var="d" items="${p }">
 				<div id="hirediv">
 					<div class="ui grid">
 
@@ -254,5 +255,4 @@ table {
 	</c:otherwise>
 </c:choose>
 <hr />
-<%--내가 쓴 자소서 --%>
 

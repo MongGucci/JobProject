@@ -60,7 +60,7 @@ color: white;
 <div class="container" style="margin-top: 40px;" id="body">
 
 <div >
-	<span style="color : #434e6e; font-weight: bolder; font-size: x-large;">'${coname}'으로 찾으신 기업정보 검색 결과입니다!</span>
+	<span style="color : #434e6e; font-weight: bolder; font-size: x-large;">'${keyword}'으로 찾으신 기업정보 검색 결과입니다!</span>
 </div>
 <div  style="margin-top: 40px;">
 	<c:forEach var="l" items="${sli }"  varStatus="status">
@@ -74,28 +74,28 @@ color: white;
 
 							<div class="four wide column" id="hirename" onclick="location.href='${path}/search/schdetail.do?cono=${l.CONO}'">
 							<c:choose>
-								<c:when test = "${fn:containsIgnoreCase(l.CONAME, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.CONAME }</a></c:when> 
+								<c:when test = "${fn:containsIgnoreCase(l.CONAME, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.CONAME }</a></c:when> 
 								<c:otherwise>${l.CONAME }</c:otherwise>
 							</c:choose>
 							</div>
 								<div class="eight wide column" id="hireinfo">
 									<div style="width: 100%" id="detail" >
 									<c:choose>
-										<c:when test = "${fn:containsIgnoreCase(l.TITLE, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.TITLE}</a></c:when> 
+										<c:when test = "${fn:containsIgnoreCase(l.TITLE, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.TITLE}</a></c:when> 
 										<c:otherwise>${l.TITLE}</c:otherwise>
 									</c:choose>
 									
 									</div>
 									<div style="width: 100%" id="detail">
 									<c:choose>
-										<c:when test = "${fn:containsIgnoreCase(l.INDUSTRY, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;"><small>${l.INDUSTRY}</small></a></c:when> 
+										<c:when test = "${fn:containsIgnoreCase(l.INDUSTRY, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;"><small>${l.INDUSTRY}</small></a></c:when> 
 										<c:otherwise><small>${l.INDUSTRY}</small></c:otherwise>
 									</c:choose>
 									
 									</div>
 									<div style="width: 100%" id="detail">
 									<c:choose>
-										<c:when test = "${fn:containsIgnoreCase(l.COTYPE, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.COTYPE}</a></c:when> 
+										<c:when test = "${fn:containsIgnoreCase(l.COTYPE, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.COTYPE}</a></c:when> 
 										<c:otherwise>${l.COTYPE }</c:otherwise>
 									</c:choose>
 									</div>
@@ -105,11 +105,11 @@ color: white;
 								
 								<i class="building icon"></i>
 								<c:choose>
-										<c:when test = "${fn:containsIgnoreCase(l.BIG, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.BIG }</a></c:when> 
+										<c:when test = "${fn:containsIgnoreCase(l.BIG, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.BIG }</a></c:when> 
 										<c:otherwise>${l.BIG }</c:otherwise>
 								</c:choose>
 								<c:choose>
-										<c:when test = "${fn:containsIgnoreCase(l.SMALL, coname)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.SMALL }</a></c:when> 
+										<c:when test = "${fn:containsIgnoreCase(l.SMALL, keyword)}"><a style="font-weight: bolder; text-decoration:underline; color: #434e6e;">${l.SMALL }</a></c:when> 
 										<c:otherwise>${l.SMALL }</c:otherwise>
 								</c:choose>
 								
