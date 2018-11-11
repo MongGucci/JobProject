@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link href="${path}/css/essayBoard.css" rel="stylesheet">
 <style>
-#likebtn{
-background-color: rgba(0, 0, 0, 0);
-border: none;
-font-size: 25pt;
+#likebtn {
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	font-size: 25pt;
 }
 
-#date{
-
-font-size: 10pt;
-color :gray;
-margin: 10px;
+#date {
+	font-size: 10pt;
+	color: gray;
+	margin: 10px;
 }
+
 #btn {
 	background-color: rgba(0, 0, 0, 0);
 	border: 1px solid #434e6e;
@@ -37,7 +37,8 @@ margin: 10px;
 	border-radius: 5%;
 	padding: 15px
 }
-#down{
+
+#down {
 	background-color: rgba(0, 0, 0, 0);
 	border: 1px solid #434e6e;
 	color: #434e6e;
@@ -56,8 +57,11 @@ margin: 10px;
 }
 </style>
 <div class="container" style="margin-top: 20px;">
-<div class="three wide column" align="right" style="margin-bottom: 10px;"><a
-												href="${path}/essayBoard/shareEssayList.do"><button id="down">글 목록가기</button></a></div>
+	<div class="three wide column" align="right"
+		style="margin-bottom: 10px;">
+		<a href="${path}/essayBoard/shareEssayList.do"><button id="down">글
+				목록가기</button></a>
+	</div>
 
 	<div class="card" style="width: 100%;">
 
@@ -67,8 +71,8 @@ margin: 10px;
 			<p class="card-text">${essay.CONTENT}</p>
 
 			<c:if test="${!empty essay.PATH}">
-				<a href="<c:url value="${essay.PATH}"/>"
-					download><button id="down">다운도르 : ${essay.FILE}</button> </a>
+				<a href="<c:url value="${essay.PATH}"/>" download><button
+						id="down">다운도르 : ${essay.FILE}</button> </a>
 			</c:if>
 
 		</div>
@@ -153,16 +157,20 @@ margin: 10px;
 	<c:choose>
 		<c:when test="${empty like}">
 			<div style="margin-top: 15px;" align="right">
-			
-					
-				<button type="button" data-toggle="modal"
-					id="likebtn" data-target="#exampleModal" ><i class="heart outline icon" style="color:#F14444;"></i></button>
+
+
+				<button type="button" data-toggle="modal" id="likebtn"
+					data-target="#exampleModal">
+					<i class="heart outline icon" style="color: #F14444;"></i>
+				</button>
 			</div>
 		</c:when>
 		<c:otherwise>
 			<div style="margin-top: 15px;" align="right">
-				<button type="button" data-toggle="modal"
-					id="likebtn" data-target="#exampleModal" disabled="disabled"><i class="heart icon" style="color:#F14444;"></i></button>
+				<button type="button" data-toggle="modal" id="likebtn"
+					data-target="#exampleModal" disabled="disabled">
+					<i class="heart icon" style="color: #F14444;"></i>
+				</button>
 			</div>
 		</c:otherwise>
 	</c:choose>
@@ -193,15 +201,17 @@ margin: 10px;
 									$
 											.post(
 													"${path}/essayBoard/essayLikeAjax.do",
-													param).done(
+													param)
+											.done(
 													function(rst) {
 														console.log(rst);
 														if (rst.like) {
 															$("#likebtn").attr(
 																	"disabled",
 																	true);
-															$("#likebtn").html(
-																	"<i class=\"heart icon\" style=\"color:#F14444;\"></i>");
+															$("#likebtn")
+																	.html(
+																			"<i class=\"heart icon\" style=\"color:#F14444;\"></i>");
 														}
 
 													});
@@ -232,12 +242,13 @@ margin: 10px;
 
 
 
-	<div style="border: 1px solid gray; margin-top: 20px; background-color: white;">
+	<div
+		style="border: 1px solid gray; margin-top: 20px; background-color: white;">
 
 		<c:forEach var="e" items="${reply}">
 			<c:if test="${empty e.PARENTNO}">
-			
-			
+
+
 				<div class="form-group" style="margin: 20px;">
 					<c:choose>
 						<c:when test="${e.FLAG eq 'A'}">
@@ -252,9 +263,12 @@ margin: 10px;
 						</c:when>
 						<c:otherwise>
 							<div>
-								<div style="font-size: 13pt; font-weight: bolder;">${e.WRITER} <small id="date">
-								<fmt:formatDate value="${e.LEFTDATE}" pattern="yyyy-MM-dd"/></small></div>
-								<div style="margin-top: 10px; font-size: 13pt; font-weight: bolder;">${e.REPLY}</div>
+								<div style="font-size: 13pt; font-weight: bolder;">${e.WRITER}
+									<small id="date"> <fmt:formatDate value="${e.LEFTDATE}"
+											pattern="yyyy-MM-dd" /></small>
+								</div>
+								<div
+									style="margin-top: 10px; font-size: 13pt; font-weight: bolder;">${e.REPLY}</div>
 								<div align="left" style="margin-top: 10px;">
 									<c:if test="${e.WRITER eq userId }">
 										<a
@@ -295,28 +309,31 @@ margin: 10px;
 					<c:if test="${e.NO eq h.PARENTNO}">
 						<c:choose>
 							<c:when test="${h.FLAG eq 'A'}">
-								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
+								<div
+									style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p>┗ 관리자에 의해 삭제된 댓글입니다.</p>
 								</div>
 							</c:when>
 							<c:when test="${h.FLAG eq 'W'}">
-								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
+								<div
+									style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p>┗ 작성자에 의해 삭제된 게시글입니다.</p>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
+								<div
+									style="margin: 20px; margin-left: 30px; font-size: 13pt; font-weight: bolder;">
 									<p style="width: 100%;">┗ ${h.WRITER} : ${h.REPLY }</p>
-										<c:if test="${h.WRITER eq userId }">
-											<a
-												href="${path}/essayBoard/reply.do?handle=delete&no=${h.NO}&jasono=${essay.NO}">
-												<button
-													style="border: none; background-color: rgba(0, 0, 0, 0);">
-													<small>삭제하기</small>
-												</button>
-											</a>
-										</c:if>
-								
+									<c:if test="${h.WRITER eq userId }">
+										<a
+											href="${path}/essayBoard/reply.do?handle=delete&no=${h.NO}&jasono=${essay.NO}">
+											<button
+												style="border: none; background-color: rgba(0, 0, 0, 0);">
+												<small>삭제하기</small>
+											</button>
+										</a>
+									</c:if>
+
 
 
 								</div>
@@ -341,26 +358,39 @@ margin: 10px;
 				<label for="exampleFormControlTextarea1">댓글</label>
 				<textarea class="form-control" id="exampleFormControlTextarea1"
 					name="reply" rows="3"></textarea>
-					
+
 				<div align="right" style="margin-top: 10px;">
-					<button id="down" data-toggle="modal" data-target="#exampleModal">댓글 달기</button>
+					<c:choose>
+
+						<c:when test="${empty userId }">
+							<button type="button" id="down" data-toggle="modal"
+								data-target="#exampleModal">댓글 달기</button>
+						</c:when>
+						<c:otherwise>
+						<button id="down" data-toggle="modal"
+								data-target="#exampleModal">댓글 달기</button>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
-				
+
 			</div>
 
 		</form>
 	</div>
-	
+
 	<%-- ===============================댓글 끝=====================================  --%>
 	<div class="ui grid" style="margin-top: 20px;">
-	
-	
-	<div class="thirteen wide column"></div>
-	<c:if test="${userId eq essay.WRITER}">
-	<div class="three wide column" align="right"><a
-												href="${path}/essayBoard/shareEssayDelete.do?no=${essay.NO}"><button id="btn">글 삭제하기</button></a></div>
-	</c:if>
-	
+
+
+		<div class="thirteen wide column"></div>
+		<c:if test="${userId eq essay.WRITER}">
+			<div class="three wide column" align="right">
+				<a href="${path}/essayBoard/shareEssayDelete.do?no=${essay.NO}"><button
+						id="btn">글 삭제하기</button></a>
+			</div>
+		</c:if>
+
 	</div>
 </div>
 <script>
