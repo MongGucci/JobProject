@@ -81,18 +81,18 @@ style>span:hover {
 	background-color: rgba(0, 0, 0, 0);
 	border: 1px solid #434e6e;
 	color: #434e6e;
-	padding: 15px;
-	font-size: 15pt;
+	padding: 10px;
+	font-size: 11pt;
 	border-radius: 5%;
 }
 
 #btn:hover {
 	background-color: #434e6e;
 	color: white;
-	padding: 15px;
-	font-size: 15pt;
+	padding: 10px;
+	font-size: 11pt;
 	border-radius: 5%;
-	padding: 15px
+	
 }
 
 #myessay {

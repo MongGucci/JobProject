@@ -138,7 +138,7 @@ border: 1px solid #434e6e;
 <nav style="margin: 20px;">
 	<div class="ui grid" align="right">
 		<div class="two wide column" align="left">
-			<a href="${path}" id="logo"><b id="jobgo">JOB Go</b></a>
+			<a href="${path}/index.do" id="logo"><b id="jobgo">JOB Go</b></a>
 		</div>
 		<div class="twelve wide column"></div>
 		<div class="two wide column">
