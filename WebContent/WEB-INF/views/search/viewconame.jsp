@@ -193,7 +193,7 @@ img {
 
 			</div>
 			<div class="eleven wide column">
-				<div id="agechart" style="width: 90%;"></div>
+				<div id="agechart" style="width: 450px; margin-left:0px; height: 250px; font-size: 11pt;" ></div>
 			</div>
 
 
@@ -395,10 +395,10 @@ img {
     </script>
 
 
-	<script type="text/javascript">
+	 <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
-   
+      console.log(${agetext});
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['','연령'],
@@ -408,15 +408,14 @@ img {
         var options = {
           chart: {
             title: '관심 기업 연령',
-            
-            bar: {groupWidth: "60%"},
+            width: 500,
+            height: 400,
+            bar: {groupWidth: "95%"},
             legend: { position: "none" },
           },
           bars: 'horizontal' // Required for Material Bar Charts.
         };
-
         var chart = new google.charts.Bar(document.getElementById('agechart'));
-
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     </script>
