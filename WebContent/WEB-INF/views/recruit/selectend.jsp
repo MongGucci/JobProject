@@ -143,7 +143,7 @@ cursor: pointer;
 					<div id= "hirediv">
 						<div class="ui grid" >
 
-							<div class="four wide column" id="cnt" style="width: 100%;" ><img src="${path}${l.PATH}"></div>
+							<div class="four wide column" id="cnt" style="width: 100%;" ><img src="${path}${l.LOGO}"></div>
 							<div class="twelve wide column">
 
 								<div class="ui grid" >

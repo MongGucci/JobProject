@@ -54,9 +54,6 @@ color:#434e6e;
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
-img {
-	height: 140px;
-}
 
 #detail {
 	margin-top: 5px;
@@ -172,7 +169,7 @@ img {
 			
 			
 			<div style="line-height: 100px; text-align: center">
-				<img src="/JobProject/${list.PATH}"
+				<img src="${list.PATH}"
 					style="width: 100%; max-width: 760px; vertical-align: middle" />
 			</div>
 				
