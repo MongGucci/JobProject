@@ -267,7 +267,8 @@ public class RecruitController {
 
 	
 
-	@GetMapping("/jobpost.do")
+	@GetMapping("/jobpost.do") //리스트에서 어느 기업의 채용공고를 클릭 시
+
 	public String jobpostGetHandle(HttpServletResponse response, @RequestParam Map param, Map post, WebRequest wr,
 			ModelMap map) {
 
@@ -355,26 +356,9 @@ public class RecruitController {
 
 	}
 
-	@PostMapping(path = "/pickhireajax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String pickhireAjaxHandle(@RequestParam Map map, WebRequest wr) {
-		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 
-		List<Map> three = hrepo.getDeadline3(id);
-		List<Map> today = hrepo.getToday(id);
-		wr.setAttribute("three", three, wr.SCOPE_SESSION);
-		wr.setAttribute("today", today, wr.SCOPE_SESSION);
-		System.out.println("세션에 올라가는 today ? " + today);
-		System.out.println("세션에 올라가는 three ? " + three);
-		int r = phrepo.pickHire(map);
-		if (r == 1) {
-			return gson.toJson(true);
-		} else {
-			return gson.toJson(false);
-		}
-	}
 
-	@PostMapping("/review.do")
+	@PostMapping("/review.do") //기업 공고jsp에서 리뷰를 남길 때
 	public String writeReviewHandle(WebRequest session, @RequestParam Map param) {
 		System.out.println("param :" + param);
 
@@ -407,7 +391,7 @@ public class RecruitController {
 		}
 	}
 
-	@GetMapping("/newpost.do")
+/*	@GetMapping("/newpost.do") 
 	public void newpostGetHandle(WebRequest wr) {
 		String id = (String) wr.getAttribute("userId", wr.SCOPE_SESSION);
 		Map msg = new HashMap<>();
@@ -418,7 +402,7 @@ public class RecruitController {
 		// msg.put("link", 보낸값에서 cono뽑기);
 		alert.sendOne(msg, "skdbs0610");
 	}
-
+*/
 
 	@GetMapping(path = "/recenthireajax.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -442,10 +426,10 @@ public class RecruitController {
 		return gson.toJson(recenthinos);
 
 	}
-
+	
 	// 요게 채용 공고 찜하기
 	@PostMapping(path = "/hirejjimAjax.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
+	@ResponseBody // 채용 공고 jsp에서 공고 찜하기를 클릭 시
 	public String hirejjimAjaxHandle(@RequestParam Integer hino, WebRequest wr) {
 
 		Map jjim = new HashMap<>();
@@ -455,7 +439,12 @@ public class RecruitController {
 		sd.put("id", id);
 		sd.put("hino", hino);
 		System.out.println(sd);
-
+		List<Map> three = hrepo.getDeadline3(id);
+		List<Map> today = hrepo.getToday(id);
+		wr.setAttribute("three", three, wr.SCOPE_SESSION);
+		wr.setAttribute("today", today, wr.SCOPE_SESSION);
+		System.out.println("세션에 올라가는 today ? " + today);
+		System.out.println("세션에 올라가는 three ? " + three);
 		try {
 
 			int a = phrepo.pickHire(sd);
@@ -468,41 +457,4 @@ public class RecruitController {
 		return gson.toJson(jjim);
 	}
 
-	@PostMapping("/hiresearch.do")
-	public String hiresearchHandle(WebRequest wr, Map map) {
-		String title = (String) wr.getParameter("hsearch");
-		String name = (String) wr.getParameter("hsearch");
-		String content = (String) wr.getParameter("hsearch");
-
-		Map hch = new HashMap<>();
-		hch.put("title", title);
-		hch.put("name", name);
-		hch.put("content", content);
-
-		List<Map> hck = hrepo.hiresearch(hch);
-		if (content.equals("") || title.equals("") || name.equals("") || hck.size() == 0) {
-			wr.setAttribute("contents", content, wr.SCOPE_REQUEST);
-			System.out.println("null에 들어왔어요");
-			return "job.hirelistnull";
-		} else {
-
-			SimpleDateFormat fmt = new SimpleDateFormat("yy.MM.dd");
-			List<Map> hir = hrepo.hiresearch(hch);
-			for (int i = 0; i < hir.size(); i++) {
-				Map m = hir.get(i);
-				Date date = (Date) m.get("STARTDATE");
-				Date dd = (Date) m.get("ENDDATE");
-				long endd = dd.getTime();
-				m.put("STARTDATE", fmt.format(date));
-				m.put("ENDDATE", fmt.format(dd));
-				long gap = endd - System.currentTimeMillis();
-				if (gap < 0) {
-					m.put("MAGAM", true);
-				}
-
-			}
-			map.put("hir", hir);
-			return "job.hirelist";
-		}
-	}
 }

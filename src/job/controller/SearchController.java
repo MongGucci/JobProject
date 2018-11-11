@@ -312,7 +312,7 @@ public class SearchController {
 		}
 		List<Map> passjaso = searchdao.passjaso(search);
 		List<Map> sharejaso =searchdao.sharejaso(search);
-		
+		System.out.println("pass jaso : "+passjaso);
  		if(company.size()==0&&hire.size()==0&&passjaso.size()==0&&sharejaso.size()==0) {
 			return "job.schlist.index";
 		}else {

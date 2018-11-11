@@ -104,7 +104,8 @@ img {
 	<p style="margin-top: 20px; margin-left: 20px; color:#434e6e; font-weight: boler;"><b>합격자소서</b></p>
 	<c:if test="${empty passjaso}">  <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a></c:if>
 	<c:forEach begin="1" end= "5" var="l" items="${passjaso}"  varStatus="status">
-	<div id="searchdiv">
+	<div id="searchdiv" align="left"
+		onclick="location.href='${path}/essayBoard/passEssayDetail.do?passno=${l.PASSNO}'">
 		<div class="ui grid">
 
 			<div class="four wide column" id="cnt">
@@ -133,7 +134,7 @@ img {
 	<c:if test="${empty sharejaso}">  <a style="margin-top: 20px; margin-left: 20px;"> 검색 결과가 없습니다. </a> </c:if>
 	<c:forEach var="l" items="${sharejaso}"  varStatus="status">
 	<div id="searchdiv" align="left"
-		onclick="location.href='${path}/essayBoard/essayBoardDetail.do?no=${e.NO}'">
+		onclick="location.href='${path}/essayBoard/essayBoardDetail.do?no=${l.NO}'">
 		<div class="ui grid" id="list">
 
 			<div class="one wide column" id="cnt" style="padding-top: 30px;">
