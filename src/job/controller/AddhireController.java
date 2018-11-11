@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import job.dao.addhireDao;
+import job.models.AlertService;
 import job.models.JobcateRepository;
 import job.models.PickedhireRepository;
 
@@ -54,7 +55,9 @@ public class AddhireController {
 
 	@Autowired
 	PickedhireRepository phrepo;
-
+	@Autowired 
+	AlertService alert;
+	
 	@GetMapping("/addhire.do")
 	public String AddhireGetHandle(ModelMap map) {
 		map.put("alljob", jobcate.getAll());
@@ -94,6 +97,7 @@ public class AddhireController {
 		MimeMessage msg = sender.createMimeMessage();
 		String txt = "찜한 기업의 공고가 올라 왔습니다";
 		
+		
 		System.out.println("이메일 : " + receiver);
 		
 		wr.setAttribute("txt", txt, WebRequest.SCOPE_SESSION);
@@ -113,7 +117,6 @@ public class AddhireController {
 			}
 		return "job.index";
 	}
-
 
 
 	// 요거는 회사가 등록되어있는지 아닌지
