@@ -88,6 +88,7 @@
 								class="female icon" style="font-size: 15pt; color: gray;"></i><i
 								class="male icon" style="font-size: 15pt; color: gray;"></i>성별</label> <select
 								class="ui dropdown"
+								name="gender"
 								style="width: 100%; height: 50px; border: 1px solid #174374;">
 								<option value="">성별</option>
 								<option value="M">남자</option>
