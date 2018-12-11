@@ -69,7 +69,7 @@ img {
 			<div class="ui grid">
 	
 				<div class="four wide column" id="cnt" style="width: 100%;">
-					<img src="${path}/storage/logo/${l.LOGO}">
+					<img src="${path}${l.LOGO}">
 				</div>
 				<div class="twelve wide column">
 	
@@ -109,7 +109,7 @@ img {
 		<div class="ui grid">
 
 			<div class="four wide column" id="cnt">
-				<img src="${path}/storage/logo/${l.LOGO}">
+				<img src="${path}${l.LOGO}">
 			</div>
 			<div class="twelve wide column">
 				<div class="ui grid">
@@ -174,7 +174,7 @@ img {
 		<div class="ui grid" id="list">
 
 			<div class="four wide column" id="cnt">
-				<img src="${path}/storage/logo/${l.LOGO}">
+				<img src="${path}${l.LOGO}">
 			</div>
 			<div class="twelve wide column">
 				<div class="ui grid" >

@@ -11,7 +11,7 @@
 		<div class="item">
 
 			<div class="content" style=" color: #465674; font-size: 12pt;">
-				<i class="users icon"></i><b style=" color: #465674;">인기 기업</b>
+				
 
 				<div id="rank" style="width: 100%; "></div>
 
@@ -154,6 +154,7 @@
 								function(rst) {
 									
 									var html = "";
+									html += "&nbsp;"+"&nbsp;"+"<i class=\"users icon\" style=\" color: #465674;\"></i><b style=\" color: #465674;\">인기 기업</b>";
 									for (var i = 0; i < 5; i++) {
 										
 										if (rst[i] != null) {

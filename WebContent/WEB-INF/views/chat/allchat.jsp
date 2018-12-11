@@ -29,13 +29,6 @@
 </c:otherwise>
 </c:choose>
 
-
-
-<%-- 
-<div class="alert alert-secondary" role="alert" style="padding:3px; margin-bottom:3px;">
-${e.nick} : ${e.text}
-</div>
---%>
 </c:forEach>
 	
 </div>
@@ -70,17 +63,10 @@ ${e.nick} : ${e.text}
 		
 		if(mynick == obj.nick){
 			console.log("ture 라며 ");
-			html += "<div class=\"inline field\" align=\"right\" style=\"margin-bottom: 10px;\">";
-		    html += "<div class=\"ui right pointing red basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
-		     html += obj.text;
-		     html+="</div><i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px; color: #F14444;\"></i></div>"; 
+			
 		}else{
 			console.log("???");
-			html += "<div class=\"inline field\" align=\"left\" style=\"margin-bottom: 10px;\">";
-			html += "<i class=\"user icon\" style=\"font-size: 15pt; margin-left: 2px;\"></i>";
-		    html += "<div class=\"ui left pointing black basic label\" style=\"font-size: 15pt; max-width: 70%; \">";
-		    html += obj.nick +" : "+  obj.text;
-		    html += "</div></div>";
+			
 		}
 		var total = obj.total;
 		console.log(total+"명");

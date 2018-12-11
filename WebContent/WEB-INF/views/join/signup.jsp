@@ -131,48 +131,9 @@
 								style="display: none; font-size: 11pt;"></div>
 						</div>
 
-						<div class="inline field">
-							<label style="font-size: 15pt; color: #465674"><i
-								class="at icon" style="font-size: 15pt; color: gray;"></i>이메일</label> <input
-								type="text" type="email" onchange="em(this)" name="email"
-								id="email" aria-descrivedby="emailHelp"
-								placeholder="Sample@example.com"
-								style="width: 100%; height: 50px; border: 1px solid #174374;"
-								required><span></span>
-							<div class="ui pointing green basic label" id="emmsg"
-								style="display: none; font-size: 11pt;"></div>
-							<div class="ui pointing red basic label" id="emerror"
-								style="display: none; font-size: 11pt;"></div>
-						</div>
+						
 
-
-
-						<div class="inline field" align="right"
-							style="margin-bottom: 30px;">
-							<button type="button" class="ui inverted secondary button"
-								id="emailauth" disabled="disabled"
-								style="font-family: 'Song Myung', serif;">인증번호 전송</button>
-
-							<small id="checked"></small><br>
-
-						</div>
-
-
-						<div class="inline field">
-							<input type="text" name="confirm" id="confirm" name="name"
-								placeholder="인증키를 입력하세요." disabled="disabled"
-								style="width: 100%; height: 50px;" required>
-						</div>
-
-
-						<div class="inline field" align="right">
-							<button type="button" class="ui inverted secondary button"
-								id="confirmok" disabled="disabled"
-								style="font-family: 'Song Myung', serif;">인증하기</button>
-						</div>
-
-
-						<small id="checked1"></small><br>
+						
 
 						<div class="inline field">
 							<label style="font-size: 15pt; color: #465674"><i
@@ -189,7 +150,7 @@
 						</div>
 						<div align="right">
 
-							<button class="ui grey button" id="btnsubmit" disabled="disabled"
+							<button class="ui grey button" id="btnsubmit"
 								style="font-size: 15pt; background-color: #4F6994; font-family: 'Song Myung', serif;">회원
 								가입</button>
 						</div>
@@ -215,9 +176,7 @@
 
 
 
-	<%-----------------------------------------------------------------------css 변경전 --%>
-
-	</div>
+	
 	<script>
 		var iid = function(b) {
 			var id = b.value;
@@ -252,10 +211,7 @@
 				}
 				req.send();
 			} else {
-<<<<<<< HEAD
-				
-=======
->>>>>>> refs/remotes/origin/yyj96
+
 				$('#iderror').show();
 				$('#iderror').html("아이디는 영문,숫자 4~12자로 설정바랍니다.");
 				$('#idmsg').hide();
@@ -282,23 +238,7 @@
 			}
 		};
 
-		/* var nkn = function(n) {
-			var n1 = new RegExp("^[가-힣a-zA-Z]{3,10}$");
-			var nk = n.value;
-			console.log("nick : " + nk);
-			if (nk.match(n1) != null) {
-				$('#nickmsg').show();
-				$('#nickmsg').html("유효한 닉네임입니다.");
-				$('#nickerror').hide();
-
-			} else {
-
-				$('#nickerror').show();
-				$('#nickerror').html("유효하지 않은 닉네임입니다.");
-				$('#nickmsg').hide();
-
-			}
-		}; */
+		
 
 		var nkn = function(n) {
 			var nick = n.value;
@@ -357,20 +297,6 @@
 			}
 		}
 
-		var ckn = function(k) {
-			var k1 = txt;
-			var cknb = k.value;
-			console.log("인증번호 : " + cknb);
-			if (cknb.match(k1) != null) {
-				document.getElementsByTagName("span")[4].innerHTML = "<small>정확이 입력하셨습니다.</small>";
-				document.getElementsByTagName("span")[4].style.color = "blue";
-
-			} else {
-				document.getElementsByTagName("span")[4].innerHTML = "<small>잘못 입력 하셨습니다..</small>";
-				document.getElementsByTagName("span")[4].style.color = "red";
-
-			}
-		};
 
 		var phn = function(s) {
 			var s1 = new RegExp("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$");
@@ -404,76 +330,9 @@
 			}
 		}
 
-		$("#emailauth")
-				.on(
-						"click",
-						function() {
-							var param = {
-								"email" : $(email).val()
-							};
-							$("#confirm").prop("disabled", false);
-							$("#confirmok").prop("disabled", false);
-							$
-									.post(
-											"${pageContext.servletContext.contextPath}/join/mail.do",
-											param)
-									.done(
-											function(rst) {
-												document
-														.getElementById("checked").innerHTML = "전송";
-												document
-														.getElementById("checked").style.color = "green";
-												document
-														.getElementById("checked1").innerHTML = "";
-											});
+		
 
-						});
-
-		$("#confirmok")
-				.on(
-						"click",
-						function() {
-							var param = {
-								"confirmkey" : $("#confirm").val()
-							};
-							$
-									.post(
-											"${pageContext.servletContext.contextPath}/join/emailauth.do",
-											param)
-									.done(
-											function(rst) {
-												console.log(rst);
-												if (rst.includes("true") == true) {
-													document
-															.getElementById("checked1").innerHTML = "인증완료";
-													document
-															.getElementById("checked1").style.color = "green";
-													$("#mail").prop("readonly",
-															true);
-													$("#emailauth").prop(
-															"disabled", true);
-													$("#confirm").prop(
-															"disabled", true);
-													$("#confirmok").prop(
-															"disabled", true);
-													$("#btnsubmit").prop(
-															"disabled", false);
-												} else {
-													document
-															.getElementById("checked1").innerHTML = "인증실패";
-													document
-															.getElementById("checked1").style.color = "red";
-													$("#confirm").prop(
-															"disabled", true);
-													$("#confirmok").prop(
-															"disabled", true);
-													document
-															.getElementById("emailauth").innerHTML = "재전송";
-													document
-															.getElementById("checked").innerHTML = "";
-												}
-											});
-						});
+		
 	</script>
 </body>
 </html>
